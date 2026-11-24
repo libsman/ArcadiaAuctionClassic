@@ -21,7 +21,7 @@ Maintained by **Blackkid**. Based on **AdvancedAuctionHouse** by Mavoc, TellTod,
 - Purchases, bids, listings, exchanges and cancellations require confirmation.
 - Eleven client languages, with English fallback where needed.
 
-The addon uses the game's auction APIs and native UI resources. It is standalone: no CoAManager or KittyCombo installation is required.
+The addon uses the game's auction APIs and native UI resources.
 
 ## Install
 

@@ -5,7 +5,7 @@ Maintained by Blackkid. Based on AdvancedAuctionHouse by Mavoc, TellTod, Noguai,
 Project, source, releases and issue tracker: https://github.com/libsman/ArcadiaAuctionClassic
 
 ## Install
-Extract this folder into Interface/AddOns and restart the game client after first installation. Open an auctioneer normally. No CoAManager or KittyCombo dependency.
+Extract this folder into Interface/AddOns and restart the game client after first installation. Open an auctioneer normally.
 
 - /aac classic selects Classic for the next auctioneer visit.
 - /aac native selects the original interface for the next visit.
