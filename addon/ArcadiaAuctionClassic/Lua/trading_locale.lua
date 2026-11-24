@@ -54,6 +54,20 @@ local polish={
 }
 local purchases={EN="My purchases",DE="Meine Käufe",ES="Mis compras",FR="Mes achats",PL="Moje zakupy",RU="Мои покупки",TR="Alımlarım",JP="購入管理",KR="내 구매",CN="我的购买",TW="我的購買"}
 local totalLabels={EN="Total price",DE="Gesamtpreis",ES="Precio total",FR="Prix total",PL="Cena łączna",RU="Общая цена",TR="Toplam fiyat",JP="合計価格",KR="총 가격",CN="总价",TW="總價"}
+local netKeys=[[grossPrice grossTotal netPrice netTotal netHint netUnknown]]
+local netLabels={
+ EN=[[Price / unit (gross)|Total price (gross)|Price / unit (net)|Total price (net)|Seller net estimate for one complete sale; partial sales may differ.|Net unavailable: no current server fee rate.]],
+ DE=[[Preis / Stück (brutto)|Gesamtpreis (brutto)|Preis / Stück (netto)|Gesamtpreis (netto)|Netto für Verkäufer bei einem Gesamtverkauf; Teilverkäufe können abweichen.|Netto unbekannt: kein aktueller Provisionssatz vom Server.]],
+ ES=[[Precio / unidad (bruto)|Precio total (bruto)|Precio / unidad (neto)|Precio total (neto)|Neto estimado del vendedor en una venta completa; ventas parciales pueden variar.|Neto no disponible: falta la comisión actual del servidor.]],
+ FR=[[Prix / unité (brut)|Prix total (brut)|Prix / unité (net)|Prix total (net)|Net estimé du vendeur pour une vente complète ; ventes partielles variables.|Net indisponible : taux actuel du serveur inconnu.]],
+ PL=[[Cena / szt. (brutto)|Cena łączna (brutto)|Cena / szt. (netto)|Cena łączna (netto)|Szacowane netto sprzedawcy przy pełnej sprzedaży; częściowe mogą się różnić.|Netto niedostępne: brak aktualnej prowizji z serwera.]],
+ RU=[[Цена / шт. (до сбора)|Всего (до сбора)|Цена / шт. (чистая)|Всего (чистыми)|Оценка для продавца при одной полной продаже; частичные продажи могут отличаться.|Нет текущей ставки сервера для расчёта чистого дохода.]],
+ TR=[[Birim fiyat (brüt)|Toplam fiyat (brüt)|Birim fiyat (net)|Toplam fiyat (net)|Tek tam satışta satıcının tahmini neti; kısmi satışlar farklı olabilir.|Net bilinmiyor: sunucudan güncel komisyon oranı yok.]],
+ JP=[[単価（手数料前）|合計（手数料前）|単価（手数料後）|合計（手数料後）|一括売却時の売り手の受取見込み。分割売却では異なる場合があります。|サーバーの現在の手数料率が不明です。]],
+ KR=[[개당 가격 (공제 전)|총 가격 (공제 전)|개당 가격 (공제 후)|총 가격 (공제 후)|한 번에 전량 판매 시 판매자 예상 수령액입니다. 분할 판매는 다를 수 있습니다.|현재 서버 수수료율을 알 수 없어 순액을 계산할 수 없습니다.]],
+ CN=[[单价（税前）|总价（税前）|单价（税后）|总价（税后）|卖家一次售出全部数量的预计收入；分批出售可能不同。|暂无服务器当前手续费率，无法计算净收入。]],
+ TW=[[單價（稅前）|總價（稅前）|單價（稅後）|總價（稅後）|賣家一次售出全部數量的預計收入；分批出售可能不同。|暫無伺服器目前手續費率，無法計算淨收入。]],
+}
 function L.Apply(language)
  local lang=tostring(language or (AAC.UX and AAC.UX.language) or (type(GetLanguage)=="function" and GetLanguage()) or "EN"):sub(1,2):upper()
  lang=({JA="JP",KO="KR"})[lang] or lang
@@ -62,6 +76,7 @@ function L.Apply(language)
  AAC.TradingTranslations.purchases=purchases[lang] or purchases.EN
  AAC.TradingTranslations.orderTotal=totalLabels[lang] or totalLabels.EN
  for k,v in pairs(decode(polishKeys,polish[lang] or polish.EN)) do AAC.TradingTranslations[k]=v end
+ for k,v in pairs(decode(netKeys,netLabels[lang] or netLabels.EN)) do AAC.TradingTranslations[k]=v end
  AAC.BuyOrderTranslations=decode(orderKeys,orders[lang])
  L.language=lang
 end

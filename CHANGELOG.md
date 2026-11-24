@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.6-beta — Gross and net buy-order prices
+
+- Show editable gross and net unit prices and totals together in the Classic order form.
+- Convert using server-listed commission rates and native rounding, including the diamond minimum fee. Keep placement fees separate.
+- Net is an estimate for one complete fill; partial fills can differ. Net inputs stay unavailable when no consistent current server rate is known.
+- Translate labels and explanations in all eleven supported client languages.
+- Verified both conversion directions, currency changes and the confirmation preview in the German client; no order was submitted. 147 automated tests pass.
+
 ## 0.3.5-beta — Clearer buy-order form and total price
 
 - Highlight item search and show a clear drag-here hint in the item slot.

@@ -6,6 +6,30 @@ SOURCE = Path(__file__).resolve().parents[1] / 'addon/ArcadiaAuctionClassic/Lua/
 
 
 class BuyOrderTests(unittest.TestCase):
+    def test_gross_net_inverse_respects_actual_rounding_and_diamond_minimum(self):
+        self.lua.execute('''
+          assert(B.NetAmount(105,500,'copper')==100)
+          assert(B.GrossUnitForNet(100,1,500,'copper')==105)
+          assert(B.NetAmount(1,0,'account')==0)
+          assert(B.GrossUnitForNet(1,1,0,'account')==2)
+          assert(B.GrossUnitForNet(100,3,500,'copper')==35)
+          assert(B.GrossUnitForNet(1,0,500,'copper')==nil)
+          assert(B.GrossUnitForNet(1,1,nil,'copper')==nil)
+          assert(B.GrossUnitForNet(1,1,10000,'copper')==nil)
+          for _,mode in ipairs({'copper','account'}) do
+            for _,rate in ipairs({0,250,500,1500}) do
+              for _,count in ipairs({1,3,100}) do
+                for wanted=1,150 do
+                  local p=B.GrossUnitForNet(wanted,count,rate,mode)
+                  assert(B.NetAmount(p*count,rate,mode)>=wanted)
+                  assert(p==1 or B.NetAmount((p-1)*count,rate,mode)<wanted)
+                end
+              end
+            end
+          end
+          assert(sends==0)
+        ''')
+
     def test_money_text_uses_client_currency_and_supported_colour_markup(self):
         self.lua.execute('''
             function TEXT(k) return k=='SYS_MONEY_TYPE_1' and 'Diamonds' or 'Gold' end

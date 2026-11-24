@@ -6,6 +6,29 @@ from lupa.lua51 import LuaRuntime
 ROOT=Path(__file__).resolve().parents[1]/'addon/ArcadiaAuctionClassic'
 
 class TradingUITests(unittest.TestCase):
+    def test_net_input_updates_other_three_fields_without_replacing_typed_text(self):
+        lua=LuaRuntime(unpack_returned_tuples=True);self.widgets(lua)
+        lua.execute('AAC={};StaticPopupDialogs={};function TEXT(k)return k end')
+        lua.execute((ROOT/'Lua/buyorders.lua').read_text(encoding='utf-8'))
+        lua.execute((ROOT/'Lua/trading_ui.lua').read_text(encoding='utf-8'))
+        lua.execute('''
+          AAC.BuyOrders.NetRate=function()return rate end;rate=500
+          AAC.TradingUI.Render=function()AAC.TradingUI.UpdateNet(AAC.TradingUI.netEditing)end
+          for _,name in ipairs({'Quantity','Price','OrderTotal','NetPrice','NetTotal'}) do
+            _G['AAC_Trading'..name].SetText=function(s,t)s.text=t;AAC.TradingUI.PriceChanged(name)end
+          end
+          AAC_TradingQuantity:SetText('1');AAC_TradingNetTotal:SetText('100')
+          assert(AAC_TradingPrice.text=='105' and AAC_TradingOrderTotal.text=='105')
+          assert(AAC_TradingNetPrice.text=='100.00' and AAC_TradingNetTotal.text=='100')
+          AAC_TradingNetPrice:SetText('200')
+          assert(AAC_TradingPrice.text=='210' and AAC_TradingNetPrice.text=='200' and AAC_TradingNetTotal.text=='200')
+          AAC_TradingPrice:SetText('100')
+          assert(AAC_TradingNetTotal.text=='95' and AAC_TradingNetPrice.text=='95.00')
+          rate=nil;AAC.TradingUI.Render()
+          assert(AAC_TradingNetTotal.text=='' and not AAC_TradingNetTotal.enabled)
+          assert(AAC_TradingPrice.text=='100')
+        ''')
+
     def test_total_price_sync_rounds_down_and_never_sends_an_order(self):
         lua=LuaRuntime(unpack_returned_tuples=True)
         self.widgets(lua)
@@ -75,7 +98,7 @@ class TradingUITests(unittest.TestCase):
             AAC_TradingQuantity:SetText('50');AAC_TradingPrice:SetText('3');AAC.TradingUI.Render()
             assert(AAC_TradingFormAction.visible and AAC_TradingFormAction.enabled)
             assert(not AAC_TradingPick1.visible and AAC_TradingList.visible and AAC_TradingOwnHeading.visible)
-            assert(AAC_TradingList.height==150 and not AAC_TradingRow4.visible)
+            assert(AAC_TradingList.height==110 and not AAC_TradingRow3.visible)
             assert(AAC_TradingTotals.text:find('150',1,true))
             local r={id=1,itemID=100,name='Food',wanted=50,unitPrice=0.14,mode='account',sellCount=10,net=1}
             AAC.BuyOrders.rows={r};AAC.TradingUI.mode='sellable';AAC.TradingUI.selected=r;AAC.TradingUI.Render()

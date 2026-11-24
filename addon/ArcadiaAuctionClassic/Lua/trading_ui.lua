@@ -206,18 +206,36 @@ function U.FindTick()
 end
 function U.PickFound(index)
     if GameTooltip then GameTooltip:Hide() end
-    local item=U.findItems and U.findItems[((U.findPage or 1)-1)*5+index]
+    local item=U.findItems and U.findItems[((U.findPage or 1)-1)*4+index]
     if item and U.PickItem(string.format("|Hitem:%x|h[%s]|h",item.ID,item.Name)) then
         set("FindText","");set("FindStatus","");f("FindText"):ClearFocus();U.findQuery="";U.findDirty=nil;U.findItems={};U.Render()
     end
 end
 -- Editing the total never raises the requested budget: the server uses integer unit prices.
+function U.UpdateNet(editing)
+    local rate=AAC.BuyOrders.NetRate and AAC.BuyOrders.NetRate(U.currency)
+    local n=tonumber(f("Quantity"):GetText());local price=tonumber(f("Price"):GetText())
+    local net=rate and n and n>0 and price and AAC.BuyOrders.NetAmount(n*price,rate,U.currency)
+    U.updatingPrice=true
+    if editing~="NetPrice" then set("NetPrice",net and string.format("%.2f",net/n) or "") end
+    if editing~="NetTotal" then set("NetTotal",net and tostring(net) or "") end
+    U.updatingPrice=nil
+    enable("NetPrice",rate~=nil);enable("NetTotal",rate~=nil)
+    set("NetHint",rate and U.Text("netHint") or U.Text("netUnknown"))
+end
 function U.PriceChanged(source)
     if U.updatingPrice then return end
     U.updatingPrice=true
     local n=tonumber(f("Quantity"):GetText())
     local price=tonumber(f("Price"):GetText())
-    if source=="OrderTotal" then
+    if source=="NetPrice" or source=="NetTotal" then
+        local wanted=tonumber(f(source):GetText())
+        if source=="NetPrice" then wanted=wanted and n and wanted*n end
+        local rate=AAC.BuyOrders.NetRate and AAC.BuyOrders.NetRate(U.currency)
+        price=AAC.BuyOrders.GrossUnitForNet and AAC.BuyOrders.GrossUnitForNet(wanted,n,rate,U.currency)
+        set("Price",price and tostring(price) or "")
+        set("OrderTotal",price and tostring(price*n) or "")
+    elseif source=="OrderTotal" then
         local total=tonumber(f("OrderTotal"):GetText())
         price=n and n>0 and n==math.floor(n) and total and math.floor(total/n) or nil
         set("Price",price and price>0 and tostring(price) or "")
@@ -225,7 +243,9 @@ function U.PriceChanged(source)
         set("OrderTotal",n and price and tostring(n*price) or "")
     end
     U.updatingPrice=nil
+    U.netEditing=(source=="NetPrice" or source=="NetTotal") and source or nil
     U.Render()
+    U.netEditing=nil
 end
 function U.SettleTotal()
     U.PriceChanged("Price")
@@ -279,11 +299,11 @@ function U.Render()
     local create=U.mode=="create"
     local finding=create and #(U.findQuery or "")>=3
     visible("List",not finding);visible("Form",create)
-    f("List"):ClearAllAnchors();f("List"):SetAnchor("TOPLEFT","TOPLEFT",AAC_TradingPanel,0,create and 250 or 64)
-    f("List"):SetHeight(create and 150 or 310)
+    f("List"):ClearAllAnchors();f("List"):SetAnchor("TOPLEFT","TOPLEFT",AAC_TradingPanel,0,create and 286 or 64)
+    f("List"):SetHeight(create and 110 or 310)
     visible("OwnHeading",create and not finding);set("OwnHeading",U.Text("mine"))
-    for i=1,5 do
-        local item=finding and U.findItems and U.findItems[((U.findPage or 1)-1)*5+i]
+    for i=1,4 do
+        local item=finding and U.findItems and U.findItems[((U.findPage or 1)-1)*4+i]
         visible("Pick"..i,not not item)
         if item then
             f("Pick"..i).row={itemID=item.ID,name=item.Name}
@@ -310,8 +330,9 @@ function U.Render()
     visible("Reload",U.mode=="sellable" or U.mode=="all" or U.mode=="mine")
     set("Reload",U.Text("refresh"))
     if create then
-        set("ItemLabel",U.Text("item"));set("TotalLabel",U.Text("total"));set("OrderTotalLabel",U.Text("orderTotal"))
-        set("ItemName",U.itemName or U.Text("chooseItem"));set("QuantityLabel",U.Text("amount"));set("PriceLabel",U.Text("price"))
+        set("ItemLabel",U.Text("item"));set("OrderTotalLabel",U.Text("grossTotal"))
+        set("NetPriceLabel",U.Text("netPrice"));set("NetTotalLabel",U.Text("netTotal"))
+        set("ItemName",U.itemName or U.Text("chooseItem"));set("QuantityLabel",U.Text("amount"));set("PriceLabel",U.Text("grossPrice"))
         visible("ItemIcon",U.itemID~=nil)
         if U.itemID then f("ItemIcon"):SetTexture(GetObjectInfo(GetObjectInfo(U.itemID,"ImageID") or 0,"ActField") or "") end
         set("GoldCaption",TEXT("SYS_MONEY_TYPE_0"));set("DiamondCaption",TEXT("SYS_MONEY_TYPE_1"))
@@ -322,18 +343,19 @@ function U.Render()
         if n and n>0 and n<=9999 and n==math.floor(n) and price and price>0 and price==math.floor(price) and type(Auction_BuyOrderPlacementFee)=="function" then
             fee,reserve=Auction_BuyOrderPlacementFee(n,price,U.currency=="account" and 2 or 1)
         end
-        set("Totals",fee and reserve and (U.Text("reserved")..": "..money(reserve,U.currency).."\n"..U.Text("fee")..": "..money(fee,U.currency).."\n"..U.Text("total")..": "..money(reserve+fee,U.currency)) or "—")
+        set("Totals",fee and reserve and (U.Text("reserved")..": "..money(reserve,U.currency).."  |  "..U.Text("fee")..": "..money(fee,U.currency).."  |  "..U.Text("total")..": "..money(reserve+fee,U.currency)) or "—")
+        U.UpdateNet(U.netEditing)
         set("FormAction",U.Text("review"));enable("FormAction",not locked and U.itemID and fee and reserve)
         set("Detail","");visible("Detail",false);visible("Hint",true)
         if finding then
-            local pages=math.max(1,math.ceil(#(U.findItems or {})/5))
+            local pages=math.max(1,math.ceil(#(U.findItems or {})/4))
             U.findPage=math.max(1,math.min(pages,U.findPage or 1))
             visible("Prev",pages>1);visible("Next",pages>1);visible("Page",pages>1)
             set("Page",U.findPage.." / "..pages);enable("Prev",U.findPage>1);enable("Next",U.findPage<pages)
             return
         end
     end
-    local rows=U.Rows();local perPage=create and 3 or 7;local pages=math.max(1,math.ceil(#rows/perPage));U.page=math.min(pages,math.max(1,U.page))
+    local rows=U.Rows();local perPage=create and 2 or 7;local pages=math.max(1,math.ceil(#rows/perPage));U.page=math.min(pages,math.max(1,U.page))
     if U.selected and U.mode~="prices" and U.mode~="recent" then
         local id=U.selected.id;U.selected=nil
         for _,r in ipairs(rows) do if r.id==id then U.selected=r;break end end

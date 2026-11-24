@@ -122,6 +122,33 @@ local function saleFee(gross,rate,mode)
  if mode=="account" and gross>0 then fee=math.max(1,fee) end
  return math.min(gross,fee)
 end
+-- A fresh server list supplies the fee rate. Never invent a default percentage.
+function B.NetRate(mode)
+ if not current(cache) or B.query then return nil end
+ local rate
+ for _,row in ipairs(B.rows or {}) do
+  if row.mode==mode then
+   if not integer(row.feeRate,true) or row.feeRate>=10000 then return nil end
+   if rate and rate~=row.feeRate then return nil end
+   rate=row.feeRate
+  end
+ end
+ return rate
+end
+function B.NetAmount(gross,rate,mode)
+ if not integer(gross,true) or not integer(rate,true) or rate>=10000 then return nil end
+ return gross-saleFee(gross,rate,mode)
+end
+function B.GrossUnitForNet(wanted,quantity,rate,mode)
+ if not integer(wanted) or not integer(quantity) or quantity>9999 or not integer(rate,true) or rate>=10000 then return nil end
+ local lo,hi=1,math.floor(9007199254740991/quantity)
+ if B.NetAmount(hi*quantity,rate,mode)<wanted then return nil end
+ while lo<hi do
+  local mid=lo+math.floor((hi-lo)/2)
+  if B.NetAmount(mid*quantity,rate,mode)>=wanted then hi=mid else lo=mid+1 end
+ end
+ return lo
+end
 local function readRows(mine)
  local rows, bag = {}, stock()
  local count,total=GetAuctionNumBuyOrders(mine)

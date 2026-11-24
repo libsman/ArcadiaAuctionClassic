@@ -80,7 +80,7 @@
           <Anchors>
             <Anchor point="TOPLEFT">
               <Offset>
-                <AbsDimension x="12" y="228"/>
+                <AbsDimension x="12" y="264"/>
               </Offset>
             </Anchor>
           </Anchors>
@@ -1265,7 +1265,7 @@
       </Frame>
       <Frame name="AAC_TradingForm" enableMouse="true">
         <Size>
-          <AbsDimension x="800" y="124"/>
+          <AbsDimension x="800" y="160"/>
         </Size>
         <Anchors>
           <Anchor point="TOPLEFT">
@@ -1323,7 +1323,7 @@
                 </Anchor>
               </Anchors>
             </FontString>
-            <FontString name="AAC_TradingTotalLabel" inherits="GameFontNormal" justifyH="LEFT" justifyV="MIDDLE">
+            <FontString name="AAC_TradingNetPriceLabel" inherits="GameFontNormal" justifyH="LEFT" justifyV="MIDDLE">
               <Size>
                 <AbsDimension x="190" y="20"/>
               </Size>
@@ -1385,12 +1385,12 @@
             </Texture>
             <FontString name="AAC_TradingTotals" inherits="GameFontHighlight" justifyH="LEFT" justifyV="MIDDLE">
               <Size>
-                <AbsDimension x="190" y="52"/>
+                <AbsDimension x="560" y="18"/>
               </Size>
               <Anchors>
                 <Anchor point="TOPLEFT">
                   <Offset>
-                    <AbsDimension x="596" y="32"/>
+                    <AbsDimension x="12" y="108"/>
                   </Offset>
                 </Anchor>
               </Anchors>
@@ -1403,6 +1403,30 @@
                 <Anchor point="TOPLEFT">
                   <Offset>
                     <AbsDimension x="392" y="57"/>
+                  </Offset>
+                </Anchor>
+              </Anchors>
+            </FontString>
+            <FontString name="AAC_TradingNetTotalLabel" inherits="GameFontNormal" justifyH="LEFT" justifyV="MIDDLE">
+              <Size>
+                <AbsDimension x="190" y="18"/>
+              </Size>
+              <Anchors>
+                <Anchor point="TOPLEFT">
+                  <Offset>
+                    <AbsDimension x="596" y="57"/>
+                  </Offset>
+                </Anchor>
+              </Anchors>
+            </FontString>
+            <FontString name="AAC_TradingNetHint" inherits="GameFontHighlight" justifyH="LEFT" justifyV="MIDDLE">
+              <Size>
+                <AbsDimension x="560" y="24"/>
+              </Size>
+              <Anchors>
+                <Anchor point="TOPLEFT">
+                  <Offset>
+                    <AbsDimension x="12" y="130"/>
                   </Offset>
                 </Anchor>
               </Anchors>
@@ -1521,6 +1545,42 @@
               <OnEscapePressed>this:ClearFocus()</OnEscapePressed>
             </Scripts>
           </EditBox>
+          <EditBox name="AAC_TradingNetPrice" inherits="UIPanelEditBoxTemplate" numeric="true" letters="12">
+            <Size>
+              <AbsDimension x="190" y="24"/>
+            </Size>
+            <Anchors>
+              <Anchor point="TOPLEFT">
+                <Offset>
+                  <AbsDimension x="596" y="30"/>
+                </Offset>
+              </Anchor>
+            </Anchors>
+            <Scripts>
+              <OnTextChanged>AAC.TradingUI.PriceChanged(&quot;NetPrice&quot;)</OnTextChanged>
+              <OnEditFocusLost>AAC.TradingUI.SettleTotal()</OnEditFocusLost>
+              <OnEnterPressed>this:ClearFocus();AAC.TradingUI.SettleTotal()</OnEnterPressed>
+              <OnEscapePressed>this:ClearFocus()</OnEscapePressed>
+            </Scripts>
+          </EditBox>
+          <EditBox name="AAC_TradingNetTotal" inherits="UIPanelEditBoxTemplate" numeric="true" letters="12">
+            <Size>
+              <AbsDimension x="190" y="24"/>
+            </Size>
+            <Anchors>
+              <Anchor point="TOPLEFT">
+                <Offset>
+                  <AbsDimension x="596" y="78"/>
+                </Offset>
+              </Anchor>
+            </Anchors>
+            <Scripts>
+              <OnTextChanged>AAC.TradingUI.PriceChanged(&quot;NetTotal&quot;)</OnTextChanged>
+              <OnEditFocusLost>AAC.TradingUI.SettleTotal()</OnEditFocusLost>
+              <OnEnterPressed>this:ClearFocus();AAC.TradingUI.SettleTotal()</OnEnterPressed>
+              <OnEscapePressed>this:ClearFocus()</OnEscapePressed>
+            </Scripts>
+          </EditBox>
           <CheckButton name="AAC_TradingGold" inherits="MoneyModeRadioButtonTemplate">
             <Size>
               <AbsDimension x="16" y="16"/>
@@ -1592,7 +1652,7 @@
             <Anchors>
               <Anchor point="TOPLEFT">
                 <Offset>
-                  <AbsDimension x="596" y="88"/>
+                  <AbsDimension x="596" y="128"/>
                 </Offset>
               </Anchor>
             </Anchors>
@@ -1637,7 +1697,7 @@
               <Anchors>
                 <Anchor point="TOPLEFT">
                   <Offset>
-                    <AbsDimension x="24" y="250"/>
+                    <AbsDimension x="24" y="286"/>
                   </Offset>
                 </Anchor>
               </Anchors>
@@ -1668,7 +1728,7 @@
             <Anchors>
               <Anchor point="TOPLEFT">
                 <Offset>
-                  <AbsDimension x="16" y="250"/>
+                  <AbsDimension x="16" y="286"/>
                 </Offset>
               </Anchor>
             </Anchors>
@@ -1713,7 +1773,7 @@
             <Anchors>
               <Anchor point="TOPLEFT">
                 <Offset>
-                  <AbsDimension x="16" y="278"/>
+                  <AbsDimension x="16" y="314"/>
                 </Offset>
               </Anchor>
             </Anchors>
@@ -1758,7 +1818,7 @@
             <Anchors>
               <Anchor point="TOPLEFT">
                 <Offset>
-                  <AbsDimension x="16" y="306"/>
+                  <AbsDimension x="16" y="342"/>
                 </Offset>
               </Anchor>
             </Anchors>
@@ -1803,7 +1863,7 @@
             <Anchors>
               <Anchor point="TOPLEFT">
                 <Offset>
-                  <AbsDimension x="16" y="334"/>
+                  <AbsDimension x="16" y="370"/>
                 </Offset>
               </Anchor>
             </Anchors>
@@ -1837,51 +1897,6 @@
             </Layers>
             <Scripts>
               <OnClick>AAC.TradingUI.PickFound(4)</OnClick>
-              <OnEnter>AAC.TradingUI.Tooltip(this.row,this)</OnEnter>
-              <OnLeave>GameTooltip:Hide()</OnLeave>
-            </Scripts>
-          </Button>
-          <Button name="AAC_TradingPick5" inherits="AAC_TemplateListItem" enableMouse="true" hidden="true">
-            <Size>
-              <AbsDimension x="752" y="28"/>
-            </Size>
-            <Anchors>
-              <Anchor point="TOPLEFT">
-                <Offset>
-                  <AbsDimension x="16" y="362"/>
-                </Offset>
-              </Anchor>
-            </Anchors>
-            <Layers>
-              <Layer>
-                <Texture name="AAC_TradingPick5Icon">
-                  <Size>
-                    <AbsDimension x="24" y="24"/>
-                  </Size>
-                  <Anchors>
-                    <Anchor point="TOPLEFT">
-                      <Offset>
-                        <AbsDimension x="8" y="2"/>
-                      </Offset>
-                    </Anchor>
-                  </Anchors>
-                </Texture>
-                <FontString name="AAC_TradingPick5Name" inherits="GameFontNormal" justifyH="LEFT" justifyV="MIDDLE">
-                  <Size>
-                    <AbsDimension x="700" y="28"/>
-                  </Size>
-                  <Anchors>
-                    <Anchor point="TOPLEFT">
-                      <Offset>
-                        <AbsDimension x="44" y="0"/>
-                      </Offset>
-                    </Anchor>
-                  </Anchors>
-                </FontString>
-              </Layer>
-            </Layers>
-            <Scripts>
-              <OnClick>AAC.TradingUI.PickFound(5)</OnClick>
               <OnEnter>AAC.TradingUI.Tooltip(this.row,this)</OnEnter>
               <OnLeave>GameTooltip:Hide()</OnLeave>
             </Scripts>
