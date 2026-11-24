@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.7-beta — Gross and net auction prices
+
+- Add editable gross and net totals and unit prices to My offers, using the game's auction commission API and integer fee rounding.
+- Keep listing and promotion fees separate from sale proceeds and retain confirmation before posting.
+- Arrange the four prices together in the Classic selling form, reusing translated labels in all eleven languages.
+- Preserve fractional unit prices when changing a stack total.
+- Verified net entry, item-stack prices and the confirmation preview in the German client without submitting a sale. All 149 automated tests pass.
+
 ## 0.3.6-beta — Gross and net buy-order prices
 
 - Show editable gross and net unit prices and totals together in the Classic order form.

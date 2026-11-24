@@ -1,4 +1,4 @@
-local VERSION = "0.3.6-beta"
+local VERSION = "0.3.7-beta"
 -- Recover missing optional TOC data before capturing references. Never retry per frame.
 local function dataTable(name, file)
     if type(_G[name]) ~= "table" and type(dofile) == "function" then
@@ -586,12 +586,12 @@ function Main.ClickTab(tab)
 			_G["AAC_SellPromoteTimeDropDownTooltip"]:Hide()
 			_G["AAC_PromotePriceFrame"]:Hide()
 			_G["AAC_SellPromoteDropDown"]:ClearAllAnchors()
-			_G["AAC_SellPromoteDropDown"]:SetAnchor("TOPLEFT", "TOPLEFT", "$parent", 570, 55)
+			_G["AAC_SellPromoteDropDown"]:SetAnchor("TOPLEFT", "TOPLEFT", "$parent", 502, 110)
 		else
 			_G["AAC_SellPromoteTimeDropDown"]:ClearAllAnchors()
 			_G["AAC_SellPromoteDropDown"]:ClearAllAnchors()
 			_G["AAC_PromotePriceFrame"]:ClearAllAnchors()
-			_G["AAC_SellPromoteDropDown"]:SetAnchor("TOPLEFT", "TOPLEFT", "$parent", 570, 40)
+			_G["AAC_SellPromoteDropDown"]:SetAnchor("TOPLEFT", "TOPLEFT", "$parent", 502, 110)
 			_G["AAC_SellPromoteTimeDropDown"]:SetAnchor("TOPLEFT", "BOTTOMLEFT", "AAC_SellPromoteDropDown", 0, 5)
 			_G["AAC_PromotePriceFrame"]:SetAnchor("TOP", "BOTTOM", "AAC_SellPromoteTimeDropDown", 20, 3)
 			_G["AAC_SellPromoteTimeDropDown"]:Show()

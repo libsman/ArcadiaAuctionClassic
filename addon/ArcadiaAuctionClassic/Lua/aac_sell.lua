@@ -24,7 +24,7 @@ local Sell={
 		AUCTION_PROMOTETYPE_3_EXPLANATION,
 	},
 
-    MAXITEMS = 4,
+    MAXITEMS = 3,
     SortMode = 0,
     internal_money_update = nil,
 
@@ -132,6 +132,7 @@ local function GetPrestigeExtraDays()
 end
 
 function Sell.OnShow()
+    Sell.InitNetPrices()
     if not AAC.CanRequest() then return end
     AAC_SellMoneyAuction:SetVisible(IsAuctionAccountMoneyTrade() == true)
     getglobal("AAC_SellPayMoneyModeButton2"):SetVisible(IsAuctionItemAccountMoneyTrade() or IsAuctionAccountMoneyTrade())
@@ -200,9 +201,9 @@ function Sell.OnEvent(this, event)
 end
 
 function Sell.Resize(num, value)
-	Sell.MAXITEMS = 4 + num
-	AAC_SellList:SetSize(800, 219 + value)
-	AAC_SellItemBrowse:SetSize(178, 219 + value)
+	Sell.MAXITEMS = 3 + num
+	AAC_SellList:SetSize(800, 179 + value)
+	AAC_SellItemBrowse:SetSize(178, 179 + value)
 
 	for i = Sell.MAXITEMS + 1, 11 do
 		getglobal("AAC_SellListItem"..i):Hide()
@@ -473,15 +474,15 @@ function Sell.AutoFillBuyoutEditBox_CheckVisibility()
 
 	if UIDropDownMenu_GetSelectedID(AAC_SellAutoFillBuyoutDropDown) == 3 then
 		AAC_SellAutoFillBuyoutDropDown:ClearAllAnchors()
-		AAC_SellAutoFillBuyoutDropDown:SetAnchor("TOPLEFT", "TOPLEFT", "$parent", 340, 49)
+		AAC_SellAutoFillBuyoutDropDown:SetAnchor("TOPLEFT", "TOPLEFT", "$parent", 502, 30)
 		AAC_SellAutoFillPercentBuyout:Show()
 	elseif UIDropDownMenu_GetSelectedID(AAC_SellAutoFillBuyoutDropDown) == 4 then
 		AAC_SellAutoFillBuyoutDropDown:ClearAllAnchors()
-		AAC_SellAutoFillBuyoutDropDown:SetAnchor("TOPLEFT", "TOPLEFT", "$parent", 340, 49)
+		AAC_SellAutoFillBuyoutDropDown:SetAnchor("TOPLEFT", "TOPLEFT", "$parent", 502, 30)
 		AAC_SellAutoFillFormulaBuyoutout:Show()
 	else
 		AAC_SellAutoFillBuyoutDropDown:ClearAllAnchors()
-		AAC_SellAutoFillBuyoutDropDown:SetAnchor("TOPLEFT", "TOPLEFT", "$parent", 340, 55)
+		AAC_SellAutoFillBuyoutDropDown:SetAnchor("TOPLEFT", "TOPLEFT", "$parent", 502, 30)
 	end
 end
 
@@ -585,6 +586,7 @@ end
 
 function Sell.UpdateSaleIncome()
     if not AAC_SellIncomeText or not AAC_SavedSettings then return end
+    Sell.UpdateNetPrices()
     local name, _, _, _, lot = Sell.GetAuctionItem()
     local gross = AAC.MoneyFrame.GetMoney(AAC_SellPriceBuyout, Sell.PayMoneyMode) or 0
     AAC_SellIncomeText:SetText(name and Sell.SaleIncomeText(gross, Sell.PayMoneyMode, lot) or "")
@@ -1615,7 +1617,7 @@ function Sell.PriceInput_OnTextChange(money_ppu, money_total, ppuToFull)
         local ppu = total / (stackCount * white)
         if inverse and ppu~=0 then ppu=1/ppu end
 
-        AAC.MoneyFrame.SetMoney(money_ppu, math.ceil(ppu))
+        AAC.MoneyFrame.SetMoney(money_ppu, ppu)
 	end
 
     Sell.UpdateProfit()
@@ -2240,12 +2242,12 @@ function Sell.SellPromoteDropDown_Show()
 				_G["AAC_SellPromoteTimeDropDownTooltip"]:Hide()
 				_G["AAC_PromotePriceFrame"]:Hide()
 				_G["AAC_SellPromoteDropDown"]:ClearAllAnchors()
-				_G["AAC_SellPromoteDropDown"]:SetAnchor("TOPLEFT", "TOPLEFT", "$parent", 570, 55)
+				_G["AAC_SellPromoteDropDown"]:SetAnchor("TOPLEFT", "TOPLEFT", "$parent", 502, 110)
 			else
 				_G["AAC_SellPromoteTimeDropDown"]:ClearAllAnchors()
 				_G["AAC_SellPromoteDropDown"]:ClearAllAnchors()
 				_G["AAC_PromotePriceFrame"]:ClearAllAnchors()
-				_G["AAC_SellPromoteDropDown"]:SetAnchor("TOPLEFT", "TOPLEFT", "$parent", 570, 40)
+				_G["AAC_SellPromoteDropDown"]:SetAnchor("TOPLEFT", "TOPLEFT", "$parent", 502, 110)
 				_G["AAC_SellPromoteTimeDropDown"]:SetAnchor("TOPLEFT", "BOTTOMLEFT", "AAC_SellPromoteDropDown", 0, 5)
 				_G["AAC_PromotePriceFrame"]:SetAnchor("TOP", "BOTTOM", "AAC_SellPromoteTimeDropDown", 20, 3)
 				_G["AAC_SellPromoteTimeDropDown"]:Show()
@@ -2336,4 +2338,95 @@ function Sell.ShowPromoBG()
 	else
 		itemBG:Hide()
 	end
+end
+
+
+-- Seller prices use the native auction fee API, not buy-order fee estimates.
+function Sell.GrossForNet(net, mode, lot)
+    if type(net) ~= "number" or net < 0 or net ~= net or net == math.huge then return end
+    local _, rate = Sell.GetSaleFee(0, mode, lot)
+    if not rate or rate >= 10000 then return end
+    net = math.ceil(net)
+    local lo, hi = net, 9007199254740991
+    if hi - Sell.GetSaleFee(hi, mode, lot) < net then return end
+    while lo < hi do
+        local mid = lo + math.floor((hi-lo)/2)
+        if mid - Sell.GetSaleFee(mid, mode, lot) >= net then hi=mid else lo=mid+1 end
+    end
+    return lo
+end
+
+local function saleUnits()
+    local name, _, count, _, lot = Sell.GetAuctionItem()
+    local white = AAC.Tools.GetWhiteValue(Sell.CurrentItem) or 1
+    return name, math.max((count or 1)*white,1), lot
+end
+
+function Sell.UpdateNetPrices()
+    if not AAC_SellPriceNet or Sell.netUpdating then return end
+    Sell.netUpdating=true
+    local name, units, lot = saleUnits()
+    local gross=AAC.MoneyFrame.GetMoney(AAC_SellPriceBuyout, Sell.PayMoneyMode) or 0
+    local fee, rate=Sell.GetSaleFee(gross, Sell.PayMoneyMode,lot)
+    local available=fee ~= nil and rate < 10000
+    local net=available and name and (gross-fee) or 0
+    local per=net/units
+    -- Preserve the existing Gold/Diamond rate convention for legacy money lots.
+    if Sell.MoneyAuction and Sell.PayMoneyMode=="account" and per>0 then per=1/per end
+    for _,entry in ipairs({{AAC_SellPriceNet,net},{AAC_SellPriceNetPPU,per}}) do
+        local frame=entry[1]
+        AAC.MoneyFrame.SetMode(frame,Sell.PayMoneyMode)
+        for _,suffix in ipairs({"Gold","Account"}) do
+            _G[frame:GetName()..suffix]:SetEnable(available)
+        end
+        if Sell.netEditing ~= frame then AAC.MoneyFrame.SetMoney(frame,entry[2]) end
+    end
+    local t=AAC.TradingTranslations or {}
+    AAC_SellPriceBuyoutLabel:SetText(t.grossTotal or "Total price (gross)")
+    AAC_SellPriceBuyoutPPULabel:SetText(t.grossPrice or "Price / unit (gross)")
+    AAC_SellPriceNetLabel:SetText(t.netTotal or "Total price (net)")
+    AAC_SellPriceNetPPULabel:SetText(t.netPrice or "Price / unit (net)")
+    Sell.netUpdating=nil
+end
+
+function Sell.NetPriceChanged(frame)
+    if Sell.netUpdating or Sell.internal_money_update then return end
+    if not AAC.MoneyFrame.IsValueValid(frame) then return end
+    local name,units,lot=saleUnits()
+    if not name then return end
+    local net=AAC.MoneyFrame.GetMoney(frame,Sell.PayMoneyMode)
+    if frame==AAC_SellPriceNetPPU then
+        if Sell.MoneyAuction and Sell.PayMoneyMode=="account" and net>0 then net=1/net end
+        net=net*units
+    end
+    local gross=Sell.GrossForNet(net,Sell.PayMoneyMode,lot)
+    if not gross then return end
+    Sell.netEditing=frame
+    AAC.MoneyFrame.SetMoney(AAC_SellPriceBuyout,gross)
+    Sell.OnOfferChange3()
+    Sell.netEditing=nil
+end
+
+function Sell.InitNetPrices()
+    if not AAC_SellPriceNet then return end
+    local names={"AAC_SellPriceBuyout","AAC_SellPriceNet","AAC_SellPriceBuyoutPPU","AAC_SellPriceNetPPU"}
+    for i,name in ipairs(names) do
+        local f=_G[name]
+        f:ClearAllAnchors(); f:SetAnchor("TOPLEFT","TOPLEFT",AAC_SellItemFrame,174+((i-1)%2)*164,i<=2 and 72 or 120)
+        f:SetSize(138,20)
+        for _,suffix in ipairs({"Gold","Account"}) do _G[name..suffix]:SetSize(138,20) end
+        local label=_G[name.."Label"]
+        label:ClearAllAnchors();label:SetAnchor("BOTTOMLEFT","TOPLEFT",f,0,-3)
+        label:SetSize(157,26);label:SetJustifyHType("LEFT")
+    end
+    if not Sell.netInitialized then
+        MoneyInputFrame_SetOnvalueChangedFunc(AAC_SellPriceNet,Sell.NetPriceChanged)
+        MoneyInputFrame_SetOnvalueChangedFunc(AAC_SellPriceNetPPU,Sell.NetPriceChanged)
+        AAC.MoneyFrame.SetFocusOrder(AAC_SellPriceBuyout,AAC_SellPriceNet,AAC_SellPriceNetPPU)
+        AAC.MoneyFrame.SetFocusOrder(AAC_SellPriceNet,AAC_SellPriceBuyoutPPU,AAC_SellPriceBuyout)
+        AAC.MoneyFrame.SetFocusOrder(AAC_SellPriceBuyoutPPU,AAC_SellPriceNetPPU,AAC_SellPriceNet)
+        AAC.MoneyFrame.SetFocusOrder(AAC_SellPriceNetPPU,AAC_SellPriceBuyout,AAC_SellPriceBuyoutPPU)
+        Sell.netInitialized=true
+    end
+    Sell.UpdateNetPrices()
 end
