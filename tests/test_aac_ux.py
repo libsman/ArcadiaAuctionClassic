@@ -5,6 +5,20 @@ from lupa.lua51 import LuaRuntime
 ROOT = Path(__file__).resolve().parents[1] / 'addon/ArcadiaAuctionClassic'
 
 class UXTests(unittest.TestCase):
+    def test_native_unit_cell_currency_icons_and_empty_reused_row(self):
+        lua=self.runtime('DE')
+        lua.execute('''
+            label={SetText=function(s,t)s.text=t end}
+            icon={Show=function(s)s.shown=true end,Hide=function(s)s.shown=false end,
+              SetTexCoord=function(s,a,b,c,d)s.left=a;s.right=b end}
+            AAC.UX.PaintUnit(label,icon,{count=2,buyoutPrice=400000,moneyMode='copper'})
+            assert(label.text=='|cffffd45c200.000|r' and icon.shown and icon.left==0)
+            AAC.UX.PaintUnit(label,icon,{count=2,buyoutPrice=1,moneyMode='account'})
+            assert(label.text=='|cff70cfff0,5|r' and icon.left==1/64)
+            AAC.UX.PaintUnit(label,icon,nil)
+            assert(label.text=='' and not icon.shown)
+        ''')
+
     def runtime(self, language='ENEU'):
         lua = LuaRuntime(unpack_returned_tuples=True)
         lua.globals().language = language

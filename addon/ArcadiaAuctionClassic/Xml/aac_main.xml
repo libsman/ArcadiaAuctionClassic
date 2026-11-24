@@ -435,7 +435,7 @@
 		</Frames>
 		<Scripts>
 			<OnLoad>AAC.Main.OnLoad(this)</OnLoad>
-			<OnEvent>AAC.Session.Event(this, event, arg1, arg2, arg3, arg4, arg5, arg6)</OnEvent>
+			<OnEvent>AAC.Session.Event(this, event, arg1, arg2, arg3, arg4, arg5, arg6, arg7)</OnEvent>
 			<OnShow>
 				AAC.Main.OnShow(this)
 				AAC_BrowseGetList();

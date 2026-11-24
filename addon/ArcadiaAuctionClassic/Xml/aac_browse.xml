@@ -321,19 +321,19 @@
 						</Offset>
 					</Anchor>
 				</Anchors>
-                <NormalText name="$parentNormalText" inherits="GameFontHighlight">
+                <NormalText name="$parentNormalText" inherits="GameFontHighlight" justifyH="RIGHT">
                     <Size>
-                        <AbsDimension x="0" y="16"/>
+                        <AbsDimension x="62" y="16"/>
                     </Size>
                     <Anchors>
-                        <Anchor point="CENTER">
+                        <Anchor point="RIGHT">
                             <Offset>
-                                <AbsDimension x="0" y="0"/>
+                                <AbsDimension x="-14" y="0"/>
                             </Offset>
                         </Anchor>
                     </Anchors>
                 </NormalText>
-				<Scripts>
+				<Layers><Layer><Texture name="$parentCurrencyIcon" file="Interface\MoneyFrame\MoneyIcons"><Size><AbsDimension x="14" y="14"/></Size><Anchors><Anchor point="RIGHT"><Offset><AbsDimension x="3" y="0"/></Offset></Anchor></Anchors></Texture></Layer></Layers><Scripts>
 					<OnClick>
 						AAC.Browse.List_Select(this:GetParent().auctionid)
 					</OnClick>

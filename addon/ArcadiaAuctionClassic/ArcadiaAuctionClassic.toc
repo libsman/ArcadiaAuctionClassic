@@ -25,6 +25,11 @@ Lua\moneyframe.lua
 Lua\aac_dashboard.lua
 
 Lua\exchange.lua
+Lua\buyorders.lua
+Lua\seller_tools.lua
+Lua\trading_ui.lua
+Lua\trading_locale.lua
+Lua\frontend_locale.lua
 Lua\session.lua
 
 Xml\aac_templates.xml
@@ -39,3 +44,4 @@ Xml\aac_dashboard.xml
 Xml\aac_filters.xml
 
 Xml\aac_exchange.xml
+Xml\aac_trading.xml

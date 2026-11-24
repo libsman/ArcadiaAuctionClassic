@@ -15,7 +15,7 @@ Maintained by **Blackkid**. Based on **AdvancedAuctionHouse** by Mavoc, TellTod,
 - Sortable **price per item** for gold and diamond auctions. Gold lots show **Gold/Diamond**.
 - **Shift-click an item link** while the search view is open to fill its name into the keyword field.
 - Own auctions, selling and sale-history views, with sale commission and expected proceeds.
-- Gold/diamond exchange integrated into **Overview**, **Search → Money → Exchange offers**, and **My offers**.
+- Gold/diamond exchange under **Search → Money → Exchange (new)** and the **Exchange (new)** checkbox in **My offers**.
 - Quick-exchange rows show **what you receive after fees**, the cost and a button to review the exchange.
 - New exchange offers accept an **amount, total price or price per diamond**. The fields update each other and group thousands with dots.
 - Purchases, bids, listings, exchanges and cancellations require confirmation.
@@ -25,18 +25,18 @@ The addon uses the game's auction APIs and native UI resources.
 
 ## Install
 
-1. Download **`ArcadiaAuctionClassic-0.2.4-beta.zip`** from [Releases](https://github.com/libsman/ArcadiaAuctionClassic/releases). Use the named addon ZIP, not GitHub's automatically generated source archive.
+1. Download the named **`ArcadiaAuctionClassic-<version>.zip`** from [Releases](https://github.com/libsman/ArcadiaAuctionClassic/releases). Use the named addon ZIP, not GitHub's automatically generated source archive.
 2. Extract the `ArcadiaAuctionClassic` folder into your game's `Interface/AddOns` directory.
 3. Restart the client after first installation so the new XML frames load.
 4. Open an auctioneer as usual.
 
 ```text
 Interface/
-└── AddOns/
-    └── ArcadiaAuctionClassic/
-        ├── ArcadiaAuctionClassic.toc
-        ├── Lua/
-        └── Xml/
+â””â”€â”€ AddOns/
+    â””â”€â”€ ArcadiaAuctionClassic/
+        â”œâ”€â”€ ArcadiaAuctionClassic.toc
+        â”œâ”€â”€ Lua/
+        â””â”€â”€ Xml/
 ```
 
 ## Choose your interface
@@ -46,11 +46,19 @@ Interface/
 | `/aac classic` | Select Classic, then reopen the auctioneer. |
 | `/aac native` | Select the game's original AuctionHub, then reopen the auctioneer. |
 
-Switching interfaces does not normally require a restart. Outstanding requests finish first. A permanently missing reply may require a restart to recover safely. Features without a Classic counterpart, such as purchase orders, remain available in the original interface.
+Switching interfaces does not normally require a restart. Outstanding requests finish first. A permanently missing reply may require a restart to recover safely. The original interface remains available through `/aac native`.
+
+## Buying and selling
+
+- **My purchases → Buy orders:** the familiar Classic list, with filters for all requests, buyers for your bag and your own orders. Selecting a row shows the relevant action and net proceeds.
+- **Create buy order:** search for an item by part of its name (at least three characters), or drag / Shift-click an item into the compact form. The item does not have to be in your bag. Icons and tooltips help identify it, and your existing orders appear below. Enter quantity and maximum unit price; review the reserved balance and fee before confirming.
+- **My offers → Check prices:** compares stackable items per currency. Equipment and stat-bearing mana stones are not compared by base item ID.
+- **My offers → List again:** prepares a recent confirmed listing in the ordinary selling form. Review the quantity and confirm there; promotion is selected separately.
+- **My purchases → Bids:** keeps your auction bids alongside buy orders. Buy-order actions remain in the same section, with confirmation before posting, selling or cancellation.
 
 ## Exchange example
 
-Choose **My offers → Exchange → New offer → Offer diamonds**:
+Choose **My offers → Exchange (new) → Offer diamonds**:
 
 | Field | Value |
 | --- | ---: |

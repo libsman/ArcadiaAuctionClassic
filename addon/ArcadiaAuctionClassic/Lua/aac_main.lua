@@ -1,4 +1,4 @@
-local VERSION = "0.2.4-beta"
+local VERSION = "0.3.4-beta"
 -- Recover missing optional TOC data before capturing references. Never retry per frame.
 local function dataTable(name, file)
     if type(_G[name]) ~= "table" and type(dofile) == "function" then
@@ -77,6 +77,8 @@ local Main = {
 	FoundUpdate = false,
 	CurrentTab = "DASHBOARD",
 	FrameEvents = {
+        "AUCTION_BUYORDER_LIST_UPDATE", "AUCTION_BUYORDER_RESULT", "AUCTION_BUYORDER_FILLED", "BAG_ITEM_UPDATE",
+        "AUCTION_BROWSE_UPDATE", "AUCTION_SEARCH_RESULT", "AUCTION_BROWSE_PAGE_REFUSED",
 		"AUCTION_AUCTION_INFO_UPDATE",
 		"AUCTION_AUCTION_MONEY_UPDATE",
 		"AUCTION_BUY_UPDATE",
@@ -401,8 +403,8 @@ end
 local function SetFiltersExplainedTitles(frame)
 	local explainFrame = frame.ExplainFrame;
 	local commandFrame = frame.CommandFrame;
-	explainFrame.Label:SetText("General explainations");
-	commandFrame.Label:SetText("Specific explainations");
+	explainFrame.Label:SetText(AAC.TradingUI.Text("helpTitle"));
+	commandFrame.Label:SetText(AAC.TradingUI.Text("commandsTitle"));
 end
 
 local function SetExplainFrameTextAnchors(frame, maxBulletPointsTop, maxBulletPointsBot)
@@ -434,26 +436,21 @@ local function SetExplainFrameText(frame)
 	local explainFrame = frame.ExplainFrame;
 	explainFrame.DescriptionTitle:SetText("Arcadia Auction Classic — by Blackkid");
 	explainFrame.DescriptionTitle:SetHeight(explainFrame.DescriptionTitle:GetDisplayHeight());
-	explainFrame.FilterTitle:SetText("Short description about filters");
+	explainFrame.FilterTitle:SetText(AAC.TradingUI.Text("stepsTitle"));
 	explainFrame.FilterTitle:SetHeight(explainFrame.FilterTitle:GetDisplayHeight());
 
 	local addonDescriptions = {
-		"• Community fork maintained by Blackkid",
-		"• Based on AdvancedAuctionHouse by Mavoc, TellTod, Noguai, Graves and Byte",
-		"• GPLv3: source and original credits included; provided without warranty",
-		"• Allows sorting and filtering of results for easier searching of desired items",
-		"• Displays and sorts by price per unit",
-		"• Speeds up the selling process by auto-filling sell values using options like percentage of average, formula, or last price used",
-	};
-
-	local filterDescriptions = {
-		"• Filter boxes perform word matching in tooltips",
-		"• Special filter commands are available",
-		"• Commands are localized and listed in the tooltip of the filter bars",
-		"• Commands can be inverted by using an \"!\" before the entry",
-		"• Example: Filtering for `$yellow` and `!$green` will return only yellows without any green stats",
-		"• This feature is useful for finding clean yellow mana stones",
-	};
+        "• "..AAC.TradingUI.Text("sortStep"),
+        "• "..AAC.TradingUI.Text("buysStep"),
+        "• "..AAC.TradingUI.Text("salesStep"),
+        "Arcadia Auction Classic — Blackkid",
+        "AdvancedAuctionHouse: Mavoc, TellTod, Noguai, Graves, Byte",
+        "GPLv3 — LICENSE / AUTHORS / NOTICE",
+    };
+    local filterDescriptions = {
+        AAC.TradingUI.Text("searchStep"), AAC.TradingUI.Text("filterStep"),
+        AAC.TradingUI.Text("excludeStep"), "", AAC.TradingUI.Text("exampleStep"), "",
+    };
 
 	for i = 1, #addonDescriptions do
 		explainFrame["Description" .. i]:SetText(addonDescriptions[i]);
@@ -489,7 +486,7 @@ end
 
 local function SetCommandFrameText(frame)
 	local commandFrame = frame.CommandFrame;
-	commandFrame.Title:SetText("Filter commands, use and examples");
+	commandFrame.Title:SetText(AAC.TradingUI.Text("commandsTitle"));
 	commandFrame.Title:SetHeight(commandFrame.Title:GetDisplayHeight());
 
 	local commands = {
@@ -525,17 +522,19 @@ local function SetCommandFrameText(frame)
 		commandFrame["Description" .. i]:SetText(descriptions[i]);
 	end
 
-	commandFrame.Usage1:SetText("Navigate to the Browse tab and enter one of the commands into the filter field in the top right corner. If you don't see a filter field, you can switch to advanced mode at the bottom right to enable filters. Then click on Search and review the filtered results.");
+	commandFrame.Usage1:SetText(AAC.TradingUI.Text("filterStep"));
 	commandFrame.Usage1:SetHeight(commandFrame.Usage1:GetDisplayHeight());
-	commandFrame.Usage2:SetText("You can select Monster Cards from the categories list on the left, and then enter the filter keyword $notowned to display all the monster cards you don't own yet.");
+	commandFrame.Usage2:SetText(AAC.TradingUI.Text("cardsStep"));
 	commandFrame.Usage2:SetHeight(commandFrame.Usage2:GetDisplayHeight());
 
-	commandFrame.Example1:SetText("A frequent use case is filtering by specific stats. For example, if you want to search for a Mana Stone Grade 7 with the Wisdom of Forgotten Legends stat, simply enter Mana Stone Tier 7 in the search field and Wisdom of Forgotten Legends in the filter field, then start your search.");
-	commandFrame.Example1:SetHeight(commandFrame.Usage1:GetDisplayHeight());
+	commandFrame.Example1:SetText(AAC.TradingUI.Text("exampleStep"));
+	commandFrame.Example1:SetHeight(commandFrame.Example1:GetDisplayHeight());
 end
 
 function Main.ClickTab(tab)
+    if AAC.TradingUI then AAC.TradingUI.Close() end
     if AAC.Exchange then AAC.Exchange.Leave() end
+    if tab~=1 and tab~=6 and AAC.History then AAC.History.ClearQueue() end
 	if tab ~= 5 then
 		PanelTemplates_SetTab(AAC_AuctionFrame, tab)
 	end
@@ -631,6 +630,7 @@ function Main.ClickTab(tab)
 		SetCommandFrameText(frame);
 	end
     if AAC.Exchange then AAC.Exchange.TabChanged(tab) end
+    if AAC.TradingUI then AAC.TradingUI.PurchaseTabChanged(tab) end
 end
 
 function Main.SettingsResize(value)

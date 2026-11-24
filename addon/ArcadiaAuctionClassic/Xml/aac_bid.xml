@@ -153,12 +153,12 @@
 		<Frames>
 			<Frame name="AAC_BidList">
 				<Size>
-					<AbsDimension x="803" y="380"/>
+					<AbsDimension x="803" y="368"/>
 				</Size>
 				<Anchors>
 					<Anchor point="TOPLEFT">
 						<Offset>
-							<AbsDimension x="20" y="62"/>
+							<AbsDimension x="20" y="74"/>
 						</Offset>
 					</Anchor>
 				</Anchors>

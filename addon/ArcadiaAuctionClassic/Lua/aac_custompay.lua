@@ -1,5 +1,8 @@
 -- Coordinates shared client browse data and owns AAC transaction confirmations.
 local Market = { Epoch = 0 }
+local function buyOrdersBusy()
+    return AAC.BuyOrders and (AAC.BuyOrders.Busy() or AAC.BuyOrders.HasConfirmation())
+end
 AAC.Market = Market
 
 local Pay = { AuctionType = { Browse = 0, Bid = 1 } }
@@ -72,7 +75,7 @@ function Market.StopSearch(owner)
 end
 
 function Market.StartSearch(owner, send, finish, publish)
-    if AAC.Exchange and AAC.Exchange.Blocked() then return false end
+    if buyOrdersBusy() or (AAC.Exchange and AAC.Exchange.Blocked()) then return false end
     if closing or not AAC.CanRequest() or pending or confirmation or continuation then return false end
     finishSearch()
     finishQueued()
@@ -189,7 +192,7 @@ end
 
 function Market.Active() return search ~= nil or queued ~= nil or waiting ~= nil end
 
-function Market.TransactionPending() return pending ~= nil or continuation ~= nil or (AAC.Exchange and AAC.Exchange.pending ~= nil) end
+function Market.TransactionPending() return buyOrdersBusy() or pending ~= nil or continuation ~= nil or (AAC.Exchange and AAC.Exchange.pending ~= nil) end
 function Market.HasConfirmation() return confirmation ~= nil end
 
 function Market.Blocked()
@@ -208,6 +211,7 @@ end
 function Market.IsClosing() return closing end
 
 function Market.PrepareClose()
+    if AAC.TradingUI then AAC.TradingUI.Close() end
     if AAC.Exchange then AAC.Exchange.Close() end
     closing = true
     finishSearch()
@@ -232,7 +236,7 @@ local function dismiss(key)
 end
 
 function Market.Confirm(key, text, callback)
-    if AAC.Exchange and AAC.Exchange.Blocked() then return false end
+    if buyOrdersBusy() or (AAC.Exchange and AAC.Exchange.Blocked()) then return false end
     if closing or not AAC.CanRequest() or pending or confirmation or continuation then return false end
     confirmation = { key = key, run = callback, deadline = GetTime() + 30 }
     StaticPopup_Show(key, text)
@@ -240,7 +244,7 @@ function Market.Confirm(key, text, callback)
 end
 
 function Market.Submit(kind, observe, send, purchases, onBought)
-    if AAC.Exchange and AAC.Exchange.Blocked() then return false end
+    if buyOrdersBusy() or (AAC.Exchange and AAC.Exchange.Blocked()) then return false end
     if closing or not AAC.CanRequest() or pending then return false end
     pending = { kind = kind, observe = observe, purchases = purchases, onBought = onBought, deadline = GetTime() + RESPONSE_TIMEOUT }
     send()

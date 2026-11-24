@@ -288,7 +288,7 @@
 	</Button>
 
 	<Frame name="AAC_SellFrame" parent="AAC_AuctionFrame" hidden="true">
-		<Layers>
+		<Frames><Frame name="AAC_SellAuctionContent"><Anchors><Anchor point="TOPLEFT"/><Anchor point="BOTTOMRIGHT"/></Anchors><Layers>
 			<Layer>
 				<FontString name="AAC_SellNumber" inherits="GameFontHighlight" text="">
 					<Anchors>
@@ -561,43 +561,7 @@
 						</Scripts>
 						<HighlightTexture alphaMode="ADD" file="Interface\Buttons\QuickSlot-Highlight"/>
 					</Button>
-					<CheckButton name="AAC_SellMoneyAuction" inherits="AAC_SettingsCheckButtonTemplate">
-						<Size>
-							<AbsDimension x="20" y="20"/>
-						</Size>
-						<Anchors>
-							<Anchor point="TOPLEFT">
-								<Offset>
-									<AbsDimension x="10" y="72"/>
-								</Offset>
-							</Anchor>
-						</Anchors>
-						<Layers>
-							<Layer>
-								<FontString name="$parentLabel" inherits="GameFontHighlight" text="AAH_MONEY_AUCTION" justifyH="LEFT">
-									<Anchors>
-										<Anchor point="LEFT" relativePoint="RIGHT">
-											<Offset>
-												<AbsDimension x="0" y="0"/>
-											</Offset>
-										</Anchor>
-									</Anchors>
-								</FontString>
-							</Layer>
-						</Layers>
-						<Scripts>
-							<OnClick>
-								AAC.Sell.ChangeAuctionType( AAC_SellMoneyAuction:IsChecked() )
-								MoneyModeFrame_SetSelected(AAC_SellMoneyMode, 1)
-							</OnClick>
-						</Scripts>
-						<NormalTexture file="Interface\Buttons\CheckBox-Normal"/>
-						<PushedTexture file="Interface\Buttons\CheckBox-Depress"/>
-						<DisabledTexture file="Interface\Buttons\CheckBox-Disable"/>
-						<HighlightTexture file="Interface\Buttons\CheckBox-Highlight" alphaMode="ADD"/>
-						<CheckedTexture file="Interface\Buttons\CheckBox-Checked"/>
-						<DisabledCheckedTexture file="Interface\Buttons\CheckBox-Checked-Disabled"/>
-					</CheckButton>
+
 					<Frame name="AAC_SellMoneyMode" inherits="MoneyModeFrameTemplate">
 						<Anchors>
 							<Anchor point="TOPLEFT">
@@ -1652,7 +1616,7 @@
 					</OnEscapePressed>
 					<OnTextChanged>
 						if this:GetText() == "" then
-							_G[this:GetName() .. "Label"]:SetText( "Search in my Offers" )
+							_G[this:GetName() .. "Label"]:SetText( AAC.TradingUI.Text("ownSearch") )
 						else
 							_G[this:GetName() .. "Label"]:SetText( "" )
 						end
@@ -1660,15 +1624,88 @@
 					</OnTextChanged>
 					<OnLoad>
 						_G[this:GetName() .. "Label"]:SetAlpha(0.5)
-						_G[this:GetName() .. "Label"]:SetText( "Search in my Offers" )
+						_G[this:GetName() .. "Label"]:SetText( AAC.TradingUI.Text("ownSearch") )
 					</OnLoad>
 					<OnShow>
+                        if AAC.TradingUI and AAC.TradingUI.restoringContents then return end
 						this:SetText( "" );
 						AAC.Sell.MyOffers_OnTextChanged( this:GetText() )
 					</OnShow>
 				</Scripts>
 			</EditBox>
-		</Frames>
+		</Frames></Frame>					<CheckButton name="AAC_SellMoneyAuction" inherits="AAC_SettingsCheckButtonTemplate">
+						<Size>
+							<AbsDimension x="20" y="20"/>
+						</Size>
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset>
+									<AbsDimension x="24" y="44"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Layers>
+							<Layer>
+								<FontString name="$parentLabel" inherits="GameFontHighlight" text="AAH_MONEY_AUCTION" justifyH="LEFT">
+									<Anchors>
+										<Anchor point="LEFT" relativePoint="RIGHT">
+											<Offset>
+												<AbsDimension x="0" y="0"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+								</FontString>
+							</Layer>
+						</Layers>
+						<Scripts>
+							<OnClick>
+								AAC.Exchange.UseMoneyAuction(AAC_SellMoneyAuction:IsChecked())
+								MoneyModeFrame_SetSelected(AAC_SellMoneyMode, 1)
+							</OnClick>
+						</Scripts>
+						<NormalTexture file="Interface\Buttons\CheckBox-Normal"/>
+						<PushedTexture file="Interface\Buttons\CheckBox-Depress"/>
+						<DisabledTexture file="Interface\Buttons\CheckBox-Disable"/>
+						<HighlightTexture file="Interface\Buttons\CheckBox-Highlight" alphaMode="ADD"/>
+						<CheckedTexture file="Interface\Buttons\CheckBox-Checked"/>
+						<DisabledCheckedTexture file="Interface\Buttons\CheckBox-Checked-Disabled"/>
+					</CheckButton>					<CheckButton name="AAC_SellExchange" inherits="AAC_SettingsCheckButtonTemplate">
+						<Size>
+							<AbsDimension x="20" y="20"/>
+						</Size>
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset>
+									<AbsDimension x="250" y="44"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Layers>
+							<Layer>
+								<FontString name="$parentLabel" inherits="GameFontHighlight" text="" justifyH="LEFT">
+									<Anchors>
+										<Anchor point="LEFT" relativePoint="RIGHT">
+											<Offset>
+												<AbsDimension x="0" y="0"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+								</FontString>
+							</Layer>
+						</Layers>
+						<Scripts>
+							<OnClick>
+								AAC.Exchange.SetSellMode(AAC_SellExchange:IsChecked())
+
+							</OnClick>
+						</Scripts>
+						<NormalTexture file="Interface\Buttons\CheckBox-Normal"/>
+						<PushedTexture file="Interface\Buttons\CheckBox-Depress"/>
+						<DisabledTexture file="Interface\Buttons\CheckBox-Disable"/>
+						<HighlightTexture file="Interface\Buttons\CheckBox-Highlight" alphaMode="ADD"/>
+						<CheckedTexture file="Interface\Buttons\CheckBox-Checked"/>
+						<DisabledCheckedTexture file="Interface\Buttons\CheckBox-Checked-Disabled"/>
+					</CheckButton></Frames>
 		<Scripts>
 			<OnLoad>AAC.Sell.OnLoad(this)</OnLoad>
             <OnShow>AAC.Sell.OnShow()</OnShow>

@@ -39,3 +39,17 @@ Community maintainer: Blackkid. No affiliation or endorsement by the CoA team is
 2026-11-24 Blackkid: 0.2.3 adds synchronized total/unit exchange prices with grouped inputs and compact net/cost quick-exchange rows using existing Classic controls and native currency icons. No GW2 assets are included.
 
 2026-11-24 Blackkid: 0.2.4 prepares the standalone public source/test/release package and corrects the exchange-card texture path.
+
+2026-11-24 Blackkid: 0.2.5 adopts the approved native quick-exchange layout: original item currency icons, aligned single-line quotes, descending presets and compact buy controls. Game textures remain client references only.
+
+2026-11-24 Blackkid: 0.2.6 moves number grouping to focus loss/Enter to preserve typing position, removes the Overview exchange subtab, and labels the Money category entry Exchange (new).
+
+2026-11-24 Blackkid: 0.2.7 integrates exchange selling into the existing My Offers page as an exclusive checkbox mode; compact custom quotes, native currency controls, independent orders list/count and retained transaction confirmations.
+
+2026-11-24 Blackkid: 0.2.8 uses native 16px currency radio controls inside each offer form, avoiding inherited-label overlap and sibling-backdrop occlusion when focusing an input.
+
+2026-11-24 Blackkid: 0.2.9 strips a trailing numeric upgrade suffix from shift-linked item search keywords; normal chat linking and other name components remain unchanged.
+
+2026-11-24, 0.3.0-beta: added independent buy-order controller, Classic trading panel, multilingual trading text, explicit seller price comparison and repeat-listing preparation. Client APIs/resources remain external; no proprietary client source or textures bundled.
+
+2026-11-24, 0.3.1-beta: replaced the tools dashboard with direct Classic actions, native-style list rows and a horizontal order form. Transaction controllers unchanged.

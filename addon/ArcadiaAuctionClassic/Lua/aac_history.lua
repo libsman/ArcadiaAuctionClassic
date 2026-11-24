@@ -170,6 +170,7 @@ function History.RequestHistoryPopup(auctionid, itemid, inherent, sell)
 end
 
 function History.UpdateSellItemHistory(itemid)
+    if AAC.SellerTools and AAC.SellerTools.RepeatProtects(GetAuctionItemLink()) then return end
     if not AAC.Market.IsClosing() and AAC.CanRequest() and AAC.Market.Feature("PriceHistory") and tonumber(itemid) then
         foreground = {
             itemid = tonumber(itemid), stagedLink = GetAuctionItemLink(), autofill = true,
@@ -191,7 +192,7 @@ local function receiveHistory(hasRows)
     elseif request.autofill and AAC.Sell.MoneyAuction == request.moneyAuction
         and GetAuctionItemLink() == request.stagedLink
         and (not request.moneyAuction or AAC.Sell.MoneyType == request.moneyType) then
-        AAC.Sell.AutoFillPriceFields()
+        AAC.Sell.AutoFillPriceFields(true)
     end
 end
 
@@ -226,6 +227,7 @@ function History.Queue_Insertitem(auctionid, name, link, itemid)
 end
 
 function History.Tick(now)
+    if AAC.BuyOrders and (AAC.BuyOrders.Busy() or AAC.BuyOrders.HasConfirmation()) then return end
     if not AAC.CanRequest() or not AAC.Market.Feature("PriceHistory") then return end
     if History.RequestPending then
         if not History.RequestPending.discard and now >= History.RequestPending.deadline then

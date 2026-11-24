@@ -246,6 +246,7 @@ function Sell.ChangeAuctionType(state)
 end
 
 function Sell.AAC_SellMoneyMode_OnShow( this )
+    if AAC.TradingUI and AAC.TradingUI.restoringContents then return end
 
 	getglobal(this:GetName().."Button2"):Show()							
 	MoneyFrameTemplate_SetMode(AAC_SellFeeFrame, "copper")
@@ -549,7 +550,7 @@ function Sell.Item_Update( NoHistory )
 	end
 
 	-- Fill now; the history reply refills, but it never comes for items without sales or throttled requests
-	Sell.AutoFillPriceFields()
+	Sell.AutoFillPriceFields(true)
     Sell.FeeFrame_Update()
 	Sell.TestIsAuctionValid()
 end
@@ -703,6 +704,7 @@ function Sell.ConfirmButton_OnClick()
             if not offer.lotMode and GetAuctionItemLink() == offer.link then return false end
             local unit = offer.itemID == 200000 and offer.count / offer.buyout or offer.buyout / offer.count
             Sell.UpdateLastPrice(offer.itemID, unit, unit)
+            if AAC.SellerTools then AAC.SellerTools.Record(offer) end
             return true
         end, function()
             if offer.lotMode then
@@ -1467,7 +1469,11 @@ function Sell.UpdateLastPrice(itemid, bid, buyout)
 	AAC_LastSellPrice[itemid].buyout = buyout
 end
 
-function Sell.AutoFillPriceFields()
+function Sell.AutoFillPriceFields(automatic)
+    if AAC.SellerTools then
+        if automatic and AAC.SellerTools.RepeatProtects(GetAuctionItemLink()) then return end
+        if not automatic then AAC.SellerTools.repeatAppliedLink=nil end
+    end
 	local linkid = AAC.Tools.ParseLink(AAC.HookItemLink)
 	local linkname
 	if linkid then

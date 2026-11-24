@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <Ui xmlns="https://chroniclesofarcadia.com/">
-  <Frame name="AAC_ExchangeFrame" parent="AAC_AuctionFrame" hidden="true" enableMouse="true">
+  <Frame name="AAC_ExchangeFrame" parent="AAC_AuctionFrame" hidden="true" enableMouse="false">
     <Size>
       <AbsDimension x="814" y="432"/>
     </Size>
@@ -48,7 +48,7 @@
     <Frames>
       <Frame name="AAC_ExchangeQuickPanel">
         <Size>
-          <AbsDimension x="814" y="354"/>
+          <AbsDimension x="814" y="362"/>
         </Size>
         <Anchors>
           <Anchor point="TOPLEFT">
@@ -60,7 +60,7 @@
         <Frames>
           <Frame name="AAC_ExchangeQuickbidCard">
             <Size>
-              <AbsDimension x="399" y="354"/>
+              <AbsDimension x="399" y="362"/>
             </Size>
             <Anchors>
               <Anchor point="TOPLEFT">
@@ -69,53 +69,33 @@
                 </Offset>
               </Anchor>
             </Anchors>
-            <Backdrop edgeFile="Interface\AuctionFrame\AuctionFrame-Tooltip-Border" bgFile="Interface\AuctionFrame\AuctionFrame-Tooltip-Background">
-              <EdgeSize>
-                <AbsValue val="16"/>
-              </EdgeSize>
+            <Backdrop bgFile="Interface/AuctionFrame/AuctionFrame-Tooltip-Background">
               <TileSize>
                 <AbsValue val="16"/>
               </TileSize>
-              <BackgroundInsets>
-                <AbsInset left="8" right="8" top="8" bottom="8"/>
-              </BackgroundInsets>
             </Backdrop>
             <Layers>
               <Layer>
-                <Texture name="AAC_ExchangeQuickbidTint" file="interface\icons\rankings\BarFill">
+                <Texture file="Interface/Icons/coin_03.dds">
                   <Size>
-                    <AbsDimension x="395" y="70"/>
+                    <AbsDimension x="24" y="24"/>
                   </Size>
                   <Anchors>
                     <Anchor point="TOPLEFT">
                       <Offset>
-                        <AbsDimension x="2" y="2"/>
+                        <AbsDimension x="18" y="19"/>
                       </Offset>
                     </Anchor>
                   </Anchors>
-                  <Color r="0.85" g="0.62" b="0.10" a="0.2"/>
                 </Texture>
-                <Texture file="Interface\MoneyFrame\MoneyIcons">
+                <FontString name="AAC_ExchangeQuickbidTitle" inherits="GameFontYellow" justifyH="LEFT" justifyV="MIDDLE">
                   <Size>
-                    <AbsDimension x="28" y="28"/>
+                    <AbsDimension x="327" y="26"/>
                   </Size>
                   <Anchors>
                     <Anchor point="TOPLEFT">
                       <Offset>
-                        <AbsDimension x="16" y="18"/>
-                      </Offset>
-                    </Anchor>
-                  </Anchors>
-                  <TexCoords left="0.0" right="0.015625" top="0" bottom="1"/>
-                </Texture>
-                <FontString name="AAC_ExchangeQuickbidTitle" inherits="GameFontYellow" justifyH="LEFT" justifyV="TOP">
-                  <Size>
-                    <AbsDimension x="333" y="28"/>
-                  </Size>
-                  <Anchors>
-                    <Anchor point="TOPLEFT">
-                      <Offset>
-                        <AbsDimension x="58" y="24"/>
+                        <AbsDimension x="52" y="21"/>
                       </Offset>
                     </Anchor>
                   </Anchors>
@@ -139,14 +119,46 @@
                     <AbsValue val="12"/>
                   </FontHeight>
                 </FontString>
-                <FontString name="AAC_ExchangeQuickbidRate" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
+                <FontString name="AAC_ExchangeQuickbidNetHead" inherits="GameFontHighlight" justifyH="LEFT" justifyV="MIDDLE">
                   <Size>
-                    <AbsDimension x="371" y="27"/>
+                    <AbsDimension x="150" y="18"/>
                   </Size>
                   <Anchors>
                     <Anchor point="TOPLEFT">
                       <Offset>
-                        <AbsDimension x="14" y="140"/>
+                        <AbsDimension x="18" y="65"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                  <FontHeight>
+                    <AbsValue val="11"/>
+                  </FontHeight>
+                  <Color r="0.741176" g="0.721569" b="0.658824"/>
+                </FontString>
+                <FontString name="AAC_ExchangeQuickbidCostHead" inherits="GameFontHighlight" justifyH="RIGHT" justifyV="MIDDLE">
+                  <Size>
+                    <AbsDimension x="110" y="18"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="176" y="65"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                  <FontHeight>
+                    <AbsValue val="11"/>
+                  </FontHeight>
+                  <Color r="0.741176" g="0.721569" b="0.658824"/>
+                </FontString>
+                <FontString name="AAC_ExchangeQuickbidRate" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
+                  <Size>
+                    <AbsDimension x="361" y="28"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="18" y="258"/>
                       </Offset>
                     </Anchor>
                   </Anchors>
@@ -154,75 +166,14 @@
                     <AbsValue val="10"/>
                   </FontHeight>
                 </FontString>
-                <FontString name="AAC_ExchangeQuickbidPayLabel" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
+                <FontString name="AAC_ExchangeQuickbidPayLabel" inherits="GameFontHighlight" justifyH="LEFT" justifyV="MIDDLE">
                   <Size>
-                    <AbsDimension x="371" y="18"/>
+                    <AbsDimension x="172" y="18"/>
                   </Size>
                   <Anchors>
                     <Anchor point="TOPLEFT">
                       <Offset>
-                        <AbsDimension x="14" y="171"/>
-                      </Offset>
-                    </Anchor>
-                  </Anchors>
-                  <FontHeight>
-                    <AbsValue val="12"/>
-                  </FontHeight>
-                </FontString>
-                <FontString name="AAC_ExchangeQuickbidPay" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
-                  <Size>
-                    <AbsDimension x="371" y="26"/>
-                  </Size>
-                  <Anchors>
-                    <Anchor point="TOPLEFT">
-                      <Offset>
-                        <AbsDimension x="14" y="191"/>
-                      </Offset>
-                    </Anchor>
-                  </Anchors>
-                  <FontHeight>
-                    <AbsValue val="16"/>
-                  </FontHeight>
-                </FontString>
-                <FontString name="AAC_ExchangeQuickbidReceiveLabel" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
-                  <Size>
-                    <AbsDimension x="371" y="18"/>
-                  </Size>
-                  <Anchors>
-                    <Anchor point="TOPLEFT">
-                      <Offset>
-                        <AbsDimension x="14" y="225"/>
-                      </Offset>
-                    </Anchor>
-                  </Anchors>
-                  <FontHeight>
-                    <AbsValue val="12"/>
-                  </FontHeight>
-                </FontString>
-                <FontString name="AAC_ExchangeQuickbidReceive" inherits="GameFontYellow" justifyH="LEFT" justifyV="TOP">
-                  <Size>
-                    <AbsDimension x="371" y="28"/>
-                  </Size>
-                  <Anchors>
-                    <Anchor point="TOPLEFT">
-                      <Offset>
-                        <AbsDimension x="14" y="245"/>
-                      </Offset>
-                    </Anchor>
-                  </Anchors>
-                  <FontHeight>
-                    <AbsValue val="20"/>
-                  </FontHeight>
-                  <Color r="1" g="0.82" b="0.26"/>
-                </FontString>
-                <FontString name="AAC_ExchangeQuickbidIncluded" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
-                  <Size>
-                    <AbsDimension x="371" y="16"/>
-                  </Size>
-                  <Anchors>
-                    <Anchor point="TOPLEFT">
-                      <Offset>
-                        <AbsDimension x="14" y="275"/>
+                        <AbsDimension x="207" y="137"/>
                       </Offset>
                     </Anchor>
                   </Anchors>
@@ -230,19 +181,105 @@
                     <AbsValue val="11"/>
                   </FontHeight>
                 </FontString>
-                <FontString name="AAC_ExchangeQuickbidNote" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
+                <FontString name="AAC_ExchangeQuickbidPay" inherits="GameFontHighlight" justifyH="LEFT" justifyV="MIDDLE">
                   <Size>
-                    <AbsDimension x="371" y="26"/>
+                    <AbsDimension x="172" y="26"/>
                   </Size>
                   <Anchors>
                     <Anchor point="TOPLEFT">
                       <Offset>
-                        <AbsDimension x="14" y="294"/>
+                        <AbsDimension x="207" y="162"/>
                       </Offset>
                     </Anchor>
                   </Anchors>
                   <FontHeight>
-                    <AbsValue val="10"/>
+                    <AbsValue val="16"/>
+                  </FontHeight>
+                </FontString>
+                <FontString name="AAC_ExchangeQuickbidReceiveLabel" inherits="GameFontHighlight" justifyH="LEFT" justifyV="MIDDLE">
+                  <Size>
+                    <AbsDimension x="172" y="18"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="18" y="137"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                  <FontHeight>
+                    <AbsValue val="11"/>
+                  </FontHeight>
+                </FontString>
+                <FontString name="AAC_ExchangeQuickbidReceive" inherits="GameFontYellow" justifyH="LEFT" justifyV="MIDDLE">
+                  <Size>
+                    <AbsDimension x="149" y="26"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="41" y="162"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                  <FontHeight>
+                    <AbsValue val="16"/>
+                  </FontHeight>
+                  <Color r="1" g="0.82" b="0.26"/>
+                </FontString>
+                <Texture name="AAC_ExchangeQuickbidReceiveIcon" file="Interface/Icons/coin_03.dds">
+                  <Size>
+                    <AbsDimension x="16" y="16"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="18" y="167"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </Texture>
+                <Texture name="AAC_ExchangeQuickbidPayIcon" file="Interface/Icons/crystal_01.dds">
+                  <Size>
+                    <AbsDimension x="16" y="16"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="207" y="167"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </Texture>
+                <FontString name="AAC_ExchangeQuickbidIncluded" inherits="GameFontHighlight" justifyH="LEFT" justifyV="MIDDLE">
+                  <Size>
+                    <AbsDimension x="361" y="18"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="18" y="287"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                  <FontHeight>
+                    <AbsValue val="11"/>
+                  </FontHeight>
+                  <Color r="0.741176" g="0.721569" b="0.658824"/>
+                </FontString>
+                <FontString name="AAC_ExchangeQuickbidNote" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
+                  <Size>
+                    <AbsDimension x="361" y="32"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="18" y="220"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                  <FontHeight>
+                    <AbsValue val="11"/>
                   </FontHeight>
                 </FontString>
                 <FontString name="AAC_ExchangeQuickbidEmpty" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
@@ -265,12 +302,12 @@
             <Frames>
               <EditBox name="AAC_ExchangeQuickbidAmount" inherits="UIPanelEditBoxTemplate" letters="18">
                 <Size>
-                  <AbsDimension x="371" y="24"/>
+                  <AbsDimension x="361" y="24"/>
                 </Size>
                 <Anchors>
                   <Anchor point="TOPLEFT">
                     <Offset>
-                      <AbsDimension x="14" y="86"/>
+                      <AbsDimension x="18" y="88"/>
                     </Offset>
                   </Anchor>
                 </Anchors>
@@ -278,16 +315,17 @@
                   <OnTextChanged>AAC.Exchange.QuickAmountChanged(&quot;bid&quot;)</OnTextChanged>
                   <OnEscapePressed>this:ClearFocus()</OnEscapePressed>
                   <OnEnterPressed>this:ClearFocus(); AAC.Exchange.Render()</OnEnterPressed>
+                  <OnEditFocusLost>AAC.Exchange.QuickAmountChanged(&quot;bid&quot;,true)</OnEditFocusLost>
                 </Scripts>
               </EditBox>
               <Button name="AAC_ExchangeQuickbidTrade" inherits="UIPanelButtonTemplate" text="">
                 <Size>
-                  <AbsDimension x="371" y="26"/>
+                  <AbsDimension x="214" y="28"/>
                 </Size>
                 <Anchors>
                   <Anchor point="TOPLEFT">
                     <Offset>
-                      <AbsDimension x="14" y="322"/>
+                      <AbsDimension x="165" y="315"/>
                     </Offset>
                   </Anchor>
                 </Anchors>
@@ -297,12 +335,12 @@
               </Button>
               <Button name="AAC_ExchangeQuickbidCustom" inherits="UIPanelButtonTemplate" text="">
                 <Size>
-                  <AbsDimension x="371" y="26"/>
+                  <AbsDimension x="361" y="28"/>
                 </Size>
                 <Anchors>
                   <Anchor point="TOPLEFT">
                     <Offset>
-                      <AbsDimension x="14" y="294"/>
+                      <AbsDimension x="18" y="315"/>
                     </Offset>
                   </Anchor>
                 </Anchors>
@@ -312,49 +350,37 @@
               </Button>
               <Frame name="AAC_ExchangeQuickbidRow1">
                 <Size>
-                  <AbsDimension x="371" y="45"/>
+                  <AbsDimension x="363" y="40"/>
                 </Size>
                 <Anchors>
                   <Anchor point="TOPLEFT">
                     <Offset>
-                      <AbsDimension x="14" y="76"/>
+                      <AbsDimension x="18" y="91"/>
                     </Offset>
                   </Anchor>
                 </Anchors>
-                <Backdrop edgeFile="Interface\AuctionFrame\AuctionFrame-Tooltip-Border" bgFile="Interface\AuctionFrame\AuctionFrame-Tooltip-Background">
-                  <EdgeSize>
-                    <AbsValue val="16"/>
-                  </EdgeSize>
-                  <TileSize>
-                    <AbsValue val="16"/>
-                  </TileSize>
-                  <BackgroundInsets>
-                    <AbsInset left="8" right="8" top="8" bottom="8"/>
-                  </BackgroundInsets>
-                </Backdrop>
                 <Layers>
                   <Layer>
-                    <Texture file="Interface\MoneyFrame\MoneyIcons">
+                    <Texture file="Interface/Icons/coin_03.dds">
                       <Size>
-                        <AbsDimension x="20" y="20"/>
+                        <AbsDimension x="16" y="16"/>
                       </Size>
                       <Anchors>
                         <Anchor point="TOPLEFT">
                           <Offset>
-                            <AbsDimension x="8" y="3"/>
+                            <AbsDimension x="0" y="6"/>
                           </Offset>
                         </Anchor>
                       </Anchors>
-                      <TexCoords left="0.0" right="0.015625" top="0" bottom="1"/>
                     </Texture>
-                    <FontString name="AAC_ExchangeQuickbidRow1Net" inherits="GameFontYellow" justifyH="LEFT" justifyV="TOP">
+                    <FontString name="AAC_ExchangeQuickbidRow1Net" inherits="GameFontYellow" justifyH="LEFT" justifyV="MIDDLE">
                       <Size>
-                        <AbsDimension x="174" y="22"/>
+                        <AbsDimension x="130" y="22"/>
                       </Size>
                       <Anchors>
                         <Anchor point="TOPLEFT">
                           <Offset>
-                            <AbsDimension x="32" y="3"/>
+                            <AbsDimension x="23" y="3"/>
                           </Offset>
                         </Anchor>
                       </Anchors>
@@ -363,32 +389,31 @@
                       </FontHeight>
                       <Color r="1" g="0.82" b="0.26"/>
                     </FontString>
-                    <Texture file="Interface\MoneyFrame\MoneyIcons">
+                    <Texture name="AAC_ExchangeQuickbidRow1CostIcon" file="Interface/Icons/crystal_01.dds">
                       <Size>
-                        <AbsDimension x="14" y="14"/>
+                        <AbsDimension x="13" y="13"/>
                       </Size>
                       <Anchors>
                         <Anchor point="TOPLEFT">
                           <Offset>
-                            <AbsDimension x="8" y="25"/>
+                            <AbsDimension x="252" y="8"/>
                           </Offset>
                         </Anchor>
                       </Anchors>
-                      <TexCoords left="0.015625" right="0.03125" top="0" bottom="1"/>
                     </Texture>
-                    <FontString name="AAC_ExchangeQuickbidRow1Cost" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
+                    <FontString name="AAC_ExchangeQuickbidRow1Cost" inherits="GameFontHighlight" justifyH="RIGHT" justifyV="MIDDLE">
                       <Size>
-                        <AbsDimension x="174" y="16"/>
+                        <AbsDimension x="91" y="20"/>
                       </Size>
                       <Anchors>
                         <Anchor point="TOPLEFT">
                           <Offset>
-                            <AbsDimension x="32" y="25"/>
+                            <AbsDimension x="153" y="5"/>
                           </Offset>
                         </Anchor>
                       </Anchors>
                       <FontHeight>
-                        <AbsValue val="11"/>
+                        <AbsValue val="12"/>
                       </FontHeight>
                     </FontString>
                   </Layer>
@@ -396,315 +421,12 @@
                 <Frames>
                   <Button name="AAC_ExchangeQuickbidRow1Buy" inherits="UIPanelButtonTemplate" text="">
                     <Size>
-                      <AbsDimension x="70" y="26"/>
+                      <AbsDimension x="78" y="28"/>
                     </Size>
                     <Anchors>
                       <Anchor point="TOPLEFT">
                         <Offset>
-                          <AbsDimension x="293" y="9"/>
-                        </Offset>
-                      </Anchor>
-                    </Anchors>
-                    <Scripts>
-                      <OnClick>AAC.Exchange.QuickRow(&quot;bid&quot;,25)</OnClick>
-                    </Scripts>
-                  </Button>
-                </Frames>
-              </Frame>
-              <Frame name="AAC_ExchangeQuickbidRow2">
-                <Size>
-                  <AbsDimension x="371" y="45"/>
-                </Size>
-                <Anchors>
-                  <Anchor point="TOPLEFT">
-                    <Offset>
-                      <AbsDimension x="14" y="125"/>
-                    </Offset>
-                  </Anchor>
-                </Anchors>
-                <Backdrop edgeFile="Interface\AuctionFrame\AuctionFrame-Tooltip-Border" bgFile="Interface\AuctionFrame\AuctionFrame-Tooltip-Background">
-                  <EdgeSize>
-                    <AbsValue val="16"/>
-                  </EdgeSize>
-                  <TileSize>
-                    <AbsValue val="16"/>
-                  </TileSize>
-                  <BackgroundInsets>
-                    <AbsInset left="8" right="8" top="8" bottom="8"/>
-                  </BackgroundInsets>
-                </Backdrop>
-                <Layers>
-                  <Layer>
-                    <Texture file="Interface\MoneyFrame\MoneyIcons">
-                      <Size>
-                        <AbsDimension x="20" y="20"/>
-                      </Size>
-                      <Anchors>
-                        <Anchor point="TOPLEFT">
-                          <Offset>
-                            <AbsDimension x="8" y="3"/>
-                          </Offset>
-                        </Anchor>
-                      </Anchors>
-                      <TexCoords left="0.0" right="0.015625" top="0" bottom="1"/>
-                    </Texture>
-                    <FontString name="AAC_ExchangeQuickbidRow2Net" inherits="GameFontYellow" justifyH="LEFT" justifyV="TOP">
-                      <Size>
-                        <AbsDimension x="174" y="22"/>
-                      </Size>
-                      <Anchors>
-                        <Anchor point="TOPLEFT">
-                          <Offset>
-                            <AbsDimension x="32" y="3"/>
-                          </Offset>
-                        </Anchor>
-                      </Anchors>
-                      <FontHeight>
-                        <AbsValue val="16"/>
-                      </FontHeight>
-                      <Color r="1" g="0.82" b="0.26"/>
-                    </FontString>
-                    <Texture file="Interface\MoneyFrame\MoneyIcons">
-                      <Size>
-                        <AbsDimension x="14" y="14"/>
-                      </Size>
-                      <Anchors>
-                        <Anchor point="TOPLEFT">
-                          <Offset>
-                            <AbsDimension x="8" y="25"/>
-                          </Offset>
-                        </Anchor>
-                      </Anchors>
-                      <TexCoords left="0.015625" right="0.03125" top="0" bottom="1"/>
-                    </Texture>
-                    <FontString name="AAC_ExchangeQuickbidRow2Cost" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
-                      <Size>
-                        <AbsDimension x="174" y="16"/>
-                      </Size>
-                      <Anchors>
-                        <Anchor point="TOPLEFT">
-                          <Offset>
-                            <AbsDimension x="32" y="25"/>
-                          </Offset>
-                        </Anchor>
-                      </Anchors>
-                      <FontHeight>
-                        <AbsValue val="11"/>
-                      </FontHeight>
-                    </FontString>
-                  </Layer>
-                </Layers>
-                <Frames>
-                  <Button name="AAC_ExchangeQuickbidRow2Buy" inherits="UIPanelButtonTemplate" text="">
-                    <Size>
-                      <AbsDimension x="70" y="26"/>
-                    </Size>
-                    <Anchors>
-                      <Anchor point="TOPLEFT">
-                        <Offset>
-                          <AbsDimension x="293" y="9"/>
-                        </Offset>
-                      </Anchor>
-                    </Anchors>
-                    <Scripts>
-                      <OnClick>AAC.Exchange.QuickRow(&quot;bid&quot;,100)</OnClick>
-                    </Scripts>
-                  </Button>
-                </Frames>
-              </Frame>
-              <Frame name="AAC_ExchangeQuickbidRow3">
-                <Size>
-                  <AbsDimension x="371" y="45"/>
-                </Size>
-                <Anchors>
-                  <Anchor point="TOPLEFT">
-                    <Offset>
-                      <AbsDimension x="14" y="174"/>
-                    </Offset>
-                  </Anchor>
-                </Anchors>
-                <Backdrop edgeFile="Interface\AuctionFrame\AuctionFrame-Tooltip-Border" bgFile="Interface\AuctionFrame\AuctionFrame-Tooltip-Background">
-                  <EdgeSize>
-                    <AbsValue val="16"/>
-                  </EdgeSize>
-                  <TileSize>
-                    <AbsValue val="16"/>
-                  </TileSize>
-                  <BackgroundInsets>
-                    <AbsInset left="8" right="8" top="8" bottom="8"/>
-                  </BackgroundInsets>
-                </Backdrop>
-                <Layers>
-                  <Layer>
-                    <Texture file="Interface\MoneyFrame\MoneyIcons">
-                      <Size>
-                        <AbsDimension x="20" y="20"/>
-                      </Size>
-                      <Anchors>
-                        <Anchor point="TOPLEFT">
-                          <Offset>
-                            <AbsDimension x="8" y="3"/>
-                          </Offset>
-                        </Anchor>
-                      </Anchors>
-                      <TexCoords left="0.0" right="0.015625" top="0" bottom="1"/>
-                    </Texture>
-                    <FontString name="AAC_ExchangeQuickbidRow3Net" inherits="GameFontYellow" justifyH="LEFT" justifyV="TOP">
-                      <Size>
-                        <AbsDimension x="174" y="22"/>
-                      </Size>
-                      <Anchors>
-                        <Anchor point="TOPLEFT">
-                          <Offset>
-                            <AbsDimension x="32" y="3"/>
-                          </Offset>
-                        </Anchor>
-                      </Anchors>
-                      <FontHeight>
-                        <AbsValue val="16"/>
-                      </FontHeight>
-                      <Color r="1" g="0.82" b="0.26"/>
-                    </FontString>
-                    <Texture file="Interface\MoneyFrame\MoneyIcons">
-                      <Size>
-                        <AbsDimension x="14" y="14"/>
-                      </Size>
-                      <Anchors>
-                        <Anchor point="TOPLEFT">
-                          <Offset>
-                            <AbsDimension x="8" y="25"/>
-                          </Offset>
-                        </Anchor>
-                      </Anchors>
-                      <TexCoords left="0.015625" right="0.03125" top="0" bottom="1"/>
-                    </Texture>
-                    <FontString name="AAC_ExchangeQuickbidRow3Cost" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
-                      <Size>
-                        <AbsDimension x="174" y="16"/>
-                      </Size>
-                      <Anchors>
-                        <Anchor point="TOPLEFT">
-                          <Offset>
-                            <AbsDimension x="32" y="25"/>
-                          </Offset>
-                        </Anchor>
-                      </Anchors>
-                      <FontHeight>
-                        <AbsValue val="11"/>
-                      </FontHeight>
-                    </FontString>
-                  </Layer>
-                </Layers>
-                <Frames>
-                  <Button name="AAC_ExchangeQuickbidRow3Buy" inherits="UIPanelButtonTemplate" text="">
-                    <Size>
-                      <AbsDimension x="70" y="26"/>
-                    </Size>
-                    <Anchors>
-                      <Anchor point="TOPLEFT">
-                        <Offset>
-                          <AbsDimension x="293" y="9"/>
-                        </Offset>
-                      </Anchor>
-                    </Anchors>
-                    <Scripts>
-                      <OnClick>AAC.Exchange.QuickRow(&quot;bid&quot;,500)</OnClick>
-                    </Scripts>
-                  </Button>
-                </Frames>
-              </Frame>
-              <Frame name="AAC_ExchangeQuickbidRow4">
-                <Size>
-                  <AbsDimension x="371" y="45"/>
-                </Size>
-                <Anchors>
-                  <Anchor point="TOPLEFT">
-                    <Offset>
-                      <AbsDimension x="14" y="223"/>
-                    </Offset>
-                  </Anchor>
-                </Anchors>
-                <Backdrop edgeFile="Interface\AuctionFrame\AuctionFrame-Tooltip-Border" bgFile="Interface\AuctionFrame\AuctionFrame-Tooltip-Background">
-                  <EdgeSize>
-                    <AbsValue val="16"/>
-                  </EdgeSize>
-                  <TileSize>
-                    <AbsValue val="16"/>
-                  </TileSize>
-                  <BackgroundInsets>
-                    <AbsInset left="8" right="8" top="8" bottom="8"/>
-                  </BackgroundInsets>
-                </Backdrop>
-                <Layers>
-                  <Layer>
-                    <Texture file="Interface\MoneyFrame\MoneyIcons">
-                      <Size>
-                        <AbsDimension x="20" y="20"/>
-                      </Size>
-                      <Anchors>
-                        <Anchor point="TOPLEFT">
-                          <Offset>
-                            <AbsDimension x="8" y="3"/>
-                          </Offset>
-                        </Anchor>
-                      </Anchors>
-                      <TexCoords left="0.0" right="0.015625" top="0" bottom="1"/>
-                    </Texture>
-                    <FontString name="AAC_ExchangeQuickbidRow4Net" inherits="GameFontYellow" justifyH="LEFT" justifyV="TOP">
-                      <Size>
-                        <AbsDimension x="174" y="22"/>
-                      </Size>
-                      <Anchors>
-                        <Anchor point="TOPLEFT">
-                          <Offset>
-                            <AbsDimension x="32" y="3"/>
-                          </Offset>
-                        </Anchor>
-                      </Anchors>
-                      <FontHeight>
-                        <AbsValue val="16"/>
-                      </FontHeight>
-                      <Color r="1" g="0.82" b="0.26"/>
-                    </FontString>
-                    <Texture file="Interface\MoneyFrame\MoneyIcons">
-                      <Size>
-                        <AbsDimension x="14" y="14"/>
-                      </Size>
-                      <Anchors>
-                        <Anchor point="TOPLEFT">
-                          <Offset>
-                            <AbsDimension x="8" y="25"/>
-                          </Offset>
-                        </Anchor>
-                      </Anchors>
-                      <TexCoords left="0.015625" right="0.03125" top="0" bottom="1"/>
-                    </Texture>
-                    <FontString name="AAC_ExchangeQuickbidRow4Cost" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
-                      <Size>
-                        <AbsDimension x="174" y="16"/>
-                      </Size>
-                      <Anchors>
-                        <Anchor point="TOPLEFT">
-                          <Offset>
-                            <AbsDimension x="32" y="25"/>
-                          </Offset>
-                        </Anchor>
-                      </Anchors>
-                      <FontHeight>
-                        <AbsValue val="11"/>
-                      </FontHeight>
-                    </FontString>
-                  </Layer>
-                </Layers>
-                <Frames>
-                  <Button name="AAC_ExchangeQuickbidRow4Buy" inherits="UIPanelButtonTemplate" text="">
-                    <Size>
-                      <AbsDimension x="70" y="26"/>
-                    </Size>
-                    <Anchors>
-                      <Anchor point="TOPLEFT">
-                        <Offset>
-                          <AbsDimension x="293" y="9"/>
+                          <AbsDimension x="283" y="0"/>
                         </Offset>
                       </Anchor>
                     </Anchors>
@@ -714,11 +436,275 @@
                   </Button>
                 </Frames>
               </Frame>
+              <Frame name="AAC_ExchangeQuickbidRow2">
+                <Size>
+                  <AbsDimension x="363" y="40"/>
+                </Size>
+                <Anchors>
+                  <Anchor point="TOPLEFT">
+                    <Offset>
+                      <AbsDimension x="18" y="137"/>
+                    </Offset>
+                  </Anchor>
+                </Anchors>
+                <Layers>
+                  <Layer>
+                    <Texture file="Interface/Icons/coin_03.dds">
+                      <Size>
+                        <AbsDimension x="16" y="16"/>
+                      </Size>
+                      <Anchors>
+                        <Anchor point="TOPLEFT">
+                          <Offset>
+                            <AbsDimension x="0" y="6"/>
+                          </Offset>
+                        </Anchor>
+                      </Anchors>
+                    </Texture>
+                    <FontString name="AAC_ExchangeQuickbidRow2Net" inherits="GameFontYellow" justifyH="LEFT" justifyV="MIDDLE">
+                      <Size>
+                        <AbsDimension x="130" y="22"/>
+                      </Size>
+                      <Anchors>
+                        <Anchor point="TOPLEFT">
+                          <Offset>
+                            <AbsDimension x="23" y="3"/>
+                          </Offset>
+                        </Anchor>
+                      </Anchors>
+                      <FontHeight>
+                        <AbsValue val="16"/>
+                      </FontHeight>
+                      <Color r="1" g="0.82" b="0.26"/>
+                    </FontString>
+                    <Texture name="AAC_ExchangeQuickbidRow2CostIcon" file="Interface/Icons/crystal_01.dds">
+                      <Size>
+                        <AbsDimension x="13" y="13"/>
+                      </Size>
+                      <Anchors>
+                        <Anchor point="TOPLEFT">
+                          <Offset>
+                            <AbsDimension x="252" y="8"/>
+                          </Offset>
+                        </Anchor>
+                      </Anchors>
+                    </Texture>
+                    <FontString name="AAC_ExchangeQuickbidRow2Cost" inherits="GameFontHighlight" justifyH="RIGHT" justifyV="MIDDLE">
+                      <Size>
+                        <AbsDimension x="91" y="20"/>
+                      </Size>
+                      <Anchors>
+                        <Anchor point="TOPLEFT">
+                          <Offset>
+                            <AbsDimension x="153" y="5"/>
+                          </Offset>
+                        </Anchor>
+                      </Anchors>
+                      <FontHeight>
+                        <AbsValue val="12"/>
+                      </FontHeight>
+                    </FontString>
+                  </Layer>
+                </Layers>
+                <Frames>
+                  <Button name="AAC_ExchangeQuickbidRow2Buy" inherits="UIPanelButtonTemplate" text="">
+                    <Size>
+                      <AbsDimension x="78" y="28"/>
+                    </Size>
+                    <Anchors>
+                      <Anchor point="TOPLEFT">
+                        <Offset>
+                          <AbsDimension x="283" y="0"/>
+                        </Offset>
+                      </Anchor>
+                    </Anchors>
+                    <Scripts>
+                      <OnClick>AAC.Exchange.QuickRow(&quot;bid&quot;,500)</OnClick>
+                    </Scripts>
+                  </Button>
+                </Frames>
+              </Frame>
+              <Frame name="AAC_ExchangeQuickbidRow3">
+                <Size>
+                  <AbsDimension x="363" y="40"/>
+                </Size>
+                <Anchors>
+                  <Anchor point="TOPLEFT">
+                    <Offset>
+                      <AbsDimension x="18" y="183"/>
+                    </Offset>
+                  </Anchor>
+                </Anchors>
+                <Layers>
+                  <Layer>
+                    <Texture file="Interface/Icons/coin_03.dds">
+                      <Size>
+                        <AbsDimension x="16" y="16"/>
+                      </Size>
+                      <Anchors>
+                        <Anchor point="TOPLEFT">
+                          <Offset>
+                            <AbsDimension x="0" y="6"/>
+                          </Offset>
+                        </Anchor>
+                      </Anchors>
+                    </Texture>
+                    <FontString name="AAC_ExchangeQuickbidRow3Net" inherits="GameFontYellow" justifyH="LEFT" justifyV="MIDDLE">
+                      <Size>
+                        <AbsDimension x="130" y="22"/>
+                      </Size>
+                      <Anchors>
+                        <Anchor point="TOPLEFT">
+                          <Offset>
+                            <AbsDimension x="23" y="3"/>
+                          </Offset>
+                        </Anchor>
+                      </Anchors>
+                      <FontHeight>
+                        <AbsValue val="16"/>
+                      </FontHeight>
+                      <Color r="1" g="0.82" b="0.26"/>
+                    </FontString>
+                    <Texture name="AAC_ExchangeQuickbidRow3CostIcon" file="Interface/Icons/crystal_01.dds">
+                      <Size>
+                        <AbsDimension x="13" y="13"/>
+                      </Size>
+                      <Anchors>
+                        <Anchor point="TOPLEFT">
+                          <Offset>
+                            <AbsDimension x="252" y="8"/>
+                          </Offset>
+                        </Anchor>
+                      </Anchors>
+                    </Texture>
+                    <FontString name="AAC_ExchangeQuickbidRow3Cost" inherits="GameFontHighlight" justifyH="RIGHT" justifyV="MIDDLE">
+                      <Size>
+                        <AbsDimension x="91" y="20"/>
+                      </Size>
+                      <Anchors>
+                        <Anchor point="TOPLEFT">
+                          <Offset>
+                            <AbsDimension x="153" y="5"/>
+                          </Offset>
+                        </Anchor>
+                      </Anchors>
+                      <FontHeight>
+                        <AbsValue val="12"/>
+                      </FontHeight>
+                    </FontString>
+                  </Layer>
+                </Layers>
+                <Frames>
+                  <Button name="AAC_ExchangeQuickbidRow3Buy" inherits="UIPanelButtonTemplate" text="">
+                    <Size>
+                      <AbsDimension x="78" y="28"/>
+                    </Size>
+                    <Anchors>
+                      <Anchor point="TOPLEFT">
+                        <Offset>
+                          <AbsDimension x="283" y="0"/>
+                        </Offset>
+                      </Anchor>
+                    </Anchors>
+                    <Scripts>
+                      <OnClick>AAC.Exchange.QuickRow(&quot;bid&quot;,100)</OnClick>
+                    </Scripts>
+                  </Button>
+                </Frames>
+              </Frame>
+              <Frame name="AAC_ExchangeQuickbidRow4">
+                <Size>
+                  <AbsDimension x="363" y="40"/>
+                </Size>
+                <Anchors>
+                  <Anchor point="TOPLEFT">
+                    <Offset>
+                      <AbsDimension x="18" y="229"/>
+                    </Offset>
+                  </Anchor>
+                </Anchors>
+                <Layers>
+                  <Layer>
+                    <Texture file="Interface/Icons/coin_03.dds">
+                      <Size>
+                        <AbsDimension x="16" y="16"/>
+                      </Size>
+                      <Anchors>
+                        <Anchor point="TOPLEFT">
+                          <Offset>
+                            <AbsDimension x="0" y="6"/>
+                          </Offset>
+                        </Anchor>
+                      </Anchors>
+                    </Texture>
+                    <FontString name="AAC_ExchangeQuickbidRow4Net" inherits="GameFontYellow" justifyH="LEFT" justifyV="MIDDLE">
+                      <Size>
+                        <AbsDimension x="130" y="22"/>
+                      </Size>
+                      <Anchors>
+                        <Anchor point="TOPLEFT">
+                          <Offset>
+                            <AbsDimension x="23" y="3"/>
+                          </Offset>
+                        </Anchor>
+                      </Anchors>
+                      <FontHeight>
+                        <AbsValue val="16"/>
+                      </FontHeight>
+                      <Color r="1" g="0.82" b="0.26"/>
+                    </FontString>
+                    <Texture name="AAC_ExchangeQuickbidRow4CostIcon" file="Interface/Icons/crystal_01.dds">
+                      <Size>
+                        <AbsDimension x="13" y="13"/>
+                      </Size>
+                      <Anchors>
+                        <Anchor point="TOPLEFT">
+                          <Offset>
+                            <AbsDimension x="252" y="8"/>
+                          </Offset>
+                        </Anchor>
+                      </Anchors>
+                    </Texture>
+                    <FontString name="AAC_ExchangeQuickbidRow4Cost" inherits="GameFontHighlight" justifyH="RIGHT" justifyV="MIDDLE">
+                      <Size>
+                        <AbsDimension x="91" y="20"/>
+                      </Size>
+                      <Anchors>
+                        <Anchor point="TOPLEFT">
+                          <Offset>
+                            <AbsDimension x="153" y="5"/>
+                          </Offset>
+                        </Anchor>
+                      </Anchors>
+                      <FontHeight>
+                        <AbsValue val="12"/>
+                      </FontHeight>
+                    </FontString>
+                  </Layer>
+                </Layers>
+                <Frames>
+                  <Button name="AAC_ExchangeQuickbidRow4Buy" inherits="UIPanelButtonTemplate" text="">
+                    <Size>
+                      <AbsDimension x="78" y="28"/>
+                    </Size>
+                    <Anchors>
+                      <Anchor point="TOPLEFT">
+                        <Offset>
+                          <AbsDimension x="283" y="0"/>
+                        </Offset>
+                      </Anchor>
+                    </Anchors>
+                    <Scripts>
+                      <OnClick>AAC.Exchange.QuickRow(&quot;bid&quot;,25)</OnClick>
+                    </Scripts>
+                  </Button>
+                </Frames>
+              </Frame>
             </Frames>
           </Frame>
           <Frame name="AAC_ExchangeQuickaskCard">
             <Size>
-              <AbsDimension x="399" y="354"/>
+              <AbsDimension x="399" y="362"/>
             </Size>
             <Anchors>
               <Anchor point="TOPLEFT">
@@ -727,53 +713,33 @@
                 </Offset>
               </Anchor>
             </Anchors>
-            <Backdrop edgeFile="Interface\AuctionFrame\AuctionFrame-Tooltip-Border" bgFile="Interface\AuctionFrame\AuctionFrame-Tooltip-Background">
-              <EdgeSize>
-                <AbsValue val="16"/>
-              </EdgeSize>
+            <Backdrop bgFile="Interface/AuctionFrame/AuctionFrame-Tooltip-Background">
               <TileSize>
                 <AbsValue val="16"/>
               </TileSize>
-              <BackgroundInsets>
-                <AbsInset left="8" right="8" top="8" bottom="8"/>
-              </BackgroundInsets>
             </Backdrop>
             <Layers>
               <Layer>
-                <Texture name="AAC_ExchangeQuickaskTint" file="interface\icons\rankings\BarFill">
+                <Texture file="Interface/Icons/crystal_01.dds">
                   <Size>
-                    <AbsDimension x="395" y="70"/>
+                    <AbsDimension x="24" y="24"/>
                   </Size>
                   <Anchors>
                     <Anchor point="TOPLEFT">
                       <Offset>
-                        <AbsDimension x="2" y="2"/>
+                        <AbsDimension x="18" y="19"/>
                       </Offset>
                     </Anchor>
                   </Anchors>
-                  <Color r="0.18" g="0.52" b="0.85" a="0.2"/>
                 </Texture>
-                <Texture file="Interface\MoneyFrame\MoneyIcons">
+                <FontString name="AAC_ExchangeQuickaskTitle" inherits="GameFontYellow" justifyH="LEFT" justifyV="MIDDLE">
                   <Size>
-                    <AbsDimension x="28" y="28"/>
+                    <AbsDimension x="327" y="26"/>
                   </Size>
                   <Anchors>
                     <Anchor point="TOPLEFT">
                       <Offset>
-                        <AbsDimension x="16" y="18"/>
-                      </Offset>
-                    </Anchor>
-                  </Anchors>
-                  <TexCoords left="0.015625" right="0.03125" top="0" bottom="1"/>
-                </Texture>
-                <FontString name="AAC_ExchangeQuickaskTitle" inherits="GameFontYellow" justifyH="LEFT" justifyV="TOP">
-                  <Size>
-                    <AbsDimension x="333" y="28"/>
-                  </Size>
-                  <Anchors>
-                    <Anchor point="TOPLEFT">
-                      <Offset>
-                        <AbsDimension x="58" y="24"/>
+                        <AbsDimension x="52" y="21"/>
                       </Offset>
                     </Anchor>
                   </Anchors>
@@ -797,14 +763,46 @@
                     <AbsValue val="12"/>
                   </FontHeight>
                 </FontString>
-                <FontString name="AAC_ExchangeQuickaskRate" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
+                <FontString name="AAC_ExchangeQuickaskNetHead" inherits="GameFontHighlight" justifyH="LEFT" justifyV="MIDDLE">
                   <Size>
-                    <AbsDimension x="371" y="27"/>
+                    <AbsDimension x="150" y="18"/>
                   </Size>
                   <Anchors>
                     <Anchor point="TOPLEFT">
                       <Offset>
-                        <AbsDimension x="14" y="140"/>
+                        <AbsDimension x="18" y="65"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                  <FontHeight>
+                    <AbsValue val="11"/>
+                  </FontHeight>
+                  <Color r="0.741176" g="0.721569" b="0.658824"/>
+                </FontString>
+                <FontString name="AAC_ExchangeQuickaskCostHead" inherits="GameFontHighlight" justifyH="RIGHT" justifyV="MIDDLE">
+                  <Size>
+                    <AbsDimension x="110" y="18"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="176" y="65"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                  <FontHeight>
+                    <AbsValue val="11"/>
+                  </FontHeight>
+                  <Color r="0.741176" g="0.721569" b="0.658824"/>
+                </FontString>
+                <FontString name="AAC_ExchangeQuickaskRate" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
+                  <Size>
+                    <AbsDimension x="361" y="28"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="18" y="258"/>
                       </Offset>
                     </Anchor>
                   </Anchors>
@@ -812,75 +810,14 @@
                     <AbsValue val="10"/>
                   </FontHeight>
                 </FontString>
-                <FontString name="AAC_ExchangeQuickaskPayLabel" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
+                <FontString name="AAC_ExchangeQuickaskPayLabel" inherits="GameFontHighlight" justifyH="LEFT" justifyV="MIDDLE">
                   <Size>
-                    <AbsDimension x="371" y="18"/>
+                    <AbsDimension x="172" y="18"/>
                   </Size>
                   <Anchors>
                     <Anchor point="TOPLEFT">
                       <Offset>
-                        <AbsDimension x="14" y="171"/>
-                      </Offset>
-                    </Anchor>
-                  </Anchors>
-                  <FontHeight>
-                    <AbsValue val="12"/>
-                  </FontHeight>
-                </FontString>
-                <FontString name="AAC_ExchangeQuickaskPay" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
-                  <Size>
-                    <AbsDimension x="371" y="26"/>
-                  </Size>
-                  <Anchors>
-                    <Anchor point="TOPLEFT">
-                      <Offset>
-                        <AbsDimension x="14" y="191"/>
-                      </Offset>
-                    </Anchor>
-                  </Anchors>
-                  <FontHeight>
-                    <AbsValue val="16"/>
-                  </FontHeight>
-                </FontString>
-                <FontString name="AAC_ExchangeQuickaskReceiveLabel" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
-                  <Size>
-                    <AbsDimension x="371" y="18"/>
-                  </Size>
-                  <Anchors>
-                    <Anchor point="TOPLEFT">
-                      <Offset>
-                        <AbsDimension x="14" y="225"/>
-                      </Offset>
-                    </Anchor>
-                  </Anchors>
-                  <FontHeight>
-                    <AbsValue val="12"/>
-                  </FontHeight>
-                </FontString>
-                <FontString name="AAC_ExchangeQuickaskReceive" inherits="GameFontYellow" justifyH="LEFT" justifyV="TOP">
-                  <Size>
-                    <AbsDimension x="371" y="28"/>
-                  </Size>
-                  <Anchors>
-                    <Anchor point="TOPLEFT">
-                      <Offset>
-                        <AbsDimension x="14" y="245"/>
-                      </Offset>
-                    </Anchor>
-                  </Anchors>
-                  <FontHeight>
-                    <AbsValue val="20"/>
-                  </FontHeight>
-                  <Color r="0.4" g="0.78" b="1"/>
-                </FontString>
-                <FontString name="AAC_ExchangeQuickaskIncluded" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
-                  <Size>
-                    <AbsDimension x="371" y="16"/>
-                  </Size>
-                  <Anchors>
-                    <Anchor point="TOPLEFT">
-                      <Offset>
-                        <AbsDimension x="14" y="275"/>
+                        <AbsDimension x="207" y="137"/>
                       </Offset>
                     </Anchor>
                   </Anchors>
@@ -888,19 +825,105 @@
                     <AbsValue val="11"/>
                   </FontHeight>
                 </FontString>
-                <FontString name="AAC_ExchangeQuickaskNote" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
+                <FontString name="AAC_ExchangeQuickaskPay" inherits="GameFontHighlight" justifyH="LEFT" justifyV="MIDDLE">
                   <Size>
-                    <AbsDimension x="371" y="26"/>
+                    <AbsDimension x="172" y="26"/>
                   </Size>
                   <Anchors>
                     <Anchor point="TOPLEFT">
                       <Offset>
-                        <AbsDimension x="14" y="294"/>
+                        <AbsDimension x="207" y="162"/>
                       </Offset>
                     </Anchor>
                   </Anchors>
                   <FontHeight>
-                    <AbsValue val="10"/>
+                    <AbsValue val="16"/>
+                  </FontHeight>
+                </FontString>
+                <FontString name="AAC_ExchangeQuickaskReceiveLabel" inherits="GameFontHighlight" justifyH="LEFT" justifyV="MIDDLE">
+                  <Size>
+                    <AbsDimension x="172" y="18"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="18" y="137"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                  <FontHeight>
+                    <AbsValue val="11"/>
+                  </FontHeight>
+                </FontString>
+                <FontString name="AAC_ExchangeQuickaskReceive" inherits="GameFontYellow" justifyH="LEFT" justifyV="MIDDLE">
+                  <Size>
+                    <AbsDimension x="149" y="26"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="41" y="162"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                  <FontHeight>
+                    <AbsValue val="16"/>
+                  </FontHeight>
+                  <Color r="0.4" g="0.78" b="1"/>
+                </FontString>
+                <Texture name="AAC_ExchangeQuickaskReceiveIcon" file="Interface/Icons/crystal_01.dds">
+                  <Size>
+                    <AbsDimension x="16" y="16"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="18" y="167"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </Texture>
+                <Texture name="AAC_ExchangeQuickaskPayIcon" file="Interface/Icons/coin_03.dds">
+                  <Size>
+                    <AbsDimension x="16" y="16"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="207" y="167"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </Texture>
+                <FontString name="AAC_ExchangeQuickaskIncluded" inherits="GameFontHighlight" justifyH="LEFT" justifyV="MIDDLE">
+                  <Size>
+                    <AbsDimension x="361" y="18"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="18" y="287"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                  <FontHeight>
+                    <AbsValue val="11"/>
+                  </FontHeight>
+                  <Color r="0.741176" g="0.721569" b="0.658824"/>
+                </FontString>
+                <FontString name="AAC_ExchangeQuickaskNote" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
+                  <Size>
+                    <AbsDimension x="361" y="32"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="18" y="220"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                  <FontHeight>
+                    <AbsValue val="11"/>
                   </FontHeight>
                 </FontString>
                 <FontString name="AAC_ExchangeQuickaskEmpty" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
@@ -923,12 +946,12 @@
             <Frames>
               <EditBox name="AAC_ExchangeQuickaskAmount" inherits="UIPanelEditBoxTemplate" letters="18">
                 <Size>
-                  <AbsDimension x="371" y="24"/>
+                  <AbsDimension x="361" y="24"/>
                 </Size>
                 <Anchors>
                   <Anchor point="TOPLEFT">
                     <Offset>
-                      <AbsDimension x="14" y="86"/>
+                      <AbsDimension x="18" y="88"/>
                     </Offset>
                   </Anchor>
                 </Anchors>
@@ -936,16 +959,17 @@
                   <OnTextChanged>AAC.Exchange.QuickAmountChanged(&quot;ask&quot;)</OnTextChanged>
                   <OnEscapePressed>this:ClearFocus()</OnEscapePressed>
                   <OnEnterPressed>this:ClearFocus(); AAC.Exchange.Render()</OnEnterPressed>
+                  <OnEditFocusLost>AAC.Exchange.QuickAmountChanged(&quot;ask&quot;,true)</OnEditFocusLost>
                 </Scripts>
               </EditBox>
               <Button name="AAC_ExchangeQuickaskTrade" inherits="UIPanelButtonTemplate" text="">
                 <Size>
-                  <AbsDimension x="371" y="26"/>
+                  <AbsDimension x="214" y="28"/>
                 </Size>
                 <Anchors>
                   <Anchor point="TOPLEFT">
                     <Offset>
-                      <AbsDimension x="14" y="322"/>
+                      <AbsDimension x="165" y="315"/>
                     </Offset>
                   </Anchor>
                 </Anchors>
@@ -955,12 +979,12 @@
               </Button>
               <Button name="AAC_ExchangeQuickaskCustom" inherits="UIPanelButtonTemplate" text="">
                 <Size>
-                  <AbsDimension x="371" y="26"/>
+                  <AbsDimension x="361" y="28"/>
                 </Size>
                 <Anchors>
                   <Anchor point="TOPLEFT">
                     <Offset>
-                      <AbsDimension x="14" y="294"/>
+                      <AbsDimension x="18" y="315"/>
                     </Offset>
                   </Anchor>
                 </Anchors>
@@ -970,49 +994,37 @@
               </Button>
               <Frame name="AAC_ExchangeQuickaskRow1">
                 <Size>
-                  <AbsDimension x="371" y="45"/>
+                  <AbsDimension x="363" y="40"/>
                 </Size>
                 <Anchors>
                   <Anchor point="TOPLEFT">
                     <Offset>
-                      <AbsDimension x="14" y="76"/>
+                      <AbsDimension x="18" y="91"/>
                     </Offset>
                   </Anchor>
                 </Anchors>
-                <Backdrop edgeFile="Interface\AuctionFrame\AuctionFrame-Tooltip-Border" bgFile="Interface\AuctionFrame\AuctionFrame-Tooltip-Background">
-                  <EdgeSize>
-                    <AbsValue val="16"/>
-                  </EdgeSize>
-                  <TileSize>
-                    <AbsValue val="16"/>
-                  </TileSize>
-                  <BackgroundInsets>
-                    <AbsInset left="8" right="8" top="8" bottom="8"/>
-                  </BackgroundInsets>
-                </Backdrop>
                 <Layers>
                   <Layer>
-                    <Texture file="Interface\MoneyFrame\MoneyIcons">
+                    <Texture file="Interface/Icons/crystal_01.dds">
                       <Size>
-                        <AbsDimension x="20" y="20"/>
+                        <AbsDimension x="16" y="16"/>
                       </Size>
                       <Anchors>
                         <Anchor point="TOPLEFT">
                           <Offset>
-                            <AbsDimension x="8" y="3"/>
+                            <AbsDimension x="0" y="6"/>
                           </Offset>
                         </Anchor>
                       </Anchors>
-                      <TexCoords left="0.015625" right="0.03125" top="0" bottom="1"/>
                     </Texture>
-                    <FontString name="AAC_ExchangeQuickaskRow1Net" inherits="GameFontYellow" justifyH="LEFT" justifyV="TOP">
+                    <FontString name="AAC_ExchangeQuickaskRow1Net" inherits="GameFontYellow" justifyH="LEFT" justifyV="MIDDLE">
                       <Size>
-                        <AbsDimension x="174" y="22"/>
+                        <AbsDimension x="130" y="22"/>
                       </Size>
                       <Anchors>
                         <Anchor point="TOPLEFT">
                           <Offset>
-                            <AbsDimension x="32" y="3"/>
+                            <AbsDimension x="23" y="3"/>
                           </Offset>
                         </Anchor>
                       </Anchors>
@@ -1021,32 +1033,31 @@
                       </FontHeight>
                       <Color r="0.4" g="0.78" b="1"/>
                     </FontString>
-                    <Texture file="Interface\MoneyFrame\MoneyIcons">
+                    <Texture name="AAC_ExchangeQuickaskRow1CostIcon" file="Interface/Icons/coin_03.dds">
                       <Size>
-                        <AbsDimension x="14" y="14"/>
+                        <AbsDimension x="13" y="13"/>
                       </Size>
                       <Anchors>
                         <Anchor point="TOPLEFT">
                           <Offset>
-                            <AbsDimension x="8" y="25"/>
+                            <AbsDimension x="252" y="8"/>
                           </Offset>
                         </Anchor>
                       </Anchors>
-                      <TexCoords left="0.0" right="0.015625" top="0" bottom="1"/>
                     </Texture>
-                    <FontString name="AAC_ExchangeQuickaskRow1Cost" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
+                    <FontString name="AAC_ExchangeQuickaskRow1Cost" inherits="GameFontHighlight" justifyH="RIGHT" justifyV="MIDDLE">
                       <Size>
-                        <AbsDimension x="174" y="16"/>
+                        <AbsDimension x="91" y="20"/>
                       </Size>
                       <Anchors>
                         <Anchor point="TOPLEFT">
                           <Offset>
-                            <AbsDimension x="32" y="25"/>
+                            <AbsDimension x="153" y="5"/>
                           </Offset>
                         </Anchor>
                       </Anchors>
                       <FontHeight>
-                        <AbsValue val="11"/>
+                        <AbsValue val="12"/>
                       </FontHeight>
                     </FontString>
                   </Layer>
@@ -1054,66 +1065,54 @@
                 <Frames>
                   <Button name="AAC_ExchangeQuickaskRow1Buy" inherits="UIPanelButtonTemplate" text="">
                     <Size>
-                      <AbsDimension x="70" y="26"/>
+                      <AbsDimension x="78" y="28"/>
                     </Size>
                     <Anchors>
                       <Anchor point="TOPLEFT">
                         <Offset>
-                          <AbsDimension x="293" y="9"/>
+                          <AbsDimension x="283" y="0"/>
                         </Offset>
                       </Anchor>
                     </Anchors>
                     <Scripts>
-                      <OnClick>AAC.Exchange.QuickRow(&quot;ask&quot;,25)</OnClick>
+                      <OnClick>AAC.Exchange.QuickRow(&quot;ask&quot;,1000)</OnClick>
                     </Scripts>
                   </Button>
                 </Frames>
               </Frame>
               <Frame name="AAC_ExchangeQuickaskRow2">
                 <Size>
-                  <AbsDimension x="371" y="45"/>
+                  <AbsDimension x="363" y="40"/>
                 </Size>
                 <Anchors>
                   <Anchor point="TOPLEFT">
                     <Offset>
-                      <AbsDimension x="14" y="125"/>
+                      <AbsDimension x="18" y="137"/>
                     </Offset>
                   </Anchor>
                 </Anchors>
-                <Backdrop edgeFile="Interface\AuctionFrame\AuctionFrame-Tooltip-Border" bgFile="Interface\AuctionFrame\AuctionFrame-Tooltip-Background">
-                  <EdgeSize>
-                    <AbsValue val="16"/>
-                  </EdgeSize>
-                  <TileSize>
-                    <AbsValue val="16"/>
-                  </TileSize>
-                  <BackgroundInsets>
-                    <AbsInset left="8" right="8" top="8" bottom="8"/>
-                  </BackgroundInsets>
-                </Backdrop>
                 <Layers>
                   <Layer>
-                    <Texture file="Interface\MoneyFrame\MoneyIcons">
+                    <Texture file="Interface/Icons/crystal_01.dds">
                       <Size>
-                        <AbsDimension x="20" y="20"/>
+                        <AbsDimension x="16" y="16"/>
                       </Size>
                       <Anchors>
                         <Anchor point="TOPLEFT">
                           <Offset>
-                            <AbsDimension x="8" y="3"/>
+                            <AbsDimension x="0" y="6"/>
                           </Offset>
                         </Anchor>
                       </Anchors>
-                      <TexCoords left="0.015625" right="0.03125" top="0" bottom="1"/>
                     </Texture>
-                    <FontString name="AAC_ExchangeQuickaskRow2Net" inherits="GameFontYellow" justifyH="LEFT" justifyV="TOP">
+                    <FontString name="AAC_ExchangeQuickaskRow2Net" inherits="GameFontYellow" justifyH="LEFT" justifyV="MIDDLE">
                       <Size>
-                        <AbsDimension x="174" y="22"/>
+                        <AbsDimension x="130" y="22"/>
                       </Size>
                       <Anchors>
                         <Anchor point="TOPLEFT">
                           <Offset>
-                            <AbsDimension x="32" y="3"/>
+                            <AbsDimension x="23" y="3"/>
                           </Offset>
                         </Anchor>
                       </Anchors>
@@ -1122,32 +1121,31 @@
                       </FontHeight>
                       <Color r="0.4" g="0.78" b="1"/>
                     </FontString>
-                    <Texture file="Interface\MoneyFrame\MoneyIcons">
+                    <Texture name="AAC_ExchangeQuickaskRow2CostIcon" file="Interface/Icons/coin_03.dds">
                       <Size>
-                        <AbsDimension x="14" y="14"/>
+                        <AbsDimension x="13" y="13"/>
                       </Size>
                       <Anchors>
                         <Anchor point="TOPLEFT">
                           <Offset>
-                            <AbsDimension x="8" y="25"/>
+                            <AbsDimension x="252" y="8"/>
                           </Offset>
                         </Anchor>
                       </Anchors>
-                      <TexCoords left="0.0" right="0.015625" top="0" bottom="1"/>
                     </Texture>
-                    <FontString name="AAC_ExchangeQuickaskRow2Cost" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
+                    <FontString name="AAC_ExchangeQuickaskRow2Cost" inherits="GameFontHighlight" justifyH="RIGHT" justifyV="MIDDLE">
                       <Size>
-                        <AbsDimension x="174" y="16"/>
+                        <AbsDimension x="91" y="20"/>
                       </Size>
                       <Anchors>
                         <Anchor point="TOPLEFT">
                           <Offset>
-                            <AbsDimension x="32" y="25"/>
+                            <AbsDimension x="153" y="5"/>
                           </Offset>
                         </Anchor>
                       </Anchors>
                       <FontHeight>
-                        <AbsValue val="11"/>
+                        <AbsValue val="12"/>
                       </FontHeight>
                     </FontString>
                   </Layer>
@@ -1155,113 +1153,12 @@
                 <Frames>
                   <Button name="AAC_ExchangeQuickaskRow2Buy" inherits="UIPanelButtonTemplate" text="">
                     <Size>
-                      <AbsDimension x="70" y="26"/>
+                      <AbsDimension x="78" y="28"/>
                     </Size>
                     <Anchors>
                       <Anchor point="TOPLEFT">
                         <Offset>
-                          <AbsDimension x="293" y="9"/>
-                        </Offset>
-                      </Anchor>
-                    </Anchors>
-                    <Scripts>
-                      <OnClick>AAC.Exchange.QuickRow(&quot;ask&quot;,100)</OnClick>
-                    </Scripts>
-                  </Button>
-                </Frames>
-              </Frame>
-              <Frame name="AAC_ExchangeQuickaskRow3">
-                <Size>
-                  <AbsDimension x="371" y="45"/>
-                </Size>
-                <Anchors>
-                  <Anchor point="TOPLEFT">
-                    <Offset>
-                      <AbsDimension x="14" y="174"/>
-                    </Offset>
-                  </Anchor>
-                </Anchors>
-                <Backdrop edgeFile="Interface\AuctionFrame\AuctionFrame-Tooltip-Border" bgFile="Interface\AuctionFrame\AuctionFrame-Tooltip-Background">
-                  <EdgeSize>
-                    <AbsValue val="16"/>
-                  </EdgeSize>
-                  <TileSize>
-                    <AbsValue val="16"/>
-                  </TileSize>
-                  <BackgroundInsets>
-                    <AbsInset left="8" right="8" top="8" bottom="8"/>
-                  </BackgroundInsets>
-                </Backdrop>
-                <Layers>
-                  <Layer>
-                    <Texture file="Interface\MoneyFrame\MoneyIcons">
-                      <Size>
-                        <AbsDimension x="20" y="20"/>
-                      </Size>
-                      <Anchors>
-                        <Anchor point="TOPLEFT">
-                          <Offset>
-                            <AbsDimension x="8" y="3"/>
-                          </Offset>
-                        </Anchor>
-                      </Anchors>
-                      <TexCoords left="0.015625" right="0.03125" top="0" bottom="1"/>
-                    </Texture>
-                    <FontString name="AAC_ExchangeQuickaskRow3Net" inherits="GameFontYellow" justifyH="LEFT" justifyV="TOP">
-                      <Size>
-                        <AbsDimension x="174" y="22"/>
-                      </Size>
-                      <Anchors>
-                        <Anchor point="TOPLEFT">
-                          <Offset>
-                            <AbsDimension x="32" y="3"/>
-                          </Offset>
-                        </Anchor>
-                      </Anchors>
-                      <FontHeight>
-                        <AbsValue val="16"/>
-                      </FontHeight>
-                      <Color r="0.4" g="0.78" b="1"/>
-                    </FontString>
-                    <Texture file="Interface\MoneyFrame\MoneyIcons">
-                      <Size>
-                        <AbsDimension x="14" y="14"/>
-                      </Size>
-                      <Anchors>
-                        <Anchor point="TOPLEFT">
-                          <Offset>
-                            <AbsDimension x="8" y="25"/>
-                          </Offset>
-                        </Anchor>
-                      </Anchors>
-                      <TexCoords left="0.0" right="0.015625" top="0" bottom="1"/>
-                    </Texture>
-                    <FontString name="AAC_ExchangeQuickaskRow3Cost" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
-                      <Size>
-                        <AbsDimension x="174" y="16"/>
-                      </Size>
-                      <Anchors>
-                        <Anchor point="TOPLEFT">
-                          <Offset>
-                            <AbsDimension x="32" y="25"/>
-                          </Offset>
-                        </Anchor>
-                      </Anchors>
-                      <FontHeight>
-                        <AbsValue val="11"/>
-                      </FontHeight>
-                    </FontString>
-                  </Layer>
-                </Layers>
-                <Frames>
-                  <Button name="AAC_ExchangeQuickaskRow3Buy" inherits="UIPanelButtonTemplate" text="">
-                    <Size>
-                      <AbsDimension x="70" y="26"/>
-                    </Size>
-                    <Anchors>
-                      <Anchor point="TOPLEFT">
-                        <Offset>
-                          <AbsDimension x="293" y="9"/>
+                          <AbsDimension x="283" y="0"/>
                         </Offset>
                       </Anchor>
                     </Anchors>
@@ -1271,51 +1168,39 @@
                   </Button>
                 </Frames>
               </Frame>
-              <Frame name="AAC_ExchangeQuickaskRow4">
+              <Frame name="AAC_ExchangeQuickaskRow3">
                 <Size>
-                  <AbsDimension x="371" y="45"/>
+                  <AbsDimension x="363" y="40"/>
                 </Size>
                 <Anchors>
                   <Anchor point="TOPLEFT">
                     <Offset>
-                      <AbsDimension x="14" y="223"/>
+                      <AbsDimension x="18" y="183"/>
                     </Offset>
                   </Anchor>
                 </Anchors>
-                <Backdrop edgeFile="Interface\AuctionFrame\AuctionFrame-Tooltip-Border" bgFile="Interface\AuctionFrame\AuctionFrame-Tooltip-Background">
-                  <EdgeSize>
-                    <AbsValue val="16"/>
-                  </EdgeSize>
-                  <TileSize>
-                    <AbsValue val="16"/>
-                  </TileSize>
-                  <BackgroundInsets>
-                    <AbsInset left="8" right="8" top="8" bottom="8"/>
-                  </BackgroundInsets>
-                </Backdrop>
                 <Layers>
                   <Layer>
-                    <Texture file="Interface\MoneyFrame\MoneyIcons">
+                    <Texture file="Interface/Icons/crystal_01.dds">
                       <Size>
-                        <AbsDimension x="20" y="20"/>
+                        <AbsDimension x="16" y="16"/>
                       </Size>
                       <Anchors>
                         <Anchor point="TOPLEFT">
                           <Offset>
-                            <AbsDimension x="8" y="3"/>
+                            <AbsDimension x="0" y="6"/>
                           </Offset>
                         </Anchor>
                       </Anchors>
-                      <TexCoords left="0.015625" right="0.03125" top="0" bottom="1"/>
                     </Texture>
-                    <FontString name="AAC_ExchangeQuickaskRow4Net" inherits="GameFontYellow" justifyH="LEFT" justifyV="TOP">
+                    <FontString name="AAC_ExchangeQuickaskRow3Net" inherits="GameFontYellow" justifyH="LEFT" justifyV="MIDDLE">
                       <Size>
-                        <AbsDimension x="174" y="22"/>
+                        <AbsDimension x="130" y="22"/>
                       </Size>
                       <Anchors>
                         <Anchor point="TOPLEFT">
                           <Offset>
-                            <AbsDimension x="32" y="3"/>
+                            <AbsDimension x="23" y="3"/>
                           </Offset>
                         </Anchor>
                       </Anchors>
@@ -1324,32 +1209,119 @@
                       </FontHeight>
                       <Color r="0.4" g="0.78" b="1"/>
                     </FontString>
-                    <Texture file="Interface\MoneyFrame\MoneyIcons">
+                    <Texture name="AAC_ExchangeQuickaskRow3CostIcon" file="Interface/Icons/coin_03.dds">
                       <Size>
-                        <AbsDimension x="14" y="14"/>
+                        <AbsDimension x="13" y="13"/>
                       </Size>
                       <Anchors>
                         <Anchor point="TOPLEFT">
                           <Offset>
-                            <AbsDimension x="8" y="25"/>
+                            <AbsDimension x="252" y="8"/>
                           </Offset>
                         </Anchor>
                       </Anchors>
-                      <TexCoords left="0.0" right="0.015625" top="0" bottom="1"/>
                     </Texture>
-                    <FontString name="AAC_ExchangeQuickaskRow4Cost" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
+                    <FontString name="AAC_ExchangeQuickaskRow3Cost" inherits="GameFontHighlight" justifyH="RIGHT" justifyV="MIDDLE">
                       <Size>
-                        <AbsDimension x="174" y="16"/>
+                        <AbsDimension x="91" y="20"/>
                       </Size>
                       <Anchors>
                         <Anchor point="TOPLEFT">
                           <Offset>
-                            <AbsDimension x="32" y="25"/>
+                            <AbsDimension x="153" y="5"/>
                           </Offset>
                         </Anchor>
                       </Anchors>
                       <FontHeight>
-                        <AbsValue val="11"/>
+                        <AbsValue val="12"/>
+                      </FontHeight>
+                    </FontString>
+                  </Layer>
+                </Layers>
+                <Frames>
+                  <Button name="AAC_ExchangeQuickaskRow3Buy" inherits="UIPanelButtonTemplate" text="">
+                    <Size>
+                      <AbsDimension x="78" y="28"/>
+                    </Size>
+                    <Anchors>
+                      <Anchor point="TOPLEFT">
+                        <Offset>
+                          <AbsDimension x="283" y="0"/>
+                        </Offset>
+                      </Anchor>
+                    </Anchors>
+                    <Scripts>
+                      <OnClick>AAC.Exchange.QuickRow(&quot;ask&quot;,100)</OnClick>
+                    </Scripts>
+                  </Button>
+                </Frames>
+              </Frame>
+              <Frame name="AAC_ExchangeQuickaskRow4">
+                <Size>
+                  <AbsDimension x="363" y="40"/>
+                </Size>
+                <Anchors>
+                  <Anchor point="TOPLEFT">
+                    <Offset>
+                      <AbsDimension x="18" y="229"/>
+                    </Offset>
+                  </Anchor>
+                </Anchors>
+                <Layers>
+                  <Layer>
+                    <Texture file="Interface/Icons/crystal_01.dds">
+                      <Size>
+                        <AbsDimension x="16" y="16"/>
+                      </Size>
+                      <Anchors>
+                        <Anchor point="TOPLEFT">
+                          <Offset>
+                            <AbsDimension x="0" y="6"/>
+                          </Offset>
+                        </Anchor>
+                      </Anchors>
+                    </Texture>
+                    <FontString name="AAC_ExchangeQuickaskRow4Net" inherits="GameFontYellow" justifyH="LEFT" justifyV="MIDDLE">
+                      <Size>
+                        <AbsDimension x="130" y="22"/>
+                      </Size>
+                      <Anchors>
+                        <Anchor point="TOPLEFT">
+                          <Offset>
+                            <AbsDimension x="23" y="3"/>
+                          </Offset>
+                        </Anchor>
+                      </Anchors>
+                      <FontHeight>
+                        <AbsValue val="16"/>
+                      </FontHeight>
+                      <Color r="0.4" g="0.78" b="1"/>
+                    </FontString>
+                    <Texture name="AAC_ExchangeQuickaskRow4CostIcon" file="Interface/Icons/coin_03.dds">
+                      <Size>
+                        <AbsDimension x="13" y="13"/>
+                      </Size>
+                      <Anchors>
+                        <Anchor point="TOPLEFT">
+                          <Offset>
+                            <AbsDimension x="252" y="8"/>
+                          </Offset>
+                        </Anchor>
+                      </Anchors>
+                    </Texture>
+                    <FontString name="AAC_ExchangeQuickaskRow4Cost" inherits="GameFontHighlight" justifyH="RIGHT" justifyV="MIDDLE">
+                      <Size>
+                        <AbsDimension x="91" y="20"/>
+                      </Size>
+                      <Anchors>
+                        <Anchor point="TOPLEFT">
+                          <Offset>
+                            <AbsDimension x="153" y="5"/>
+                          </Offset>
+                        </Anchor>
+                      </Anchors>
+                      <FontHeight>
+                        <AbsValue val="12"/>
                       </FontHeight>
                     </FontString>
                   </Layer>
@@ -1357,17 +1329,17 @@
                 <Frames>
                   <Button name="AAC_ExchangeQuickaskRow4Buy" inherits="UIPanelButtonTemplate" text="">
                     <Size>
-                      <AbsDimension x="70" y="26"/>
+                      <AbsDimension x="78" y="28"/>
                     </Size>
                     <Anchors>
                       <Anchor point="TOPLEFT">
                         <Offset>
-                          <AbsDimension x="293" y="9"/>
+                          <AbsDimension x="283" y="0"/>
                         </Offset>
                       </Anchor>
                     </Anchors>
                     <Scripts>
-                      <OnClick>AAC.Exchange.QuickRow(&quot;ask&quot;,1000)</OnClick>
+                      <OnClick>AAC.Exchange.QuickRow(&quot;ask&quot;,25)</OnClick>
                     </Scripts>
                   </Button>
                 </Frames>
@@ -1505,7 +1477,7 @@
                   <Layer>
                     <Texture file="Interface\MoneyFrame\MoneyIcons">
                       <Size>
-                        <AbsDimension x="20" y="20"/>
+                        <AbsDimension x="16" y="16"/>
                       </Size>
                       <Anchors>
                         <Anchor point="TOPLEFT">
@@ -1568,7 +1540,7 @@
                   <Layer>
                     <Texture file="Interface\MoneyFrame\MoneyIcons">
                       <Size>
-                        <AbsDimension x="20" y="20"/>
+                        <AbsDimension x="16" y="16"/>
                       </Size>
                       <Anchors>
                         <Anchor point="TOPLEFT">
@@ -1631,7 +1603,7 @@
                   <Layer>
                     <Texture file="Interface\MoneyFrame\MoneyIcons">
                       <Size>
-                        <AbsDimension x="20" y="20"/>
+                        <AbsDimension x="16" y="16"/>
                       </Size>
                       <Anchors>
                         <Anchor point="TOPLEFT">
@@ -1694,7 +1666,7 @@
                   <Layer>
                     <Texture file="Interface\MoneyFrame\MoneyIcons">
                       <Size>
-                        <AbsDimension x="20" y="20"/>
+                        <AbsDimension x="16" y="16"/>
                       </Size>
                       <Anchors>
                         <Anchor point="TOPLEFT">
@@ -1757,7 +1729,7 @@
                   <Layer>
                     <Texture file="Interface\MoneyFrame\MoneyIcons">
                       <Size>
-                        <AbsDimension x="20" y="20"/>
+                        <AbsDimension x="16" y="16"/>
                       </Size>
                       <Anchors>
                         <Anchor point="TOPLEFT">
@@ -1820,7 +1792,7 @@
                   <Layer>
                     <Texture file="Interface\MoneyFrame\MoneyIcons">
                       <Size>
-                        <AbsDimension x="20" y="20"/>
+                        <AbsDimension x="16" y="16"/>
                       </Size>
                       <Anchors>
                         <Anchor point="TOPLEFT">
@@ -1883,7 +1855,7 @@
                   <Layer>
                     <Texture file="Interface\MoneyFrame\MoneyIcons">
                       <Size>
-                        <AbsDimension x="20" y="20"/>
+                        <AbsDimension x="16" y="16"/>
                       </Size>
                       <Anchors>
                         <Anchor point="TOPLEFT">
@@ -2000,24 +1972,24 @@
       </Frame>
       <Frame name="AAC_ExchangeOfferPanel">
         <Size>
-          <AbsDimension x="814" y="350"/>
+          <AbsDimension x="800" y="162"/>
         </Size>
         <Anchors>
           <Anchor point="TOPLEFT">
             <Offset>
-              <AbsDimension x="0" y="48"/>
+              <AbsDimension x="5" y="32"/>
             </Offset>
           </Anchor>
         </Anchors>
         <Frames>
           <Frame name="AAC_ExchangeOfferbidCard">
             <Size>
-              <AbsDimension x="396" y="350"/>
+              <AbsDimension x="800" y="162"/>
             </Size>
             <Anchors>
               <Anchor point="TOPLEFT">
                 <Offset>
-                  <AbsDimension x="8" y="0"/>
+                  <AbsDimension x="0" y="0"/>
                 </Offset>
               </Anchor>
             </Anchors>
@@ -2034,42 +2006,29 @@
             </Backdrop>
             <Layers>
               <Layer>
-                <Texture file="Interface\MoneyFrame\MoneyIcons">
-                  <Size>
-                    <AbsDimension x="20" y="20"/>
-                  </Size>
-                  <Anchors>
-                    <Anchor point="TOPLEFT">
-                      <Offset>
-                        <AbsDimension x="20" y="20"/>
-                      </Offset>
-                    </Anchor>
-                  </Anchors>
-                  <TexCoords left="0.0" right="0.015625" top="0" bottom="1"/>
-                </Texture>
                 <FontString name="AAC_ExchangeOfferbidTitle" inherits="GameFontYellow" justifyH="LEFT" justifyV="TOP">
                   <Size>
-                    <AbsDimension x="328" y="28"/>
+                    <AbsDimension x="175" y="22"/>
                   </Size>
                   <Anchors>
                     <Anchor point="TOPLEFT">
                       <Offset>
-                        <AbsDimension x="48" y="18"/>
+                        <AbsDimension x="16" y="10"/>
                       </Offset>
                     </Anchor>
                   </Anchors>
                   <FontHeight>
-                    <AbsValue val="18"/>
+                    <AbsValue val="12"/>
                   </FontHeight>
                 </FontString>
                 <FontString name="AAC_ExchangeOfferbidAmountLabel" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
                   <Size>
-                    <AbsDimension x="354" y="22"/>
+                    <AbsDimension x="175" y="20"/>
                   </Size>
                   <Anchors>
                     <Anchor point="TOPLEFT">
                       <Offset>
-                        <AbsDimension x="20" y="57"/>
+                        <AbsDimension x="16" y="88"/>
                       </Offset>
                     </Anchor>
                   </Anchors>
@@ -2079,25 +2038,25 @@
                 </FontString>
                 <Texture file="Interface\MoneyFrame\MoneyIcons">
                   <Size>
-                    <AbsDimension x="20" y="20"/>
+                    <AbsDimension x="16" y="16"/>
                   </Size>
                   <Anchors>
                     <Anchor point="TOPLEFT">
                       <Offset>
-                        <AbsDimension x="354" y="82"/>
+                        <AbsDimension x="167" y="115"/>
                       </Offset>
                     </Anchor>
                   </Anchors>
                   <TexCoords left="0.0" right="0.015625" top="0" bottom="1"/>
                 </Texture>
-                <FontString name="AAC_ExchangeOfferbidTotalLabel" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
+                <FontString name="AAC_ExchangeOfferbidTotalLabel" inherits="GameFontYellow" justifyH="LEFT" justifyV="TOP">
                   <Size>
-                    <AbsDimension x="354" y="22"/>
+                    <AbsDimension x="245" y="22"/>
                   </Size>
                   <Anchors>
                     <Anchor point="TOPLEFT">
                       <Offset>
-                        <AbsDimension x="20" y="111"/>
+                        <AbsDimension x="212" y="10"/>
                       </Offset>
                     </Anchor>
                   </Anchors>
@@ -2107,25 +2066,25 @@
                 </FontString>
                 <Texture file="Interface\MoneyFrame\MoneyIcons">
                   <Size>
-                    <AbsDimension x="20" y="20"/>
+                    <AbsDimension x="16" y="16"/>
                   </Size>
                   <Anchors>
                     <Anchor point="TOPLEFT">
                       <Offset>
-                        <AbsDimension x="354" y="136"/>
+                        <AbsDimension x="443" y="39"/>
                       </Offset>
                     </Anchor>
                   </Anchors>
                   <TexCoords left="0.015625" right="0.03125" top="0" bottom="1"/>
                 </Texture>
-                <FontString name="AAC_ExchangeOfferbidRateLabel" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
+                <FontString name="AAC_ExchangeOfferbidRateLabel" inherits="GameFontYellow" justifyH="LEFT" justifyV="TOP">
                   <Size>
-                    <AbsDimension x="354" y="22"/>
+                    <AbsDimension x="245" y="22"/>
                   </Size>
                   <Anchors>
                     <Anchor point="TOPLEFT">
                       <Offset>
-                        <AbsDimension x="20" y="165"/>
+                        <AbsDimension x="212" y="79"/>
                       </Offset>
                     </Anchor>
                   </Anchors>
@@ -2135,12 +2094,12 @@
                 </FontString>
                 <Texture file="Interface\MoneyFrame\MoneyIcons">
                   <Size>
-                    <AbsDimension x="20" y="20"/>
+                    <AbsDimension x="16" y="16"/>
                   </Size>
                   <Anchors>
                     <Anchor point="TOPLEFT">
                       <Offset>
-                        <AbsDimension x="354" y="190"/>
+                        <AbsDimension x="443" y="108"/>
                       </Offset>
                     </Anchor>
                   </Anchors>
@@ -2148,12 +2107,12 @@
                 </Texture>
                 <FontString name="AAC_ExchangeOfferbidPayLabel" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
                   <Size>
-                    <AbsDimension x="170" y="20"/>
+                    <AbsDimension x="120" y="20"/>
                   </Size>
                   <Anchors>
                     <Anchor point="TOPLEFT">
                       <Offset>
-                        <AbsDimension x="20" y="222"/>
+                        <AbsDimension x="490" y="10"/>
                       </Offset>
                     </Anchor>
                   </Anchors>
@@ -2163,27 +2122,27 @@
                 </FontString>
                 <FontString name="AAC_ExchangeOfferbidPay" inherits="GameFontYellow" justifyH="LEFT" justifyV="TOP">
                   <Size>
-                    <AbsDimension x="170" y="24"/>
+                    <AbsDimension x="120" y="23"/>
                   </Size>
                   <Anchors>
                     <Anchor point="TOPLEFT">
                       <Offset>
-                        <AbsDimension x="20" y="244"/>
+                        <AbsDimension x="490" y="31"/>
                       </Offset>
                     </Anchor>
                   </Anchors>
                   <FontHeight>
-                    <AbsValue val="14"/>
+                    <AbsValue val="12"/>
                   </FontHeight>
                 </FontString>
                 <FontString name="AAC_ExchangeOfferbidReceiveLabel" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
                   <Size>
-                    <AbsDimension x="170" y="20"/>
+                    <AbsDimension x="166" y="20"/>
                   </Size>
                   <Anchors>
                     <Anchor point="TOPLEFT">
                       <Offset>
-                        <AbsDimension x="210" y="222"/>
+                        <AbsDimension x="620" y="10"/>
                       </Offset>
                     </Anchor>
                   </Anchors>
@@ -2193,27 +2152,27 @@
                 </FontString>
                 <FontString name="AAC_ExchangeOfferbidReceive" inherits="GameFontYellow" justifyH="LEFT" justifyV="TOP">
                   <Size>
-                    <AbsDimension x="170" y="24"/>
+                    <AbsDimension x="166" y="23"/>
                   </Size>
                   <Anchors>
                     <Anchor point="TOPLEFT">
                       <Offset>
-                        <AbsDimension x="210" y="244"/>
+                        <AbsDimension x="620" y="31"/>
                       </Offset>
                     </Anchor>
                   </Anchors>
                   <FontHeight>
-                    <AbsValue val="14"/>
+                    <AbsValue val="12"/>
                   </FontHeight>
                 </FontString>
                 <FontString name="AAC_ExchangeOfferbidFee" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
                   <Size>
-                    <AbsDimension x="354" y="26"/>
+                    <AbsDimension x="294" y="27"/>
                   </Size>
                   <Anchors>
                     <Anchor point="TOPLEFT">
                       <Offset>
-                        <AbsDimension x="20" y="272"/>
+                        <AbsDimension x="490" y="60"/>
                       </Offset>
                     </Anchor>
                   </Anchors>
@@ -2223,12 +2182,12 @@
                 </FontString>
                 <FontString name="AAC_ExchangeOfferbidNote" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
                   <Size>
-                    <AbsDimension x="354" y="14"/>
+                    <AbsDimension x="294" y="30"/>
                   </Size>
                   <Anchors>
                     <Anchor point="TOPLEFT">
                       <Offset>
-                        <AbsDimension x="20" y="299"/>
+                        <AbsDimension x="490" y="88"/>
                       </Offset>
                     </Anchor>
                   </Anchors>
@@ -2236,17 +2195,41 @@
                     <AbsValue val="10"/>
                   </FontHeight>
                 </FontString>
+                <Texture file="Interface/AuctionFrame/AuctionSeparate-VerticalLine">
+                  <Size>
+                    <AbsDimension x="4" y="142"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="194" y="8"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </Texture>
+                <Texture file="Interface/AuctionFrame/AuctionSeparate-VerticalLine">
+                  <Size>
+                    <AbsDimension x="4" y="142"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="474" y="8"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </Texture>
               </Layer>
             </Layers>
             <Frames>
               <EditBox name="AAC_ExchangeOfferbidAmount" inherits="UIPanelEditBoxTemplate" letters="18">
                 <Size>
-                  <AbsDimension x="324" y="24"/>
+                  <AbsDimension x="140" y="24"/>
                 </Size>
                 <Anchors>
                   <Anchor point="TOPLEFT">
                     <Offset>
-                      <AbsDimension x="20" y="80"/>
+                      <AbsDimension x="16" y="112"/>
                     </Offset>
                   </Anchor>
                 </Anchors>
@@ -2254,16 +2237,17 @@
                   <OnTextChanged>AAC.Exchange.OfferChanged(&quot;bid&quot;,&quot;Amount&quot;)</OnTextChanged>
                   <OnEscapePressed>this:ClearFocus()</OnEscapePressed>
                   <OnEnterPressed>this:ClearFocus(); AAC.Exchange.Render()</OnEnterPressed>
+                  <OnEditFocusLost>AAC.Exchange.OfferChanged(&quot;bid&quot;,&quot;Amount&quot;,true)</OnEditFocusLost>
                 </Scripts>
               </EditBox>
               <EditBox name="AAC_ExchangeOfferbidTotal" inherits="UIPanelEditBoxTemplate" letters="18">
                 <Size>
-                  <AbsDimension x="324" y="24"/>
+                  <AbsDimension x="220" y="24"/>
                 </Size>
                 <Anchors>
                   <Anchor point="TOPLEFT">
                     <Offset>
-                      <AbsDimension x="20" y="134"/>
+                      <AbsDimension x="212" y="36"/>
                     </Offset>
                   </Anchor>
                 </Anchors>
@@ -2271,16 +2255,17 @@
                   <OnTextChanged>AAC.Exchange.OfferChanged(&quot;bid&quot;,&quot;Total&quot;)</OnTextChanged>
                   <OnEscapePressed>this:ClearFocus()</OnEscapePressed>
                   <OnEnterPressed>this:ClearFocus(); AAC.Exchange.Render()</OnEnterPressed>
+                  <OnEditFocusLost>AAC.Exchange.OfferChanged(&quot;bid&quot;,&quot;Total&quot;,true)</OnEditFocusLost>
                 </Scripts>
               </EditBox>
               <EditBox name="AAC_ExchangeOfferbidRate" inherits="UIPanelEditBoxTemplate" letters="18">
                 <Size>
-                  <AbsDimension x="324" y="24"/>
+                  <AbsDimension x="220" y="24"/>
                 </Size>
                 <Anchors>
                   <Anchor point="TOPLEFT">
                     <Offset>
-                      <AbsDimension x="20" y="188"/>
+                      <AbsDimension x="212" y="105"/>
                     </Offset>
                   </Anchor>
                 </Anchors>
@@ -2288,16 +2273,17 @@
                   <OnTextChanged>AAC.Exchange.OfferChanged(&quot;bid&quot;,&quot;Rate&quot;)</OnTextChanged>
                   <OnEscapePressed>this:ClearFocus()</OnEscapePressed>
                   <OnEnterPressed>this:ClearFocus(); AAC.Exchange.Render()</OnEnterPressed>
+                  <OnEditFocusLost>AAC.Exchange.OfferChanged(&quot;bid&quot;,&quot;Rate&quot;,true)</OnEditFocusLost>
                 </Scripts>
               </EditBox>
               <Button name="AAC_ExchangeOfferbidCreate" inherits="UIPanelButtonTemplate" text="">
                 <Size>
-                  <AbsDimension x="354" y="26"/>
+                  <AbsDimension x="294" y="26"/>
                 </Size>
                 <Anchors>
                   <Anchor point="TOPLEFT">
                     <Offset>
-                      <AbsDimension x="20" y="315"/>
+                      <AbsDimension x="490" y="126"/>
                     </Offset>
                   </Anchor>
                 </Anchors>
@@ -2305,16 +2291,110 @@
                   <OnClick>AAC.Exchange.CreateOffer(&quot;bid&quot;)</OnClick>
                 </Scripts>
               </Button>
+              <CheckButton name="AAC_ExchangeOfferbidChoosebid" inherits="MoneyModeRadioButtonTemplate">
+                <Size>
+                  <AbsDimension x="16" y="16"/>
+                </Size>
+                <Anchors>
+                  <Anchor point="TOPLEFT">
+                    <Offset>
+                      <AbsDimension x="16" y="36"/>
+                    </Offset>
+                  </Anchor>
+                </Anchors>
+                <Layers>
+                  <Layer>
+                    <Texture file="Interface\MoneyFrame\MoneyIcons">
+                      <Size>
+                        <AbsDimension x="16" y="16"/>
+                      </Size>
+                      <Anchors>
+                        <Anchor point="TOPLEFT">
+                          <Offset>
+                            <AbsDimension x="16" y="0"/>
+                          </Offset>
+                        </Anchor>
+                      </Anchors>
+                      <TexCoords left="0.0" right="0.015625" top="0" bottom="1"/>
+                    </Texture>
+                    <FontString name="AAC_ExchangeOfferbidChoosebidCaption" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
+                      <Size>
+                        <AbsDimension x="120" y="20"/>
+                      </Size>
+                      <Anchors>
+                        <Anchor point="TOPLEFT">
+                          <Offset>
+                            <AbsDimension x="40" y="0"/>
+                          </Offset>
+                        </Anchor>
+                      </Anchors>
+                      <FontHeight>
+                        <AbsValue val="12"/>
+                      </FontHeight>
+                    </FontString>
+                  </Layer>
+                </Layers>
+                <Scripts>
+                  <OnClick>AAC.Exchange.OfferDirection(&quot;bid&quot;)</OnClick>
+                </Scripts>
+              </CheckButton>
+              <CheckButton name="AAC_ExchangeOfferbidChooseask" inherits="MoneyModeRadioButtonTemplate">
+                <Size>
+                  <AbsDimension x="16" y="16"/>
+                </Size>
+                <Anchors>
+                  <Anchor point="TOPLEFT">
+                    <Offset>
+                      <AbsDimension x="16" y="62"/>
+                    </Offset>
+                  </Anchor>
+                </Anchors>
+                <Layers>
+                  <Layer>
+                    <Texture file="Interface\MoneyFrame\MoneyIcons">
+                      <Size>
+                        <AbsDimension x="16" y="16"/>
+                      </Size>
+                      <Anchors>
+                        <Anchor point="TOPLEFT">
+                          <Offset>
+                            <AbsDimension x="16" y="0"/>
+                          </Offset>
+                        </Anchor>
+                      </Anchors>
+                      <TexCoords left="0.015625" right="0.03125" top="0" bottom="1"/>
+                    </Texture>
+                    <FontString name="AAC_ExchangeOfferbidChooseaskCaption" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
+                      <Size>
+                        <AbsDimension x="120" y="20"/>
+                      </Size>
+                      <Anchors>
+                        <Anchor point="TOPLEFT">
+                          <Offset>
+                            <AbsDimension x="40" y="0"/>
+                          </Offset>
+                        </Anchor>
+                      </Anchors>
+                      <FontHeight>
+                        <AbsValue val="12"/>
+                      </FontHeight>
+                    </FontString>
+                  </Layer>
+                </Layers>
+                <Scripts>
+                  <OnClick>AAC.Exchange.OfferDirection(&quot;ask&quot;)</OnClick>
+                </Scripts>
+              </CheckButton>
             </Frames>
           </Frame>
           <Frame name="AAC_ExchangeOfferaskCard">
             <Size>
-              <AbsDimension x="396" y="350"/>
+              <AbsDimension x="800" y="162"/>
             </Size>
             <Anchors>
               <Anchor point="TOPLEFT">
                 <Offset>
-                  <AbsDimension x="410" y="0"/>
+                  <AbsDimension x="0" y="0"/>
                 </Offset>
               </Anchor>
             </Anchors>
@@ -2331,42 +2411,29 @@
             </Backdrop>
             <Layers>
               <Layer>
-                <Texture file="Interface\MoneyFrame\MoneyIcons">
-                  <Size>
-                    <AbsDimension x="20" y="20"/>
-                  </Size>
-                  <Anchors>
-                    <Anchor point="TOPLEFT">
-                      <Offset>
-                        <AbsDimension x="20" y="20"/>
-                      </Offset>
-                    </Anchor>
-                  </Anchors>
-                  <TexCoords left="0.015625" right="0.03125" top="0" bottom="1"/>
-                </Texture>
                 <FontString name="AAC_ExchangeOfferaskTitle" inherits="GameFontYellow" justifyH="LEFT" justifyV="TOP">
                   <Size>
-                    <AbsDimension x="328" y="28"/>
+                    <AbsDimension x="175" y="22"/>
                   </Size>
                   <Anchors>
                     <Anchor point="TOPLEFT">
                       <Offset>
-                        <AbsDimension x="48" y="18"/>
+                        <AbsDimension x="16" y="10"/>
                       </Offset>
                     </Anchor>
                   </Anchors>
                   <FontHeight>
-                    <AbsValue val="18"/>
+                    <AbsValue val="12"/>
                   </FontHeight>
                 </FontString>
                 <FontString name="AAC_ExchangeOfferaskAmountLabel" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
                   <Size>
-                    <AbsDimension x="354" y="22"/>
+                    <AbsDimension x="175" y="20"/>
                   </Size>
                   <Anchors>
                     <Anchor point="TOPLEFT">
                       <Offset>
-                        <AbsDimension x="20" y="57"/>
+                        <AbsDimension x="16" y="88"/>
                       </Offset>
                     </Anchor>
                   </Anchors>
@@ -2376,25 +2443,25 @@
                 </FontString>
                 <Texture file="Interface\MoneyFrame\MoneyIcons">
                   <Size>
-                    <AbsDimension x="20" y="20"/>
+                    <AbsDimension x="16" y="16"/>
                   </Size>
                   <Anchors>
                     <Anchor point="TOPLEFT">
                       <Offset>
-                        <AbsDimension x="354" y="82"/>
+                        <AbsDimension x="167" y="115"/>
                       </Offset>
                     </Anchor>
                   </Anchors>
                   <TexCoords left="0.015625" right="0.03125" top="0" bottom="1"/>
                 </Texture>
-                <FontString name="AAC_ExchangeOfferaskTotalLabel" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
+                <FontString name="AAC_ExchangeOfferaskTotalLabel" inherits="GameFontYellow" justifyH="LEFT" justifyV="TOP">
                   <Size>
-                    <AbsDimension x="354" y="22"/>
+                    <AbsDimension x="245" y="22"/>
                   </Size>
                   <Anchors>
                     <Anchor point="TOPLEFT">
                       <Offset>
-                        <AbsDimension x="20" y="111"/>
+                        <AbsDimension x="212" y="10"/>
                       </Offset>
                     </Anchor>
                   </Anchors>
@@ -2404,25 +2471,25 @@
                 </FontString>
                 <Texture file="Interface\MoneyFrame\MoneyIcons">
                   <Size>
-                    <AbsDimension x="20" y="20"/>
+                    <AbsDimension x="16" y="16"/>
                   </Size>
                   <Anchors>
                     <Anchor point="TOPLEFT">
                       <Offset>
-                        <AbsDimension x="354" y="136"/>
+                        <AbsDimension x="443" y="39"/>
                       </Offset>
                     </Anchor>
                   </Anchors>
                   <TexCoords left="0.0" right="0.015625" top="0" bottom="1"/>
                 </Texture>
-                <FontString name="AAC_ExchangeOfferaskRateLabel" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
+                <FontString name="AAC_ExchangeOfferaskRateLabel" inherits="GameFontYellow" justifyH="LEFT" justifyV="TOP">
                   <Size>
-                    <AbsDimension x="354" y="22"/>
+                    <AbsDimension x="245" y="22"/>
                   </Size>
                   <Anchors>
                     <Anchor point="TOPLEFT">
                       <Offset>
-                        <AbsDimension x="20" y="165"/>
+                        <AbsDimension x="212" y="79"/>
                       </Offset>
                     </Anchor>
                   </Anchors>
@@ -2432,12 +2499,12 @@
                 </FontString>
                 <Texture file="Interface\MoneyFrame\MoneyIcons">
                   <Size>
-                    <AbsDimension x="20" y="20"/>
+                    <AbsDimension x="16" y="16"/>
                   </Size>
                   <Anchors>
                     <Anchor point="TOPLEFT">
                       <Offset>
-                        <AbsDimension x="354" y="190"/>
+                        <AbsDimension x="443" y="108"/>
                       </Offset>
                     </Anchor>
                   </Anchors>
@@ -2445,12 +2512,12 @@
                 </Texture>
                 <FontString name="AAC_ExchangeOfferaskPayLabel" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
                   <Size>
-                    <AbsDimension x="170" y="20"/>
+                    <AbsDimension x="120" y="20"/>
                   </Size>
                   <Anchors>
                     <Anchor point="TOPLEFT">
                       <Offset>
-                        <AbsDimension x="20" y="222"/>
+                        <AbsDimension x="490" y="10"/>
                       </Offset>
                     </Anchor>
                   </Anchors>
@@ -2460,27 +2527,27 @@
                 </FontString>
                 <FontString name="AAC_ExchangeOfferaskPay" inherits="GameFontYellow" justifyH="LEFT" justifyV="TOP">
                   <Size>
-                    <AbsDimension x="170" y="24"/>
+                    <AbsDimension x="120" y="23"/>
                   </Size>
                   <Anchors>
                     <Anchor point="TOPLEFT">
                       <Offset>
-                        <AbsDimension x="20" y="244"/>
+                        <AbsDimension x="490" y="31"/>
                       </Offset>
                     </Anchor>
                   </Anchors>
                   <FontHeight>
-                    <AbsValue val="14"/>
+                    <AbsValue val="12"/>
                   </FontHeight>
                 </FontString>
                 <FontString name="AAC_ExchangeOfferaskReceiveLabel" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
                   <Size>
-                    <AbsDimension x="170" y="20"/>
+                    <AbsDimension x="166" y="20"/>
                   </Size>
                   <Anchors>
                     <Anchor point="TOPLEFT">
                       <Offset>
-                        <AbsDimension x="210" y="222"/>
+                        <AbsDimension x="620" y="10"/>
                       </Offset>
                     </Anchor>
                   </Anchors>
@@ -2490,27 +2557,27 @@
                 </FontString>
                 <FontString name="AAC_ExchangeOfferaskReceive" inherits="GameFontYellow" justifyH="LEFT" justifyV="TOP">
                   <Size>
-                    <AbsDimension x="170" y="24"/>
+                    <AbsDimension x="166" y="23"/>
                   </Size>
                   <Anchors>
                     <Anchor point="TOPLEFT">
                       <Offset>
-                        <AbsDimension x="210" y="244"/>
+                        <AbsDimension x="620" y="31"/>
                       </Offset>
                     </Anchor>
                   </Anchors>
                   <FontHeight>
-                    <AbsValue val="14"/>
+                    <AbsValue val="12"/>
                   </FontHeight>
                 </FontString>
                 <FontString name="AAC_ExchangeOfferaskFee" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
                   <Size>
-                    <AbsDimension x="354" y="26"/>
+                    <AbsDimension x="294" y="27"/>
                   </Size>
                   <Anchors>
                     <Anchor point="TOPLEFT">
                       <Offset>
-                        <AbsDimension x="20" y="272"/>
+                        <AbsDimension x="490" y="60"/>
                       </Offset>
                     </Anchor>
                   </Anchors>
@@ -2520,12 +2587,12 @@
                 </FontString>
                 <FontString name="AAC_ExchangeOfferaskNote" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
                   <Size>
-                    <AbsDimension x="354" y="14"/>
+                    <AbsDimension x="294" y="30"/>
                   </Size>
                   <Anchors>
                     <Anchor point="TOPLEFT">
                       <Offset>
-                        <AbsDimension x="20" y="299"/>
+                        <AbsDimension x="490" y="88"/>
                       </Offset>
                     </Anchor>
                   </Anchors>
@@ -2533,17 +2600,41 @@
                     <AbsValue val="10"/>
                   </FontHeight>
                 </FontString>
+                <Texture file="Interface/AuctionFrame/AuctionSeparate-VerticalLine">
+                  <Size>
+                    <AbsDimension x="4" y="142"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="194" y="8"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </Texture>
+                <Texture file="Interface/AuctionFrame/AuctionSeparate-VerticalLine">
+                  <Size>
+                    <AbsDimension x="4" y="142"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="474" y="8"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </Texture>
               </Layer>
             </Layers>
             <Frames>
               <EditBox name="AAC_ExchangeOfferaskAmount" inherits="UIPanelEditBoxTemplate" letters="18">
                 <Size>
-                  <AbsDimension x="324" y="24"/>
+                  <AbsDimension x="140" y="24"/>
                 </Size>
                 <Anchors>
                   <Anchor point="TOPLEFT">
                     <Offset>
-                      <AbsDimension x="20" y="80"/>
+                      <AbsDimension x="16" y="112"/>
                     </Offset>
                   </Anchor>
                 </Anchors>
@@ -2551,16 +2642,17 @@
                   <OnTextChanged>AAC.Exchange.OfferChanged(&quot;ask&quot;,&quot;Amount&quot;)</OnTextChanged>
                   <OnEscapePressed>this:ClearFocus()</OnEscapePressed>
                   <OnEnterPressed>this:ClearFocus(); AAC.Exchange.Render()</OnEnterPressed>
+                  <OnEditFocusLost>AAC.Exchange.OfferChanged(&quot;ask&quot;,&quot;Amount&quot;,true)</OnEditFocusLost>
                 </Scripts>
               </EditBox>
               <EditBox name="AAC_ExchangeOfferaskTotal" inherits="UIPanelEditBoxTemplate" letters="18">
                 <Size>
-                  <AbsDimension x="324" y="24"/>
+                  <AbsDimension x="220" y="24"/>
                 </Size>
                 <Anchors>
                   <Anchor point="TOPLEFT">
                     <Offset>
-                      <AbsDimension x="20" y="134"/>
+                      <AbsDimension x="212" y="36"/>
                     </Offset>
                   </Anchor>
                 </Anchors>
@@ -2568,16 +2660,17 @@
                   <OnTextChanged>AAC.Exchange.OfferChanged(&quot;ask&quot;,&quot;Total&quot;)</OnTextChanged>
                   <OnEscapePressed>this:ClearFocus()</OnEscapePressed>
                   <OnEnterPressed>this:ClearFocus(); AAC.Exchange.Render()</OnEnterPressed>
+                  <OnEditFocusLost>AAC.Exchange.OfferChanged(&quot;ask&quot;,&quot;Total&quot;,true)</OnEditFocusLost>
                 </Scripts>
               </EditBox>
               <EditBox name="AAC_ExchangeOfferaskRate" inherits="UIPanelEditBoxTemplate" letters="18">
                 <Size>
-                  <AbsDimension x="324" y="24"/>
+                  <AbsDimension x="220" y="24"/>
                 </Size>
                 <Anchors>
                   <Anchor point="TOPLEFT">
                     <Offset>
-                      <AbsDimension x="20" y="188"/>
+                      <AbsDimension x="212" y="105"/>
                     </Offset>
                   </Anchor>
                 </Anchors>
@@ -2585,16 +2678,17 @@
                   <OnTextChanged>AAC.Exchange.OfferChanged(&quot;ask&quot;,&quot;Rate&quot;)</OnTextChanged>
                   <OnEscapePressed>this:ClearFocus()</OnEscapePressed>
                   <OnEnterPressed>this:ClearFocus(); AAC.Exchange.Render()</OnEnterPressed>
+                  <OnEditFocusLost>AAC.Exchange.OfferChanged(&quot;ask&quot;,&quot;Rate&quot;,true)</OnEditFocusLost>
                 </Scripts>
               </EditBox>
               <Button name="AAC_ExchangeOfferaskCreate" inherits="UIPanelButtonTemplate" text="">
                 <Size>
-                  <AbsDimension x="354" y="26"/>
+                  <AbsDimension x="294" y="26"/>
                 </Size>
                 <Anchors>
                   <Anchor point="TOPLEFT">
                     <Offset>
-                      <AbsDimension x="20" y="315"/>
+                      <AbsDimension x="490" y="126"/>
                     </Offset>
                   </Anchor>
                 </Anchors>
@@ -2602,18 +2696,112 @@
                   <OnClick>AAC.Exchange.CreateOffer(&quot;ask&quot;)</OnClick>
                 </Scripts>
               </Button>
+              <CheckButton name="AAC_ExchangeOfferaskChoosebid" inherits="MoneyModeRadioButtonTemplate">
+                <Size>
+                  <AbsDimension x="16" y="16"/>
+                </Size>
+                <Anchors>
+                  <Anchor point="TOPLEFT">
+                    <Offset>
+                      <AbsDimension x="16" y="36"/>
+                    </Offset>
+                  </Anchor>
+                </Anchors>
+                <Layers>
+                  <Layer>
+                    <Texture file="Interface\MoneyFrame\MoneyIcons">
+                      <Size>
+                        <AbsDimension x="16" y="16"/>
+                      </Size>
+                      <Anchors>
+                        <Anchor point="TOPLEFT">
+                          <Offset>
+                            <AbsDimension x="16" y="0"/>
+                          </Offset>
+                        </Anchor>
+                      </Anchors>
+                      <TexCoords left="0.0" right="0.015625" top="0" bottom="1"/>
+                    </Texture>
+                    <FontString name="AAC_ExchangeOfferaskChoosebidCaption" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
+                      <Size>
+                        <AbsDimension x="120" y="20"/>
+                      </Size>
+                      <Anchors>
+                        <Anchor point="TOPLEFT">
+                          <Offset>
+                            <AbsDimension x="40" y="0"/>
+                          </Offset>
+                        </Anchor>
+                      </Anchors>
+                      <FontHeight>
+                        <AbsValue val="12"/>
+                      </FontHeight>
+                    </FontString>
+                  </Layer>
+                </Layers>
+                <Scripts>
+                  <OnClick>AAC.Exchange.OfferDirection(&quot;bid&quot;)</OnClick>
+                </Scripts>
+              </CheckButton>
+              <CheckButton name="AAC_ExchangeOfferaskChooseask" inherits="MoneyModeRadioButtonTemplate">
+                <Size>
+                  <AbsDimension x="16" y="16"/>
+                </Size>
+                <Anchors>
+                  <Anchor point="TOPLEFT">
+                    <Offset>
+                      <AbsDimension x="16" y="62"/>
+                    </Offset>
+                  </Anchor>
+                </Anchors>
+                <Layers>
+                  <Layer>
+                    <Texture file="Interface\MoneyFrame\MoneyIcons">
+                      <Size>
+                        <AbsDimension x="16" y="16"/>
+                      </Size>
+                      <Anchors>
+                        <Anchor point="TOPLEFT">
+                          <Offset>
+                            <AbsDimension x="16" y="0"/>
+                          </Offset>
+                        </Anchor>
+                      </Anchors>
+                      <TexCoords left="0.015625" right="0.03125" top="0" bottom="1"/>
+                    </Texture>
+                    <FontString name="AAC_ExchangeOfferaskChooseaskCaption" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
+                      <Size>
+                        <AbsDimension x="120" y="20"/>
+                      </Size>
+                      <Anchors>
+                        <Anchor point="TOPLEFT">
+                          <Offset>
+                            <AbsDimension x="40" y="0"/>
+                          </Offset>
+                        </Anchor>
+                      </Anchors>
+                      <FontHeight>
+                        <AbsValue val="12"/>
+                      </FontHeight>
+                    </FontString>
+                  </Layer>
+                </Layers>
+                <Scripts>
+                  <OnClick>AAC.Exchange.OfferDirection(&quot;ask&quot;)</OnClick>
+                </Scripts>
+              </CheckButton>
             </Frames>
           </Frame>
         </Frames>
       </Frame>
       <Frame name="AAC_ExchangeOrdersPanel">
         <Size>
-          <AbsDimension x="798" y="350"/>
+          <AbsDimension x="800" y="214"/>
         </Size>
         <Anchors>
           <Anchor point="TOPLEFT">
             <Offset>
-              <AbsDimension x="8" y="48"/>
+              <AbsDimension x="5" y="200"/>
             </Offset>
           </Anchor>
         </Anchors>
@@ -2632,12 +2820,12 @@
           <Layer>
             <FontString name="AAC_ExchangeOrdersKindHead" inherits="GameFontYellow" justifyH="LEFT" justifyV="TOP">
               <Size>
-                <AbsDimension x="165" y="32"/>
+                <AbsDimension x="145" y="32"/>
               </Size>
               <Anchors>
                 <Anchor point="TOPLEFT">
                   <Offset>
-                    <AbsDimension x="18" y="15"/>
+                    <AbsDimension x="40" y="15"/>
                   </Offset>
                 </Anchor>
               </Anchors>
@@ -2707,12 +2895,27 @@
             </FontString>
             <FontString name="AAC_ExchangeordersPage" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
               <Size>
-                <AbsDimension x="80" y="20"/>
+                <AbsDimension x="75" y="20"/>
               </Size>
               <Anchors>
                 <Anchor point="TOPLEFT">
                   <Offset>
-                    <AbsDimension x="225" y="320"/>
+                    <AbsDimension x="96" y="185"/>
+                  </Offset>
+                </Anchor>
+              </Anchors>
+              <FontHeight>
+                <AbsValue val="12"/>
+              </FontHeight>
+            </FontString>
+            <FontString name="AAC_ExchangeOrdersCount" inherits="GameFontYellow" justifyH="LEFT" justifyV="TOP">
+              <Size>
+                <AbsDimension x="260" y="22"/>
+              </Size>
+              <Anchors>
+                <Anchor point="TOPLEFT">
+                  <Offset>
+                    <AbsDimension x="260" y="185"/>
                   </Offset>
                 </Anchor>
               </Anchors>
@@ -2725,12 +2928,12 @@
         <Frames>
           <Button name="AAC_Exchangeorders1" enableMouse="true">
             <Size>
-              <AbsDimension x="782" y="44"/>
+              <AbsDimension x="782" y="34"/>
             </Size>
             <Anchors>
               <Anchor point="TOPLEFT">
                 <Offset>
-                  <AbsDimension x="8" y="48"/>
+                  <AbsDimension x="8" y="40"/>
                 </Offset>
               </Anchor>
             </Anchors>
@@ -2743,19 +2946,19 @@
                   <Anchors>
                     <Anchor point="TOPLEFT">
                       <Offset>
-                        <AbsDimension x="4" y="42"/>
+                        <AbsDimension x="4" y="32"/>
                       </Offset>
                     </Anchor>
                   </Anchors>
                 </Texture>
                 <FontString name="AAC_Exchangeorders1Kind" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
                   <Size>
-                    <AbsDimension x="165" y="20"/>
+                    <AbsDimension x="145" y="20"/>
                   </Size>
                   <Anchors>
                     <Anchor point="TOPLEFT">
                       <Offset>
-                        <AbsDimension x="10" y="9"/>
+                        <AbsDimension x="32" y="9"/>
                       </Offset>
                     </Anchor>
                   </Anchors>
@@ -2823,6 +3026,18 @@
                     <AbsValue val="12"/>
                   </FontHeight>
                 </FontString>
+                <Texture name="AAC_Exchangeorders1Icon" file="Interface/Icons/crystal_01.dds">
+                  <Size>
+                    <AbsDimension x="18" y="18"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="8" y="8"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </Texture>
               </Layer>
             </Layers>
             <HighlightTexture file="Interface\Buttons\ListItemHighlight" alphaMode="ADD"/>
@@ -2834,12 +3049,12 @@
           </Button>
           <Button name="AAC_Exchangeorders2" enableMouse="true">
             <Size>
-              <AbsDimension x="782" y="44"/>
+              <AbsDimension x="782" y="34"/>
             </Size>
             <Anchors>
               <Anchor point="TOPLEFT">
                 <Offset>
-                  <AbsDimension x="8" y="96"/>
+                  <AbsDimension x="8" y="74"/>
                 </Offset>
               </Anchor>
             </Anchors>
@@ -2852,19 +3067,19 @@
                   <Anchors>
                     <Anchor point="TOPLEFT">
                       <Offset>
-                        <AbsDimension x="4" y="42"/>
+                        <AbsDimension x="4" y="32"/>
                       </Offset>
                     </Anchor>
                   </Anchors>
                 </Texture>
                 <FontString name="AAC_Exchangeorders2Kind" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
                   <Size>
-                    <AbsDimension x="165" y="20"/>
+                    <AbsDimension x="145" y="20"/>
                   </Size>
                   <Anchors>
                     <Anchor point="TOPLEFT">
                       <Offset>
-                        <AbsDimension x="10" y="9"/>
+                        <AbsDimension x="32" y="9"/>
                       </Offset>
                     </Anchor>
                   </Anchors>
@@ -2932,6 +3147,18 @@
                     <AbsValue val="12"/>
                   </FontHeight>
                 </FontString>
+                <Texture name="AAC_Exchangeorders2Icon" file="Interface/Icons/crystal_01.dds">
+                  <Size>
+                    <AbsDimension x="18" y="18"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="8" y="8"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </Texture>
               </Layer>
             </Layers>
             <HighlightTexture file="Interface\Buttons\ListItemHighlight" alphaMode="ADD"/>
@@ -2943,12 +3170,12 @@
           </Button>
           <Button name="AAC_Exchangeorders3" enableMouse="true">
             <Size>
-              <AbsDimension x="782" y="44"/>
+              <AbsDimension x="782" y="34"/>
             </Size>
             <Anchors>
               <Anchor point="TOPLEFT">
                 <Offset>
-                  <AbsDimension x="8" y="144"/>
+                  <AbsDimension x="8" y="108"/>
                 </Offset>
               </Anchor>
             </Anchors>
@@ -2961,19 +3188,19 @@
                   <Anchors>
                     <Anchor point="TOPLEFT">
                       <Offset>
-                        <AbsDimension x="4" y="42"/>
+                        <AbsDimension x="4" y="32"/>
                       </Offset>
                     </Anchor>
                   </Anchors>
                 </Texture>
                 <FontString name="AAC_Exchangeorders3Kind" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
                   <Size>
-                    <AbsDimension x="165" y="20"/>
+                    <AbsDimension x="145" y="20"/>
                   </Size>
                   <Anchors>
                     <Anchor point="TOPLEFT">
                       <Offset>
-                        <AbsDimension x="10" y="9"/>
+                        <AbsDimension x="32" y="9"/>
                       </Offset>
                     </Anchor>
                   </Anchors>
@@ -3041,6 +3268,18 @@
                     <AbsValue val="12"/>
                   </FontHeight>
                 </FontString>
+                <Texture name="AAC_Exchangeorders3Icon" file="Interface/Icons/crystal_01.dds">
+                  <Size>
+                    <AbsDimension x="18" y="18"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="8" y="8"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </Texture>
               </Layer>
             </Layers>
             <HighlightTexture file="Interface\Buttons\ListItemHighlight" alphaMode="ADD"/>
@@ -3052,12 +3291,12 @@
           </Button>
           <Button name="AAC_Exchangeorders4" enableMouse="true">
             <Size>
-              <AbsDimension x="782" y="44"/>
+              <AbsDimension x="782" y="34"/>
             </Size>
             <Anchors>
               <Anchor point="TOPLEFT">
                 <Offset>
-                  <AbsDimension x="8" y="192"/>
+                  <AbsDimension x="8" y="142"/>
                 </Offset>
               </Anchor>
             </Anchors>
@@ -3070,19 +3309,19 @@
                   <Anchors>
                     <Anchor point="TOPLEFT">
                       <Offset>
-                        <AbsDimension x="4" y="42"/>
+                        <AbsDimension x="4" y="32"/>
                       </Offset>
                     </Anchor>
                   </Anchors>
                 </Texture>
                 <FontString name="AAC_Exchangeorders4Kind" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
                   <Size>
-                    <AbsDimension x="165" y="20"/>
+                    <AbsDimension x="145" y="20"/>
                   </Size>
                   <Anchors>
                     <Anchor point="TOPLEFT">
                       <Offset>
-                        <AbsDimension x="10" y="9"/>
+                        <AbsDimension x="32" y="9"/>
                       </Offset>
                     </Anchor>
                   </Anchors>
@@ -3150,115 +3389,18 @@
                     <AbsValue val="12"/>
                   </FontHeight>
                 </FontString>
-              </Layer>
-            </Layers>
-            <HighlightTexture file="Interface\Buttons\ListItemHighlight" alphaMode="ADD"/>
-            <Scripts>
-              <OnClick>AAC.Exchange.Select(&quot;orders&quot;,this)</OnClick>
-              <OnEnter>GameTooltip:SetOwner(this,&quot;ANCHOR_TOP&quot;,0,0); GameTooltip:SetText(this.details or &quot;&quot;); GameTooltip:Show()</OnEnter>
-              <OnLeave>GameTooltip:Hide()</OnLeave>
-            </Scripts>
-          </Button>
-          <Button name="AAC_Exchangeorders5" enableMouse="true">
-            <Size>
-              <AbsDimension x="782" y="44"/>
-            </Size>
-            <Anchors>
-              <Anchor point="TOPLEFT">
-                <Offset>
-                  <AbsDimension x="8" y="240"/>
-                </Offset>
-              </Anchor>
-            </Anchors>
-            <Layers>
-              <Layer>
-                <Texture file="Interface\AuctionFrame\AuctionSeparate-HorizontalLine">
+                <Texture name="AAC_Exchangeorders4Icon" file="Interface/Icons/crystal_01.dds">
                   <Size>
-                    <AbsDimension x="774" y="2"/>
+                    <AbsDimension x="18" y="18"/>
                   </Size>
                   <Anchors>
                     <Anchor point="TOPLEFT">
                       <Offset>
-                        <AbsDimension x="4" y="42"/>
+                        <AbsDimension x="8" y="8"/>
                       </Offset>
                     </Anchor>
                   </Anchors>
                 </Texture>
-                <FontString name="AAC_Exchangeorders5Kind" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
-                  <Size>
-                    <AbsDimension x="165" y="20"/>
-                  </Size>
-                  <Anchors>
-                    <Anchor point="TOPLEFT">
-                      <Offset>
-                        <AbsDimension x="10" y="9"/>
-                      </Offset>
-                    </Anchor>
-                  </Anchors>
-                  <FontHeight>
-                    <AbsValue val="12"/>
-                  </FontHeight>
-                </FontString>
-                <FontString name="AAC_Exchangeorders5Quantity" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
-                  <Size>
-                    <AbsDimension x="155" y="20"/>
-                  </Size>
-                  <Anchors>
-                    <Anchor point="TOPLEFT">
-                      <Offset>
-                        <AbsDimension x="185" y="9"/>
-                      </Offset>
-                    </Anchor>
-                  </Anchors>
-                  <FontHeight>
-                    <AbsValue val="12"/>
-                  </FontHeight>
-                </FontString>
-                <FontString name="AAC_Exchangeorders5Price" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
-                  <Size>
-                    <AbsDimension x="135" y="20"/>
-                  </Size>
-                  <Anchors>
-                    <Anchor point="TOPLEFT">
-                      <Offset>
-                        <AbsDimension x="350" y="9"/>
-                      </Offset>
-                    </Anchor>
-                  </Anchors>
-                  <FontHeight>
-                    <AbsValue val="12"/>
-                  </FontHeight>
-                </FontString>
-                <FontString name="AAC_Exchangeorders5Time" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
-                  <Size>
-                    <AbsDimension x="115" y="20"/>
-                  </Size>
-                  <Anchors>
-                    <Anchor point="TOPLEFT">
-                      <Offset>
-                        <AbsDimension x="495" y="9"/>
-                      </Offset>
-                    </Anchor>
-                  </Anchors>
-                  <FontHeight>
-                    <AbsValue val="12"/>
-                  </FontHeight>
-                </FontString>
-                <FontString name="AAC_Exchangeorders5Owner" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
-                  <Size>
-                    <AbsDimension x="150" y="20"/>
-                  </Size>
-                  <Anchors>
-                    <Anchor point="TOPLEFT">
-                      <Offset>
-                        <AbsDimension x="620" y="9"/>
-                      </Offset>
-                    </Anchor>
-                  </Anchors>
-                  <FontHeight>
-                    <AbsValue val="12"/>
-                  </FontHeight>
-                </FontString>
               </Layer>
             </Layers>
             <HighlightTexture file="Interface\Buttons\ListItemHighlight" alphaMode="ADD"/>
@@ -3275,7 +3417,7 @@
             <Anchors>
               <Anchor point="TOPLEFT">
                 <Offset>
-                  <AbsDimension x="15" y="315"/>
+                  <AbsDimension x="15" y="180"/>
                 </Offset>
               </Anchor>
             </Anchors>
@@ -3290,7 +3432,7 @@
             <Anchors>
               <Anchor point="TOPLEFT">
                 <Offset>
-                  <AbsDimension x="413" y="315"/>
+                  <AbsDimension x="175" y="180"/>
                 </Offset>
               </Anchor>
             </Anchors>
@@ -3300,12 +3442,12 @@
           </Button>
           <Button name="AAC_ExchangeCancel" inherits="UIPanelButtonTemplate" text="">
             <Size>
-              <AbsDimension x="250" y="26"/>
+              <AbsDimension x="240" y="26"/>
             </Size>
             <Anchors>
               <Anchor point="TOPLEFT">
                 <Offset>
-                  <AbsDimension x="530" y="315"/>
+                  <AbsDimension x="540" y="180"/>
                 </Offset>
               </Anchor>
             </Anchors>
@@ -3394,37 +3536,6 @@
         </Offset>
       </Anchor>
     </Anchors>
-    <Frames>
-      <Button name="AAC_ExchangeNavAuctions" inherits="UIPanelButtonTemplate" text="">
-        <Size>
-          <AbsDimension x="150" y="26"/>
-        </Size>
-        <Anchors>
-          <Anchor point="TOPLEFT">
-            <Offset>
-              <AbsDimension x="0" y="0"/>
-            </Offset>
-          </Anchor>
-        </Anchors>
-        <Scripts>
-          <OnClick>AAC.Exchange.Legacy()</OnClick>
-        </Scripts>
-      </Button>
-      <Button name="AAC_ExchangeNavExchange" inherits="UIPanelButtonTemplate" text="">
-        <Size>
-          <AbsDimension x="220" y="26"/>
-        </Size>
-        <Anchors>
-          <Anchor point="TOPLEFT">
-            <Offset>
-              <AbsDimension x="156" y="0"/>
-            </Offset>
-          </Anchor>
-        </Anchors>
-        <Scripts>
-          <OnClick>AAC.Exchange.OpenFromNavigation()</OnClick>
-        </Scripts>
-      </Button>
-    </Frames>
+    <Frames/>
   </Frame>
 </Ui>

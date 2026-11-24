@@ -274,20 +274,24 @@ function X.Book(side)
 end
 function X.RenderOrders()
  local rows=X.Orders(); X.rows.orders=rows
- local pages=math.max(1,math.ceil(#rows/5)); X.pages.orders=math.max(1,math.min(X.pages.orders,pages))
+ local pages=math.max(1,math.ceil(#rows/4)); X.pages.orders=math.max(1,math.min(X.pages.orders,pages))
+ set("OrdersCount",X.UIText(1)..": "..num(#rows))
  set("ordersPage",X.pages.orders.." / "..pages)
  enable("ordersPrev",X.pages.orders>1); enable("ordersNext",X.pages.orders<pages)
- for i=1,5 do
-  local row=rows[(X.pages.orders-1)*5+i]; local frame=_G["AAC_Exchangeorders"..i]; frame.row=row
+ for i=1,4 do
+  local row=rows[(X.pages.orders-1)*4+i]; local frame=_G["AAC_Exchangeorders"..i]; frame.row=row
   for _,field in ipairs({"Kind","Quantity","Price","Time","Owner"}) do set("orders"..i..field,"") end
   if row then
+   _G["AAC_Exchangeorders"..i.."Icon"]:Show()
+   _G["AAC_Exchangeorders"..i.."Icon"]:SetTexture(row.side=="bid" and "Interface/Icons/coin_03.dds" or "Interface/Icons/crystal_01.dds")
    local dir=X.OfferText(row.side=="bid" and "gold" or "diamonds")
    frame.details=(row.owner and row.owner.." | " or "")..dir.." | "..num(row.quantity-row.filled).." / "..num(row.quantity).." | "..money(row.price,"copper").." | "..SecondsToTime(row.seconds)
-   set("orders"..i.."Kind",dir); set("orders"..i.."Quantity",num(row.quantity-row.filled).." / "..num(row.quantity))
+   set("orders"..i.."Kind",dir); set("orders"..i.."Quantity",num((row.quantity-row.filled)*(row.side=="bid" and row.price or 1)))
    set("orders"..i.."Price",num(row.price)); set("orders"..i.."Time",SecondsToTime(row.seconds)); set("orders"..i.."Owner",row.owner or "—")
    if row.isOwn and X.selected==row.id then frame:LockHighlight() else frame:UnlockHighlight() end
    frame:Enable()
   else
+   _G["AAC_Exchangeorders"..i.."Icon"]:Hide()
    frame.details=""; set("orders"..i.."Kind",i==1 and X.T("FX_NO_OFFERS") or "")
    frame:UnlockHighlight(); frame:Disable()
   end
@@ -297,11 +301,12 @@ end
 function X.Render()
  if not AAC_ExchangeFrame or not AAC_ExchangeFrame:IsVisible() then return end
  if not available() then X.Status(X.T("FX_NOT_AVAILABLE")); return end
- for _,pair in ipairs({{"QuickPanel",X.view=="home"},{"MarketPanel",X.view=="market"},{"OfferPanel",X.view=="offer"},{"OrdersPanel",X.view=="orders"},
+ for _,pair in ipairs({{"QuickPanel",X.view=="home"},{"MarketPanel",X.view=="market"},{"OfferPanel",X.view=="offer" or X.view=="sell"},{"OrdersPanel",X.view=="orders" or X.view=="sell"},
    {"New",X.context=="sell" and X.view=="orders"},{"Back",X.view=="offer"},{"Books",X.view=="home"},{"Home",X.view=="market"}}) do
   local f=_G["AAC_Exchange"..pair[1]]; if pair[2] then f:Show() else f:Hide() end
  end
- if X.view=="orders" then X.RenderOrders() elseif X.view=="offer" then X.RenderOffers() elseif X.view=="home" then X.RenderQuick() else X.RenderMarket() end
+ if X.view=="sell" then X.RenderOffers(); X.RenderOrders()
+ elseif X.view=="orders" then X.RenderOrders() elseif X.view=="offer" then X.RenderOffers() elseif X.view=="home" then X.RenderQuick() else X.RenderMarket() end
 end
 function X.ParseNumber(value)
  local text=tostring(value or "")
@@ -319,7 +324,7 @@ function X.GroupNumber(value)
  repeat t,n=t:gsub("^(%-?%d+)(%d%d%d)","%1.%2") until n==0
  return t
 end
-function X.OfferChanged(side,field)
+function X.OfferChanged(side,field,finish)
  if X.editingOffer then return end
  X.editingOffer=true; X.offerAnchor=X.offerAnchor or {}
  if field~="Amount" then X.offerAnchor[side]=field end
@@ -327,11 +332,15 @@ function X.OfferChanged(side,field)
  local input=_G[prefix..field]; local raw=input:GetText()
  local digits=raw:gsub("%.","")
  local changed=digits:match("^%d+$") and tonumber(digits)
- if changed and changed<1e14 then
+ -- Replacing the active text moves the native edit cursor. Group only on blur/Enter.
+ if finish and changed and changed<1e14 then
   local formatted=X.GroupNumber(changed)
   if formatted~=raw then input:SetText(formatted) end
  end
- local function read(k) return X.ParseNumber(_G[prefix..k]:GetText()) end
+ local function read(k)
+  if k==field then return changed and changed<1e14 and changed or nil end
+  return X.ParseNumber(_G[prefix..k]:GetText())
+ end
  local amount,rate,total=read("Amount"),read("Rate"),read("Total")
  if amount and amount>0 then
   local key,value
@@ -353,9 +362,19 @@ local function offerInput(side)
  if totalText~="" and X.ParseNumber(totalText)~=(side=="bid" and quantity or quantity*rate) then return nil,rate end
  return quantity,rate
 end
+function X.OfferDirection(side)
+ if side~="ask" and side~="bid" then return end
+ X.Dismiss(); X.offerSide=side; X.Render()
+end
 function X.RenderOffers()
- if X.view~="offer" then return end
+ if X.view~="offer" and X.view~="sell" then return end
  for _,side in ipairs({"bid","ask"}) do
+  local selected=side==(X.offerSide or "ask")
+  local card=_G["AAC_ExchangeOffer"..side.."Card"]
+  if selected then card:Show() else card:Hide() end
+  for _,currency in ipairs({"bid","ask"}) do
+   _G["AAC_ExchangeOffer"..side.."Choose"..currency]:SetChecked(currency==(X.offerSide or "ask"))
+  end
   local quantity,rate=offerInput(side)
   local q,err=snapshot("create",side,quantity,rate)
   local prefix="Offer"..side
@@ -370,8 +389,8 @@ function X.CreateOffer(side)
  local quantity,rate=offerInput(side)
  X.Preview("create",side,quantity,rate)
 end
-function X.Manage() X.Dismiss(); X.view="offer"; X.Render() end
-function X.SetOrders() X.Dismiss(); X.view="orders"; X.selected=nil; X.pages.orders=1; X.Render() end
+function X.Manage() X.Dismiss(); X.view=X.context=="sell" and "sell" or "offer"; X.Render() end
+function X.SetOrders() X.Dismiss(); X.view=X.context=="sell" and "sell" or "orders"; X.selected=nil; X.pages.orders=1; X.Render() end
 function X.Page(side,delta) X.pages[side]=math.max(1,X.pages[side]+delta); X.Render() end
 function X.Select(side,frame)
  if side~="orders" or not frame.row then return end
@@ -381,17 +400,17 @@ function X.Action(kind) if kind=="cancel" then X.Preview(kind,nil,X.selected) en
 
 -- Integrated classic list and compact quote. The transaction core above is shared.
 local integratedCopy={
- EN={"Exchange offers","Auctions","Available","Amount in diamonds","Best available rate","At this rate or better","Exchange"},
- DE={"Tauschangebote","Auktionen","Verfügbar","Menge in Diamanten","Bester verfügbarer Kurs","Zu diesem Kurs oder günstiger","Tausch"},
- ES={"Ofertas de cambio","Subastas","Disponible","Cantidad de diamantes","Mejor cambio disponible","A este cambio o mejor","Cambio"},
- FR={"Offres de change","Enchères","Disponible","Quantité de diamants","Meilleur taux disponible","À ce taux ou mieux","Change"},
- PL={"Oferty wymiany","Aukcje","Dostępne","Liczba diamentów","Najlepszy dostępny kurs","Po tym kursie lub lepszym","Wymiana"},
- RU={"Предложения обмена","Аукционы","Доступно","Количество алмазов","Лучший доступный курс","По этому курсу или лучше","Обмен"},
- TR={"Takas teklifleri","Müzayedeler","Mevcut","Elmas miktarı","Mevcut en iyi kur","Bu kurdan veya daha iyi","Takas"},
- JP={"交換注文","オークション","利用可能","ダイヤの数量","利用可能な最良レート","このレート以上の条件で交換","交換"},
- KR={"교환 주문","경매","이용 가능","다이아몬드 수량","이용 가능한 최적 환율","이 환율 또는 더 좋은 환율","교환"},
- CN={"兑换挂单","拍卖","可用数量","钻石数量","当前最佳汇率","按此汇率或更优汇率","兑换"},
- TW={"兌換掛單","拍賣","可用數量","鑽石數量","目前最佳匯率","按此匯率或更優匯率","兌換"},
+ EN={"Exchange (new)","Auctions","Available","Amount in diamonds","Best available rate","At this rate or better","Exchange"},
+ DE={"Tausch (neu)","Auktionen","Verfügbar","Menge in Diamanten","Bester verfügbarer Kurs","Zu diesem Kurs oder günstiger","Tausch"},
+ ES={"Cambio (nuevo)","Subastas","Disponible","Cantidad de diamantes","Mejor cambio disponible","A este cambio o mejor","Cambio"},
+ FR={"Change (nouveau)","Enchères","Disponible","Quantité de diamants","Meilleur taux disponible","À ce taux ou mieux","Change"},
+ PL={"Wymiana (nowa)","Aukcje","Dostępne","Liczba diamentów","Najlepszy dostępny kurs","Po tym kursie lub lepszym","Wymiana"},
+ RU={"Обмен (новый)","Аукционы","Доступно","Количество алмазов","Лучший доступный курс","По этому курсу или лучше","Обмен"},
+ TR={"Takas (yeni)","Müzayedeler","Mevcut","Elmas miktarı","Mevcut en iyi kur","Bu kurdan veya daha iyi","Takas"},
+ JP={"交換（新）","オークション","利用可能","ダイヤの数量","利用可能な最良レート","このレート以上の条件で交換","交換"},
+ KR={"교환 (신규)","경매","이용 가능","다이아몬드 수량","이용 가능한 최적 환율","이 환율 또는 더 좋은 환율","교환"},
+ CN={"兑换（新）","拍卖","可用数量","钻石数量","当前最佳汇率","按此汇率或更优汇率","兑换"},
+ TW={"兌換（新）","拍賣","可用數量","鑽石數量","目前最佳匯率","按此匯率或更優匯率","兌換"},
 }
 function X.UIText(i) return (integratedCopy[AAC.UX.language or "EN"] or integratedCopy.EN)[i] end
 function X.SetDirection(side)
@@ -411,12 +430,12 @@ function X.Preset(amount,side)
  side=side or X.side; if side~="bid" and side~="ask" then return end
  _G["AAC_ExchangeQuick"..side.."Amount"]:SetText(X.GroupNumber(amount)); X.Render()
 end
-function X.QuickAmountChanged(side)
+function X.QuickAmountChanged(side,finish)
  if X.editingQuick then return end
  X.editingQuick=true
  local input=_G["AAC_ExchangeQuick"..side.."Amount"]; local raw=input:GetText()
  local digits=raw:gsub("%.",""); local n=digits:match("^%d+$") and tonumber(digits)
- if n and n<1e14 then local formatted=X.GroupNumber(n); if formatted~=raw then input:SetText(formatted) end end
+ if finish and n and n<1e14 then local formatted=X.GroupNumber(n); if formatted~=raw then input:SetText(formatted) end end
  X.editingQuick=false; X.Render()
 end
 function X.Trade(side)
@@ -446,29 +465,51 @@ function X.Custom(side)
  X.custom=X.custom or {}; X.custom[side]=not X.custom[side]; X.Render()
 end
 function X.QuickRow(side,amount) X.Preset(amount,side); X.Trade(side) end
+local quickBuyLabels={EN="Buy",DE="Kaufen",ES="Comprar",FR="Acheter",PL="Kup",RU="Купить",TR="Satın al",JP="購入",KR="구매",CN="购买",TW="購買"}
+local backLabels={EN="Back",DE="Zurück",ES="Volver",FR="Retour",PL="Wstecz",RU="Назад",TR="Geri",JP="戻る",KR="뒤로",CN="返回",TW="返回"}
+function X.LayoutCustom(side,custom)
+ local prefix="AAC_ExchangeQuick"..side
+ local card=_G[prefix.."Card"]; local half=X.quickWidth or 399
+ local column=(half-48)/2
+ local function place(name,x,y,w)
+  local f=_G[prefix..name]; f:ClearAllAnchors(); f:SetAnchor("TOPLEFT","TOPLEFT",card,x,y)
+  if w then f:SetWidth(w) end
+ end
+ place("Custom",18,315,custom and 108 or half-38)
+ place("Trade",136,315,half-154)
+ place("AmountLabel",18,64,half-36); place("Amount",18,88,half-36)
+ place("ReceiveLabel",18,137,column); place("Receive",41,162,column-23)
+ place("PayLabel",30+column,137,column); place("Pay",53+column,162,column-23)
+ place("PayIcon",30+column,167)
+ place("Included",18,custom and 198 or 287,half-36)
+ place("Note",18,222,half-36); place("Rate",18,263,half-36)
+end
 function X.RenderQuick()
  for _,side in ipairs({"bid","ask"}) do
   local prefix="Quick"..side
   local custom=X.custom and X.custom[side]
-  for _,name in ipairs({"AmountLabel","Amount","Rate","PayLabel","Pay","ReceiveLabel","Receive","Included","Note","Trade"}) do
+  for _,name in ipairs({"AmountLabel","Amount","Rate","PayLabel","Pay","ReceiveLabel","Receive","ReceiveIcon","PayIcon","Included","Note","Trade"}) do
    local f=_G["AAC_Exchange"..prefix..name]; if custom then f:Show() else f:Hide() end
   end
-  local customButton=_G["AAC_Exchange"..prefix.."Custom"]
-  customButton:ClearAllAnchors(); customButton:SetAnchor("TOPLEFT","TOPLEFT",_G["AAC_Exchange"..prefix.."Card"],14,custom and 114 or 294)
-  set(prefix.."Custom",custom and X.SimpleText("home") or (customLabels[AAC.UX.language or "EN"] or customLabels.EN))
-  _G["AAC_Exchange"..prefix.."Included"]:Show()
+  X.LayoutCustom(side,custom)
+  set(prefix.."Custom",custom and (backLabels[AAC.UX.language or "EN"] or backLabels.EN) or (customLabels[AAC.UX.language or "EN"] or customLabels.EN))
+  local included=_G["AAC_Exchange"..prefix.."Included"]
+  included:Show()
+  for _,name in ipairs({"NetHead","CostHead"}) do
+   local f=_G["AAC_Exchange"..prefix..name]; if custom then f:Hide() else f:Show() end
+  end
   local any=false; local last; local reason; local count=0
-  for i,n in ipairs({25,100,500,1000}) do
+  for i,n in ipairs({1000,500,100,25}) do
    local row=_G["AAC_Exchange"..prefix.."Row"..i]
    local q,err=snapshot("trade",side,n,side==X.side and X.limit or 0)
    if not reason then reason=err end
    set(prefix.."Row"..i.."Net",q and num(q.net) or "—")
    set(prefix.."Row"..i.."Cost",q and num(q.pay) or "—")
-   set(prefix.."Row"..i.."Buy",TEXT("AUCTION_BUYOUT"))
+   set(prefix.."Row"..i.."Buy",quickBuyLabels[AAC.UX.language or "EN"] or quickBuyLabels.EN)
    enable(prefix.."Row"..i.."Buy",q~=nil and free())
    local signature=q and (q.quantity..":"..q.pay..":"..q.net)
    if not custom and q and signature~=last then
-    row:ClearAllAnchors(); row:SetAnchor("TOPLEFT","TOPLEFT",_G["AAC_Exchange"..prefix.."Card"],14,76+count*49)
+    row:ClearAllAnchors(); row:SetAnchor("TOPLEFT","TOPLEFT",_G["AAC_Exchange"..prefix.."Card"],18,91+count*46)
     row:Show(); any=true; count=count+1
    else row:Hide() end
    last=signature or last
@@ -478,8 +519,8 @@ function X.RenderQuick()
   local limit=side==X.side and X.limit or nil
   local q,err=snapshot("trade",side,amount,limit or 0)
   set(prefix.."Rate",limit and (num(limit).." "..X.T("FX_GOLD_PER_DIAMOND").." · "..X.UIText(6)) or (q and string.format(X.PublicText(4),num(q.total/q.quantity)) or ""))
-  set(prefix.."Pay",q and money(q.pay,q.payMode) or "—")
-  set(prefix.."Receive",q and money(q.net,q.receiveMode) or "—")
+  set(prefix.."Pay",q and num(q.pay) or "—")
+  set(prefix.."Receive",q and num(q.net) or "—")
   local note=q and string.format(X.SimpleText("fee"),money(q.fee,q.feeMode)) or err
   if q and q.quantity~=amount then note=string.format(X.SimpleText("partial"),num(q.quantity)).."\n"..note end
   set(prefix.."Note",note); enable(prefix.."Trade",q~=nil and free())
@@ -488,7 +529,7 @@ end
 
 function X.Show()
  X.custom={}
- X.view=X.context=="sell" and "orders" or "home"; X.side=X.side or "bid"; X.offset=0; X.limit=nil
+ X.view=X.context=="sell" and "sell" or "home"; X.side=X.side or "bid"; X.offset=0; X.limit=nil
  set("Heading",X.context=="browse" and X.UIText(1) or "")
  set("New",X.OfferText("new")); set("Back",X.OfferText("own"))
  set("Books",X.PublicText(1)); set("Home",X.SimpleText("home"))
@@ -499,25 +540,31 @@ function X.Show()
   set(prefix.."Title",X.SimpleText(side=="bid" and "gold" or "diamonds"))
   set(prefix.."AmountLabel",X.UIText(4)); set(prefix.."PayLabel",X.SimpleText("give"))
   set(prefix.."ReceiveLabel",X.SimpleText("receive")); set(prefix.."Included",X.SimpleText("included"))
+  set(prefix.."NetHead",X.SimpleText("receive")); set(prefix.."CostHead",X.SimpleText("give"))
   set(prefix.."Trade",X.SimpleText("trade"))
   local input=_G["AAC_Exchange"..prefix.."Amount"]; if input:GetText()=="" then input:SetText("100") end
  end
  for _,side in ipairs({"bid","ask"}) do
   local prefix="Offer"..side
-  set(prefix.."Title",X.OfferText(side=="bid" and "gold" or "diamonds"))
+  set(prefix.."Title",X.OfferText("give"))
+  for _,currency in ipairs({"bid","ask"}) do
+   set(prefix.."Choose"..currency.."Caption",TEXT(currency=="bid" and "SYS_MONEY_TYPE_0" or "SYS_MONEY_TYPE_1"))
+  end
   set(prefix.."AmountLabel",X.OfferText(side=="bid" and "goldAmount" or "diamondAmount"))
   set(prefix.."TotalLabel",(totalLabels[AAC.UX.language or "EN"] or totalLabels.EN).." ("..TEXT(side=="ask" and "SYS_MONEY_TYPE_0" or "SYS_MONEY_TYPE_1")..")")
   set(prefix.."RateLabel",(AAC_GENERAL_PRICE_PER_UNIT_HEADER or "Price/each").." · "..X.T("FX_GOLD_PER_DIAMOND")); set(prefix.."PayLabel",X.OfferText("give"))
   set(prefix.."ReceiveLabel",X.OfferText("receive")); set(prefix.."Fee",X.OfferText("fee")); set(prefix.."Create",X.OfferText("review"))
  end
  set("Cancel",X.T("FX_CANCEL")); set("OrdersKindHead",X.OfferText("own"))
- set("OrdersQuantityHead",lex[7].." ("..X.T("FX_DIAMONDS")..")")
+ set("OrdersQuantityHead",X.UIText(3))
  set("OrdersPriceHead",X.T("FX_GOLD_PER_DIAMOND")); set("OrdersTimeHead",TEXT("TIMEFLAG_STATE")); set("OrdersOwnerHead",lex[8])
  X.Request(); X.Render()
 end
 local browseParts={"Search","Filter","Currency","List","SearchButton","ResetButton","SavedSearchExpandButton","SavedSearchMinimizeButton","SavedSearchPlusButton","QueueExpandButton","QueueMinimizeButton","InfoLabel","HistoryButton","QueueButton","BidButton","BuyoutButton","BidMoneyInput"}
 function X.Leave()
  X.Dismiss(); X.context=nil
+ if AAC_SellAuctionContent then AAC_SellAuctionContent:Show() end
+ if AAC_SellExchange then AAC_SellExchange:SetChecked(false) end
  if X.hiddenBrowse then
   for name,wasVisible in pairs(X.hiddenBrowse) do local f=_G[name]; if f and wasVisible then f:Show() end end
   X.hiddenBrowse=nil
@@ -529,17 +576,26 @@ function X.Leave()
  if AAC_ExchangeFrame then AAC_ExchangeFrame:Hide() end
 end
 function X.TabChanged(tab)
- if not AAC_ExchangeNavigation then return end
- local visible=tab==3 or tab==6
- if visible then AAC_ExchangeNavigation:Show() else AAC_ExchangeNavigation:Hide() end
+ if AAC_ExchangeNavigation then AAC_ExchangeNavigation:Hide() end
  X.hostTab=tab
- set("NavAuctions",X.UIText(2)); set("NavExchange",tab==3 and X.UIText(7) or X.UIText(1))
- AAC_ExchangeNavAuctions:LockHighlight(); AAC_ExchangeNavExchange:UnlockHighlight()
- if tab==6 then AAC_DashboardDescriptionFrame:Hide() end
+ if AAC_SellExchangeLabel then AAC_SellExchangeLabel:SetText(X.UIText(1)) end
+end
+function X.SetSellMode(enabled)
+ if enabled then
+  AAC.Sell.ChangeAuctionType(false)
+  X.Open("sell")
+  AAC_SellExchange:SetChecked(true)
+ else X.Leave() end
+end
+function X.UseMoneyAuction(enabled)
+ if X.context=="sell" then X.Leave() end
+ AAC.Sell.ChangeAuctionType(enabled)
 end
 function X.Legacy() AAC.Main.ClickTab(X.hostTab==3 and 3 or 6) end
 function X.Open(context)
  X.Leave(); X.context=context; X.side="bid"
+ -- Capture effective visibility before hiding a parent of either editor.
+ X.hiddenEditors={AAC_HistoryEditBox=AAC_HistoryEditBox:IsVisible(),AAC_SellEditBox=AAC_SellEditBox:IsVisible()}
  if context=="browse" then
   AAC.Browse.Frame_StopUpdates()
   X.hiddenBrowse={}
@@ -547,8 +603,7 @@ function X.Open(context)
    if f then X.hiddenBrowse[name]=f:IsVisible(); f:Hide() end
   end
  elseif context=="dashboard" then AAC_DashboardFrame:Hide()
- elseif context=="sell" then AAC_SellFrame:Hide() end
- X.hiddenEditors={AAC_HistoryEditBox=AAC_HistoryEditBox:IsVisible(),AAC_SellEditBox=AAC_SellEditBox:IsVisible()}
+ elseif context=="sell" then AAC_SellAuctionContent:Hide() end
  AAC_HistoryEditBox:Hide(); AAC_SellEditBox:Hide()
  local narrow=context=="browse"; local width=narrow and 650 or 814
  AAC_ExchangeFrame:ClearAllAnchors(); AAC_ExchangeFrame:SetAnchor("TOPLEFT","TOPLEFT",AAC_AuctionFrame,narrow and 178 or 16,40)
@@ -562,16 +617,22 @@ function X.Open(context)
   local f=_G["AAC_Exchange"..name]; f:ClearAllAnchors(); f:SetAnchor("TOPRIGHT","TOPRIGHT",AAC_ExchangeFrame,-8,6)
  end
  local half=(width-16)/2
+ X.quickWidth=half
  for n,side in ipairs({"bid","ask"}) do
   local prefix="AAC_ExchangeQuick"..side; local card=_G[prefix.."Card"]
   card:SetWidth(half); card:ClearAllAnchors(); card:SetAnchor("TOPLEFT","TOPLEFT",AAC_ExchangeQuickPanel,(n-1)*(half+16),0)
   for _,name in ipairs({"AmountLabel","Amount","Rate","PayLabel","Pay","ReceiveLabel","Receive","Included","Note","Trade"}) do _G[prefix..name]:SetWidth(half-28) end
-  local custom=_G[prefix.."Custom"]; custom:SetWidth(half-28)
+  local custom=_G[prefix.."Custom"]; custom:SetWidth(half-38)
   for i=1,4 do
-   local row=_G[prefix.."Row"..i]; row:SetWidth(half-28)
-   local buy=_G[prefix.."Row"..i.."Buy"]; buy:ClearAllAnchors(); buy:SetAnchor("TOPRIGHT","TOPRIGHT",row,-4,9)
+   local row=_G[prefix.."Row"..i]; row:SetWidth(half-36)
+   local buyWidth=narrow and 64 or 78
+   local buy=_G[prefix.."Row"..i.."Buy"]; buy:SetWidth(buyWidth); buy:ClearAllAnchors(); buy:SetAnchor("TOPRIGHT","TOPRIGHT",row,-2,0)
+   local cost=_G[prefix.."Row"..i.."Cost"]; cost:SetWidth(narrow and 61 or 91); cost:ClearAllAnchors(); cost:SetAnchor("TOPRIGHT","TOPRIGHT",row,-buyWidth-41,5)
+   local icon=_G[prefix.."Row"..i.."CostIcon"]; icon:ClearAllAnchors(); icon:SetAnchor("TOPRIGHT","TOPRIGHT",row,-buyWidth-20,8)
+   local net=_G[prefix.."Row"..i.."Net"]; net:SetWidth(narrow and 84 or 130)
   end
-  _G[prefix.."Title"]:SetWidth(half-64); _G[prefix.."Tint"]:SetWidth(half-4)
+  _G[prefix.."Title"]:SetWidth(half-72)
+  local costHead=_G[prefix.."CostHead"]; costHead:ClearAllAnchors(); costHead:SetAnchor("TOPRIGHT","TOPRIGHT",card,narrow and -123 or -113,65)
  end
  local quantityX=math.floor(width*.55)
  AAC_ExchangeRateQuantityHead:ClearAllAnchors(); AAC_ExchangeRateQuantityHead:SetAnchor("TOPLEFT","TOPLEFT",AAC_ExchangeRateList,quantityX,43)
@@ -583,6 +644,5 @@ function X.Open(context)
  end
  AAC_ExchangeFrame:Show()
  -- Show() is dispatched by the client OnShow script. Navigation remains above the content.
- if context~="browse" then AAC_ExchangeNavAuctions:UnlockHighlight(); AAC_ExchangeNavExchange:LockHighlight() end
 end
 function X.OpenFromNavigation() X.Open(X.hostTab==3 and "sell" or "dashboard") end

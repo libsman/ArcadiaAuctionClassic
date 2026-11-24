@@ -113,7 +113,7 @@ class ExchangeTests(unittest.TestCase):
 
     def make_widgets(self):
         self.runlua('''function widget()
-            return {text='',ClearAllAnchors=function() end,SetAnchor=function() end,SetTexCoord=function() end,Show=function(s) s.visible=true end,Hide=function(s) s.visible=false end,GetName=function(s) return s.name end,SetText=function(s,t) s.text=t end,GetText=function(s) return s.text end,
+            return {text='',SetTexture=function(s,t) s.texture=t end,SetWidth=function(s,w) s.width=w end,SetChecked=function(s,v) s.checked=v end,ClearAllAnchors=function() end,SetAnchor=function() end,SetTexCoord=function() end,Show=function(s) s.visible=true end,Hide=function(s) s.visible=false end,GetName=function(s) return s.name end,SetText=function(s,t) s.text=t end,GetText=function(s) return s.text end,
                 Enable=function(s) s.enabled=true end,Disable=function(s) s.enabled=false end,
                 IsVisible=function() return true end,LockHighlight=function(s) s.selected=true end,
                 UnlockHighlight=function(s) s.selected=false end}
@@ -234,8 +234,8 @@ class ExchangeTests(unittest.TestCase):
     def test_offer_total_unit_and_grouping_both_directions(self):
         self.make_widgets()
         self.runlua('''AAC.Exchange.Show(); AAC.Exchange.Event('AUCTION_EXCHANGE_UPDATE'); AAC.Exchange.Manage()
-            AAC_ExchangeOfferaskAmount:SetText('1000'); AAC.Exchange.OfferChanged('ask','Amount')
-            AAC_ExchangeOfferaskTotal:SetText('100000000'); AAC.Exchange.OfferChanged('ask','Total')
+            AAC_ExchangeOfferaskAmount:SetText('1000'); AAC.Exchange.OfferChanged('ask','Amount',true)
+            AAC_ExchangeOfferaskTotal:SetText('100000000'); AAC.Exchange.OfferChanged('ask','Total',true)
             assert(AAC_ExchangeOfferaskAmount.text=='1.000')
             assert(AAC_ExchangeOfferaskTotal.text=='100.000.000')
             assert(AAC_ExchangeOfferaskRate.text=='100.000')
@@ -282,12 +282,27 @@ class ExchangeTests(unittest.TestCase):
                 count=count+1; assert(count<15, 'Recursive text event loop')
                 self.text=t; AAC.Exchange.OfferChanged('ask','Amount')
             end
-            input:SetText('1000'); assert(input.text=='1.000')
-            input:SetText('1.0000'); assert(input.text=='10.000')
+            input:SetText('1000'); assert(input.text=='1000'); AAC.Exchange.OfferChanged('ask','Amount',true); assert(input.text=='1.000')
+            input:SetText('1.0000'); assert(input.text=='1.0000'); AAC.Exchange.OfferChanged('ask','Amount',true); assert(input.text=='10.000')
             assert(AAC.Exchange.ParseNumber('100.000.000')==100000000)
             assert(not AAC.Exchange.ParseNumber('1.5'))
-            AAC_ExchangeQuickbidAmount:SetText('1000'); AAC.Exchange.QuickAmountChanged('bid')
-            assert(AAC_ExchangeQuickbidAmount.text=='1.000')
+            AAC_ExchangeQuickbidAmount:SetText('1000'); AAC.Exchange.QuickAmountChanged('bid'); assert(AAC_ExchangeQuickbidAmount.text=='1000')
+            AAC.Exchange.QuickAmountChanged('bid',true); assert(AAC_ExchangeQuickbidAmount.text=='1.000')
+        ''')
+
+    def test_typing_never_rewrites_active_field_and_groups_on_finish(self):
+        self.make_widgets()
+        self.runlua('''AAC.Exchange.Show(); AAC.Exchange.Event('AUCTION_EXCHANGE_UPDATE'); AAC.Exchange.Manage()
+            AAC_ExchangeOfferaskAmount:SetText('1000')
+            local input=AAC_ExchangeOfferaskRate; local rewrites=0
+            function input:SetText(t) rewrites=rewrites+1; self.text=t; AAC.Exchange.OfferChanged('ask','Rate') end
+            input.text=''
+            for digit in ('150000'):gmatch('.') do input.text=input.text..digit; AAC.Exchange.OfferChanged('ask','Rate') end
+            assert(rewrites==0 and input.text=='150000', 'Typing must not reset the active edit field')
+            assert(AAC_ExchangeOfferaskTotal.text=='150.000.000')
+            AAC.Exchange.OfferChanged('ask','Rate',true)
+            assert(input.text=='150.000' and rewrites==1)
+            assert(sends==0)
         ''')
 
     def test_quick_rows_show_net_cost_and_require_confirmation(self):
@@ -295,14 +310,17 @@ class ExchangeTests(unittest.TestCase):
         self.runlua('''AAC.Exchange.Show(); AAC.Exchange.Event('AUCTION_EXCHANGE_UPDATE')
             assert(AAC_ExchangeQuickbidRow1.visible and AAC_ExchangeQuickaskRow1.visible)
             assert(not AAC_ExchangeQuickbidAmount.visible)
-            assert(AAC_ExchangeQuickbidRow1Net.text=='2498')
-            assert(AAC_ExchangeQuickbidRow1Cost.text=='25')
-            assert(AAC_ExchangeQuickaskRow1Net.text=='23')
-            assert(AAC_ExchangeQuickaskRow1Cost.text=='2500')
+            assert(AAC_ExchangeQuickbidNetHead.visible and AAC_ExchangeQuickbidCostHead.visible)
+            assert(AAC_ExchangeQuickbidRow1Buy.text=='Buy')
+            assert(AAC_ExchangeQuickbidRow1Net.text=='99998')
+            assert(AAC_ExchangeQuickbidRow1Cost.text=='1000')
+            assert(AAC_ExchangeQuickaskRow1Net.text=='998')
+            assert(AAC_ExchangeQuickaskRow1Cost.text=='100000')
             AAC.Exchange.QuickRow('bid',25); assert(sends==0)
             assert(AAC.Exchange.confirmation.q.net==2498)
             AAC.Exchange.Dismiss()
             AAC.Exchange.Custom('bid'); assert(AAC_ExchangeQuickbidAmount.visible and not AAC_ExchangeQuickbidRow1.visible)
+            assert(not AAC_ExchangeQuickbidNetHead.visible and not AAC_ExchangeQuickbidCostHead.visible)
             AAC.Exchange.Custom('bid'); assert(not AAC_ExchangeQuickbidAmount.visible and AAC_ExchangeQuickbidRow1.visible)
             AAC.Exchange.QuickRow('ask',25); assert(sends==0)
             AAC.Exchange.Accept(); assert(sends==1 and sentSide=='ask' and sentN==25)
@@ -387,23 +405,59 @@ class ExchangeTests(unittest.TestCase):
               f.GetFrameLevel=function(s) return s.level or 1 end
             end
             for k,v in pairs(_G) do if type(k)=='string' and k:find('AAC_Exchange',1,true)==1 and type(v)=='table' then layout(v) end end
-            for _,k in ipairs({'AAC_AuctionFrame','AAC_DashboardFrame','AAC_DashboardDescriptionFrame','AAC_SellFrame','AAC_HistoryEditBox','AAC_SellEditBox','AAC_BrowseList','AAC_BrowseSearch'}) do _G[k]=widget();layout(_G[k]) end
+            for _,k in ipairs({'AAC_AuctionFrame','AAC_DashboardFrame','AAC_DashboardDescriptionFrame','AAC_SellFrame','AAC_SellAuctionContent','AAC_HistoryEditBox','AAC_SellEditBox','AAC_BrowseList','AAC_BrowseSearch'}) do _G[k]=widget();layout(_G[k]) end
             AAC.Browse={Frame_StopUpdates=function() stopped=true end}
             AAC.Main={ClickTab=function(tab) lastTab=tab;AAC.Exchange.Leave();AAC.Exchange.TabChanged(tab) end}
             AAC_ExchangeFrame.Show=function(s) s.visible=true;AAC.Exchange.Show() end
-            AAC.Exchange.TabChanged(6); AAC.Exchange.OpenFromNavigation()
+            AAC.Exchange.TabChanged(6); assert(not AAC_ExchangeNavigation.visible); AAC.Exchange.OpenFromNavigation()
             assert(AAC.Exchange.context=='dashboard' and AAC.Exchange.view=='home')
-            assert(AAC_ExchangeNavExchange.selected and not AAC_DashboardFrame.visible)
+            assert(not AAC_DashboardFrame.visible)
             AAC.Exchange.Event('AUCTION_EXCHANGE_UPDATE'); AAC.Exchange.Trade(); AAC.Exchange.Accept()
             AAC.Exchange.Legacy(); assert(lastTab==6 and AAC.Exchange.pending, 'Leaving must not release a sent transaction')
             AAC.Exchange.Event('AUCTION_EXCHANGE_RESULT','TRADE',0,1,100,9998,2,0)
+            AAC_SellAuctionContent.visible=true; AAC_SellEditBox.visible=true
+            AAC_SellEditBox.IsVisible=function(s) return s.visible and AAC_SellAuctionContent.visible end
             AAC.Exchange.TabChanged(3); AAC.Exchange.OpenFromNavigation()
-            assert(AAC.Exchange.view=='orders' and AAC.Exchange.context=='sell')
+            assert(AAC.Exchange.view=='sell' and AAC.Exchange.context=='sell' and not AAC_SellAuctionContent.visible)
             AAC.Exchange.Legacy(); assert(lastTab==3 and not AAC.Exchange.context)
+            assert(AAC_SellEditBox.visible, 'Ordinary offers filter must return after leaving exchange')
             AAC.Exchange.Open('browse'); assert(stopped and not AAC_BrowseList.visible and AAC_ExchangeFrame.width==650)
             AAC.Exchange.Leave(); assert(AAC_BrowseList.visible and not AAC.Exchange.context)
             assert(AAC_HistoryEditBox.visible and AAC_SellEditBox.visible)
             assert(sends==1)
+        """)
+
+    def test_sell_checkbox_mode_is_exclusive_and_does_not_submit(self):
+        self.make_widgets()
+        self.runlua("""
+            assert(type(AAC.Exchange.SetSellMode)=='function')
+            AAC_SellExchange=widget(); AAC_SellExchange.SetChecked=function(s,v) s.checked=v end
+            AAC_SellAuctionContent=widget()
+            AAC_SellMoneyAuction=widget(); AAC_SellMoneyAuction.SetChecked=function(s,v) s.checked=v end
+            AAC.Sell={ChangeAuctionType=function(v) AAC_SellMoneyAuction.checked=v end}
+            local open=AAC.Exchange.Open
+            AAC.Exchange.Open=function(c) AAC.Exchange.context=c;AAC.Exchange.view='sell' end
+            AAC.Exchange.SetSellMode(true)
+            assert(AAC_SellExchange.checked and not AAC_SellMoneyAuction.checked)
+            assert(AAC.Exchange.context=='sell')
+            AAC.Exchange.UseMoneyAuction(true)
+            assert(not AAC_SellExchange.checked and AAC_SellMoneyAuction.checked)
+            assert(not AAC.Exchange.context and AAC_SellAuctionContent.visible and sends==0)
+            AAC.Exchange.Open=open
+        """)
+
+    def test_integrated_sell_shows_form_and_orders_with_separate_count(self):
+        self.make_widgets()
+        self.runlua("""
+            AAC.Exchange.context='sell'; AAC.Exchange.Show()
+            assert(AAC.Exchange.view=='sell')
+            assert(AAC_ExchangeOfferPanel.visible and AAC_ExchangeOrdersPanel.visible)
+            assert(not AAC_ExchangeQuickPanel.visible)
+            assert(AAC_ExchangeOfferaskCard.visible and not AAC_ExchangeOfferbidCard.visible)
+            AAC.Exchange.OfferDirection('bid')
+            assert(AAC_ExchangeOfferbidCard.visible and not AAC_ExchangeOfferaskCard.visible)
+            assert(AAC_ExchangeOrdersCount.text:find('2',1,true))
+            assert(not AAC_ExchangeNew.visible and not AAC_ExchangeBack.visible and sends==0)
         """)
 
     def test_ui_labels_available_in_all_locales(self):
@@ -411,6 +465,54 @@ class ExchangeTests(unittest.TestCase):
             self.lua.globals().AAC.UX.language=lang
             for i in range(1,8):
                 self.assertTrue(self.lua.eval(f'AAC.Exchange.UIText({i})'))
+
+    def test_exchange_paging_four_rows_keeps_cancel_owner_checks(self):
+        self.make_widgets()
+        self.runlua('''function GetAuctionExchangeNumMyOrders() return 6 end
+            function GetAuctionExchangeMyOrder(i) return 100+i,'bid',5000,100,20,500 end
+            function GetAuctionExchangeNumAltOrders() return 0 end
+            AAC.Exchange.context='sell'; AAC.Exchange.Show()
+            assert(AAC_Exchangeorders1.row.id==101 and AAC_Exchangeorders4.row.id==104)
+            assert(AAC_Exchangeorders1Quantity.text=='400000')
+            AAC.Exchange.Page('orders',1)
+            assert(AAC_Exchangeorders1.row.id==105 and AAC_Exchangeorders2.row.id==106)
+            assert(not AAC_Exchangeorders3.row and not AAC_Exchangeorders3Icon.visible)
+            AAC.Exchange.Select('orders',AAC_Exchangeorders1); AAC.Exchange.Action('cancel')
+            assert(sends==0 and AAC.Exchange.confirmation.q.id==105)
+            AAC.Exchange.Accept(); assert(sends==1 and sentID==105)
+        ''')
+
+    def test_custom_amount_columns_and_buttons_fit_compact_cards(self):
+        self.make_widgets()
+        self.runlua('''for k,v in pairs(_G) do
+                if type(v)=='table' and type(k)=='string' and k:find('AAC_Exchange',1,true)==1 then
+                    v.SetAnchor=function(s,p,r,rel,x,y) s.x=x;s.y=y end
+                end
+            end
+            AAC.Exchange.quickWidth=317;AAC.Exchange.Show();AAC.Exchange.Custom('bid')
+            local b,t=AAC_ExchangeQuickbidCustom,AAC_ExchangeQuickbidTrade
+            assert(b.y==t.y and b.x+b.width<t.x and t.x+t.width<=299)
+            local n,c=AAC_ExchangeQuickbidReceive,AAC_ExchangeQuickbidPay
+            assert(n.y==c.y and n.x+n.width<c.x and c.x+c.width<=299)
+            assert(AAC_ExchangeQuickbidPayIcon.visible and sends==0)
+        ''')
+
+    def test_bag_click_in_exchange_mode_is_not_hidden_auction_staging(self):
+        self.runlua('''
+            used=0; staged=0
+            AAC_SellFrame={IsVisible=function() return true end}
+            AAC_SellAuctionContent={IsVisible=function() return AAC.Exchange.context~='sell' end}
+            function UseBagItem(i) used=used+1; return i end
+            function ClickAuctionItemButton() staged=staged+1 end
+            function ItemClipboard_Clear() end
+            function PickupBagItem() end
+            AAC.Sell={CanAuctionBagItem=function() return true end,TryPlaceCursorItem=function() end}
+        ''')
+        self.lua.execute((SOURCE.parent/'aac_hooks.lua').read_text(encoding='utf-8'))
+        self.runlua('''AAC_HookFunctions(); AAC.Exchange.context='sell'
+            assert(UseBagItem(12)==12 and used==1 and staged==0)
+            AAC.Exchange.context=nil; UseBagItem(12); assert(staged==1 and used==1)
+        ''')
 
     def test_money_category_is_virtual_and_does_not_change_native_indices(self):
         self.make_widgets()

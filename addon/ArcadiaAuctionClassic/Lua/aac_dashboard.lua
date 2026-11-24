@@ -230,7 +230,8 @@ function Dashboard.DoFilteringStep()
 end
 
 function Dashboard.UpdateScrollBar()
-	AAC_DashboardRefreshButton:SetText(AAC_SHUFFLE)
+	AAC_DashboardRefreshButton:SetText(AAC.TradingUI.Text("otherOffers"))
+    AAC_DashboardRefreshButton:SetWidth(140)
 
 	AAC_DashboardRefreshButton:Disable();
 	AAC_DashboardProgressLabel:Hide();
@@ -744,7 +745,7 @@ function Dashboard.List_UpdateItems()
 				getglobal(buttonName.."Seller"):SetText(GRAY_FONT_COLOR_CODE..AUCTION_ANONYMOUS.."|r")
 			end
 
-            getglobal(buttonName.."PPUBuy"):SetText(AAC.UX.UnitText(info))
+            AAC.UX.PaintUnit(getglobal(buttonName.."PPUBuy"),getglobal(buttonName.."PPUBuyCurrencyIcon"),info)
 
 			MoneyFrame_Update(buttonName.."BidMoney", info.bidPrice, info.moneyMode or "copper")
 			if info.isBuyer then
@@ -906,6 +907,6 @@ end
 
 function Dashboard.ShowDescription()
 	local DescLabel = _G["AAC_DashboardDescriptionFrameDesc"];
-    DescLabel:SetText(AAC_DASHBOARD_DESCRIPTION);
+    DescLabel:SetText(AAC.TradingUI.Text("dashboard"));
     DescLabel:SetTextColor(AAC_PROMOTE_TYPE_COLORS_MAIN[3].R, AAC_PROMOTE_TYPE_COLORS_MAIN[3].G, AAC_PROMOTE_TYPE_COLORS_MAIN[3].B);
 end

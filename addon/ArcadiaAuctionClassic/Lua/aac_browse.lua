@@ -1275,7 +1275,7 @@ function Browse.List_UpdateItems()
 				getglobal(buttonName.."Seller"):SetText(GRAY_FONT_COLOR_CODE..AUCTION_ANONYMOUS.."|r")
 			end
 
-            getglobal(buttonName.."PPUBuy"):SetText(AAC.UX.UnitText(info,false,Browse.GoldPriceView))
+            AAC.UX.PaintUnit(getglobal(buttonName.."PPUBuy"),getglobal(buttonName.."PPUBuyCurrencyIcon"),info,Browse.GoldPriceView)
 
 			MoneyFrame_Update(buttonName.."BidMoney", info.bidPrice, info.moneyMode or "copper")
 			if info.isBuyer then

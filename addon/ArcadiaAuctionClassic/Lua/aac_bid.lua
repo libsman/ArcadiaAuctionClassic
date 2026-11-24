@@ -28,7 +28,7 @@ function Bid.OnLoad(this)
 end
 
 function Bid.Resize(num)
-	AAC_BidList:SetSize(803, 380 + 44 * num)
+	AAC_BidList:SetSize(803, 368 + 44 * num)
 	Bid.DisplayedItems = 8 + num
 	for i = Bid.DisplayedItems + 1, 13 do
 		getglobal("AAC_BidListItem"..i):Hide()

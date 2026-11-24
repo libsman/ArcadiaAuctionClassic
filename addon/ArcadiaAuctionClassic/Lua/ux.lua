@@ -77,6 +77,18 @@ function U.Value(item)
  if price and U.GoldLot(item) then return item.count/item.buyoutPrice end
  return price
 end
+-- Real texture widgets, like the native auction total; no inline-texture markup.
+function U.PaintUnit(label, icon, item, goldHeader)
+ local price=item and U.Value(item)
+ if not price then label:SetText("");icon:Hide();return end
+ if U.GoldLot(item) and not goldHeader then
+  label:SetText(U.UnitText(item,false,false));icon:Hide();return
+ end
+ local diamond=item.moneyMode=="account" and not U.GoldLot(item)
+ label:SetText((diamond and "|cff70cfff" or "|cffffd45c")..U.Number(price,true).."|r")
+ icon:SetTexCoord(diamond and 1/64 or 0,diamond and 2/64 or 1/64,0,1)
+ icon:Show()
+end
 function U.UnitText(item, full, goldHeader)
  local price=U.Value(item)
  if not price then return "—" end

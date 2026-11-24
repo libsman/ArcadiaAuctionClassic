@@ -27,6 +27,7 @@ function AAC.CanRequest()
 end
 
 function AAC.CloseSession()
+    if AAC.TradingUI then AAC.TradingUI.Close() end
     if AAC.Exchange then AAC.Exchange.Close() end
     local wasOpen = AAC.SessionOpen
     AAC.SessionOpen = false
@@ -128,6 +129,8 @@ function S.Init()
     AAC.Main.InitSaveVariables()
     AAC.History.Init()
     AAC.Main.InitGUI(AAC_AuctionFrame)
+    if AAC.SellerTools then AAC.SellerTools.Init() end
+    if AAC.TradingUI then AAC.TradingUI.Init() end
     AAC_HookFunctions()
     S.ready = true
     S.InstallHooks()
@@ -135,6 +138,8 @@ function S.Init()
 end
 
 function S.Event(frame, event, ...)
+    if AAC.BuyOrders then AAC.BuyOrders.Event(event, ...) end
+    if AAC.SellerTools then AAC.SellerTools.Event(event) end
     if event == "VARIABLES_LOADED" then
         local ok, err = pcall(S.Init)
         if not ok then
@@ -154,6 +159,7 @@ function S.Event(frame, event, ...)
         if AAC_PrestigeFuncUpdate then AAC_PrestigeFuncUpdate() end
         return
     elseif event == "AUCTION_CLOSE" then
+        if AAC.TradingUI then AAC.TradingUI.Close() end
         -- Server already closed: hiding must not send another AuctionClose.
         AAC.SessionOpen = false
         if AAC.Market and AAC.Market.Reset then AAC.Market.Reset() end
@@ -180,6 +186,8 @@ function S.Tick(elapsed)
     if S.elapsed < 0.05 then return end
     S.elapsed = 0
     if AAC.Exchange then AAC.Exchange.Tick() end
+    if AAC.BuyOrders then AAC.BuyOrders.Tick() end
+    if AAC.SellerTools then AAC.SellerTools.Tick() end
     if AAC.CanRequest() and AAC.Market and AAC.Market.Tick then AAC.Market.Tick(elapsed) end
     if S.pendingMode ~= nil and AAC.Market and not AAC.Market.Blocked()
         and not (S.pendingMode and S.NativeBusy()) then
