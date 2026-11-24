@@ -34,6 +34,30 @@ local function enable(name,yes) local w=f(name);if w then if yes then w:Enable()
 local function number(n) return AAC.UX.Number(n or 0) end
 local function money(n,mode) return AAC.BuyOrders.Money(n or 0,mode or "copper") end
 local function busy() return AAC.Market.Blocked() or AAC.Market.HasConfirmation() end
+function U.PageCapacity(create, finder)
+    local extra=U.resizeValue or 0
+    if finder then return math.min(11,4+math.floor(extra/28)) end
+    return math.min(12,(create and 2 or 7)+math.floor(extra/40))
+end
+function U.Resize(num,value)
+    local create=U.mode=="create"
+    local first=((U.page or 1)-1)*U.PageCapacity(create)
+    local findFirst=((U.findPage or 1)-1)*U.PageCapacity(true,true)
+    U.resizeValue=math.max(0,math.min(220,tonumber(value) or 44*(tonumber(num) or 0)))
+    U.page=math.floor(first/U.PageCapacity(create))+1
+    U.findPage=math.floor(findFirst/U.PageCapacity(true,true))+1
+    if AAC_TradingPanel then
+        AAC_TradingPanel:SetHeight(434+U.resizeValue)
+        f("Finder"):SetHeight(414+U.resizeValue)
+        for _,entry in ipairs({{"Prev",0},{"Page",50},{"Next",122},{"New",210},{"Action",550}}) do
+            local w=f(entry[1]);w:ClearAllAnchors();w:SetAnchor("TOPLEFT","TOPLEFT",AAC_TradingPanel,entry[2],406+U.resizeValue)
+        end
+        for _,name in ipairs({"Hint","Detail"}) do
+            local w=f(name);w:ClearAllAnchors();w:SetAnchor("TOPLEFT","TOPLEFT",AAC_TradingPanel,8,376+U.resizeValue)
+        end
+    end
+    U.Render()
+end
 -- Keep the native parent alive (its show/hide events manage auction state).
 -- Only hide visible contents; never show a control that was already hidden.
 local contentNames={"AAC_BidFrame","AAC_BrowseFrame","AAC_DashboardFrame","AAC_SellAuctionContent","AAC_SellMoneyAuction",
@@ -206,7 +230,7 @@ function U.FindTick()
 end
 function U.PickFound(index)
     if GameTooltip then GameTooltip:Hide() end
-    local item=U.findItems and U.findItems[((U.findPage or 1)-1)*4+index]
+    local item=U.findItems and U.findItems[((U.findPage or 1)-1)*U.PageCapacity(true,true)+index]
     if item and U.PickItem(string.format("|Hitem:%x|h[%s]|h",item.ID,item.Name)) then
         set("FindText","");set("FindStatus","");f("FindText"):ClearFocus();U.findQuery="";U.findDirty=nil;U.findItems={};U.Render()
     end
@@ -301,10 +325,13 @@ function U.Render()
     local finding=create and #(U.findQuery or "")>=3
     visible("List",not finding);visible("Form",create)
     f("List"):ClearAllAnchors();f("List"):SetAnchor("TOPLEFT","TOPLEFT",AAC_TradingPanel,0,create and 286 or 64)
-    f("List"):SetHeight(create and 110 or 310)
+    f("List"):SetHeight((create and 110 or 310)+(U.resizeValue or 0))
     visible("OwnHeading",create and not finding);set("OwnHeading",U.Text("mine"))
-    for i=1,4 do
-        local item=finding and U.findItems and U.findItems[((U.findPage or 1)-1)*4+i]
+    local findCapacity=U.PageCapacity(true,true)
+    local findPages=math.max(1,math.ceil(#(U.findItems or {})/findCapacity))
+    U.findPage=math.max(1,math.min(findPages,U.findPage or 1))
+    for i=1,11 do
+        local item=i<=findCapacity and finding and U.findItems and U.findItems[(U.findPage-1)*findCapacity+i]
         visible("Pick"..i,not not item)
         if item then
             f("Pick"..i).row={itemID=item.ID,name=item.Name}
@@ -349,14 +376,14 @@ function U.Render()
         set("FormAction",U.Text("review"));enable("FormAction",not locked and U.itemID and fee and reserve)
         set("Detail","");visible("Detail",false);visible("Hint",true)
         if finding then
-            local pages=math.max(1,math.ceil(#(U.findItems or {})/4))
+            local pages=findPages
             U.findPage=math.max(1,math.min(pages,U.findPage or 1))
             visible("Prev",pages>1);visible("Next",pages>1);visible("Page",pages>1)
             set("Page",U.findPage.." / "..pages);enable("Prev",U.findPage>1);enable("Next",U.findPage<pages)
             return
         end
     end
-    local rows=U.Rows();local perPage=create and 2 or 7;local pages=math.max(1,math.ceil(#rows/perPage));U.page=math.min(pages,math.max(1,U.page))
+    local rows=U.Rows();local perPage=U.PageCapacity(create);local pages=math.max(1,math.ceil(#rows/perPage));U.page=math.min(pages,math.max(1,U.page))
     if U.selected and U.mode~="prices" and U.mode~="recent" then
         local id=U.selected.id;U.selected=nil
         for _,r in ipairs(rows) do if r.id==id then U.selected=r;break end end
@@ -364,7 +391,7 @@ function U.Render()
     visible("Prev",pages>1);visible("Next",pages>1);visible("Page",pages>1)
     set("Page",U.page.." / "..pages);enable("Prev",U.page>1);enable("Next",U.page<pages)
     set("ItemHead",U.Text("item"));set("QuantityHead",U.Text("amount"));set("PriceHead",U.Text("unit"));set("InfoHead",U.Text("info"))
-    for i=1,7 do
+    for i=1,12 do
         local r=i<=perPage and rows[(U.page-1)*perPage+i] or nil;local widget=f("Row"..i);widget.row=r;visible("Row"..i,i<=perPage)
         set("Row"..i.."Name",r and (r.name or "") or i==1 and U.Text(U.mode=="recent" and "recentEmpty" or "empty") or "")
         set("Row"..i.."Quantity",r and number(r.wanted or r.count or r.quantity) or "")

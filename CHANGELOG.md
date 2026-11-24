@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.9-beta — Use the expanded window
+
+- Buy-order forms and lists now grow with Expand view instead of keeping a fixed number of rows.
+- Item-search results, price checks and recent listings also use the extra height.
+- Move paging and action buttons down with the list; hide paging when all entries fit.
+- Keep the visible list position when collapsing or expanding and clamp pages to valid bounds.
+
 ## 0.3.8-beta — Clearer Classic forms
 
 - Compact My offers into native item, price and duration columns. Gross/net totals and unit prices remain editable; automatic pricing and promotion move into collapsible extra options.

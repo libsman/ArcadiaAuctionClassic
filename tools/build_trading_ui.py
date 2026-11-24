@@ -20,7 +20,7 @@ def line(x,y,w,h,vertical=False):
 def check(n,x,y,w,mode):
  return f'<CheckButton name="AAC_Trading{n}" inherits="AAC_SettingsCheckButtonTemplate">{size(20,20)}{anchor(x,y)}<Layers><Layer>{label(n+"Caption",22,0,w,20)}</Layer></Layers><Scripts><OnClick>AAC.TradingUI.Open("{mode}")</OnClick></Scripts></CheckButton>'
 rows=''
-for i in range(1,8):
+for i in range(1,13):
  n='Row'+str(i)
  icon=f'<Texture name="AAC_Trading{n}Icon">{size(32,32)}{anchor(5,4)}</Texture>'
  cells=icon+label(n+'Name',46,0,256,40,True)+label(n+'Quantity',310,0,80,40)+label(n+'Price',408,0,118,40).replace('justifyH="LEFT"','justifyH="RIGHT"')+label(n+'Info',562,0,210,40)
@@ -52,7 +52,7 @@ buttons+=button('Reload',520,0,150,'AAC.TradingUI.Refresh()')
 picker=label('FindLabel',12,30,650,20,True)+label('FindStatus',24,286,730,28)
 findedit=f'<EditBox name="AAC_TradingFindText" inherits="UIPanelEditBoxTemplate" letters="100">{size(558,24)}{anchor(12,52)}<Scripts><OnTextChanged>AAC.TradingUI.FindChanged()</OnTextChanged><OnEscapePressed>this:ClearFocus()</OnEscapePressed></Scripts></EditBox>'
 findrows=''
-for i in range(1,5):
+for i in range(1,12):
  findrows+=f'<Button name="AAC_TradingPick{i}" inherits="AAC_TemplateListItem" enableMouse="true" hidden="true">{size(752,28)}{anchor(16,286+(i-1)*28)}<Layers><Layer><Texture name="AAC_TradingPick{i}Icon">{size(24,24)}{anchor(8,2)}</Texture>{label("Pick"+str(i)+"Name",44,0,700,28,True)}</Layer></Layers><Scripts><OnClick>AAC.TradingUI.PickFound({i})</OnClick><OnEnter>AAC.TradingUI.Tooltip(this.row,this)</OnEnter><OnLeave>GameTooltip:Hide()</OnLeave></Scripts></Button>'
 findframe=frame('Finder',0,0,800,414,picker,findedit+findrows)
 labels=label('Title',8,0,500,24,True)+label('Hint',8,376,528,26)+label('Detail',8,376,784,26)+label('Page',50,406,68,24)+label('FormHelp',12,85,212,36)+label('OwnHeading',12,264,750,20,True)

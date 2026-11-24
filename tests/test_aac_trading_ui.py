@@ -109,11 +109,36 @@ class TradingUITests(unittest.TestCase):
             assert(AAC_TradingHint.visible and not AAC_TradingDetail.visible)
             AAC.BuyOrders.status='';AAC.TradingUI.selected=nil;AAC.TradingUI.Render()
             assert(not AAC_TradingAction.visible and AAC_TradingDetail.text=='')
+            -- Three own orders: collapsed needs two pages, one enlargement fits all.
+            local U=AAC.TradingUI
+            AAC.BuyOrders.rows={r,r,r};U.mode='create';U.Render()
+            assert(AAC_TradingNext.visible and not AAC_TradingRow3.visible)
+            U.Resize(1,44)
+            assert(AAC_TradingList.height==154 and AAC_TradingRow3.row==r)
+            assert(not AAC_TradingNext.visible and not AAC_TradingPage.visible)
+            assert(AAC_TradingNext.anchor[5]==450)
+            U.Resize(0,0)
+            assert(AAC_TradingNext.visible and not AAC_TradingRow3.visible)
+            -- Other lists use the added height too; selection/page cannot escape bounds.
+            U.mode='mine';AAC.BuyOrders.rows={}
+            for i=1,13 do AAC.BuyOrders.rows[i]={id=i,itemID=100,name='Item'..i,quantity=1,unitPrice=1,mode='copper'} end
+            U.Resize(5,220)
+            assert(AAC_TradingRow12.visible and AAC_TradingRow12.row.id==12)
+            assert(AAC_TradingList.height==530 and AAC_TradingNext.visible)
+            U.Page(1);assert(AAC_TradingRow1.row.id==13)
+            U.Resize(0,0);assert(U.page==2 and AAC_TradingRow1.row.id==8)
+            -- Item finder uses its extra rows, including correct second-page selection.
+            U.mode='create';U.findQuery='Item';U.findItems={};U.findPage=1
+            for i=1,13 do U.findItems[i]={ID=i,Name='Item'..i} end
+            U.Resize(5,220)
+            assert(AAC_TradingPick11.visible and AAC_TradingPick11.row.itemID==11)
+            U.Page(1);assert(AAC_TradingPick1.row.itemID==12 and not AAC_TradingPick3.visible)
+            U.Resize(0,0);assert(U.findPage==3 and AAC_TradingPick1.row.itemID==9)
         ''')
     def test_native_layout_and_runtime_texts(self):
         xml=ET.parse(ROOT/'Xml/aac_trading.xml');ns={'u':'https://chroniclesofarcadia.com/'}
         names={e.get('name'):e for e in xml.iter() if e.get('name')}
-        self.assertEqual(len([n for n in names if n.startswith('AAC_TradingRow') and n[14:].isdigit()]),7)
+        self.assertEqual(len([n for n in names if n.startswith('AAC_TradingRow') and n[14:].isdigit()]),12)
         self.assertEqual(names['AAC_TradingGold'].get('inherits'),'MoneyModeRadioButtonTemplate')
         self.assertNotIn('AAC_TradingSearchOrders',names)
         self.assertEqual(names['AAC_TradingSellPrices'].get('parent'),'AAC_SellFrame')

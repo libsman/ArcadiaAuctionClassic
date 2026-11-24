@@ -1,4 +1,4 @@
-local VERSION = "0.3.8-beta"
+local VERSION = "0.3.9-beta"
 -- Recover missing optional TOC data before capturing references. Never retry per frame.
 local function dataTable(name, file)
     if type(_G[name]) ~= "table" and type(dofile) == "function" then
@@ -671,6 +671,7 @@ function Main.ResizeFrame(num)
 	AAC.Bid.Resize(num, value)
     AAC.Sell.Resize(num, value)
     AAC.Dashboard.Resize(num, value)
+    if AAC.TradingUI and AAC.TradingUI.Resize then AAC.TradingUI.Resize(num,value) end
 	Main.SettingsResize(value)
 	Main.RePlaceElements()
 end

@@ -1261,6 +1261,651 @@
               <OnLeave>GameTooltip:Hide()</OnLeave>
             </Scripts>
           </Button>
+          <Button name="AAC_TradingRow8" inherits="AAC_TemplateListItem">
+            <Size>
+              <AbsDimension x="780" y="40"/>
+            </Size>
+            <Anchors>
+              <Anchor point="TOPLEFT">
+                <Offset>
+                  <AbsDimension x="10" y="306"/>
+                </Offset>
+              </Anchor>
+            </Anchors>
+            <Layers>
+              <Layer>
+                <Texture name="AAC_TradingRow8Icon">
+                  <Size>
+                    <AbsDimension x="32" y="32"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="5" y="4"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </Texture>
+                <FontString name="AAC_TradingRow8Name" inherits="GameFontNormal" justifyH="LEFT" justifyV="MIDDLE">
+                  <Size>
+                    <AbsDimension x="256" y="40"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="46" y="0"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </FontString>
+                <FontString name="AAC_TradingRow8Quantity" inherits="GameFontHighlight" justifyH="LEFT" justifyV="MIDDLE">
+                  <Size>
+                    <AbsDimension x="80" y="40"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="310" y="0"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </FontString>
+                <FontString name="AAC_TradingRow8Price" inherits="GameFontHighlight" justifyH="RIGHT" justifyV="MIDDLE">
+                  <Size>
+                    <AbsDimension x="118" y="40"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="408" y="0"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </FontString>
+                <FontString name="AAC_TradingRow8Info" inherits="GameFontHighlight" justifyH="LEFT" justifyV="MIDDLE">
+                  <Size>
+                    <AbsDimension x="210" y="40"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="562" y="0"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </FontString>
+                <Texture name="AAC_TradingRow8PriceIcon" file="Interface\MoneyFrame\MoneyIcons">
+                  <Size>
+                    <AbsDimension x="14" y="14"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="536" y="13"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </Texture>
+                <Texture file="Interface\AuctionFrame\AuctionSeparate-VerticalLine">
+                  <Size>
+                    <AbsDimension x="5" y="34"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="300" y="3"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </Texture>
+                <Texture file="Interface\AuctionFrame\AuctionSeparate-VerticalLine">
+                  <Size>
+                    <AbsDimension x="5" y="34"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="398" y="3"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </Texture>
+                <Texture file="Interface\AuctionFrame\AuctionSeparate-VerticalLine">
+                  <Size>
+                    <AbsDimension x="5" y="34"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="552" y="3"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </Texture>
+              </Layer>
+            </Layers>
+            <Scripts>
+              <OnClick>AAC.TradingUI.Select(this.row)</OnClick>
+              <OnEnter>AAC.TradingUI.Tooltip(this.row,this)</OnEnter>
+              <OnLeave>GameTooltip:Hide()</OnLeave>
+            </Scripts>
+          </Button>
+          <Button name="AAC_TradingRow9" inherits="AAC_TemplateListItem">
+            <Size>
+              <AbsDimension x="780" y="40"/>
+            </Size>
+            <Anchors>
+              <Anchor point="TOPLEFT">
+                <Offset>
+                  <AbsDimension x="10" y="346"/>
+                </Offset>
+              </Anchor>
+            </Anchors>
+            <Layers>
+              <Layer>
+                <Texture name="AAC_TradingRow9Icon">
+                  <Size>
+                    <AbsDimension x="32" y="32"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="5" y="4"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </Texture>
+                <FontString name="AAC_TradingRow9Name" inherits="GameFontNormal" justifyH="LEFT" justifyV="MIDDLE">
+                  <Size>
+                    <AbsDimension x="256" y="40"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="46" y="0"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </FontString>
+                <FontString name="AAC_TradingRow9Quantity" inherits="GameFontHighlight" justifyH="LEFT" justifyV="MIDDLE">
+                  <Size>
+                    <AbsDimension x="80" y="40"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="310" y="0"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </FontString>
+                <FontString name="AAC_TradingRow9Price" inherits="GameFontHighlight" justifyH="RIGHT" justifyV="MIDDLE">
+                  <Size>
+                    <AbsDimension x="118" y="40"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="408" y="0"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </FontString>
+                <FontString name="AAC_TradingRow9Info" inherits="GameFontHighlight" justifyH="LEFT" justifyV="MIDDLE">
+                  <Size>
+                    <AbsDimension x="210" y="40"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="562" y="0"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </FontString>
+                <Texture name="AAC_TradingRow9PriceIcon" file="Interface\MoneyFrame\MoneyIcons">
+                  <Size>
+                    <AbsDimension x="14" y="14"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="536" y="13"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </Texture>
+                <Texture file="Interface\AuctionFrame\AuctionSeparate-VerticalLine">
+                  <Size>
+                    <AbsDimension x="5" y="34"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="300" y="3"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </Texture>
+                <Texture file="Interface\AuctionFrame\AuctionSeparate-VerticalLine">
+                  <Size>
+                    <AbsDimension x="5" y="34"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="398" y="3"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </Texture>
+                <Texture file="Interface\AuctionFrame\AuctionSeparate-VerticalLine">
+                  <Size>
+                    <AbsDimension x="5" y="34"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="552" y="3"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </Texture>
+              </Layer>
+            </Layers>
+            <Scripts>
+              <OnClick>AAC.TradingUI.Select(this.row)</OnClick>
+              <OnEnter>AAC.TradingUI.Tooltip(this.row,this)</OnEnter>
+              <OnLeave>GameTooltip:Hide()</OnLeave>
+            </Scripts>
+          </Button>
+          <Button name="AAC_TradingRow10" inherits="AAC_TemplateListItem">
+            <Size>
+              <AbsDimension x="780" y="40"/>
+            </Size>
+            <Anchors>
+              <Anchor point="TOPLEFT">
+                <Offset>
+                  <AbsDimension x="10" y="386"/>
+                </Offset>
+              </Anchor>
+            </Anchors>
+            <Layers>
+              <Layer>
+                <Texture name="AAC_TradingRow10Icon">
+                  <Size>
+                    <AbsDimension x="32" y="32"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="5" y="4"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </Texture>
+                <FontString name="AAC_TradingRow10Name" inherits="GameFontNormal" justifyH="LEFT" justifyV="MIDDLE">
+                  <Size>
+                    <AbsDimension x="256" y="40"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="46" y="0"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </FontString>
+                <FontString name="AAC_TradingRow10Quantity" inherits="GameFontHighlight" justifyH="LEFT" justifyV="MIDDLE">
+                  <Size>
+                    <AbsDimension x="80" y="40"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="310" y="0"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </FontString>
+                <FontString name="AAC_TradingRow10Price" inherits="GameFontHighlight" justifyH="RIGHT" justifyV="MIDDLE">
+                  <Size>
+                    <AbsDimension x="118" y="40"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="408" y="0"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </FontString>
+                <FontString name="AAC_TradingRow10Info" inherits="GameFontHighlight" justifyH="LEFT" justifyV="MIDDLE">
+                  <Size>
+                    <AbsDimension x="210" y="40"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="562" y="0"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </FontString>
+                <Texture name="AAC_TradingRow10PriceIcon" file="Interface\MoneyFrame\MoneyIcons">
+                  <Size>
+                    <AbsDimension x="14" y="14"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="536" y="13"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </Texture>
+                <Texture file="Interface\AuctionFrame\AuctionSeparate-VerticalLine">
+                  <Size>
+                    <AbsDimension x="5" y="34"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="300" y="3"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </Texture>
+                <Texture file="Interface\AuctionFrame\AuctionSeparate-VerticalLine">
+                  <Size>
+                    <AbsDimension x="5" y="34"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="398" y="3"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </Texture>
+                <Texture file="Interface\AuctionFrame\AuctionSeparate-VerticalLine">
+                  <Size>
+                    <AbsDimension x="5" y="34"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="552" y="3"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </Texture>
+              </Layer>
+            </Layers>
+            <Scripts>
+              <OnClick>AAC.TradingUI.Select(this.row)</OnClick>
+              <OnEnter>AAC.TradingUI.Tooltip(this.row,this)</OnEnter>
+              <OnLeave>GameTooltip:Hide()</OnLeave>
+            </Scripts>
+          </Button>
+          <Button name="AAC_TradingRow11" inherits="AAC_TemplateListItem">
+            <Size>
+              <AbsDimension x="780" y="40"/>
+            </Size>
+            <Anchors>
+              <Anchor point="TOPLEFT">
+                <Offset>
+                  <AbsDimension x="10" y="426"/>
+                </Offset>
+              </Anchor>
+            </Anchors>
+            <Layers>
+              <Layer>
+                <Texture name="AAC_TradingRow11Icon">
+                  <Size>
+                    <AbsDimension x="32" y="32"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="5" y="4"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </Texture>
+                <FontString name="AAC_TradingRow11Name" inherits="GameFontNormal" justifyH="LEFT" justifyV="MIDDLE">
+                  <Size>
+                    <AbsDimension x="256" y="40"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="46" y="0"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </FontString>
+                <FontString name="AAC_TradingRow11Quantity" inherits="GameFontHighlight" justifyH="LEFT" justifyV="MIDDLE">
+                  <Size>
+                    <AbsDimension x="80" y="40"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="310" y="0"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </FontString>
+                <FontString name="AAC_TradingRow11Price" inherits="GameFontHighlight" justifyH="RIGHT" justifyV="MIDDLE">
+                  <Size>
+                    <AbsDimension x="118" y="40"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="408" y="0"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </FontString>
+                <FontString name="AAC_TradingRow11Info" inherits="GameFontHighlight" justifyH="LEFT" justifyV="MIDDLE">
+                  <Size>
+                    <AbsDimension x="210" y="40"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="562" y="0"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </FontString>
+                <Texture name="AAC_TradingRow11PriceIcon" file="Interface\MoneyFrame\MoneyIcons">
+                  <Size>
+                    <AbsDimension x="14" y="14"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="536" y="13"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </Texture>
+                <Texture file="Interface\AuctionFrame\AuctionSeparate-VerticalLine">
+                  <Size>
+                    <AbsDimension x="5" y="34"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="300" y="3"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </Texture>
+                <Texture file="Interface\AuctionFrame\AuctionSeparate-VerticalLine">
+                  <Size>
+                    <AbsDimension x="5" y="34"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="398" y="3"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </Texture>
+                <Texture file="Interface\AuctionFrame\AuctionSeparate-VerticalLine">
+                  <Size>
+                    <AbsDimension x="5" y="34"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="552" y="3"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </Texture>
+              </Layer>
+            </Layers>
+            <Scripts>
+              <OnClick>AAC.TradingUI.Select(this.row)</OnClick>
+              <OnEnter>AAC.TradingUI.Tooltip(this.row,this)</OnEnter>
+              <OnLeave>GameTooltip:Hide()</OnLeave>
+            </Scripts>
+          </Button>
+          <Button name="AAC_TradingRow12" inherits="AAC_TemplateListItem">
+            <Size>
+              <AbsDimension x="780" y="40"/>
+            </Size>
+            <Anchors>
+              <Anchor point="TOPLEFT">
+                <Offset>
+                  <AbsDimension x="10" y="466"/>
+                </Offset>
+              </Anchor>
+            </Anchors>
+            <Layers>
+              <Layer>
+                <Texture name="AAC_TradingRow12Icon">
+                  <Size>
+                    <AbsDimension x="32" y="32"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="5" y="4"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </Texture>
+                <FontString name="AAC_TradingRow12Name" inherits="GameFontNormal" justifyH="LEFT" justifyV="MIDDLE">
+                  <Size>
+                    <AbsDimension x="256" y="40"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="46" y="0"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </FontString>
+                <FontString name="AAC_TradingRow12Quantity" inherits="GameFontHighlight" justifyH="LEFT" justifyV="MIDDLE">
+                  <Size>
+                    <AbsDimension x="80" y="40"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="310" y="0"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </FontString>
+                <FontString name="AAC_TradingRow12Price" inherits="GameFontHighlight" justifyH="RIGHT" justifyV="MIDDLE">
+                  <Size>
+                    <AbsDimension x="118" y="40"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="408" y="0"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </FontString>
+                <FontString name="AAC_TradingRow12Info" inherits="GameFontHighlight" justifyH="LEFT" justifyV="MIDDLE">
+                  <Size>
+                    <AbsDimension x="210" y="40"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="562" y="0"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </FontString>
+                <Texture name="AAC_TradingRow12PriceIcon" file="Interface\MoneyFrame\MoneyIcons">
+                  <Size>
+                    <AbsDimension x="14" y="14"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="536" y="13"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </Texture>
+                <Texture file="Interface\AuctionFrame\AuctionSeparate-VerticalLine">
+                  <Size>
+                    <AbsDimension x="5" y="34"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="300" y="3"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </Texture>
+                <Texture file="Interface\AuctionFrame\AuctionSeparate-VerticalLine">
+                  <Size>
+                    <AbsDimension x="5" y="34"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="398" y="3"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </Texture>
+                <Texture file="Interface\AuctionFrame\AuctionSeparate-VerticalLine">
+                  <Size>
+                    <AbsDimension x="5" y="34"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="552" y="3"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </Texture>
+              </Layer>
+            </Layers>
+            <Scripts>
+              <OnClick>AAC.TradingUI.Select(this.row)</OnClick>
+              <OnEnter>AAC.TradingUI.Tooltip(this.row,this)</OnEnter>
+              <OnLeave>GameTooltip:Hide()</OnLeave>
+            </Scripts>
+          </Button>
         </Frames>
       </Frame>
       <Frame name="AAC_TradingForm" enableMouse="true">
@@ -1849,6 +2494,321 @@
             </Layers>
             <Scripts>
               <OnClick>AAC.TradingUI.PickFound(4)</OnClick>
+              <OnEnter>AAC.TradingUI.Tooltip(this.row,this)</OnEnter>
+              <OnLeave>GameTooltip:Hide()</OnLeave>
+            </Scripts>
+          </Button>
+          <Button name="AAC_TradingPick5" inherits="AAC_TemplateListItem" enableMouse="true" hidden="true">
+            <Size>
+              <AbsDimension x="752" y="28"/>
+            </Size>
+            <Anchors>
+              <Anchor point="TOPLEFT">
+                <Offset>
+                  <AbsDimension x="16" y="398"/>
+                </Offset>
+              </Anchor>
+            </Anchors>
+            <Layers>
+              <Layer>
+                <Texture name="AAC_TradingPick5Icon">
+                  <Size>
+                    <AbsDimension x="24" y="24"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="8" y="2"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </Texture>
+                <FontString name="AAC_TradingPick5Name" inherits="GameFontNormal" justifyH="LEFT" justifyV="MIDDLE">
+                  <Size>
+                    <AbsDimension x="700" y="28"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="44" y="0"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </FontString>
+              </Layer>
+            </Layers>
+            <Scripts>
+              <OnClick>AAC.TradingUI.PickFound(5)</OnClick>
+              <OnEnter>AAC.TradingUI.Tooltip(this.row,this)</OnEnter>
+              <OnLeave>GameTooltip:Hide()</OnLeave>
+            </Scripts>
+          </Button>
+          <Button name="AAC_TradingPick6" inherits="AAC_TemplateListItem" enableMouse="true" hidden="true">
+            <Size>
+              <AbsDimension x="752" y="28"/>
+            </Size>
+            <Anchors>
+              <Anchor point="TOPLEFT">
+                <Offset>
+                  <AbsDimension x="16" y="426"/>
+                </Offset>
+              </Anchor>
+            </Anchors>
+            <Layers>
+              <Layer>
+                <Texture name="AAC_TradingPick6Icon">
+                  <Size>
+                    <AbsDimension x="24" y="24"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="8" y="2"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </Texture>
+                <FontString name="AAC_TradingPick6Name" inherits="GameFontNormal" justifyH="LEFT" justifyV="MIDDLE">
+                  <Size>
+                    <AbsDimension x="700" y="28"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="44" y="0"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </FontString>
+              </Layer>
+            </Layers>
+            <Scripts>
+              <OnClick>AAC.TradingUI.PickFound(6)</OnClick>
+              <OnEnter>AAC.TradingUI.Tooltip(this.row,this)</OnEnter>
+              <OnLeave>GameTooltip:Hide()</OnLeave>
+            </Scripts>
+          </Button>
+          <Button name="AAC_TradingPick7" inherits="AAC_TemplateListItem" enableMouse="true" hidden="true">
+            <Size>
+              <AbsDimension x="752" y="28"/>
+            </Size>
+            <Anchors>
+              <Anchor point="TOPLEFT">
+                <Offset>
+                  <AbsDimension x="16" y="454"/>
+                </Offset>
+              </Anchor>
+            </Anchors>
+            <Layers>
+              <Layer>
+                <Texture name="AAC_TradingPick7Icon">
+                  <Size>
+                    <AbsDimension x="24" y="24"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="8" y="2"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </Texture>
+                <FontString name="AAC_TradingPick7Name" inherits="GameFontNormal" justifyH="LEFT" justifyV="MIDDLE">
+                  <Size>
+                    <AbsDimension x="700" y="28"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="44" y="0"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </FontString>
+              </Layer>
+            </Layers>
+            <Scripts>
+              <OnClick>AAC.TradingUI.PickFound(7)</OnClick>
+              <OnEnter>AAC.TradingUI.Tooltip(this.row,this)</OnEnter>
+              <OnLeave>GameTooltip:Hide()</OnLeave>
+            </Scripts>
+          </Button>
+          <Button name="AAC_TradingPick8" inherits="AAC_TemplateListItem" enableMouse="true" hidden="true">
+            <Size>
+              <AbsDimension x="752" y="28"/>
+            </Size>
+            <Anchors>
+              <Anchor point="TOPLEFT">
+                <Offset>
+                  <AbsDimension x="16" y="482"/>
+                </Offset>
+              </Anchor>
+            </Anchors>
+            <Layers>
+              <Layer>
+                <Texture name="AAC_TradingPick8Icon">
+                  <Size>
+                    <AbsDimension x="24" y="24"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="8" y="2"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </Texture>
+                <FontString name="AAC_TradingPick8Name" inherits="GameFontNormal" justifyH="LEFT" justifyV="MIDDLE">
+                  <Size>
+                    <AbsDimension x="700" y="28"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="44" y="0"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </FontString>
+              </Layer>
+            </Layers>
+            <Scripts>
+              <OnClick>AAC.TradingUI.PickFound(8)</OnClick>
+              <OnEnter>AAC.TradingUI.Tooltip(this.row,this)</OnEnter>
+              <OnLeave>GameTooltip:Hide()</OnLeave>
+            </Scripts>
+          </Button>
+          <Button name="AAC_TradingPick9" inherits="AAC_TemplateListItem" enableMouse="true" hidden="true">
+            <Size>
+              <AbsDimension x="752" y="28"/>
+            </Size>
+            <Anchors>
+              <Anchor point="TOPLEFT">
+                <Offset>
+                  <AbsDimension x="16" y="510"/>
+                </Offset>
+              </Anchor>
+            </Anchors>
+            <Layers>
+              <Layer>
+                <Texture name="AAC_TradingPick9Icon">
+                  <Size>
+                    <AbsDimension x="24" y="24"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="8" y="2"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </Texture>
+                <FontString name="AAC_TradingPick9Name" inherits="GameFontNormal" justifyH="LEFT" justifyV="MIDDLE">
+                  <Size>
+                    <AbsDimension x="700" y="28"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="44" y="0"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </FontString>
+              </Layer>
+            </Layers>
+            <Scripts>
+              <OnClick>AAC.TradingUI.PickFound(9)</OnClick>
+              <OnEnter>AAC.TradingUI.Tooltip(this.row,this)</OnEnter>
+              <OnLeave>GameTooltip:Hide()</OnLeave>
+            </Scripts>
+          </Button>
+          <Button name="AAC_TradingPick10" inherits="AAC_TemplateListItem" enableMouse="true" hidden="true">
+            <Size>
+              <AbsDimension x="752" y="28"/>
+            </Size>
+            <Anchors>
+              <Anchor point="TOPLEFT">
+                <Offset>
+                  <AbsDimension x="16" y="538"/>
+                </Offset>
+              </Anchor>
+            </Anchors>
+            <Layers>
+              <Layer>
+                <Texture name="AAC_TradingPick10Icon">
+                  <Size>
+                    <AbsDimension x="24" y="24"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="8" y="2"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </Texture>
+                <FontString name="AAC_TradingPick10Name" inherits="GameFontNormal" justifyH="LEFT" justifyV="MIDDLE">
+                  <Size>
+                    <AbsDimension x="700" y="28"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="44" y="0"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </FontString>
+              </Layer>
+            </Layers>
+            <Scripts>
+              <OnClick>AAC.TradingUI.PickFound(10)</OnClick>
+              <OnEnter>AAC.TradingUI.Tooltip(this.row,this)</OnEnter>
+              <OnLeave>GameTooltip:Hide()</OnLeave>
+            </Scripts>
+          </Button>
+          <Button name="AAC_TradingPick11" inherits="AAC_TemplateListItem" enableMouse="true" hidden="true">
+            <Size>
+              <AbsDimension x="752" y="28"/>
+            </Size>
+            <Anchors>
+              <Anchor point="TOPLEFT">
+                <Offset>
+                  <AbsDimension x="16" y="566"/>
+                </Offset>
+              </Anchor>
+            </Anchors>
+            <Layers>
+              <Layer>
+                <Texture name="AAC_TradingPick11Icon">
+                  <Size>
+                    <AbsDimension x="24" y="24"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="8" y="2"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </Texture>
+                <FontString name="AAC_TradingPick11Name" inherits="GameFontNormal" justifyH="LEFT" justifyV="MIDDLE">
+                  <Size>
+                    <AbsDimension x="700" y="28"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="44" y="0"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </FontString>
+              </Layer>
+            </Layers>
+            <Scripts>
+              <OnClick>AAC.TradingUI.PickFound(11)</OnClick>
               <OnEnter>AAC.TradingUI.Tooltip(this.row,this)</OnEnter>
               <OnLeave>GameTooltip:Hide()</OnLeave>
             </Scripts>
