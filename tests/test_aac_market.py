@@ -352,6 +352,34 @@ class ClassicMarketTests(unittest.TestCase):
             assert(removed == 2 and not M.TransactionPending())
         ''')
 
+    def test_gear_receipt_with_regenerated_link_confirms_and_unblocks_next_purchase(self):
+        self.lua.execute('''
+            local M=AAC.Market
+            TEXT=function(k) if k=="SYS_AC_BUYOUT_SUCCESS" then return 'Kauf von "%s" war erfolgreich.' end return k end
+            GetAuctionBrowseMaxItems=function()return 1 end
+            GetAuctionBrowseMaxPages=function()return 1 end
+            local suffix=" 00000000000000000000000000000000000000000000000000|h|cffffffff[Darstellerlangrobe]|r|h"
+            local listed="|Hitem:35cc8 1 56000a64 d1ef 0 0 0 0 0 0 186a0 36a1 35cc8"..suffix
+            local received="|Hitem:35cc8 1 ff000a64 d1ef 0 0 0 0 0 0 186a0 175d 35cc8"..suffix
+            GetAuctionBrowseItemLink=function()return listed end
+            owner={RemovePurchased=function(i)removed=(removed or 0)+1 end}
+            M.StartSearch(owner,function()end,function()end,function()end);M.Tick()
+            M.SearchEvent(owner,"AUCTION_BROWSE_UPDATE");M.SearchEvent(owner,"AUCTION_SEARCH_RESULT");M.Tick()
+            local item={auctionid=1,dbid=99,page=1,slot=1,owner=owner,epoch=M.Epoch,
+                cacheCount=2,count=2,seller="Seller",link=listed,moneyMode="copper",bidPrice=100,buyoutPrice=200}
+            AAC.Pay.PayAuction(item,0,true,AAC.Pay.AuctionType.Browse);StaticPopupDialogs[popup].OnAccept()
+            local function receipt(link,count) M.SystemMessage('Kauf von "'..count..'x '..link..'" war erfolgreich.') end
+            receipt(received,1);assert(M.TransactionPending() and not removed)
+            receipt(received:gsub('d1ef','d1ee'),2);assert(M.TransactionPending() and not removed)
+            receipt(received:gsub('ff000a64','ff000a65'),2);assert(M.TransactionPending() and not removed)
+            receipt(received,2);assert(not M.TransactionPending() and removed==1)
+            receipt(received,2);assert(removed==1)
+            -- A later explicit purchase remains possible without waiting for the timeout.
+            id=100; item.dbid=100
+            AAC.Pay.PayAuction(item,0,true,AAC.Pay.AuctionType.Browse);StaticPopupDialogs[popup].OnAccept()
+            assert(sent[1]==100 and M.TransactionPending())
+        ''')
+
     def test_reused_page_rows_are_rejected(self):
         self.lua.execute('''
             local M = AAC.Market

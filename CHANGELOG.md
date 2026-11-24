@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.11-beta — Reliable equipment purchases
+
+- Fix purchased equipment remaining in search results and blocking the next purchase when the game regenerates technical item-link metadata in its success reply.
+- Keep auction, price, currency, equipment attributes and stack-size checks; purchases are never retried automatically.
+- Verified two consecutive equipment purchases in the game client: both rows disappeared after confirmation. All 150 automated tests pass.
+
 ## 0.3.10-beta — Restore selling price history
 
 - Fix the disabled Price history button in My offers.

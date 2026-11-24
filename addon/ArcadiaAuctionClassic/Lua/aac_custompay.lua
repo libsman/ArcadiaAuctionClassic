@@ -23,6 +23,21 @@ end
 
 local function purchaseKey(link, count)
     local canonical = bareLink(link) or link
+    -- The client regenerates two fields between a gear listing and its success
+    -- receipt (verified with a live buy): field 3's high byte and field 12.
+    -- Keep the remaining payload, including stats, upgrades and corruption;
+    -- neither the displayed name nor a complete raw link identifies a receipt.
+    local payload = canonical and canonical:match("^|Hitem:([^|]+)|h")
+    if payload then
+        local fields = {}
+        for value in payload:gmatch("%S+") do fields[#fields + 1] = value end
+        local packed = tonumber(fields[3] or "", 16)
+        if #fields >= 13 and packed then
+            fields[3] = string.format("%x", packed % 16777216)
+            fields[12] = "0"
+            canonical = "item:" .. table.concat(fields, " ")
+        end
+    end
     if canonical then return canonical .. "|" .. tostring(count) end
 end
 
