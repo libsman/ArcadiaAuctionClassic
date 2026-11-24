@@ -1,5 +1,5 @@
-<Ui xmlns="https://chroniclesofarcadia.com/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="https://chroniclesofarcadia.com/ https://chroniclesofarcadia.com/UI.xsd">
+<?xml version='1.0' encoding='utf-8'?>
+<Ui xmlns="https://chroniclesofarcadia.com/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://chroniclesofarcadia.com/ https://chroniclesofarcadia.com/UI.xsd">
 	<Button name="AAC_BidListHeaderTemplate" inherits="AAC_TemplateHeaderButton" virtual="true">
 		<Scripts>
 			<OnClick>AAC.Bid.ChangeSortMode(this)</OnClick>
@@ -378,7 +378,7 @@
 						</Anchors>
 					</Button>
 				</Frames>
-			</Frame>
+			<Layers><Layer level="ARTWORK"><FontString name="AAC_BidEmpty" inherits="GameFontHighlight" justifyH="CENTER" hidden="true"><Size><AbsDimension x="600" y="40"/></Size><Anchors><Anchor point="CENTER"/></Anchors></FontString></Layer></Layers></Frame>
 			<Button name="AAC_BidListHistoryButton" hidden="true" inherits="UIPanelButtonTemplate" text="AUCTION_HISTORY_PRICE">
 				<Size>
 					<AbsDimension x="60" y="24"/>

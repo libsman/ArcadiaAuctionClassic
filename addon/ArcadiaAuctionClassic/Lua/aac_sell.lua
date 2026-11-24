@@ -201,9 +201,12 @@ function Sell.OnEvent(this, event)
 end
 
 function Sell.Resize(num, value)
-	Sell.MAXITEMS = 3 + num
-	AAC_SellList:SetSize(800, 179 + value)
-	AAC_SellItemBrowse:SetSize(178, 179 + value)
+	Sell.resizeNum, Sell.resizeValue = num, value
+    local extra = Sell.extrasOpen and 80 or 0
+    Sell.MAXITEMS = (Sell.extrasOpen and 2 or 3) + num
+    AAC_SellItemFrame:SetHeight(180 + extra)
+	AAC_SellList:SetSize(800, 199 + value - extra)
+	AAC_SellItemBrowse:SetSize(178, 199 + value - extra)
 
 	for i = Sell.MAXITEMS + 1, 11 do
 		getglobal("AAC_SellListItem"..i):Hide()
@@ -474,15 +477,15 @@ function Sell.AutoFillBuyoutEditBox_CheckVisibility()
 
 	if UIDropDownMenu_GetSelectedID(AAC_SellAutoFillBuyoutDropDown) == 3 then
 		AAC_SellAutoFillBuyoutDropDown:ClearAllAnchors()
-		AAC_SellAutoFillBuyoutDropDown:SetAnchor("TOPLEFT", "TOPLEFT", "$parent", 502, 30)
+		AAC_SellAutoFillBuyoutDropDown:SetAnchor("TOPLEFT", "TOPLEFT", "AAC_SellExtras", 16, 30)
 		AAC_SellAutoFillPercentBuyout:Show()
 	elseif UIDropDownMenu_GetSelectedID(AAC_SellAutoFillBuyoutDropDown) == 4 then
 		AAC_SellAutoFillBuyoutDropDown:ClearAllAnchors()
-		AAC_SellAutoFillBuyoutDropDown:SetAnchor("TOPLEFT", "TOPLEFT", "$parent", 502, 30)
+		AAC_SellAutoFillBuyoutDropDown:SetAnchor("TOPLEFT", "TOPLEFT", "AAC_SellExtras", 16, 30)
 		AAC_SellAutoFillFormulaBuyoutout:Show()
 	else
 		AAC_SellAutoFillBuyoutDropDown:ClearAllAnchors()
-		AAC_SellAutoFillBuyoutDropDown:SetAnchor("TOPLEFT", "TOPLEFT", "$parent", 502, 30)
+		AAC_SellAutoFillBuyoutDropDown:SetAnchor("TOPLEFT", "TOPLEFT", "AAC_SellExtras", 16, 30)
 	end
 end
 
@@ -2242,14 +2245,14 @@ function Sell.SellPromoteDropDown_Show()
 				_G["AAC_SellPromoteTimeDropDownTooltip"]:Hide()
 				_G["AAC_PromotePriceFrame"]:Hide()
 				_G["AAC_SellPromoteDropDown"]:ClearAllAnchors()
-				_G["AAC_SellPromoteDropDown"]:SetAnchor("TOPLEFT", "TOPLEFT", "$parent", 502, 110)
+				_G["AAC_SellPromoteDropDown"]:SetAnchor("TOPLEFT", "TOPLEFT", "AAC_SellExtras", 250, 30)
 			else
 				_G["AAC_SellPromoteTimeDropDown"]:ClearAllAnchors()
 				_G["AAC_SellPromoteDropDown"]:ClearAllAnchors()
 				_G["AAC_PromotePriceFrame"]:ClearAllAnchors()
-				_G["AAC_SellPromoteDropDown"]:SetAnchor("TOPLEFT", "TOPLEFT", "$parent", 502, 110)
-				_G["AAC_SellPromoteTimeDropDown"]:SetAnchor("TOPLEFT", "BOTTOMLEFT", "AAC_SellPromoteDropDown", 0, 5)
-				_G["AAC_PromotePriceFrame"]:SetAnchor("TOP", "BOTTOM", "AAC_SellPromoteTimeDropDown", 20, 3)
+				_G["AAC_SellPromoteDropDown"]:SetAnchor("TOPLEFT", "TOPLEFT", "AAC_SellExtras", 250, 30)
+				_G["AAC_SellPromoteTimeDropDown"]:SetAnchor("TOPLEFT", "TOPLEFT", "AAC_SellExtras", 440, 30)
+				_G["AAC_PromotePriceFrame"]:SetAnchor("TOPLEFT", "TOPLEFT", "AAC_SellExtras", 680, 15)
 				_G["AAC_SellPromoteTimeDropDown"]:Show()
 				_G["AAC_SellPromoteTimeDropDownTooltip"]:Show()
 				_G["AAC_PromotePriceFrame"]:Show()
@@ -2333,7 +2336,7 @@ function Sell.ShowPromoBG()
 	local promoteType = AAC_SavedSettings.SellPromoteDropDown - 1;
 	if promoteType ~= 0 then
 		itemBG:Show()
-		itemBG:SetAlpha(0.5)
+		itemBG:SetAlpha(0.12)
 		itemBG:SetColor(AAC_PROMOTE_TYPE_COLORS_MAIN[promoteType].R, AAC_PROMOTE_TYPE_COLORS_MAIN[promoteType].G, AAC_PROMOTE_TYPE_COLORS_MAIN[promoteType].B)
 	else
 		itemBG:Hide()
@@ -2381,11 +2384,7 @@ function Sell.UpdateNetPrices()
         end
         if Sell.netEditing ~= frame then AAC.MoneyFrame.SetMoney(frame,entry[2]) end
     end
-    local t=AAC.TradingTranslations or {}
-    AAC_SellPriceBuyoutLabel:SetText(t.grossTotal or "Total price (gross)")
-    AAC_SellPriceBuyoutPPULabel:SetText(t.grossPrice or "Price / unit (gross)")
-    AAC_SellPriceNetLabel:SetText(t.netTotal or "Total price (net)")
-    AAC_SellPriceNetPPULabel:SetText(t.netPrice or "Price / unit (net)")
+    Sell.RefreshPriceLabels()
     Sell.netUpdating=nil
 end
 
@@ -2412,12 +2411,12 @@ function Sell.InitNetPrices()
     local names={"AAC_SellPriceBuyout","AAC_SellPriceNet","AAC_SellPriceBuyoutPPU","AAC_SellPriceNetPPU"}
     for i,name in ipairs(names) do
         local f=_G[name]
-        f:ClearAllAnchors(); f:SetAnchor("TOPLEFT","TOPLEFT",AAC_SellItemFrame,174+((i-1)%2)*164,i<=2 and 72 or 120)
-        f:SetSize(138,20)
-        for _,suffix in ipairs({"Gold","Account"}) do _G[name..suffix]:SetSize(138,20) end
+        f:ClearAllAnchors(); f:SetAnchor("TOPLEFT","TOPLEFT",AAC_SellItemFrame,290+((i-1)%2)*150,i<=2 and 62 or 98)
+        f:SetSize(120,24)
+        for _,suffix in ipairs({"Gold","Account"}) do _G[name..suffix]:SetSize(120,24) end
         local label=_G[name.."Label"]
         label:ClearAllAnchors();label:SetAnchor("BOTTOMLEFT","TOPLEFT",f,0,-3)
-        label:SetSize(157,26);label:SetJustifyHType("LEFT")
+        label:Hide()
     end
     if not Sell.netInitialized then
         MoneyInputFrame_SetOnvalueChangedFunc(AAC_SellPriceNet,Sell.NetPriceChanged)
@@ -2429,4 +2428,23 @@ function Sell.InitNetPrices()
         Sell.netInitialized=true
     end
     Sell.UpdateNetPrices()
+end
+
+function Sell.RefreshPriceLabels()
+    if not AAC_SellTableGross then return end
+    local t=AAC.TradingTranslations or {}
+    AAC_SellTableGross:SetText(t.tableGross or "Gross")
+    AAC_SellTableNet:SetText(t.tableNet or "Net")
+    AAC_SellTableTotal:SetText(t.tableTotal or "Total")
+    AAC_SellTableUnit:SetText(t.tableUnit or "Per unit")
+    AAC_SellTableDuration:SetText(TEXT("AUCTION_SELL_DEADLINE"))
+    AAC_SellPlaceItemLabel:SetText(t.chooseItem or "Drag an item here")
+    AAC_SellExtrasButton:SetText(t[Sell.extrasOpen and "lessOptions" or "moreOptions"] or "Options")
+    AAC_SellMoneyMode:SetVisible(Sell.MoneyAuction == true)
+end
+function Sell.ToggleExtras()
+    Sell.extrasOpen=not Sell.extrasOpen
+    AAC_SellExtras:SetVisible(Sell.extrasOpen)
+    Sell.RefreshPriceLabels()
+    Sell.Resize(Sell.resizeNum or 0, Sell.resizeValue or 0)
 end

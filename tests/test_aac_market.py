@@ -62,6 +62,8 @@ class ClassicMarketTests(unittest.TestCase):
             StaticPopupDialogs[popup].OnAccept()
             assert(not sent)
             price = 100
+            -- The client can regenerate gear hyperlink fields while the auction is unchanged.
+            GetAuctionBrowseItemLink = function() return "|Hitem:123 1 20106f|h[Item]|h" end
             AAC.Pay.PayAuction(offer, 0, true, AAC.Pay.AuctionType.Browse)
             StaticPopupDialogs[popup].OnAccept()
             assert(sent[1] == 99 and sent[2] == 200)

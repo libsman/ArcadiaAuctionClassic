@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.3.8-beta — Clearer Classic forms
+
+- Compact My offers into native item, price and duration columns. Gross/net totals and unit prices remain editable; automatic pricing and promotion move into collapsible extra options.
+- Align buy-order price fields with the selling form and keep existing orders underneath.
+- Shorten settings, history and help labels in all eleven supported languages. Show clear empty/loading states and hide unnecessary exchange pagination.
+- Fix purchases being rejected solely because the client regenerated an item link. Auction identity, quantity, currency and confirmed price are still checked.
+- Checked the forms, navigation and sale confirmation in the German game client without submitting a sale. All 149 automated tests pass.
+- Known issue under investigation: the game can return an empty own-auction list until the auction house is reopened. This release does not claim to fix that intermittent loading issue.
+
 ## 0.3.7-beta — Gross and net auction prices
 
 - Add editable gross and net totals and unit prices to My offers, using the game's auction commission API and integer fee rounding.

@@ -277,6 +277,7 @@ function X.RenderOrders()
  local pages=math.max(1,math.ceil(#rows/4)); X.pages.orders=math.max(1,math.min(X.pages.orders,pages))
  set("OrdersCount",X.UIText(1)..": "..num(#rows))
  set("ordersPage",X.pages.orders.." / "..pages)
+ for _,n in ipairs({"ordersPage","ordersPrev","ordersNext"}) do if pages>1 then _G["AAC_Exchange"..n]:Show() else _G["AAC_Exchange"..n]:Hide() end end
  enable("ordersPrev",X.pages.orders>1); enable("ordersNext",X.pages.orders<pages)
  for i=1,4 do
   local row=rows[(X.pages.orders-1)*4+i]; local frame=_G["AAC_Exchangeorders"..i]; frame.row=row

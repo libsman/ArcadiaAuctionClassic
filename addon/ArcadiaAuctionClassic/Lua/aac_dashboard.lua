@@ -121,6 +121,12 @@ end
 function Dashboard.Frame_OnUpdate(this, elapsedTime)
     if not AAC.CanRequest() then return end
     if Dashboard.FilteringActive then Dashboard.DoFilteringStep() end
+    if AAC_DashboardEmpty then
+        local empty=#Dashboard.Results.list==0
+        local label=AAC.TradingUI.Text((CachingActive or Dashboard.FilteringActive) and "waiting" or "empty")
+        if Dashboard.emptyLabel~=label then AAC_DashboardEmpty:SetText(label);Dashboard.emptyLabel=label end
+        AAC_DashboardEmpty:SetVisible(empty)
+    end
 end
 
 function Dashboard.Frame_OnEvent(this, event)

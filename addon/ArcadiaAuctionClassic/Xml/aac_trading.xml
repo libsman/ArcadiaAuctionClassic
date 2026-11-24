@@ -1289,100 +1289,76 @@
           <Layer>
             <FontString name="AAC_TradingItemLabel" inherits="GameFontNormal" justifyH="LEFT" justifyV="MIDDLE">
               <Size>
-                <AbsDimension x="212" y="20"/>
+                <AbsDimension x="210" y="20"/>
               </Size>
               <Anchors>
                 <Anchor point="TOPLEFT">
                   <Offset>
-                    <AbsDimension x="12" y="4"/>
+                    <AbsDimension x="16" y="12"/>
                   </Offset>
                 </Anchor>
               </Anchors>
             </FontString>
             <FontString name="AAC_TradingQuantityLabel" inherits="GameFontNormal" justifyH="LEFT" justifyV="MIDDLE">
               <Size>
-                <AbsDimension x="126" y="20"/>
+                <AbsDimension x="100" y="20"/>
               </Size>
               <Anchors>
                 <Anchor point="TOPLEFT">
                   <Offset>
-                    <AbsDimension x="244" y="4"/>
+                    <AbsDimension x="246" y="12"/>
                   </Offset>
                 </Anchor>
               </Anchors>
             </FontString>
             <FontString name="AAC_TradingPriceLabel" inherits="GameFontNormal" justifyH="LEFT" justifyV="MIDDLE">
               <Size>
-                <AbsDimension x="180" y="20"/>
+                <AbsDimension x="140" y="20"/>
               </Size>
               <Anchors>
                 <Anchor point="TOPLEFT">
                   <Offset>
-                    <AbsDimension x="392" y="4"/>
+                    <AbsDimension x="454" y="12"/>
                   </Offset>
                 </Anchor>
               </Anchors>
             </FontString>
             <FontString name="AAC_TradingNetPriceLabel" inherits="GameFontNormal" justifyH="LEFT" justifyV="MIDDLE">
               <Size>
-                <AbsDimension x="190" y="20"/>
+                <AbsDimension x="140" y="20"/>
               </Size>
               <Anchors>
                 <Anchor point="TOPLEFT">
                   <Offset>
-                    <AbsDimension x="596" y="4"/>
+                    <AbsDimension x="626" y="12"/>
                   </Offset>
                 </Anchor>
               </Anchors>
             </FontString>
-            <Texture file="Interface\AuctionFrame\AuctionSeparate-HorizontalLine">
+            <FontString name="AAC_TradingOrderTotalLabel" inherits="GameFontHighlight" justifyH="LEFT" justifyV="MIDDLE">
               <Size>
-                <AbsDimension x="784" y="4"/>
+                <AbsDimension x="92" y="24"/>
               </Size>
               <Anchors>
                 <Anchor point="TOPLEFT">
                   <Offset>
-                    <AbsDimension x="8" y="26"/>
+                    <AbsDimension x="352" y="42"/>
                   </Offset>
                 </Anchor>
               </Anchors>
-            </Texture>
-            <Texture file="Interface\AuctionFrame\AuctionSeparate-VerticalLine">
+            </FontString>
+            <FontString name="AAC_TradingNetTotalLabel" inherits="GameFontHighlight" justifyH="LEFT" justifyV="MIDDLE">
               <Size>
-                <AbsDimension x="5" y="112"/>
+                <AbsDimension x="92" y="24"/>
               </Size>
               <Anchors>
                 <Anchor point="TOPLEFT">
                   <Offset>
-                    <AbsDimension x="228" y="3"/>
+                    <AbsDimension x="352" y="80"/>
                   </Offset>
                 </Anchor>
               </Anchors>
-            </Texture>
-            <Texture file="Interface\AuctionFrame\AuctionSeparate-VerticalLine">
-              <Size>
-                <AbsDimension x="5" y="112"/>
-              </Size>
-              <Anchors>
-                <Anchor point="TOPLEFT">
-                  <Offset>
-                    <AbsDimension x="376" y="3"/>
-                  </Offset>
-                </Anchor>
-              </Anchors>
-            </Texture>
-            <Texture file="Interface\AuctionFrame\AuctionSeparate-VerticalLine">
-              <Size>
-                <AbsDimension x="5" y="112"/>
-              </Size>
-              <Anchors>
-                <Anchor point="TOPLEFT">
-                  <Offset>
-                    <AbsDimension x="580" y="3"/>
-                  </Offset>
-                </Anchor>
-              </Anchors>
-            </Texture>
+            </FontString>
             <FontString name="AAC_TradingTotals" inherits="GameFontHighlight" justifyH="LEFT" justifyV="MIDDLE">
               <Size>
                 <AbsDimension x="560" y="18"/>
@@ -1390,43 +1366,19 @@
               <Anchors>
                 <Anchor point="TOPLEFT">
                   <Offset>
-                    <AbsDimension x="12" y="108"/>
-                  </Offset>
-                </Anchor>
-              </Anchors>
-            </FontString>
-            <FontString name="AAC_TradingOrderTotalLabel" inherits="GameFontNormal" justifyH="LEFT" justifyV="MIDDLE">
-              <Size>
-                <AbsDimension x="176" y="18"/>
-              </Size>
-              <Anchors>
-                <Anchor point="TOPLEFT">
-                  <Offset>
-                    <AbsDimension x="392" y="57"/>
-                  </Offset>
-                </Anchor>
-              </Anchors>
-            </FontString>
-            <FontString name="AAC_TradingNetTotalLabel" inherits="GameFontNormal" justifyH="LEFT" justifyV="MIDDLE">
-              <Size>
-                <AbsDimension x="190" y="18"/>
-              </Size>
-              <Anchors>
-                <Anchor point="TOPLEFT">
-                  <Offset>
-                    <AbsDimension x="596" y="57"/>
+                    <AbsDimension x="16" y="114"/>
                   </Offset>
                 </Anchor>
               </Anchors>
             </FontString>
             <FontString name="AAC_TradingNetHint" inherits="GameFontHighlight" justifyH="LEFT" justifyV="MIDDLE">
               <Size>
-                <AbsDimension x="560" y="24"/>
+                <AbsDimension x="560" y="22"/>
               </Size>
               <Anchors>
                 <Anchor point="TOPLEFT">
                   <Offset>
-                    <AbsDimension x="12" y="130"/>
+                    <AbsDimension x="16" y="132"/>
                   </Offset>
                 </Anchor>
               </Anchors>
@@ -1441,7 +1393,7 @@
             <Anchors>
               <Anchor point="TOPLEFT">
                 <Offset>
-                  <AbsDimension x="10" y="32"/>
+                  <AbsDimension x="16" y="40"/>
                 </Offset>
               </Anchor>
             </Anchors>
@@ -1493,12 +1445,12 @@
           </Button>
           <EditBox name="AAC_TradingQuantity" inherits="UIPanelEditBoxTemplate" numeric="true" letters="12">
             <Size>
-              <AbsDimension x="120" y="24"/>
+              <AbsDimension x="92" y="24"/>
             </Size>
             <Anchors>
               <Anchor point="TOPLEFT">
                 <Offset>
-                  <AbsDimension x="244" y="40"/>
+                  <AbsDimension x="246" y="42"/>
                 </Offset>
               </Anchor>
             </Anchors>
@@ -1511,12 +1463,12 @@
           </EditBox>
           <EditBox name="AAC_TradingPrice" inherits="UIPanelEditBoxTemplate" numeric="true" letters="12">
             <Size>
-              <AbsDimension x="176" y="24"/>
+              <AbsDimension x="140" y="24"/>
             </Size>
             <Anchors>
               <Anchor point="TOPLEFT">
                 <Offset>
-                  <AbsDimension x="392" y="30"/>
+                  <AbsDimension x="454" y="80"/>
                 </Offset>
               </Anchor>
             </Anchors>
@@ -1529,12 +1481,12 @@
           </EditBox>
           <EditBox name="AAC_TradingOrderTotal" inherits="UIPanelEditBoxTemplate" numeric="true" letters="12">
             <Size>
-              <AbsDimension x="176" y="24"/>
+              <AbsDimension x="140" y="24"/>
             </Size>
             <Anchors>
               <Anchor point="TOPLEFT">
                 <Offset>
-                  <AbsDimension x="392" y="78"/>
+                  <AbsDimension x="454" y="42"/>
                 </Offset>
               </Anchor>
             </Anchors>
@@ -1547,12 +1499,12 @@
           </EditBox>
           <EditBox name="AAC_TradingNetPrice" inherits="UIPanelEditBoxTemplate" numeric="true" letters="12">
             <Size>
-              <AbsDimension x="190" y="24"/>
+              <AbsDimension x="140" y="24"/>
             </Size>
             <Anchors>
               <Anchor point="TOPLEFT">
                 <Offset>
-                  <AbsDimension x="596" y="30"/>
+                  <AbsDimension x="626" y="80"/>
                 </Offset>
               </Anchor>
             </Anchors>
@@ -1565,12 +1517,12 @@
           </EditBox>
           <EditBox name="AAC_TradingNetTotal" inherits="UIPanelEditBoxTemplate" numeric="true" letters="12">
             <Size>
-              <AbsDimension x="190" y="24"/>
+              <AbsDimension x="140" y="24"/>
             </Size>
             <Anchors>
               <Anchor point="TOPLEFT">
                 <Offset>
-                  <AbsDimension x="596" y="78"/>
+                  <AbsDimension x="626" y="42"/>
                 </Offset>
               </Anchor>
             </Anchors>
@@ -1588,7 +1540,7 @@
             <Anchors>
               <Anchor point="TOPLEFT">
                 <Offset>
-                  <AbsDimension x="244" y="77"/>
+                  <AbsDimension x="246" y="77"/>
                 </Offset>
               </Anchor>
             </Anchors>
@@ -1647,12 +1599,12 @@
           </CheckButton>
           <Button name="AAC_TradingFormAction" inherits="UIPanelButtonTemplate" text="">
             <Size>
-              <AbsDimension x="190" y="24"/>
+              <AbsDimension x="140" y="24"/>
             </Size>
             <Anchors>
               <Anchor point="TOPLEFT">
                 <Offset>
-                  <AbsDimension x="596" y="128"/>
+                  <AbsDimension x="626" y="128"/>
                 </Offset>
               </Anchor>
             </Anchors>

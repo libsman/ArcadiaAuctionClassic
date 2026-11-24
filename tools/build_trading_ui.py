@@ -30,18 +30,19 @@ for i in range(1,8):
 headers=label('ItemHead',56,4,256,20,True)+label('QuantityHead',320,4,80,20,True)+label('PriceHead',418,4,142,20,True)+label('InfoHead',572,4,210,20,True)+line(8,24,784,4)
 listing=frame('List',0,64,800,310,headers,rows).replace('<Layers>',box()+'<Layers>',1)
 # The same horizontal item / amount / price / confirmation arrangement as My Offers.
-formlabels=label('ItemLabel',12,4,212,20,True)+label('QuantityLabel',244,4,126,20,True)+label('PriceLabel',392,4,180,20,True)+label('NetPriceLabel',596,4,190,20,True)
-formlabels+=line(8,26,784,4)+line(228,3,5,112,True)+line(376,3,5,112,True)+line(580,3,5,112,True)
-formlabels+=label('Totals',12,108,560,18)+label('OrderTotalLabel',392,57,176,18,True)+label('NetTotalLabel',596,57,190,18,True)+label('NetHint',12,130,560,24)
+formlabels=label('ItemLabel',16,12,210,20,True)+label('QuantityLabel',246,12,100,20,True)
+formlabels+=label('PriceLabel',454,12,140,20,True)+label('NetPriceLabel',626,12,140,20,True)
+formlabels+=label('OrderTotalLabel',352,42,92,24)+label('NetTotalLabel',352,80,92,24)
+formlabels+=label('Totals',16,114,560,18)+label('NetHint',16,132,560,22)
 icon=f'<Texture name="AAC_TradingItemIcon">{size(24,24)}{anchor(8,12)}</Texture>'
-slot=f'<Button name="AAC_TradingItemSlot" enableMouse="true" inherits="AAC_SellItemButtonTemplate">{size(212,48)}{anchor(10,32)}{box()}<Layers><Layer>{icon}{label("ItemName",40,4,164,40,True)}</Layer></Layers><Scripts><OnClick>AAC.TradingUI.Drop()</OnClick><OnReceiveDrag>AAC.TradingUI.Drop()</OnReceiveDrag><OnEnter>AAC.TradingUI.Tooltip({{link=AAC.TradingUI.itemLink}},this)</OnEnter><OnLeave>GameTooltip:Hide()</OnLeave></Scripts></Button>'
+slot=f'<Button name="AAC_TradingItemSlot" enableMouse="true" inherits="AAC_SellItemButtonTemplate">{size(212,48)}{anchor(16,40)}{box()}<Layers><Layer>{icon}{label("ItemName",40,4,164,40,True)}</Layer></Layers><Scripts><OnClick>AAC.TradingUI.Drop()</OnClick><OnReceiveDrag>AAC.TradingUI.Drop()</OnReceiveDrag><OnEnter>AAC.TradingUI.Tooltip({{link=AAC.TradingUI.itemLink}},this)</OnEnter><OnLeave>GameTooltip:Hide()</OnLeave></Scripts></Button>'
 # Do not inherit the sell item's staging scripts: this slot selects an item only.
 slot=slot.replace('inherits="AAC_SellItemButtonTemplate"','')
 radios=''
-for name,x,mode,kind in [('Gold',244,'copper',0),('Diamond',302,'account',1)]:
+for name,x,mode,kind in [('Gold',246,'copper',0),('Diamond',302,'account',1)]:
  icon=fr'<Texture file="Interface\MoneyFrame\MoneyIcons">{size(16,16)}{anchor(20,0)}<TexCoords left="{kind/64}" right="{(kind+1)/64}" top="0" bottom="1"/></Texture>'
  radios+=f'<CheckButton name="AAC_Trading{name}" inherits="MoneyModeRadioButtonTemplate">{size(16,16)}{anchor(x,77)}<Layers><Layer>{icon}</Layer></Layers><Scripts><OnClick>AAC.TradingUI.Currency("{mode}")</OnClick></Scripts></CheckButton>'
-form=frame('Form',0,88,800,160,formlabels,slot+edit('Quantity',244,40,120)+edit('Price',392,30,176)+edit('OrderTotal',392,78,176)+edit('NetPrice',596,30,190)+edit('NetTotal',596,78,190)+radios+button('FormAction',596,128,190,'AAC.TradingUI.Action()'))
+form=frame('Form',0,88,800,160,formlabels,slot+edit('Quantity',246,42,92)+edit('Price',454,80,140)+edit('OrderTotal',454,42,140)+edit('NetPrice',626,80,140)+edit('NetTotal',626,42,140)+radios+button('FormAction',626,128,140,'AAC.TradingUI.Action()'))
 form=form.replace('<Frame name="AAC_TradingForm">','<Frame name="AAC_TradingForm" enableMouse="true">').replace('<Layers>',box()+'<Layers>',1).replace('</Frames></Frame>','</Frames><Scripts><OnReceiveDrag>AAC.TradingUI.Drop()</OnReceiveDrag></Scripts></Frame>')
 buttons=button('Back',682,0,118,'AAC.TradingUI.Back()')
 buttons+=check('All',8,34,170,'all')+check('Buyers',210,34,200,'sellable')+check('Mine',440,34,220,'mine')

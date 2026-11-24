@@ -68,6 +68,20 @@ local netLabels={
  CN=[[单价（税前）|总价（税前）|单价（税后）|总价（税后）|卖家一次售出全部数量的预计收入；分批出售可能不同。|暂无服务器当前手续费率，无法计算净收入。]],
  TW=[[單價（稅前）|總價（稅前）|單價（稅後）|總價（稅後）|賣家一次售出全部數量的預計收入；分批出售可能不同。|暫無伺服器目前手續費率，無法計算淨收入。]],
 }
+local tableKeys=[[tableGross tableNet tableTotal tableUnit moreOptions lessOptions]]
+local tableLabels={
+ EN=[[Gross|Net|Total|Per unit|More options|Fewer options]],
+ DE=[[Brutto|Netto|Gesamt|Pro Stück|Weitere Optionen|Weniger Optionen]],
+ ES=[[Bruto|Neto|Total|Por unidad|Más opciones|Menos opciones]],
+ FR=[[Brut|Net|Total|À l’unité|Plus d’options|Moins d’options]],
+ PL=[[Brutto|Netto|Łącznie|Za sztukę|Więcej opcji|Mniej opcji]],
+ RU=[[До сбора|После сбора|Всего|За штуку|Больше настроек|Меньше настроек]],
+ TR=[[Brüt|Net|Toplam|Birim başına|Diğer seçenekler|Daha az seçenek]],
+ JP=[[手数料前|手数料後|合計|単価|その他の設定|設定を閉じる]],
+ KR=[[공제 전|공제 후|총액|개당|추가 옵션|옵션 접기]],
+ CN=[[税前|税后|总计|单价|更多选项|收起选项]],
+ TW=[[稅前|稅後|總計|單價|更多選項|收起選項]],
+}
 function L.Apply(language)
  local lang=tostring(language or (AAC.UX and AAC.UX.language) or (type(GetLanguage)=="function" and GetLanguage()) or "EN"):sub(1,2):upper()
  lang=({JA="JP",KO="KR"})[lang] or lang
@@ -77,6 +91,7 @@ function L.Apply(language)
  AAC.TradingTranslations.orderTotal=totalLabels[lang] or totalLabels.EN
  for k,v in pairs(decode(polishKeys,polish[lang] or polish.EN)) do AAC.TradingTranslations[k]=v end
  for k,v in pairs(decode(netKeys,netLabels[lang] or netLabels.EN)) do AAC.TradingTranslations[k]=v end
+ for k,v in pairs(decode(tableKeys,tableLabels[lang] or tableLabels.EN)) do AAC.TradingTranslations[k]=v end
  AAC.BuyOrderTranslations=decode(orderKeys,orders[lang])
  L.language=lang
 end

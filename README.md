@@ -32,11 +32,11 @@ The addon uses the game's auction APIs and native UI resources.
 
 ```text
 Interface/
-â””â”€â”€ AddOns/
-    â””â”€â”€ ArcadiaAuctionClassic/
-        â”œâ”€â”€ ArcadiaAuctionClassic.toc
-        â”œâ”€â”€ Lua/
-        â””â”€â”€ Xml/
+  AddOns/
+    ArcadiaAuctionClassic/
+      ArcadiaAuctionClassic.toc
+      Lua/
+      Xml/
 ```
 
 ## Choose your interface

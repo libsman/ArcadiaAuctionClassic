@@ -297,6 +297,7 @@ function U.Render()
     if not U.mode or not AAC_TradingPanel or not AAC_TradingPanel:IsVisible() then return end
     for _,pair in ipairs({{"Back","back"},{"BuyersCaption","buyers"},{"MineCaption","mine"},{"AllCaption","all"},{"New","create"}}) do set(pair[1],U.Text(pair[2])) end
     local create=U.mode=="create"
+    visible("Back",create or (AAC.Main and AAC.Main.CurrentTab~="BUY"))
     local finding=create and #(U.findQuery or "")>=3
     visible("List",not finding);visible("Form",create)
     f("List"):ClearAllAnchors();f("List"):SetAnchor("TOPLEFT","TOPLEFT",AAC_TradingPanel,0,create and 286 or 64)
@@ -330,9 +331,9 @@ function U.Render()
     visible("Reload",U.mode=="sellable" or U.mode=="all" or U.mode=="mine")
     set("Reload",U.Text("refresh"))
     if create then
-        set("ItemLabel",U.Text("item"));set("OrderTotalLabel",U.Text("grossTotal"))
-        set("NetPriceLabel",U.Text("netPrice"));set("NetTotalLabel",U.Text("netTotal"))
-        set("ItemName",U.itemName or U.Text("chooseItem"));set("QuantityLabel",U.Text("amount"));set("PriceLabel",U.Text("grossPrice"))
+        set("ItemLabel",U.Text("item"));set("OrderTotalLabel",U.Text("tableTotal"))
+        set("NetPriceLabel",U.Text("tableNet"));set("NetTotalLabel",U.Text("tableUnit"))
+        set("ItemName",U.itemName or U.Text("chooseItem"));set("QuantityLabel",U.Text("amount"));set("PriceLabel",U.Text("tableGross"))
         visible("ItemIcon",U.itemID~=nil)
         if U.itemID then f("ItemIcon"):SetTexture(GetObjectInfo(GetObjectInfo(U.itemID,"ImageID") or 0,"ActField") or "") end
         set("GoldCaption",TEXT("SYS_MONEY_TYPE_0"));set("DiamondCaption",TEXT("SYS_MONEY_TYPE_1"))

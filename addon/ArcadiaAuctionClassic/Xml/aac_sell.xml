@@ -1,5 +1,5 @@
-<Ui xmlns="https://chroniclesofarcadia.com/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="https://chroniclesofarcadia.com/ https://chroniclesofarcadia.com/UI.xsd">
+<?xml version='1.0' encoding='utf-8'?>
+<Ui xmlns="https://chroniclesofarcadia.com/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://chroniclesofarcadia.com/ https://chroniclesofarcadia.com/UI.xsd">
 	<Frame name="AAC_SellItemBrowseItemTemplate" virtual="true">
 		<Size>
 			<AbsDimension x="142" y="22"/>
@@ -43,7 +43,7 @@
 				<Texture name="$parentVerticalLine1" file="interface\auctionframe\auctionseparate-verticalline">
 					<Size x="5" y="35"/>
 					<Anchors>
-						<Anchor point="LEFT" >
+						<Anchor point="LEFT">
 							<Offset>
 								<AbsDimension x="235" y="1"/>
 							</Offset>
@@ -95,7 +95,7 @@
 							</Offset>
 						</Anchor>
 					</Anchors>
-					<Color a="0.5"></Color>	
+					<Color a="0.5"/>
 				</Texture>
 			</Layer>
 			<Layer level="ARTWORK">
@@ -176,7 +176,7 @@
 					</OnClick>
 					<OnEnter>
 						GameTooltip:SetOwner(this, "ANCHOR_BOTTOMRIGHT")
-						if AAC_SellEditBox:GetText() == "" then 
+						if AAC_SellEditBox:GetText() == "" then
 							GameTooltip:SetAuctionSellItem(AAC_AuctionSellList.list[this:GetParent().index].auctionid)
 						else
 							GameTooltip:SetAuctionSellItem(this:GetParent().auctionid);
@@ -186,7 +186,7 @@
 						GameTooltip:Hide()
 					</OnLeave>
 					<OnMouseWheel>
-						UIPanelScrollBar_OnMouseWheel(AAC_SellListScrollBar, delta)	
+						UIPanelScrollBar_OnMouseWheel(AAC_SellListScrollBar, delta)
 					</OnMouseWheel>
 				</Scripts>
 			</Button>
@@ -270,7 +270,7 @@
 								AAC.Sell.BuyoutMoney_OnLeave(this)
 							</OnLeave>
 							<OnMouseWheel>
-								UIPanelScrollBar_OnMouseWheel(AAC_SellListScrollBar, delta)	
+								UIPanelScrollBar_OnMouseWheel(AAC_SellListScrollBar, delta)
 							</OnMouseWheel>
 						</Scripts>
 					</Button>
@@ -337,137 +337,21 @@
 					<Layer level="BACKGROUND">
 						<Texture name="$parentPromoBG" file="interface\icons\rankings\BarFill">
 							<Size>
-								<AbsDimension x="800" y="114"/>
+								<AbsDimension x="182" y="160"/>
 							</Size>
-							<Anchors>
-								<Anchor point="LEFT">
-									<Offset>
-										<AbsDimension x="5" y="0"/>
-									</Offset>
-								</Anchor>
-								<Anchor point="RIGHT">
-									<Offset>
-										<AbsDimension x="-5" y="-4"/>
-									</Offset>
-								</Anchor>
-							</Anchors>
-							<TexCoords left="0.1" right="0.9" top="0.1" bottom="0.9"/>
+							<Anchors><Anchor point="TOPLEFT" relativePoint="TOPLEFT"><Offset><AbsDimension x="8" y="8"/></Offset></Anchor></Anchors><TexCoords left="0.1" right="0.9" top="0.1" bottom="0.9"/>
 						</Texture>
-						<Texture file="Interface\AuctionFrame\AuctionSeparate-HorizontalLine">
-							<Size>
-								<AbsDimension x="1" y="4"/>
-							</Size>
-							<Anchors>
-								<Anchor point="TOPLEFT">
-									<Offset>
-										<AbsDimension x="7" y="21"/>
-									</Offset>
-								</Anchor>
-								<Anchor point="TOPRIGHT">
-									<Offset>
-										<AbsDimension x="-7" y="21"/>
-									</Offset>
-								</Anchor>
-							</Anchors>
-							<TexCoords left="0.25" right="0.75" top="0" bottom="1"/>
-						</Texture>
-						<Texture file="Interface\AuctionFrame\AuctionSeparate-VerticalLine">
-							<Size>
-								<AbsDimension x="8" y="154"/>
-							</Size>
-							<Anchors>
-								<Anchor point="TOPLEFT">
-									<Offset>
-										<AbsDimension x="154" y="2"/>
-									</Offset>
-								</Anchor>
-							</Anchors>
-						</Texture>
-						<Texture file="Interface\AuctionFrame\AuctionSeparate-VerticalLine">
-							<Size>
-								<AbsDimension x="8" y="154"/>
-							</Size>
-							<Anchors>
-								<Anchor point="TOPLEFT">
-									<Offset>
-										<AbsDimension x="494" y="2"/>
-									</Offset>
-								</Anchor>
-							</Anchors>
-						</Texture>
-
-
-
-					</Layer>
+						<FontString name="AAC_SellTableGross" inherits="GameFontYellow" justifyH="LEFT"><Size><AbsDimension x="120" y="20"/></Size><Anchors><Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="AAC_SellItemFrame"><Offset><AbsDimension x="290" y="35"/></Offset></Anchor></Anchors></FontString><FontString name="AAC_SellTableNet" inherits="GameFontYellow" justifyH="LEFT"><Size><AbsDimension x="120" y="20"/></Size><Anchors><Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="AAC_SellItemFrame"><Offset><AbsDimension x="440" y="35"/></Offset></Anchor></Anchors></FontString><FontString name="AAC_SellTableTotal" inherits="GameFontHighlight" justifyH="LEFT"><Size><AbsDimension x="90" y="20"/></Size><Anchors><Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="AAC_SellItemFrame"><Offset><AbsDimension x="210" y="66"/></Offset></Anchor></Anchors></FontString><FontString name="AAC_SellTableUnit" inherits="GameFontHighlight" justifyH="LEFT"><Size><AbsDimension x="90" y="20"/></Size><Anchors><Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="AAC_SellItemFrame"><Offset><AbsDimension x="210" y="102"/></Offset></Anchor></Anchors></FontString><FontString name="AAC_SellTableDuration" inherits="GameFontYellow" justifyH="LEFT"><Size><AbsDimension x="172" y="20"/></Size><Anchors><Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="AAC_SellItemFrame"><Offset><AbsDimension x="620" y="8"/></Offset></Anchor></Anchors></FontString><Texture name="AAC_SellItemDivider" file="interface\auctionframe\auctionseparate-verticalline"><Anchors><Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="AAC_SellItemFrame"><Offset><AbsDimension x="195" y="8"/></Offset></Anchor></Anchors><Size><AbsDimension x="5" y="160"/></Size></Texture><Texture name="AAC_SellPriceDivider" file="interface\auctionframe\auctionseparate-verticalline"><Anchors><Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="AAC_SellItemFrame"><Offset><AbsDimension x="602" y="8"/></Offset></Anchor></Anchors><Size><AbsDimension x="5" y="160"/></Size></Texture><Texture name="AAC_SellHeaderLine" file="interface\auctionframe\auctionseparate-horizontalline"><Anchors><Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="AAC_SellItemFrame"><Offset><AbsDimension x="8" y="31"/></Offset></Anchor></Anchors><Size><AbsDimension x="784" y="5"/></Size></Texture><FontString name="AAC_SellPriceHeading" inherits="GameFontYellow" justifyH="LEFT" text="AUCTION_PRICE"><Anchors><Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="AAC_SellItemFrame"><Offset><AbsDimension x="210" y="8"/></Offset></Anchor></Anchors><Size><AbsDimension x="220" y="20"/></Size></FontString></Layer>
 					<Layer level="ARTWORK">
-						<FontString name="AAC_SellPlaceItemLabel" inherits="GameFontYellow" text="AUCTION_GOODS_ICON_PLZ">
-							<Anchors>
-								<Anchor point="TOP" relativePoint="TOPLEFT">
-									<Offset>
-										<AbsDimension x="89" y="8"/>
-									</Offset>
-								</Anchor>
-							</Anchors>
-						</FontString>
-						<FontString inherits="GameFontYellow" text="AUCTION_SELL_PRICE">
-							<Anchors>
-								<Anchor point="TOP" relativePoint="TOPLEFT">
-									<Offset>
-										<AbsDimension x="330" y="8"/>
-									</Offset>
-								</Anchor>
-							</Anchors>
-						</FontString>
-						<FontString name="AAC_SellAutoPriceLabel" inherits="GameFontYellow" text="auto price settings">
-							<Anchors>
-								<Anchor point="TOP" relativePoint="TOPLEFT">
-									<Offset>
-										<AbsDimension x="564" y="8"/>
-									</Offset>
-								</Anchor>
-							</Anchors>
-						</FontString>
-						<FontString inherits="GameFontYellow" text="AUCTION_SELL_DEADLINE">
-							<Anchors>
-								<Anchor point="TOP" relativePoint="TOPLEFT">
-									<Offset>
-										<AbsDimension x="710" y="8"/>
-									</Offset>
-								</Anchor>
-							</Anchors>
-						</FontString>
-						<FontString name="AAC_SellPromotionLabel" inherits="GameFontYellow" text="Promoting">
-							<Anchors>
-								<Anchor point="TOP" relativePoint="TOPLEFT">
-									<Offset>
-										<AbsDimension x="564" y="90"/>
-									</Offset>
-								</Anchor>
-							</Anchors>
-						</FontString>
-						<FontString inherits="GameFontYellow" text="AUCTION_OPERATE">
-							<Anchors>
-								<Anchor point="TOP" relativePoint="TOPLEFT">
-									<Offset>
-										<AbsDimension x="748" y="90"/>
-									</Offset>
-								</Anchor>
-							</Anchors>
-						</FontString>
-					</Layer>
+						<FontString name="AAC_SellPlaceItemLabel" inherits="GameFontYellow" text="AUCTION_GOODS_ICON_PLZ" justifyH="LEFT">
+							<Size><AbsDimension x="170" y="20"/></Size><Anchors><Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="AAC_SellItemFrame"><Offset><AbsDimension x="16" y="8"/></Offset></Anchor></Anchors></FontString>
+						</Layer>
 				</Layers>
 				<Frames>
 					<Button name="AAC_SellPlaceItemButton">
 						<Size>
 							<AbsDimension x="32" y="32"/>
 						</Size>
-						<Anchors>
-							<Anchor point="TOPLEFT">
-								<Offset>
-									<AbsDimension x="15" y="32"/>
-								</Offset>
-							</Anchor>
-						</Anchors>
 						<Layers>
 							<Layer level="BACKGROUND">
 								<Texture file="Interface\Buttons\QuickSlot-Normal">
@@ -493,17 +377,7 @@
 							</Layer>
 							<Layer level="ARTWORK">
 								<FontString name="AAC_SellPlaceItemButtonName" inherits="GameFontNormal" justifyH="LEFT" text="">
-									<Size>
-										<AbsDimension x="106" y="48"/>
-									</Size>
-									<Anchors>
-										<Anchor point="LEFT" relativePoint="RIGHT">
-											<Offset>
-												<AbsDimension x="5" y="0"/>
-											</Offset>
-										</Anchor>
-									</Anchors>
-								</FontString>
+									<Size><AbsDimension x="164" y="38"/></Size><Anchors><Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="AAC_SellPlaceItemButton"><Offset><AbsDimension x="0" y="40"/></Offset></Anchor></Anchors></FontString>
 							</Layer>
 						</Layers>
 						<Scripts>
@@ -527,16 +401,9 @@
 							</OnLoad>
 						</Scripts>
 						<HighlightTexture alphaMode="ADD" file="Interface\Buttons\QuickSlot-Highlight"/>
-					</Button>
+					<Anchors><Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="AAC_SellItemFrame"><Offset><AbsDimension x="20" y="48"/></Offset></Anchor></Anchors></Button>
 
 					<Frame name="AAC_SellMoneyMode" inherits="MoneyModeFrameTemplate">
-						<Anchors>
-							<Anchor point="TOPLEFT">
-								<Offset>
-									<AbsDimension x="40" y="96"/>
-								</Offset>
-							</Anchor>
-						</Anchors>
 						<Scripts>
 							<OnLoad>
 								MoneyModeFrame_SetOnValueChangeFunc(this, AAC.Sell.AuctionMoneyTypeChanged)
@@ -546,16 +413,9 @@
 								AAC.Sell.AAC_SellMoneyMode_OnShow( this );
 							</OnShow>
 						</Scripts>
-					</Frame>
+					<Anchors><Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="AAC_SellItemFrame"><Offset><AbsDimension x="20" y="105"/></Offset></Anchor></Anchors></Frame>
 					<Frame name="AAC_SellMoneyAmount" hidden="true" inherits="AAC_MoneyTemplate">
-						<Anchors>
-							<Anchor point="TOPLEFT">
-								<Offset>
-									<AbsDimension x="56" y="38"/>
-								</Offset>
-							</Anchor>
-						</Anchors>
-					</Frame>
+						<Anchors><Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="AAC_SellItemFrame"><Offset><AbsDimension x="62" y="53"/></Offset></Anchor></Anchors></Frame>
 					<Frame name="AAC_SellPriceBid" hidden="true" inherits="AAC_MoneyTemplate">
 						<Anchors>
 							<Anchor point="TOPLEFT">
@@ -619,32 +479,6 @@
 								GameTooltip:SetOwner(this, "ANCHOR_BOTTOM", 0, 0)
 								GameTooltip:SetText(AACLocale.Messages.SELL_AUTO_BID_PRICE_TOOLTIP_HEADER, 1, 1, 1)
 								GameTooltip:AddLine(AACLocale.Messages.SELL_AUTO_BID_PRICE_TOOLTIP_TEXT, 0, 0.75, 0.95)
-								GameTooltip:Show()
-							</OnEnter>
-							<OnLeave>
-								GameTooltip:Hide()
-							</OnLeave>
-						</Scripts>
-					</Button>
-					<Frame name="AAC_SellAutoFillBuyoutDropDown" inherits="UIDropDownMenuTemplate">
-						<Anchors><Anchor point="TOPLEFT" relativeTo="AAC_SellItemFrame" relativePoint="TOPLEFT"><Offset><AbsDimension x="502" y="30"/></Offset></Anchor></Anchors>
-					</Frame>
-					<Button name="AAC_SellAutoFillBuyoutDropDownTooltip">
-						<Size>
-							<AbsDimension x="70" y="25"/>
-						</Size>
-						<Anchors>
-							<Anchor point="TOPLEFT" relativeTo="AAC_SellAutoFillBuyoutDropDown" relativePoint="TOPLEFT">
-								<Offset>
-									<AbsDimension x="0" y="0"/>
-								</Offset>
-							</Anchor>
-						</Anchors>
-						<Scripts>
-							<OnEnter>
-								GameTooltip:SetOwner(this, "ANCHOR_BOTTOM", 0, 0)
-								GameTooltip:SetText(AACLocale.Messages.SELL_AUTO_BUYOUT_PRICE_TOOLTIP_HEADER, 1, 1, 1)
-								GameTooltip:AddLine(AACLocale.Messages.SELL_AUTO_BUYOUT_PRICE_TOOLTIP_TEXT, 0, 0.75, 0.95)
 								GameTooltip:Show()
 							</OnEnter>
 							<OnLeave>
@@ -722,17 +556,235 @@
 							</OnLeave>
 						</Scripts>
 					</EditBox>
-					<EditBox name="AAC_SellAutoFillPercentBuyout" inherits="UIPanelEditBoxTemplate" numeric="true" letters="3" autoFocus="false" multiLine="false" hidden="true">
-						<Size>
-							<AbsDimension x="30" y="20"/>
-						</Size>
+					<Frame name="AAC_SellDurationDropDown" inherits="UIDropDownMenuTemplate">
+                        <Size>
+                            <AbsDimension x="143" y="25"/>
+                        </Size>
+						<Anchors><Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="AAC_SellItemFrame"><Offset><AbsDimension x="620" y="38"/></Offset></Anchor></Anchors></Frame>
+					<Frame name="AAC_SellIncomePanel" enableMouse="true">
+                        <Size><AbsDimension x="378" y="38"/></Size><Layers><Layer level="ARTWORK">
+                            <FontString name="AAC_SellIncomeText" inherits="GameFontHighlight" justifyH="LEFT">
+                                <Size><AbsDimension x="378" y="38"/></Size><Anchors><Anchor point="TOPLEFT"/></Anchors>
+                            </FontString>
+                        </Layer></Layers>
+                        <Scripts><OnEnter>GameTooltip:SetOwner(this, "ANCHOR_TOP"); GameTooltip:SetText(AAC_SALE_NOTE); GameTooltip:Show()</OnEnter><OnLeave>GameTooltip:Hide()</OnLeave></Scripts>
+                    <Anchors><Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="AAC_SellItemFrame"><Offset><AbsDimension x="210" y="132"/></Offset></Anchor></Anchors></Frame>
+                    <Frame name="AAC_SellFeeFrame" inherits="MoneyFrameTemplate" hidden="false">
 						<Anchors>
-							<Anchor point="TOPLEFT" relativeTo="AAC_SellAutoFillBuyoutDropDown" relativePoint="BOTTOMLEFT">
+							<Anchor point="TOP" relativeTo="AAC_SellDurationDropDown" relativePoint="BOTTOM">
 								<Offset>
-									<AbsDimension x="3" y="0"/>
+									<AbsDimension x="0" y="20"/>
 								</Offset>
 							</Anchor>
 						</Anchors>
+						<Layers>
+                            <Layer level="ARTWORK">
+								<FontString inherits="GameFontYellow" text="AUCTION_TRANSACTION_COST_COLON">
+									<Anchors>
+										<Anchor point="TOP" relativeTo="AAC_SellDurationDropDown">
+											<Offset>
+												<AbsDimension x="0" y="30"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+								</FontString>
+                            </Layer>
+                        </Layers>
+						<Scripts>
+							<OnLoad>
+								MoneyFrameTemplate_SetMode(this, "copper")
+								MoneyFrameTemplate_SetType(this, "STATIC")
+							</OnLoad>
+						</Scripts>
+					</Frame>
+					<!--<Frame name="AAC_SellProfitBuyoutFrame" inherits="MoneyFrameTemplate" hidden="false">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeTo="AAC_SellFeeFrame">
+                                <Offset>
+                                    <AbsDimension x="0" y="16"/>
+                                </Offset>
+                            </Anchor>
+                        </Anchors>
+                        <Layers>
+                            <Layer level="ARTWORK">
+                                <FontString inherits="GameFontYellow" text="+">
+                                    <Anchors>
+                                        <Anchor point="RIGHT" relativePoint="LEFT">
+                                            <Offset>
+                                                <AbsDimension x="-4" y="1"/>
+                                            </Offset>
+                                        </Anchor>
+                                    </Anchors>
+                                </FontString>
+                            </Layer>
+                        </Layers>
+                        <Scripts>
+                            <OnLoad>
+                                MoneyFrameTemplate_SetMode(this, "copper")
+                                MoneyFrameTemplate_SetType(this, "STATIC")
+                            </OnLoad>
+                        </Scripts>
+                    </Frame>-->
+					<Button name="AAC_SellConfirmButton" inherits="UIPanelButtonTemplate" text="AUCTION_SELL_CONFIRM">
+						<Size><AbsDimension x="164" y="26"/></Size><Scripts>
+							<OnClick>
+								if GetButtonDelayTime() == nil then
+									SetButtonDelayTime()
+									AAC.Sell.ConfirmButton_OnClick(this, key)
+								end
+							</OnClick>
+						</Scripts>
+					<Anchors><Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="AAC_SellItemFrame"><Offset><AbsDimension x="620" y="112"/></Offset></Anchor></Anchors></Button>
+					<CheckButton name="AAC_AnonymousSale" inherits="UIPanelCheckButtonTemplate">
+						<Size>
+							<AbsDimension x="31" y="31"/>
+						</Size>
+						<Anchors>
+							<Anchor point="BOTTOMLEFT" relativePoint="BOTTOMLEFT" relativeTo="AAC_AuctionFrame">
+								<Offset>
+									<AbsDimension x="20" y="-14"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Layers>
+							<Layer>
+								<FontString name="$parentLabel" inherits="GameFontHighlight" text="PRESTIGE_BENEFIT_ANONYM" justifyH="LEFT">
+									<Size>
+										<AbsDimension x="115" y="48"/>
+									</Size>
+									<Anchors>
+										<Anchor point="LEFT" relativePoint="RIGHT">
+											<Offset>
+												<AbsDimension x="0" y="0"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+								</FontString>
+							</Layer>
+						</Layers>
+						<Scripts>
+							<OnLoad>
+
+								this:RegisterEvent("PRESTIGE_BENEFIT_CHANGED")
+								if Prestige_IsBenefitActive(PrestigeBenefitType_AuctionHouse_HideName) then
+									AAC_AnonymousSale:SetEnable(true);
+								else
+									AAC_AnonymousSale:SetEnable(false);
+								end
+
+								AAC_AnonymousSale:SetChecked(Prestige_IsAnonymousSale());
+
+							</OnLoad>
+							<OnClick>
+								Prestige_SetAnonymousSale(this:IsChecked());
+
+
+							</OnClick>
+							<OnEvent>
+								if event == "PRESTIGE_BENEFIT_CHANGED" then
+									if Prestige_IsBenefitActive(PrestigeBenefitType_AuctionHouse_HideName) then
+										AAC_AnonymousSale:SetEnable(true);
+									else
+										AAC_AnonymousSale:SetEnable(false);
+									end
+
+									AAC_AnonymousSale:SetChecked(Prestige_IsAnonymousSale());
+								end
+							</OnEvent>
+							<OnEnter>
+								GameTooltip:SetOwner(this, "ANCHOR_TOP", 0, 0);
+								--PRESTIGE_BENEFIT_ANONYM
+								GameTooltip:SetText(TEXT("PRESTIGE_BENEFIT_ANONYM"));
+
+								local text = TEXT("PRESTIGE_BENEFIT_ANONYM_DESC_TOOLTIP");
+								GameTooltip:AddLine(text, 0, 0.75, 0.95, false, PrestigeTooltipWidth);
+								GameTooltip:AddSeparator();
+								GameTooltip:AddLine(PRESTIGE_BENEFIT_ANONYM_DESC_TOOLTIP_2, 0, 0.75, 0.95 );
+							</OnEnter>
+							<OnLeave>
+								GameTooltip:Hide();
+							</OnLeave>
+						</Scripts>
+					</CheckButton>
+                    <Frame name="AAC_SellPayMoneyMode" inherits="MoneyModeFrameTemplate">
+                        <Anchors><Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="AAC_SellItemFrame"><Offset><AbsDimension x="495" y="8"/></Offset></Anchor></Anchors></Frame>
+				<Frame name="AAC_SellExtras" hidden="true"><Size><AbsDimension x="800" y="76"/></Size><Frames><Frame name="AAC_SellAutoFillBuyoutDropDown" inherits="UIDropDownMenuTemplate">
+						<Anchors><Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="AAC_SellExtras"><Offset><AbsDimension x="16" y="30"/></Offset></Anchor></Anchors></Frame>
+					<Button name="AAC_SellAutoFillBuyoutDropDownTooltip">
+						<Size>
+							<AbsDimension x="70" y="25"/>
+						</Size>
+						<Scripts>
+							<OnEnter>
+								GameTooltip:SetOwner(this, "ANCHOR_BOTTOM", 0, 0)
+								GameTooltip:SetText(AACLocale.Messages.SELL_AUTO_BUYOUT_PRICE_TOOLTIP_HEADER, 1, 1, 1)
+								GameTooltip:AddLine(AACLocale.Messages.SELL_AUTO_BUYOUT_PRICE_TOOLTIP_TEXT, 0, 0.75, 0.95)
+								GameTooltip:Show()
+							</OnEnter>
+							<OnLeave>
+								GameTooltip:Hide()
+							</OnLeave>
+						</Scripts>
+					<Anchors><Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="AAC_SellExtras"><Offset><AbsDimension x="16" y="30"/></Offset></Anchor></Anchors></Button>
+					<Frame name="AAC_SellPromoteDropDown" inherits="UIDropDownMenuTemplate">
+						<Anchors><Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="AAC_SellExtras"><Offset><AbsDimension x="250" y="30"/></Offset></Anchor></Anchors></Frame>
+					<Button name="AAC_SellPromoteDropDownTooltip">
+						<Size>
+							<AbsDimension x="100" y="25"/>
+						</Size>
+						<Scripts>
+							<OnEnter>
+								GameTooltip:SetOwner(this, "ANCHOR_TOP", 4, 0)
+								GameTooltip:SetText(AUCTION_PROMOTETYPES, 1, 1, 1)
+								GameTooltip:Show()
+							</OnEnter>
+							<OnLeave>
+								GameTooltip:Hide()
+							</OnLeave>
+						</Scripts>
+					<Anchors><Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="AAC_SellExtras"><Offset><AbsDimension x="250" y="30"/></Offset></Anchor></Anchors></Button>
+					<Frame name="AAC_SellPromoteTimeDropDown" inherits="UIDropDownMenuTemplate" hidden="true">
+						<Anchors><Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="AAC_SellExtras"><Offset><AbsDimension x="440" y="30"/></Offset></Anchor></Anchors></Frame>
+					<Button name="AAC_SellPromoteTimeDropDownTooltip" hidden="true">
+						<Size>
+							<AbsDimension x="100" y="25"/>
+						</Size>
+						<Scripts>
+							<OnEnter>
+								GameTooltip:SetOwner(this, "ANCHOR_BOTTOM", 0, 0)
+								GameTooltip:SetText(AUCTION_PROMOTETIME, 1, 1, 1)
+								GameTooltip:Show()
+							</OnEnter>
+							<OnLeave>
+								GameTooltip:Hide()
+							</OnLeave>
+						</Scripts>
+					<Anchors><Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="AAC_SellExtras"><Offset><AbsDimension x="440" y="30"/></Offset></Anchor></Anchors></Button>
+					<Frame name="AAC_PromotePriceFrame" inherits="MoneyFrameTemplate" hidden="false">
+						<Layers>
+                            <Layer level="ARTWORK">
+								<FontString name="$parentLabel" inherits="GameFontYellow" text="Price:">
+									<Anchors>
+										<Anchor point="RIGHT" relativeTo="AAC_PromotePriceFrame" relativePoint="LEFT">
+											<Offset>
+												<AbsDimension x="-5" y="0"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+								</FontString>
+                            </Layer>
+                        </Layers>
+						<Scripts>
+							<OnLoad>
+								MoneyFrameTemplate_SetMode(this, "account")
+								MoneyFrameTemplate_SetType(this, "STATIC")
+							</OnLoad>
+						</Scripts>
+					<Anchors><Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="AAC_SellExtras"><Offset><AbsDimension x="680" y="15"/></Offset></Anchor></Anchors></Frame>
+                    <EditBox name="AAC_SellAutoFillPercentBuyout" inherits="UIPanelEditBoxTemplate" numeric="true" letters="3" autoFocus="false" multiLine="false" hidden="true">
+						<Size>
+							<AbsDimension x="30" y="20"/>
+						</Size>
 						<Layers>
 							<Layer>
 								<FontString name="AAC_SellAutoFillPercentBuyoutLabel" inherits="GameFontYellow" justifyH="LEFT" text="%">
@@ -765,18 +817,11 @@
 								GameTooltip:Hide()
 							</OnLeave>
 						</Scripts>
-					</EditBox>
+					<Anchors><Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="AAC_SellExtras"><Offset><AbsDimension x="128" y="34"/></Offset></Anchor></Anchors></EditBox>
 					<EditBox name="AAC_SellAutoFillFormulaBuyoutout" inherits="UIPanelEditBoxTemplate" autoFocus="false" multiLine="false" hidden="true">
 						<Size>
 							<AbsDimension x="88" y="20"/>
 						</Size>
-						<Anchors>
-							<Anchor point="TOPLEFT" relativeTo="AAC_SellAutoFillBuyoutDropDown" relativePoint="BOTTOMLEFT">
-								<Offset>
-									<AbsDimension x="3" y="0"/>
-								</Offset>
-							</Anchor>
-						</Anchors>
 						<Scripts>
 							<OnTextChanged>
 								AAC.Sell.AutoFillPriceFields()
@@ -791,262 +836,17 @@
 								GameTooltip:Hide()
 							</OnLeave>
 						</Scripts>
-					</EditBox>
-					<Frame name="AAC_SellDurationDropDown" inherits="UIDropDownMenuTemplate">
-                        <Size>
-                            <AbsDimension x="143" y="25"/>
-                        </Size>
-						<Anchors><Anchor point="TOPLEFT" relativeTo="AAC_SellItemFrame" relativePoint="TOPLEFT"><Offset><AbsDimension x="642" y="30"/></Offset></Anchor></Anchors>
-					</Frame>
-					<Frame name="AAC_SellIncomePanel" enableMouse="true">
-                        <Size><AbsDimension x="500" y="18"/></Size>
-                        <Anchors><Anchor point="TOPLEFT" relativeTo="AAC_SellItemFrame" relativePoint="TOPLEFT"><Offset><AbsDimension x="174" y="178"/></Offset></Anchor></Anchors>
-                        <Layers><Layer level="ARTWORK">
-                            <FontString name="AAC_SellIncomeText" inherits="GameFontHighlight" justifyH="LEFT">
-                                <Size><AbsDimension x="500" y="18"/></Size>
-                                <Anchors><Anchor point="TOPLEFT"/></Anchors>
-                            </FontString>
-                        </Layer></Layers>
-                        <Scripts><OnEnter>GameTooltip:SetOwner(this, "ANCHOR_TOP"); GameTooltip:SetText(AAC_SALE_NOTE); GameTooltip:Show()</OnEnter><OnLeave>GameTooltip:Hide()</OnLeave></Scripts>
-                    </Frame>
-                    <Frame name="AAC_SellFeeFrame" inherits="MoneyFrameTemplate" hidden="false">
-						<Anchors>
-							<Anchor point="TOP" relativeTo="AAC_SellDurationDropDown" relativePoint="BOTTOM">
-								<Offset>
-									<AbsDimension x="0" y="20"/>
-								</Offset>
-							</Anchor>
-						</Anchors>
-						<Layers>
-                            <Layer level="ARTWORK">
-								<FontString inherits="GameFontYellow" text="AUCTION_TRANSACTION_COST_COLON">
-									<Anchors>
-										<Anchor point="TOP" relativeTo="AAC_SellDurationDropDown">
-											<Offset>
-												<AbsDimension x="0" y="30"/>
-											</Offset>
-										</Anchor>
-									</Anchors>
-								</FontString>
-                            </Layer>
-                        </Layers>
-						<Scripts>
-							<OnLoad>
-								MoneyFrameTemplate_SetMode(this, "copper")
-								MoneyFrameTemplate_SetType(this, "STATIC")
-							</OnLoad>
-						</Scripts>
-					</Frame>
-					<Frame name="AAC_SellPromoteDropDown" inherits="UIDropDownMenuTemplate">
-						<Anchors><Anchor point="TOPLEFT" relativeTo="AAC_SellItemFrame" relativePoint="TOPLEFT"><Offset><AbsDimension x="502" y="110"/></Offset></Anchor></Anchors>
-					</Frame>
-					<Button name="AAC_SellPromoteDropDownTooltip">
-						<Size>
-							<AbsDimension x="100" y="25"/>
-						</Size>
-						<Anchors>
-							<Anchor point="TOPLEFT" relativeTo="AAC_SellPromoteDropDown" relativePoint="TOPLEFT">
-								<Offset>
-									<AbsDimension x="0" y="0"/>
-								</Offset>
-							</Anchor>
-						</Anchors>
-						<Scripts>
-							<OnEnter>
-								GameTooltip:SetOwner(this, "ANCHOR_TOP", 4, 0)
-								GameTooltip:SetText(AUCTION_PROMOTETYPES, 1, 1, 1)
-								GameTooltip:Show()
-							</OnEnter>
-							<OnLeave>
-								GameTooltip:Hide()
-							</OnLeave>
-						</Scripts>
-					</Button>
-					<Frame name="AAC_SellPromoteTimeDropDown" inherits="UIDropDownMenuTemplate" hidden="true">
-						<Anchors><Anchor point="TOPLEFT" relativeTo="AAC_SellItemFrame" relativePoint="TOPLEFT"><Offset><AbsDimension x="502" y="140"/></Offset></Anchor></Anchors>
-					</Frame>
-					<Button name="AAC_SellPromoteTimeDropDownTooltip" hidden="true">
-						<Size>
-							<AbsDimension x="100" y="25"/>
-						</Size>
-						<Anchors>
-							<Anchor point="TOPLEFT" relativeTo="AAC_SellPromoteTimeDropDown" relativePoint="TOPLEFT">
-								<Offset>
-									<AbsDimension x="0" y="0"/>
-								</Offset>
-							</Anchor>
-						</Anchors>
-						<Scripts>
-							<OnEnter>
-								GameTooltip:SetOwner(this, "ANCHOR_BOTTOM", 0, 0)
-								GameTooltip:SetText(AUCTION_PROMOTETIME, 1, 1, 1)
-								GameTooltip:Show()
-							</OnEnter>
-							<OnLeave>
-								GameTooltip:Hide()
-							</OnLeave>
-						</Scripts>
-					</Button>
-					<Frame name="AAC_PromotePriceFrame" inherits="MoneyFrameTemplate" hidden="false">
-						<Anchors>
-							<Anchor point="TOPLEFT" relativeTo="AAC_SellPromoteTimeDropDown" relativePoint="BOTTOMLEFT">
-								<Offset>
-									<AbsDimension x="35" y="3"/>
-								</Offset>
-							</Anchor>
-						</Anchors>
-						<Layers>
-                            <Layer level="ARTWORK">
-								<FontString name="$parentLabel" inherits="GameFontYellow" text="Price:">
-									<Anchors>
-										<Anchor point="RIGHT" relativeTo="AAC_PromotePriceFrame" relativePoint="LEFT">
-											<Offset>
-												<AbsDimension x="-5" y="0"/>
-											</Offset>
-										</Anchor>
-									</Anchors>
-								</FontString>
-                            </Layer>
-                        </Layers>
-						<Scripts>
-							<OnLoad>
-								MoneyFrameTemplate_SetMode(this, "account")
-								MoneyFrameTemplate_SetType(this, "STATIC")
-							</OnLoad>
-						</Scripts>
-					</Frame>
-                    <!--<Frame name="AAC_SellProfitBuyoutFrame" inherits="MoneyFrameTemplate" hidden="false">
-                        <Anchors>
-                            <Anchor point="TOPLEFT" relativeTo="AAC_SellFeeFrame">
-                                <Offset>
-                                    <AbsDimension x="0" y="16"/>
-                                </Offset>
-                            </Anchor>
-                        </Anchors>
-                        <Layers>
-                            <Layer level="ARTWORK">
-                                <FontString inherits="GameFontYellow" text="+">
-                                    <Anchors>
-                                        <Anchor point="RIGHT" relativePoint="LEFT">
-                                            <Offset>
-                                                <AbsDimension x="-4" y="1"/>
-                                            </Offset>
-                                        </Anchor>
-                                    </Anchors>
-                                </FontString>
-                            </Layer>
-                        </Layers>
-                        <Scripts>
-                            <OnLoad>
-                                MoneyFrameTemplate_SetMode(this, "copper")
-                                MoneyFrameTemplate_SetType(this, "STATIC")
-                            </OnLoad>
-                        </Scripts>
-                    </Frame>-->
-					<Button name="AAC_SellConfirmButton" inherits="UIPanelButtonTemplate" text="AUCTION_SELL_CONFIRM">
-						<Size>
-							<AbsDimension x="66" y="24"/>
-						</Size>
-						<Anchors><Anchor point="TOPLEFT" relativeTo="AAC_SellItemFrame" relativePoint="TOPLEFT"><Offset><AbsDimension x="710" y="112"/></Offset></Anchor></Anchors>
-						<Scripts>
-							<OnClick>
-								if GetButtonDelayTime() == nil then
-									SetButtonDelayTime()
-									AAC.Sell.ConfirmButton_OnClick(this, key)
-								end
-							</OnClick>
-						</Scripts>
-					</Button>
+					<Anchors><Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="AAC_SellExtras"><Offset><AbsDimension x="16" y="58"/></Offset></Anchor></Anchors></EditBox>
 					<Button name="AAC_SellHistoryButton" inherits="UIPanelButtonTemplate" text="AUCTION_HISTORY_PRICE">
-						<Size>
-							<AbsDimension x="66" y="24"/>
-						</Size>
-						<Anchors>
-							<Anchor point="TOPLEFT" relativeTo="AAC_SellConfirmButton" relativePoint="BOTTOMLEFT">
-								<Offset>
-									<AbsDimension x="0" y="8"/>
-								</Offset>
-							</Anchor>
-						</Anchors>
-						<Scripts>
+						<Size><AbsDimension x="164" y="24"/></Size><Scripts>
 							<OnClick>AAC.Sell.RequestHistory()</OnClick>
 						</Scripts>
-					</Button>
-					<CheckButton name="AAC_AnonymousSale" inherits="UIPanelCheckButtonTemplate">
-						<Size>
-							<AbsDimension x="31" y="31"/>
-						</Size>
-						<Anchors>
-							<Anchor point="BOTTOMLEFT" relativePoint="BOTTOMLEFT" relativeTo="AAC_AuctionFrame">
-								<Offset>
-									<AbsDimension  x="20" y="-14"/>
-								</Offset>
-							</Anchor>
-						</Anchors>
-						<Layers>
-							<Layer>
-								<FontString name="$parentLabel" inherits="GameFontHighlight" text="PRESTIGE_BENEFIT_ANONYM" justifyH="LEFT">
-									<Size>
-										<AbsDimension x="115" y="48"/>
-									</Size>
-									<Anchors>
-										<Anchor point="LEFT" relativePoint="RIGHT">
-											<Offset>
-												<AbsDimension x="0" y="0"/>
-											</Offset>
-										</Anchor>
-									</Anchors>
-								</FontString>
-							</Layer>
-						</Layers>
-						<Scripts>
-							<OnLoad>
-				
-								this:RegisterEvent("PRESTIGE_BENEFIT_CHANGED")
-								if Prestige_IsBenefitActive(PrestigeBenefitType_AuctionHouse_HideName) then
-									AAC_AnonymousSale:SetEnable(true);
-								else
-									AAC_AnonymousSale:SetEnable(false);
-								end
-
-								AAC_AnonymousSale:SetChecked(Prestige_IsAnonymousSale());
-					
-							</OnLoad>
-							<OnClick>
-								Prestige_SetAnonymousSale(this:IsChecked());
-
-	
-							</OnClick>
-							<OnEvent>
-								if event == "PRESTIGE_BENEFIT_CHANGED" then
-									if Prestige_IsBenefitActive(PrestigeBenefitType_AuctionHouse_HideName) then
-										AAC_AnonymousSale:SetEnable(true);
-									else
-										AAC_AnonymousSale:SetEnable(false);
-									end
-
-									AAC_AnonymousSale:SetChecked(Prestige_IsAnonymousSale());
-								end
-							</OnEvent>
-							<OnEnter>
-								GameTooltip:SetOwner(this, "ANCHOR_TOP", 0, 0);
-								--PRESTIGE_BENEFIT_ANONYM
-								GameTooltip:SetText(TEXT("PRESTIGE_BENEFIT_ANONYM"));
-
-								local text = TEXT("PRESTIGE_BENEFIT_ANONYM_DESC_TOOLTIP");
-								GameTooltip:AddLine(text, 0, 0.75, 0.95, false, PrestigeTooltipWidth);
-								GameTooltip:AddSeparator();
-								GameTooltip:AddLine(PRESTIGE_BENEFIT_ANONYM_DESC_TOOLTIP_2, 0, 0.75, 0.95 );
-							</OnEnter>
-							<OnLeave>
-								GameTooltip:Hide();
-							</OnLeave>
-						</Scripts>
-					</CheckButton>	
-                    <Frame name="AAC_SellPayMoneyMode" inherits="MoneyModeFrameTemplate">
-                        <Anchors><Anchor point="TOPLEFT" relativeTo="AAC_SellItemFrame" relativePoint="TOPLEFT"><Offset><AbsDimension x="280" y="28"/></Offset></Anchor></Anchors>
-                    </Frame>
-				</Frames>
+					<Anchors><Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="AAC_SellExtras"><Offset><AbsDimension x="620" y="38"/></Offset></Anchor></Anchors></Button>
+					</Frames><Layers><Layer><FontString name="AAC_SellAutoPriceLabel" inherits="GameFontYellow" text="auto price settings" justifyH="LEFT">
+							<Size><AbsDimension x="220" y="20"/></Size><Anchors><Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="AAC_SellExtras"><Offset><AbsDimension x="16" y="8"/></Offset></Anchor></Anchors></FontString>
+						<FontString name="AAC_SellPromotionLabel" inherits="GameFontYellow" text="Promoting" justifyH="LEFT">
+							<Size><AbsDimension x="220" y="20"/></Size><Anchors><Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="AAC_SellExtras"><Offset><AbsDimension x="250" y="8"/></Offset></Anchor></Anchors></FontString>
+						</Layer></Layers><Anchors><Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="AAC_SellItemFrame"><Offset><AbsDimension x="0" y="180"/></Offset></Anchor></Anchors><Layers><Layer level="BACKGROUND"><Texture file="interface\auctionframe\auctionseparate-horizontalline"><Anchors><Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="AAC_SellExtras"><Offset><AbsDimension x="8" y="0"/></Offset></Anchor></Anchors><Size><AbsDimension x="784" y="5"/></Size></Texture></Layer></Layers></Frame><Button name="AAC_SellExtrasButton" inherits="UIPanelButtonTemplate"><Size><AbsDimension x="164" y="22"/></Size><Scripts><OnClick>AAC.Sell.ToggleExtras()</OnClick></Scripts><Anchors><Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="AAC_SellItemFrame"><Offset><AbsDimension x="620" y="146"/></Offset></Anchor></Anchors></Button></Frames>
 			</Frame>
 			<Frame name="AAC_SellItemBrowse" hidden="true">
 				<Size>
@@ -1515,7 +1315,7 @@
 					</OnClick>
 				</Scripts>
 			</Button>
-			<EditBox name="AAC_SellEditBox" inherits="UIPanelEditBoxTemplate"  letters="64"  >
+			<EditBox name="AAC_SellEditBox" inherits="UIPanelEditBoxTemplate" letters="64">
 				<Size>
 					<AbsDimension x="150" y="20"/>
 				</Size>

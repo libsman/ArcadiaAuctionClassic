@@ -1,6 +1,6 @@
-<Ui xmlns="https://chroniclesofarcadia.com/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="https://chroniclesofarcadia.com/ https://chroniclesofarcadia.com/UI.xsd">   
-	
+<?xml version='1.0' encoding='utf-8'?>
+<Ui xmlns="https://chroniclesofarcadia.com/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://chroniclesofarcadia.com/ https://chroniclesofarcadia.com/UI.xsd">
+
 	<Button name="AAC_DashboardListItemTemplate" inherits="AAC_TemplateListItem" virtual="true">
 		<Size>
 			<AbsDimension x="770" y="40"/>
@@ -10,7 +10,7 @@
 				<Texture name="$parentVerticalLineNameLevel" file="interface\auctionframe\auctionseparate-verticalline">
 					<Size x="5" y="35"/>
 					<Anchors>
-						<Anchor point="LEFT" >
+						<Anchor point="LEFT">
 							<Offset>
 								<AbsDimension x="203" y="1"/>
 							</Offset>
@@ -62,7 +62,7 @@
 							</Offset>
 						</Anchor>
 					</Anchors>
-					<Color a="0.5"></Color>	
+					<Color a="0.5"/>
 				</Texture>
 			</Layer>
 			<Layer level="ARTWORK">
@@ -90,7 +90,7 @@
 						</Anchor>
 					</Anchors>
 				</FontString>
-				<FontString name="$parentCustom2" inherits="GameFontNormal" justifyH="CENTER" >
+				<FontString name="$parentCustom2" inherits="GameFontNormal" justifyH="CENTER">
 					<Size>
 						<AbsDimension x="20" y="32"/>
 					</Size>
@@ -164,13 +164,13 @@
 						GameTooltip:Hide()
 					</OnLeave>
 					<OnMouseWheel>
-						GameTooltip:Hide()						
-						UIPanelScrollBar_OnMouseWheel(AAC_DashboardListScrollBar, delta)	
-						GameTooltip:SetAuctionBrowseItem(this:GetParent().auctionid)	
-					</OnMouseWheel>					
+						GameTooltip:Hide()
+						UIPanelScrollBar_OnMouseWheel(AAC_DashboardListScrollBar, delta)
+						GameTooltip:SetAuctionBrowseItem(this:GetParent().auctionid)
+					</OnMouseWheel>
 				</Scripts>
 			</Button>
-            <Button name="$parentSeller" enableMouse="true" text="test"> 
+            <Button name="$parentSeller" enableMouse="true" text="test">
 				<Size>
 					<AbsDimension x="65" y="32"/>
 				</Size>
@@ -208,11 +208,11 @@
 						AAC.Dashboard.Seller_OnLeave(this);
 					</OnLeave>
 					<OnMouseWheel>
-						UIPanelScrollBar_OnMouseWheel(AAC_DashboardListScrollBar, delta)	
+						UIPanelScrollBar_OnMouseWheel(AAC_DashboardListScrollBar, delta)
 					</OnMouseWheel>
                 </Scripts>
             </Button>
-			<Button name="$parentPPUBuy" enableMouse="true"> 
+			<Button name="$parentPPUBuy" enableMouse="true">
                 <Size>
 					<AbsDimension x="60" y="32"/>
 				</Size>
@@ -246,7 +246,7 @@
 						AAC.Dashboard.PricePerUnit_OnLeave(this);
 					</OnLeave>
 					<OnMouseWheel>
-						UIPanelScrollBar_OnMouseWheel(AAC_DashboardListScrollBar, delta)	
+						UIPanelScrollBar_OnMouseWheel(AAC_DashboardListScrollBar, delta)
 					</OnMouseWheel>
                 </Scripts>
             </Button>
@@ -298,7 +298,7 @@
 								AAC.Dashboard.BuyoutMoney_OnLeave(this)
 							</OnLeave>
 							<OnMouseWheel>
-								UIPanelScrollBar_OnMouseWheel(AAC_DashboardListScrollBar, delta)	
+								UIPanelScrollBar_OnMouseWheel(AAC_DashboardListScrollBar, delta)
 							</OnMouseWheel>
 						</Scripts>
 					</Button>
@@ -358,7 +358,7 @@
 						</Offset>
 					</Anchor>
 				</Anchors>
-				
+
 				<Frames>
 					<Frame name="AAC_DBAuctionPlayerGold" inherits="MoneyFrameTemplate">
 						<Anchors>
@@ -375,7 +375,7 @@
 							</OnLoad>
 						</Scripts>
 					</Frame>
-					
+
 					<Frame name="AAC_DBAuctionPlayerDiamond" inherits="MoneyFrameTemplate">
 						<Anchors>
 							<Anchor point="TOPRIGHT" relativePoint="BOTTOMRIGHT" relativeTo="AAC_DBAuctionPlayerGold">
@@ -468,7 +468,7 @@
 							</Anchor>
 						</Anchors>
 					</Button>
-					<Button name="AAC_DashboardHeaderCustom1" inherits="AAC_TemplateHeaderButton"  text="C_LEVEL" id="2">
+					<Button name="AAC_DashboardHeaderCustom1" inherits="AAC_TemplateHeaderButton" text="C_LEVEL" id="2">
 						<Anchors>
 							<Anchor point="TOP" relativePoint="TOPLEFT">
 								<Offset>
@@ -477,7 +477,7 @@
 							</Anchor>
 						</Anchors>
 					</Button>
-					<Button name="AAC_DashboardHeaderCustom2" inherits="AAC_TemplateHeaderButton"  text="" id="3">
+					<Button name="AAC_DashboardHeaderCustom2" inherits="AAC_TemplateHeaderButton" text="" id="3">
 						<Anchors>
 							<Anchor point="TOP" relativePoint="TOPLEFT">
 								<Offset>
@@ -486,7 +486,7 @@
 							</Anchor>
 						</Anchors>
 					</Button>
-					<Button name="AAC_DashboardHeaderLeftTime" inherits="AAC_TemplateHeaderButton"  text="TIMEFLAG_STATE" id="4">
+					<Button name="AAC_DashboardHeaderLeftTime" inherits="AAC_TemplateHeaderButton" text="TIMEFLAG_STATE" id="4">
 						<Anchors>
 							<Anchor point="TOP" relativePoint="TOPLEFT">
 								<Offset>
@@ -495,7 +495,7 @@
 							</Anchor>
 						</Anchors>
 					</Button>
-					<Button name="AAC_DashboardHeaderSeller" inherits="AAC_TemplateHeaderButton"  text="AUCTION_SELLER" id="5">
+					<Button name="AAC_DashboardHeaderSeller" inherits="AAC_TemplateHeaderButton" text="AUCTION_SELLER" id="5">
 						<Anchors>
 							<Anchor point="TOP" relativePoint="TOPLEFT">
 								<Offset>
@@ -504,7 +504,7 @@
 							</Anchor>
 						</Anchors>
 					</Button>
-					<Button name="AAC_DashboardHeaderPPU" inherits="AAC_TemplateHeaderButton"  text="" id="6">
+					<Button name="AAC_DashboardHeaderPPU" inherits="AAC_TemplateHeaderButton" text="" id="6">
 						<Anchors>
 							<Anchor point="TOP" relativePoint="TOPLEFT">
 								<Offset>
@@ -636,7 +636,7 @@
 						UIPanelScrollBar_OnMouseWheel(AAC_DashboardListScrollBar, delta)
 					</OnMouseWheel>
 				</Scripts>
-			</Frame>
+			<Layers><Layer level="ARTWORK"><FontString name="AAC_DashboardEmpty" inherits="GameFontHighlight" justifyH="CENTER" hidden="true"><Size><AbsDimension x="600" y="40"/></Size><Anchors><Anchor point="CENTER"/></Anchors></FontString></Layer></Layers></Frame>
 			<Button name="AAC_DashboardRefreshButton" inherits="UIPanelButtonTemplate" text="Shuffle">
 				<Size>
 					<AbsDimension x="72" y="22"/>

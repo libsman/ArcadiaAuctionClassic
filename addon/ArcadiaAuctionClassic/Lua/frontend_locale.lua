@@ -13,6 +13,19 @@ KR=[[가격 기록 저장 안 함|개당 가격 표시|소수점 더 자세히 �
 CN=[[不保存价格历史|显示单价|显示更多小数位|小数位数|简明指南|筛选命令|三步筛选|1. 在搜索栏输入物品名称。|2. 在筛选栏输入物品说明中的词。|3. 点击搜索，只保留匹配的商品。|例如：搜索魔石，再按属性名称筛选。|使用 $notowned 查找尚未拥有的怪物卡片。|点击列标题可排序。|在我的购买中管理竞价和求购。|在我的商品中管理出售和兑换。]],
 TW=[[不儲存價格歷史|顯示單價|顯示更多小數位|小數位數|簡明指南|篩選指令|三步篩選|1. 在搜尋欄輸入物品名稱。|2. 在篩選欄輸入物品說明中的詞。|3. 點擊搜尋，只保留符合的商品。|例如：搜尋魔石，再按屬性名稱篩選。|使用 $notowned 尋找尚未擁有的怪物卡片。|點擊欄位標題可排序。|在我的購買中管理競價和求購。|在我的商品中管理出售和兌換。]],
 }
+local compactRows={
+ EN=[[History|Material prices per base unit|Use average when no last price exists|Filter processing speed]],
+ DE=[[Verlauf|Materialpreise je Basiseinheit|Ohne letzten Preis Durchschnitt nutzen|Verarbeitungstempo der Filter]],
+ ES=[[Historial|Materiales por unidad básica|Usar media si no hay último precio|Velocidad de los filtros]],
+ FR=[[Historique|Matériaux par unité de base|Utiliser la moyenne sans dernier prix|Vitesse des filtres]],
+ PL=[[Historia|Materiały za jednostkę bazową|Użyj średniej bez ostatniej ceny|Szybkość filtrowania]],
+ RU=[[История|Материалы за базовую единицу|Средняя цена, если последней нет|Скорость фильтров]],
+ TR=[[Geçmiş|Temel birim başına malzeme fiyatı|Son fiyat yoksa ortalamayı kullan|Filtre işleme hızı]],
+ JP=[[履歴|素材の基本単位価格|前回価格がなければ平均を使う|フィルター処理速度]],
+ KR=[[내역|재료 기본 단위 가격|최근 가격이 없으면 평균 사용|필터 처리 속도]],
+ CN=[[历史|材料基础单位价格|无上次价格时使用均价|筛选处理速度]],
+ TW=[[歷史|材料基本單位價格|無上次價格時使用均價|篩選處理速度]],
+}
 AAC.FrontendLocale={rows=rows,keys=keys}
 function AAC.FrontendLocale.Apply(language)
     local lang=tostring(language or AAC.TradingLocale.language or "EN"):sub(1,2):upper()
@@ -20,6 +33,11 @@ function AAC.FrontendLocale.Apply(language)
     local values={};for value in ((rows[lang] or rows.EN).."|"):gmatch("(.-)|") do values[#values+1]=value end
     local i=0;for key in keys:gmatch("%S+") do i=i+1;AAC.TradingTranslations[key]=values[i] end
     assert(i==#values,"AAC frontend translation count mismatch")
+    local compact={};for value in ((compactRows[lang] or compactRows.EN).."|"):gmatch("(.-)|") do compact[#compact+1]=value end
+    AAC.TradingTranslations.historyShort=compact[1]
+    AAC.TradingTranslations.materialUnit=compact[2]
+    AAC.TradingTranslations.averageFallback=compact[3]
+    AAC.TradingTranslations.filterTempo=compact[4]
     AACLocale.Messages.SETTINGS_DISABLE_SAVE=AAC.TradingTranslations.disableHistory
     AACLocale.Messages.SETTINGS_DISABLE_SAVE_HEADER=AAC.TradingTranslations.disableHistory
     AACLocale.Messages.SETTINGS_DISABLE_SAVE_TEXT=""

@@ -185,6 +185,10 @@ function Bid.ReadList()
 end
 
 function Bid.DrawList()
+    if AAC_BidEmpty then
+        AAC_BidEmpty:SetText(AAC.TradingUI.Text("noBids"))
+        AAC_BidEmpty:SetVisible(#Bid.List.Items==0)
+    end
 	local value = AAC_BidListScrollBar:GetValue()
 	local button, buttonName, info
 

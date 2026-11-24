@@ -1,4 +1,4 @@
-local VERSION = "0.3.7-beta"
+local VERSION = "0.3.8-beta"
 -- Recover missing optional TOC data before capturing references. Never retry per frame.
 local function dataTable(name, file)
     if type(_G[name]) ~= "table" and type(dofile) == "function" then
@@ -233,6 +233,12 @@ function AAC.WindowScale_OnValueChanged(this)
 end
 
 function Main.InitGUI(this)
+    for _,name in ipairs({"AAC_BrowseHistoryButton","AAC_DashboardHistoryButton"}) do
+        if _G[name] then _G[name]:SetText(AAC.TradingUI.Text("historyShort")) end
+    end
+    AAC_SettingsUseWhiteValueLabel:SetText(AAC.TradingUI.Text("materialUnit"))
+    AAC_SettingsAvgDefaultLastPriceLabel:SetText(AAC.TradingUI.Text("averageFallback"))
+    AAC_SettingsFilterSpeedLabel:SetText(AAC.TradingUI.Text("filterTempo"))
 	PanelTemplates_SetNumTabs(this, 7)
     AAC.Sell.OnInit()
 
@@ -417,9 +423,15 @@ local function SetExplainFrameTextAnchors(frame, maxBulletPointsTop, maxBulletPo
 		local prevDesc = explainFrame["Description" .. i - 1];
 		local currDesc = explainFrame["Description" .. i];
 		currDesc:ClearAllAnchors();
-		currDesc:SetAnchor("TOPLEFT", "BOTTOMLEFT", prevDesc, 0, 1);
+		currDesc:SetAnchor("TOPLEFT", "BOTTOMLEFT", prevDesc, 0, 6);
 	end
 
+    explainFrame.Description4:SetText("Arcadia Auction Classic — Blackkid")
+    explainFrame.Description5:SetText("AdvancedAuctionHouse: Mavoc, TellTod, Noguai, Graves, Byte")
+    explainFrame.Description6:SetText("GPLv3 — LICENSE / AUTHORS / NOTICE")
+    for i=4,6 do
+        local f=explainFrame["Description"..i];f:ClearAllAnchors();f:SetAnchor("TOPLEFT","TOPLEFT",explainFrame,10,315+(i-4)*25);f:SetHeight(25);f:SetColor(0.65,0.65,0.65)
+    end
 	local firstFilterDesc = explainFrame.Description7;
 	firstFilterDesc:ClearAllAnchors();
 	firstFilterDesc:SetAnchor("TOPLEFT", "BOTTOMLEFT", explainFrame.FilterTitle, 0, 5);
@@ -428,7 +440,7 @@ local function SetExplainFrameTextAnchors(frame, maxBulletPointsTop, maxBulletPo
 		local prevDesc = explainFrame["Description" .. i - 1];
 		local currDesc = explainFrame["Description" .. i];
 		currDesc:ClearAllAnchors();
-		currDesc:SetAnchor("TOPLEFT", "BOTTOMLEFT", prevDesc, 0, 1);
+		currDesc:SetAnchor("TOPLEFT", "BOTTOMLEFT", prevDesc, 0, 6);
 	end
 end
 
@@ -438,6 +450,8 @@ local function SetExplainFrameText(frame)
 	explainFrame.DescriptionTitle:SetHeight(explainFrame.DescriptionTitle:GetDisplayHeight());
 	explainFrame.FilterTitle:SetText(AAC.TradingUI.Text("stepsTitle"));
 	explainFrame.FilterTitle:SetHeight(explainFrame.FilterTitle:GetDisplayHeight());
+    explainFrame.FilterTitle:ClearAllAnchors()
+    explainFrame.FilterTitle:SetAnchor("TOPLEFT","TOPLEFT",explainFrame,10,158)
 
 	local addonDescriptions = {
         "• "..AAC.TradingUI.Text("sortStep"),
@@ -478,15 +492,15 @@ local function SetCommandFrameTextAnchors(frame, maxCommands)
 		local prevDesc = commandFrame["Description" .. i - 1];
 		local currDesc = commandFrame["Description" .. i];
 		currCmd:ClearAllAnchors();
-		currCmd:SetAnchor("TOPLEFT", "BOTTOMLEFT", prevCmd, 0, 1);
+		currCmd:SetAnchor("TOPLEFT", "BOTTOMLEFT", prevCmd, 0, 6);
 		currDesc:ClearAllAnchors();
-		currDesc:SetAnchor("TOPRIGHT", "BOTTOMRIGHT", prevDesc, 0, 1);
+		currDesc:SetAnchor("TOPRIGHT", "BOTTOMRIGHT", prevDesc, 0, 6);
 	end
 end
 
 local function SetCommandFrameText(frame)
 	local commandFrame = frame.CommandFrame;
-	commandFrame.Title:SetText(AAC.TradingUI.Text("commandsTitle"));
+	commandFrame.Title:SetText("");
 	commandFrame.Title:SetHeight(commandFrame.Title:GetDisplayHeight());
 
 	local commands = {
@@ -522,12 +536,12 @@ local function SetCommandFrameText(frame)
 		commandFrame["Description" .. i]:SetText(descriptions[i]);
 	end
 
-	commandFrame.Usage1:SetText(AAC.TradingUI.Text("filterStep"));
+	commandFrame.Usage1:SetText("");
 	commandFrame.Usage1:SetHeight(commandFrame.Usage1:GetDisplayHeight());
 	commandFrame.Usage2:SetText(AAC.TradingUI.Text("cardsStep"));
 	commandFrame.Usage2:SetHeight(commandFrame.Usage2:GetDisplayHeight());
 
-	commandFrame.Example1:SetText(AAC.TradingUI.Text("exampleStep"));
+	commandFrame.Example1:SetText("");
 	commandFrame.Example1:SetHeight(commandFrame.Example1:GetDisplayHeight());
 end
 
@@ -586,14 +600,14 @@ function Main.ClickTab(tab)
 			_G["AAC_SellPromoteTimeDropDownTooltip"]:Hide()
 			_G["AAC_PromotePriceFrame"]:Hide()
 			_G["AAC_SellPromoteDropDown"]:ClearAllAnchors()
-			_G["AAC_SellPromoteDropDown"]:SetAnchor("TOPLEFT", "TOPLEFT", "$parent", 502, 110)
+			_G["AAC_SellPromoteDropDown"]:SetAnchor("TOPLEFT", "TOPLEFT", "AAC_SellExtras", 250, 30)
 		else
 			_G["AAC_SellPromoteTimeDropDown"]:ClearAllAnchors()
 			_G["AAC_SellPromoteDropDown"]:ClearAllAnchors()
 			_G["AAC_PromotePriceFrame"]:ClearAllAnchors()
-			_G["AAC_SellPromoteDropDown"]:SetAnchor("TOPLEFT", "TOPLEFT", "$parent", 502, 110)
-			_G["AAC_SellPromoteTimeDropDown"]:SetAnchor("TOPLEFT", "BOTTOMLEFT", "AAC_SellPromoteDropDown", 0, 5)
-			_G["AAC_PromotePriceFrame"]:SetAnchor("TOP", "BOTTOM", "AAC_SellPromoteTimeDropDown", 20, 3)
+			_G["AAC_SellPromoteDropDown"]:SetAnchor("TOPLEFT", "TOPLEFT", "AAC_SellExtras", 250, 30)
+			_G["AAC_SellPromoteTimeDropDown"]:SetAnchor("TOPLEFT", "TOPLEFT", "AAC_SellExtras", 440, 30)
+			_G["AAC_PromotePriceFrame"]:SetAnchor("TOPLEFT", "TOPLEFT", "AAC_SellExtras", 680, 15)
 			_G["AAC_SellPromoteTimeDropDown"]:Show()
 			_G["AAC_SellPromoteTimeDropDownTooltip"]:Show()
 			_G["AAC_PromotePriceFrame"]:Show()

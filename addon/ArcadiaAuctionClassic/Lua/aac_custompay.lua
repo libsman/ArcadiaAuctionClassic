@@ -315,13 +315,12 @@ local function stillListed(item, kind)
             GetAuctionBrowseItemInfo(item.page, item.slot)
         return index == item.auctionid and dbid == item.dbid and count == item.cacheCount
             and seller == item.seller and mode == item.moneyMode and (bid or 0) == item.bidPrice
-            and (buyout or 0) == item.buyoutPrice and GetAuctionBrowseItemLink(index) == item.link
+            and (buyout or 0) == item.buyoutPrice
     end
     if AAC.Bid.Revision ~= item.revision then return false end
     local name, count, _, _, _, _, seller, status, mode, bid, buyout = GetAuctionBidItemInfo(item.auctionid)
     return name == item.name and count == item.cacheCount and seller == item.seller and status == item.status
         and mode == item.moneyMode and (bid or 0) == item.bidPrice and (buyout or 0) == item.buyoutPrice
-        and GetAuctionBidItemLink(item.auctionid) == item.link
 end
 
 local function matchesBought(message)
