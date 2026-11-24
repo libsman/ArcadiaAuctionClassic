@@ -6,6 +6,36 @@ from lupa.lua51 import LuaRuntime
 ROOT=Path(__file__).resolve().parents[1]/'addon/ArcadiaAuctionClassic'
 
 class TradingUITests(unittest.TestCase):
+    def test_total_price_sync_rounds_down_and_never_sends_an_order(self):
+        lua=LuaRuntime(unpack_returned_tuples=True)
+        self.widgets(lua)
+        lua.execute('AAC={}')
+        lua.execute((ROOT/'Lua/trading_ui.lua').read_text(encoding='utf-8'))
+        lua.execute('''
+          AAC.TradingUI.Render=function()end
+          -- Model synchronous client OnTextChanged callbacks, including recursive SetText.
+          for _,name in ipairs({'Quantity','Price','OrderTotal'}) do
+            local w=_G['AAC_Trading'..name]
+            w.SetText=function(s,t)s.text=t;AAC.TradingUI.PriceChanged(name)end
+          end
+          AAC_TradingQuantity:SetText('50');AAC_TradingPrice:SetText('3')
+          assert(AAC_TradingOrderTotal.text=='150')
+          AAC_TradingOrderTotal:SetText('1000')
+          assert(AAC_TradingPrice.text=='20')
+          AAC_TradingQuantity:SetText('3')
+          assert(AAC_TradingOrderTotal.text=='60')
+          AAC_TradingOrderTotal:SetText('1000')
+          assert(AAC_TradingPrice.text=='333')
+          AAC.TradingUI.SettleTotal()
+          assert(AAC_TradingOrderTotal.text=='999')
+          AAC_TradingOrderTotal:SetText('2')
+          assert(AAC_TradingPrice.text=='')
+          AAC_TradingQuantity:SetText('0');AAC_TradingOrderTotal:SetText('1000')
+          assert(AAC_TradingPrice.text=='')
+          AAC_TradingQuantity:SetText('3');AAC_TradingPrice:SetText('')
+          assert(AAC_TradingOrderTotal.text=='')
+        ''')
+
     def widgets(self,lua):
         lua.execute('''
             function widget(name)

@@ -51,7 +51,7 @@ Switching interfaces does not normally require a restart. Outstanding requests f
 ## Buying and selling
 
 - **My purchases → Buy orders:** the familiar Classic list, with filters for all requests, buyers for your bag and your own orders. Selecting a row shows the relevant action and net proceeds.
-- **Create buy order:** search for an item by part of its name (at least three characters), or drag / Shift-click an item into the compact form. The item does not have to be in your bag. Icons and tooltips help identify it, and your existing orders appear below. Enter quantity and maximum unit price; review the reserved balance and fee before confirming.
+- **Create buy order:** search for an item by part of its name (at least three characters), or drag / Shift-click an item into the compact form. The item does not have to be in your bag. Icons and tooltips help identify it, and your existing orders appear below. Enter quantity and either maximum unit price or total item price. Whole unit prices round down if the total cannot be divided evenly; fees are separate. Review the reserved balance and fee before confirming.
 - **My offers → Check prices:** compares stackable items per currency. Equipment and stat-bearing mana stones are not compared by base item ID.
 - **My offers → List again:** prepares a recent confirmed listing in the ordinary selling form. Review the quantity and confirm there; promotion is selected separately.
 - **My purchases → Bids:** keeps your auction bids alongside buy orders. Buy-order actions remain in the same section, with confirmation before posting, selling or cancellation.

@@ -108,7 +108,7 @@ function U.NewOrder()
     local row=U.selected or U.searchItem
     if not U.Open("create") then return end
     U.itemID=nil;U.itemName=nil;U.itemLink=nil
-    set("Quantity","1");set("Price","")
+    set("Quantity","1");set("Price","");set("OrderTotal","")
     if row and row.itemID then
         U.PickItem(row.link or string.format("|Hitem:%x|h[%s]|h",row.itemID,row.name or ""))
     end
@@ -140,7 +140,7 @@ function U.PickItem(link)
     if U.mode~="create" then U.needMine=true;U.findQuery="";U.findItems={};set("FindText","") end
     U.itemID=id;U.itemLink=link;U.itemName=name or GetObjectInfo(id,"name") or tostring(id)
     U.mode="create";U.message=nil
-    set("Quantity","1");set("Price","");U.Render();return true
+    set("Quantity","1");set("Price","");set("OrderTotal","");U.Render();return true
 end
 function U.Drop()
     if busy() or not CursorHasItem() then return end
@@ -210,6 +210,25 @@ function U.PickFound(index)
     if item and U.PickItem(string.format("|Hitem:%x|h[%s]|h",item.ID,item.Name)) then
         set("FindText","");set("FindStatus","");f("FindText"):ClearFocus();U.findQuery="";U.findDirty=nil;U.findItems={};U.Render()
     end
+end
+-- Editing the total never raises the requested budget: the server uses integer unit prices.
+function U.PriceChanged(source)
+    if U.updatingPrice then return end
+    U.updatingPrice=true
+    local n=tonumber(f("Quantity"):GetText())
+    local price=tonumber(f("Price"):GetText())
+    if source=="OrderTotal" then
+        local total=tonumber(f("OrderTotal"):GetText())
+        price=n and n>0 and n==math.floor(n) and total and math.floor(total/n) or nil
+        set("Price",price and price>0 and tostring(price) or "")
+    else
+        set("OrderTotal",n and price and tostring(n*price) or "")
+    end
+    U.updatingPrice=nil
+    U.Render()
+end
+function U.SettleTotal()
+    U.PriceChanged("Price")
 end
 function U.Currency(mode)
     U.currency=mode;U.Render()
@@ -291,7 +310,7 @@ function U.Render()
     visible("Reload",U.mode=="sellable" or U.mode=="all" or U.mode=="mine")
     set("Reload",U.Text("refresh"))
     if create then
-        set("ItemLabel",U.Text("item"));set("TotalLabel",U.Text("total"))
+        set("ItemLabel",U.Text("item"));set("TotalLabel",U.Text("total"));set("OrderTotalLabel",U.Text("orderTotal"))
         set("ItemName",U.itemName or U.Text("chooseItem"));set("QuantityLabel",U.Text("amount"));set("PriceLabel",U.Text("price"))
         visible("ItemIcon",U.itemID~=nil)
         if U.itemID then f("ItemIcon"):SetTexture(GetObjectInfo(GetObjectInfo(U.itemID,"ImageID") or 0,"ActField") or "") end

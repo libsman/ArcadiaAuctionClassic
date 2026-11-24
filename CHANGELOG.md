@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.5-beta — Clearer buy-order form and total price
+
+- Highlight item search and show a clear drag-here hint in the item slot.
+- Add a total-price field linked to quantity and unit price. Integer unit prices round down, never above the entered item budget; fees remain separate.
+- Translate the new labels in all eleven supported client languages.
+
 ## 0.3.4-beta — Clearer selection and native currency icons
 
 - Refresh the current buy-order list after a confirmed cancellation; keep the result and refund notice after loading.

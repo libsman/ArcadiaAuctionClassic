@@ -40,25 +40,27 @@ local function decode(keys, values)
 end
 local polishKeys=[[chooseItem dashboard otherOffers ownSearch promotion promotionTime noOwnOffers noBids]]
 local polish={
- EN=[[Select an item|Featured offers. Use Search to find an item.|Other offers|Search my offers|Highlight|Highlight ends|No active auctions to check.|You have no active bids.]],
- DE=[[Gegenstand auswählen|Hervorgehobene Angebote. Gegenstände findest du unter Suchen.|Andere Angebote|Eigene Angebote suchen|Hervorhebung|Hervorhebung endet|Keine laufenden Auktionen zum Prüfen.|Du hast keine laufenden Gebote.]],
- ES=[[Elige un objeto|Ofertas destacadas. Encuentra objetos en Buscar.|Otras ofertas|Buscar mis ofertas|Destacar|Fin del destacado|No hay subastas activas que revisar.|No tienes pujas activas.]],
- FR=[[Choisissez un objet|Offres mises en avant. Trouvez un objet dans Rechercher.|Autres offres|Rechercher mes offres|Mise en avant|Fin de mise en avant|Aucune enchère en vente à vérifier.|Vous n’avez aucune enchère en cours.]],
- PL=[[Wybierz przedmiot|Wyróżnione oferty. Przedmioty znajdziesz w Szukaj.|Inne oferty|Szukaj moich ofert|Wyróżnienie|Koniec wyróżnienia|Brak aktywnych aukcji do sprawdzenia.|Nie masz aktywnych licytacji.]],
- RU=[[Выберите предмет|Выделенные предложения. Найдите предмет во вкладке поиска.|Другие предложения|Поиск моих предложений|Выделение|Конец выделения|Нет активных аукционов для проверки.|У вас нет активных ставок.]],
- TR=[[Eşya seçin|Öne çıkan teklifler. Eşyaları Ara bölümünde bulabilirsiniz.|Diğer teklifler|Tekliflerimde ara|Öne çıkarma|Öne çıkarma sonu|Kontrol edilecek aktif müzayede yok.|Aktif teklifiniz yok.]],
- JP=[[アイテムを選択|注目の出品です。アイテムは検索タブで探せます。|他の出品|自分の出品を検索|注目表示|注目表示終了|確認できる出品はありません。|入札中のアイテムはありません。]],
- KR=[[아이템 선택|추천 매물입니다. 검색 탭에서 아이템을 찾으세요.|다른 매물|내 매물 검색|추천 표시|추천 종료|확인할 판매 중인 경매가 없습니다.|진행 중인 입찰이 없습니다.]],
- CN=[[选择物品|推荐商品。请在搜索页查找物品。|其他商品|搜索我的商品|推荐展示|推荐结束|没有待检查的拍卖。|您没有正在竞价的物品。]],
- TW=[[選擇物品|推薦商品。請在搜尋頁尋找物品。|其他商品|搜尋我的商品|推薦展示|推薦結束|沒有待檢查的拍賣。|您沒有正在競價的物品。]],
+ EN=[[Drag an item here|Featured offers. Use Search to find an item.|Other offers|Search my offers|Highlight|Highlight ends|No active auctions to check.|You have no active bids.]],
+ DE=[[Gegenstand hierhin ziehen|Hervorgehobene Angebote. Gegenstände findest du unter Suchen.|Andere Angebote|Eigene Angebote suchen|Hervorhebung|Hervorhebung endet|Keine laufenden Auktionen zum Prüfen.|Du hast keine laufenden Gebote.]],
+ ES=[[Arrastra un objeto aquí|Ofertas destacadas. Encuentra objetos en Buscar.|Otras ofertas|Buscar mis ofertas|Destacar|Fin del destacado|No hay subastas activas que revisar.|No tienes pujas activas.]],
+ FR=[[Déposez un objet ici|Offres mises en avant. Trouvez un objet dans Rechercher.|Autres offres|Rechercher mes offres|Mise en avant|Fin de mise en avant|Aucune enchère en vente à vérifier.|Vous n’avez aucune enchère en cours.]],
+ PL=[[Przeciągnij przedmiot tutaj|Wyróżnione oferty. Przedmioty znajdziesz w Szukaj.|Inne oferty|Szukaj moich ofert|Wyróżnienie|Koniec wyróżnienia|Brak aktywnych aukcji do sprawdzenia.|Nie masz aktywnych licytacji.]],
+ RU=[[Перетащите предмет сюда|Выделенные предложения. Найдите предмет во вкладке поиска.|Другие предложения|Поиск моих предложений|Выделение|Конец выделения|Нет активных аукционов для проверки.|У вас нет активных ставок.]],
+ TR=[[Eşyayı buraya sürükleyin|Öne çıkan teklifler. Eşyaları Ara bölümünde bulabilirsiniz.|Diğer teklifler|Tekliflerimde ara|Öne çıkarma|Öne çıkarma sonu|Kontrol edilecek aktif müzayede yok.|Aktif teklifiniz yok.]],
+ JP=[[ここにアイテムをドラッグ|注目の出品です。アイテムは検索タブで探せます。|他の出品|自分の出品を検索|注目表示|注目表示終了|確認できる出品はありません。|入札中のアイテムはありません。]],
+ KR=[[여기로 아이템을 끌어놓으세요|추천 매물입니다. 검색 탭에서 아이템을 찾으세요.|다른 매물|내 매물 검색|추천 표시|추천 종료|확인할 판매 중인 경매가 없습니다.|진행 중인 입찰이 없습니다.]],
+ CN=[[将物品拖到此处|推荐商品。请在搜索页查找物品。|其他商品|搜索我的商品|推荐展示|推荐结束|没有待检查的拍卖。|您没有正在竞价的物品。]],
+ TW=[[將物品拖到此處|推薦商品。請在搜尋頁尋找物品。|其他商品|搜尋我的商品|推薦展示|推薦結束|沒有待檢查的拍賣。|您沒有正在競價的物品。]],
 }
 local purchases={EN="My purchases",DE="Meine Käufe",ES="Mis compras",FR="Mes achats",PL="Moje zakupy",RU="Мои покупки",TR="Alımlarım",JP="購入管理",KR="내 구매",CN="我的购买",TW="我的購買"}
+local totalLabels={EN="Total price",DE="Gesamtpreis",ES="Precio total",FR="Prix total",PL="Cena łączna",RU="Общая цена",TR="Toplam fiyat",JP="合計価格",KR="총 가격",CN="总价",TW="總價"}
 function L.Apply(language)
  local lang=tostring(language or (AAC.UX and AAC.UX.language) or (type(GetLanguage)=="function" and GetLanguage()) or "EN"):sub(1,2):upper()
  lang=({JA="JP",KO="KR"})[lang] or lang
  if not ui[lang] then lang="EN" end
  AAC.TradingTranslations=decode(uiKeys,ui[lang])
  AAC.TradingTranslations.purchases=purchases[lang] or purchases.EN
+ AAC.TradingTranslations.orderTotal=totalLabels[lang] or totalLabels.EN
  for k,v in pairs(decode(polishKeys,polish[lang] or polish.EN)) do AAC.TradingTranslations[k]=v end
  AAC.BuyOrderTranslations=decode(orderKeys,orders[lang])
  L.language=lang

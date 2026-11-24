@@ -10,7 +10,7 @@ def label(n,x,y,w,h=20,yellow=False):
 def button(n,x,y,w,action,text='',parent=''):
  return f'<Button name="AAC_Trading{n}" inherits="UIPanelButtonTemplate" text="{escape(text)}"'+(f' parent="{parent}"' if parent else '')+f'>{size(w,24)}{anchor(x,y)}<Scripts><OnClick>{escape(action)}</OnClick></Scripts></Button>'
 def edit(n,x,y,w):
- return f'<EditBox name="AAC_Trading{n}" inherits="UIPanelEditBoxTemplate" numeric="true" letters="12">{size(w,24)}{anchor(x,y)}<Scripts><OnTextChanged>AAC.TradingUI.Render()</OnTextChanged><OnEnterPressed>this:ClearFocus()</OnEnterPressed><OnEscapePressed>this:ClearFocus()</OnEscapePressed></Scripts></EditBox>'
+ return f'<EditBox name="AAC_Trading{n}" inherits="UIPanelEditBoxTemplate" numeric="true" letters="12">{size(w,24)}{anchor(x,y)}<Scripts><OnTextChanged>AAC.TradingUI.PriceChanged("{n}")</OnTextChanged><OnEditFocusLost>AAC.TradingUI.SettleTotal()</OnEditFocusLost><OnEnterPressed>this:ClearFocus();AAC.TradingUI.SettleTotal()</OnEnterPressed><OnEscapePressed>this:ClearFocus()</OnEscapePressed></Scripts></EditBox>'
 def box(): return r'<Backdrop edgeFile="Interface\AuctionFrame\AuctionFrame-Tooltip-Border" bgFile="Interface\AuctionFrame\AuctionFrame-Tooltip-Background"><EdgeSize><AbsValue val="16"/></EdgeSize><TileSize><AbsValue val="16"/></TileSize><BackgroundInsets><AbsInset left="8" right="8" top="8" bottom="8"/></BackgroundInsets></Backdrop>'
 def frame(n,x,y,w,h,labels,frames): return f'<Frame name="AAC_Trading{n}">{size(w,h)}{anchor(x,y)}<Layers><Layer>{labels}</Layer></Layers><Frames>{frames}</Frames></Frame>'
 
@@ -32,23 +32,23 @@ listing=frame('List',0,64,800,310,headers,rows).replace('<Layers>',box()+'<Layer
 # The same horizontal item / amount / price / confirmation arrangement as My Offers.
 formlabels=label('ItemLabel',12,4,212,20,True)+label('QuantityLabel',244,4,126,20,True)+label('PriceLabel',392,4,180,20,True)+label('TotalLabel',596,4,190,20,True)
 formlabels+=line(8,26,784,4)+line(228,3,5,112,True)+line(376,3,5,112,True)+line(580,3,5,112,True)
-formlabels+=label('Totals',596,32,190,52)
+formlabels+=label('Totals',596,32,190,52)+label('OrderTotalLabel',392,57,176,18,True)
 icon=f'<Texture name="AAC_TradingItemIcon">{size(24,24)}{anchor(8,12)}</Texture>'
 slot=f'<Button name="AAC_TradingItemSlot" enableMouse="true" inherits="AAC_SellItemButtonTemplate">{size(212,48)}{anchor(10,32)}{box()}<Layers><Layer>{icon}{label("ItemName",40,4,164,40,True)}</Layer></Layers><Scripts><OnClick>AAC.TradingUI.Drop()</OnClick><OnReceiveDrag>AAC.TradingUI.Drop()</OnReceiveDrag><OnEnter>AAC.TradingUI.Tooltip({{link=AAC.TradingUI.itemLink}},this)</OnEnter><OnLeave>GameTooltip:Hide()</OnLeave></Scripts></Button>'
 # Do not inherit the sell item's staging scripts: this slot selects an item only.
 slot=slot.replace('inherits="AAC_SellItemButtonTemplate"','')
 radios=''
-for name,x,mode,kind in [('Gold',392,'copper',0),('Diamond',478,'account',1)]:
+for name,x,mode,kind in [('Gold',244,'copper',0),('Diamond',302,'account',1)]:
  icon=fr'<Texture file="Interface\MoneyFrame\MoneyIcons">{size(16,16)}{anchor(20,0)}<TexCoords left="{kind/64}" right="{(kind+1)/64}" top="0" bottom="1"/></Texture>'
  radios+=f'<CheckButton name="AAC_Trading{name}" inherits="MoneyModeRadioButtonTemplate">{size(16,16)}{anchor(x,77)}<Layers><Layer>{icon}</Layer></Layers><Scripts><OnClick>AAC.TradingUI.Currency("{mode}")</OnClick></Scripts></CheckButton>'
-form=frame('Form',0,88,800,124,formlabels,slot+edit('Quantity',244,40,120)+edit('Price',392,40,176)+radios+button('FormAction',596,88,190,'AAC.TradingUI.Action()'))
+form=frame('Form',0,88,800,124,formlabels,slot+edit('Quantity',244,40,120)+edit('Price',392,30,176)+edit('OrderTotal',392,78,176)+radios+button('FormAction',596,88,190,'AAC.TradingUI.Action()'))
 form=form.replace('<Frame name="AAC_TradingForm">','<Frame name="AAC_TradingForm" enableMouse="true">').replace('<Layers>',box()+'<Layers>',1).replace('</Frames></Frame>','</Frames><Scripts><OnReceiveDrag>AAC.TradingUI.Drop()</OnReceiveDrag></Scripts></Frame>')
 buttons=button('Back',682,0,118,'AAC.TradingUI.Back()')
 buttons+=check('All',8,34,170,'all')+check('Buyers',210,34,200,'sellable')+check('Mine',440,34,220,'mine')
 buttons+=button('New',210,406,250,'AAC.TradingUI.NewOrder()')
 buttons+=button('Prev',0,406,45,'AAC.TradingUI.Page(-1)','<')+button('Next',122,406,45,'AAC.TradingUI.Page(1)','>')+button('Action',550,406,250,'AAC.TradingUI.ListAction()')
 buttons+=button('Reload',520,0,150,'AAC.TradingUI.Refresh()')
-picker=label('FindLabel',12,30,558,20)+label('FindStatus',24,250,730,28)
+picker=label('FindLabel',12,30,650,20,True)+label('FindStatus',24,250,730,28)
 findedit=f'<EditBox name="AAC_TradingFindText" inherits="UIPanelEditBoxTemplate" letters="100">{size(558,24)}{anchor(12,52)}<Scripts><OnTextChanged>AAC.TradingUI.FindChanged()</OnTextChanged><OnEscapePressed>this:ClearFocus()</OnEscapePressed></Scripts></EditBox>'
 findrows=''
 for i in range(1,6):

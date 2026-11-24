@@ -1395,6 +1395,18 @@
                 </Anchor>
               </Anchors>
             </FontString>
+            <FontString name="AAC_TradingOrderTotalLabel" inherits="GameFontNormal" justifyH="LEFT" justifyV="MIDDLE">
+              <Size>
+                <AbsDimension x="176" y="18"/>
+              </Size>
+              <Anchors>
+                <Anchor point="TOPLEFT">
+                  <Offset>
+                    <AbsDimension x="392" y="57"/>
+                  </Offset>
+                </Anchor>
+              </Anchors>
+            </FontString>
           </Layer>
         </Layers>
         <Frames>
@@ -1467,8 +1479,9 @@
               </Anchor>
             </Anchors>
             <Scripts>
-              <OnTextChanged>AAC.TradingUI.Render()</OnTextChanged>
-              <OnEnterPressed>this:ClearFocus()</OnEnterPressed>
+              <OnTextChanged>AAC.TradingUI.PriceChanged(&quot;Quantity&quot;)</OnTextChanged>
+              <OnEditFocusLost>AAC.TradingUI.SettleTotal()</OnEditFocusLost>
+              <OnEnterPressed>this:ClearFocus();AAC.TradingUI.SettleTotal()</OnEnterPressed>
               <OnEscapePressed>this:ClearFocus()</OnEscapePressed>
             </Scripts>
           </EditBox>
@@ -1479,13 +1492,32 @@
             <Anchors>
               <Anchor point="TOPLEFT">
                 <Offset>
-                  <AbsDimension x="392" y="40"/>
+                  <AbsDimension x="392" y="30"/>
                 </Offset>
               </Anchor>
             </Anchors>
             <Scripts>
-              <OnTextChanged>AAC.TradingUI.Render()</OnTextChanged>
-              <OnEnterPressed>this:ClearFocus()</OnEnterPressed>
+              <OnTextChanged>AAC.TradingUI.PriceChanged(&quot;Price&quot;)</OnTextChanged>
+              <OnEditFocusLost>AAC.TradingUI.SettleTotal()</OnEditFocusLost>
+              <OnEnterPressed>this:ClearFocus();AAC.TradingUI.SettleTotal()</OnEnterPressed>
+              <OnEscapePressed>this:ClearFocus()</OnEscapePressed>
+            </Scripts>
+          </EditBox>
+          <EditBox name="AAC_TradingOrderTotal" inherits="UIPanelEditBoxTemplate" numeric="true" letters="12">
+            <Size>
+              <AbsDimension x="176" y="24"/>
+            </Size>
+            <Anchors>
+              <Anchor point="TOPLEFT">
+                <Offset>
+                  <AbsDimension x="392" y="78"/>
+                </Offset>
+              </Anchor>
+            </Anchors>
+            <Scripts>
+              <OnTextChanged>AAC.TradingUI.PriceChanged(&quot;OrderTotal&quot;)</OnTextChanged>
+              <OnEditFocusLost>AAC.TradingUI.SettleTotal()</OnEditFocusLost>
+              <OnEnterPressed>this:ClearFocus();AAC.TradingUI.SettleTotal()</OnEnterPressed>
               <OnEscapePressed>this:ClearFocus()</OnEscapePressed>
             </Scripts>
           </EditBox>
@@ -1496,7 +1528,7 @@
             <Anchors>
               <Anchor point="TOPLEFT">
                 <Offset>
-                  <AbsDimension x="392" y="77"/>
+                  <AbsDimension x="244" y="77"/>
                 </Offset>
               </Anchor>
             </Anchors>
@@ -1528,7 +1560,7 @@
             <Anchors>
               <Anchor point="TOPLEFT">
                 <Offset>
-                  <AbsDimension x="478" y="77"/>
+                  <AbsDimension x="302" y="77"/>
                 </Offset>
               </Anchor>
             </Anchors>
@@ -1586,9 +1618,9 @@
         </Anchors>
         <Layers>
           <Layer>
-            <FontString name="AAC_TradingFindLabel" inherits="GameFontHighlight" justifyH="LEFT" justifyV="MIDDLE">
+            <FontString name="AAC_TradingFindLabel" inherits="GameFontNormal" justifyH="LEFT" justifyV="MIDDLE">
               <Size>
-                <AbsDimension x="558" y="20"/>
+                <AbsDimension x="650" y="20"/>
               </Size>
               <Anchors>
                 <Anchor point="TOPLEFT">
