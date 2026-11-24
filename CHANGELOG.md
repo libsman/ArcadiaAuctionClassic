@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.10-beta — Restore selling price history
+
+- Fix the disabled Price history button in My offers.
+- Read the actual staged item for history requests and automatic pricing, including upgraded items.
+- Verified the history window with real sales in the game client; all 149 automated tests pass.
+
 ## 0.3.9-beta — Use the expanded window
 
 - Buy-order forms and lists now grow with Expand view instead of keeping a fixed number of rows.

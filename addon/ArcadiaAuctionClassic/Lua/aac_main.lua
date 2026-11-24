@@ -1,4 +1,4 @@
-local VERSION = "0.3.9-beta"
+local VERSION = "0.3.10-beta"
 -- Recover missing optional TOC data before capturing references. Never retry per frame.
 local function dataTable(name, file)
     if type(_G[name]) ~= "table" and type(dofile) == "function" then

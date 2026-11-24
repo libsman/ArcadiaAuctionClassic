@@ -112,6 +112,29 @@ x.lua.execute("""
     assert(parses==1 and AAC.SellerTools.repeatAppliedLink==nil)
 """)
 print('PASS actual AutoFill distinguishes delayed automation and explicit user input')
+x.lua.execute('local Sell=AAC.Sell\n' + sell[
+    sell.index('function Sell.RequestHistory('):sell.index('function AAC.Events.AUCTION_SELL_UPDATE(')])
+x.lua.execute("""
+    staged='item:101';mode=nil
+    function GetAuctionItemLink()return staged end
+    AAC.Tools.ParseLink=function(link)return link and tonumber(link:match(':(%d+)')) end
+    AAC.Sell.GetAuctionItem=function()return staged and 'Sword +20',nil,1,0,mode end
+    AAC_SellHistoryButton={Enable=function()enabled=true end,Disable=function()enabled=false end}
+    AAC.Sell.AutoCalcPPU=function(_,_,id)pricedID=id;return 2 end
+    function UIDropDownMenu_GetSelectedID()return 1 end
+    AAC_SellAutoFillPercentBuyout={GetText=function()return '' end}
+    AAC_SellAutoFillFormulaBuyoutout=AAC_SellAutoFillPercentBuyout
+    AAC.HookItemLink='item:999';AAC.Sell.CurrentItem=999
+    AAC.History={};AAC.History.RequestHistoryPopup=function(_,id)requestedID=id end
+    AAC.Sell.AutoFillPriceFields();assert(enabled and pricedID==101)
+    AAC.Sell.RequestHistory();assert(requestedID==101)
+    staged='item:102';AAC.Sell.RequestHistory();assert(requestedID==102)
+    staged=nil;AAC.Sell.AutoFillPriceFields();assert(not enabled)
+    staged='item:103';mode='copper';AAC.Sell.AutoFillPriceFields();assert(enabled and pricedID==200000)
+    mode='account';AAC.Sell.AutoFillPriceFields();assert(enabled and pricedID==200003)
+""")
+print('PASS staged item drives history and pricing independently of obsolete hook and upgraded name')
+
 
 x = BuyOrderTests()
 x.setUp()

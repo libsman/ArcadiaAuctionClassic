@@ -492,7 +492,7 @@ end
 
 function AAC.Events.AUCTION_AUCTION_INFO_UPDATE(this)
     slotRevision = slotRevision + 1
-    Sell.CurrentItem = AAC.Tools.ParseLink(AAC.HookItemLink)
+    Sell.CurrentItem = AAC.Tools.ParseLink(GetAuctionItemLink())
 	Sell.Item_Update()
 end
 
@@ -546,9 +546,11 @@ function Sell.Item_Update( NoHistory )
 			
 			AAC_SellPlaceItemButtonName:SetText( GetReplaceSystemKeyword( "[" .. ID .. "]" ) )
 			
-			local _ = NoHistory or AAC.History.UpdateSellItemHistory(Sell.CurrentItem)
+			Sell.CurrentItem = ID
+			local _ = NoHistory or AAC.History.UpdateSellItemHistory(ID)
 			AAC_SellHistoryButton:Enable()
 		else
+			Sell.CurrentItem = nil
 			AAC_SellHistoryButton:Disable()
 		end
 	end
@@ -726,7 +728,7 @@ end
 function Sell.RequestHistory( id, inherent, sell)
 	Sell.HistoryButton_Clicked = 1;
 	if not id then
-		id = Sell.CurrentItem
+		id = AAC.Tools.ParseLink(GetAuctionItemLink())
 		if Sell.MoneyAuction then
 			id = (Sell.MoneyType==1) and 200000 or 200003
 		end
@@ -1479,25 +1481,17 @@ function Sell.AutoFillPriceFields(automatic)
         if automatic and AAC.SellerTools.RepeatProtects(GetAuctionItemLink()) then return end
         if not automatic then AAC.SellerTools.repeatAppliedLink=nil end
     end
-	local linkid = AAC.Tools.ParseLink(AAC.HookItemLink)
-	local linkname
-	if linkid then
-		_,_,linkname = ParseHyperlink(AAC.HookItemLink)
-	end
+	local linkid = AAC.Tools.ParseLink(GetAuctionItemLink())
     local name, _, _, _, moneyMode = Sell.GetAuctionItem()
-	linkname = linkname and linkname:gsub(" ?%+%d+","") or nil
-	if moneyMode=="copper" then
-		linkid = 200000
-		linkname = name
-	elseif moneyMode=="account" then
+    if moneyMode == "copper" then
+        linkid = 200000
+    elseif moneyMode == "account" then
         linkid = 200003
-        linkname = name
     end
-
-	if not name or name == "" or linkname ~= name then
-		AAC_SellHistoryButton:Disable()
-		return
-	end
+    if not name or name == "" or not linkid then
+        AAC_SellHistoryButton:Disable()
+        return
+    end
 	AAC_SellHistoryButton:Enable()
 
     local white = AAC.Tools.GetWhiteValue(linkid)
