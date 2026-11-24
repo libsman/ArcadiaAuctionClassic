@@ -1,0 +1,570 @@
+<Ui xmlns="https://chroniclesofarcadia.com/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="https://chroniclesofarcadia.com/ https://chroniclesofarcadia.com/UI.xsd">
+	<Frame name="AAC_HistoryListItemTemplate" virtual="true" hidden="true">
+		<Size>
+			<AbsDimension x="575" y="36"/>
+		</Size>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="$parentSeparateLeft" file="Interface\AuctionFrame\AuctionSeparate-HorizontalLine">
+					<Size>
+						<AbsDimension x="16" y="4"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="-6" y="-4"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0" right="0.25" top="0" bottom="1"/>
+				</Texture>
+				<Texture name="$parentSeparateRight" file="Interface\AuctionFrame\AuctionSeparate-HorizontalLine">
+					<Size>
+						<AbsDimension x="16" y="4"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPRIGHT">
+							<Offset>
+								<AbsDimension x="1" y="-4"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0.75" right="1" top="0" bottom="1"/>
+				</Texture>
+				<Texture name="$parentSeparateCenter" file="Interface\AuctionFrame\AuctionSeparate-HorizontalLine">
+					<Size>
+						<AbsDimension x="1" y="4"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT" relativeTo="$parentSeparateLeft" relativePoint="RIGHT"/>
+						<Anchor point="RIGHT" relativeTo="$parentSeparateRight" relativePoint="LEFT"/>
+					</Anchors>
+					<TexCoords left="0.25" right="0.75" top="0" bottom="1"/>
+				</Texture>
+				<Texture name="$parentVerticalLine1" file="interface\auctionframe\auctionseparate-verticalline">
+					<Size x="5" y="35"/>
+					<Anchors>
+						<Anchor point="LEFT" >
+							<Offset>
+								<AbsDimension x="175" y="1"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0" right="1" top="0" bottom="1"/>
+				</Texture>
+				<Texture name="$parentVerticalLine2" file="interface\auctionframe\auctionseparate-verticalline">
+					<Size x="5" y="35"/>
+					<Anchors>
+						<Anchor point="LEFT" >
+							<Offset>
+								<AbsDimension x="282" y="1"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0" right="1" top="0" bottom="1"/>
+				</Texture><Texture name="$parentVerticalLine3" file="interface\auctionframe\auctionseparate-verticalline">
+					<Size x="5" y="35"/>
+					<Anchors>
+						<Anchor point="LEFT" >
+							<Offset>
+								<AbsDimension x="435" y="1"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0" right="1" top="0" bottom="1"/>
+				</Texture>
+			</Layer>
+			<Layer level="ARTWORK">
+				<FontString name="$parentName" inherits="GameFontHighlight" justifyH="LEFT" text="item name">
+					<Size>
+						<AbsDimension x="125" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT">
+							<Offset>
+								<AbsDimension x="46" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentDateText" inherits="GameFontHighlight" justifyH="CENTER" text="05/10 09:18">
+					<Size>
+						<AbsDimension x="65" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER" relativePoint="LEFT">
+							<Offset>
+								<AbsDimension x="230" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentSellerText" inherits="GameFontHighlight" justifyH="CENTER" text="05/10 09:18">
+					<Size>
+						<AbsDimension x="65" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER" relativePoint="LEFT">
+							<Offset>
+								<AbsDimension x="322" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentBuyerText" inherits="GameFontHighlight" justifyH="CENTER" text="05/10 09:18">
+					<Size>
+						<AbsDimension x="65" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER" relativePoint="LEFT">
+							<Offset>
+								<AbsDimension x="398" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentPPU" inherits="GameFontHighlight" justifyH="CENTER" text="1234567">
+					<Size>
+						<AbsDimension x="60" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER" relativePoint="LEFT">
+							<Offset>
+								<AbsDimension x="471" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Button name="$parentIcon" inherits="ItemButtonTemplate">
+				<Anchors>
+					<Anchor point="LEFT">
+						<Offset>
+							<AbsDimension x="1" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Layers>
+					<Layer level="OVERLAY">
+						<Texture name="$parentRed" file="Interface\Buttons\Debuff_Border" alphaMode="ADD">
+							<Size>
+								<AbsDimension x="36" y="36"/>
+							</Size>
+							<Anchors>
+								<Anchor point="CENTER">
+								</Anchor>
+							</Anchors>
+						</Texture>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnLoad>
+						this:RegisterForClicks("LeftButton", "MiddleButton");
+					</OnLoad>
+					<OnEnter>
+						GameTooltip:SetOwner(this, "ANCHOR_TOPRIGHT")
+						GameTooltip:SetHistoryItem(GetAuctionHistoryItemNums() + 1 - this.index)
+					</OnEnter>
+					<OnClick>
+						AAC.History.List_ItemIcon_OnClick(this,key)
+					</OnClick>
+					<OnLeave>
+						GameTooltip:Hide()
+					</OnLeave>
+					<OnMouseWheel>
+						UIPanelScrollBar_OnMouseWheel(AAC_HistoryListScrollBar, delta)
+					</OnMouseWheel>
+				</Scripts>
+			</Button>
+            <!-- <Button name="$parentSellerText" enableMouse="true">
+                <Size>
+                    <AbsDimension x="80" y="16"/>
+                </Size>
+                <Anchors>
+                    <Anchor point="LEFT">
+                        <Offset>
+                            <AbsDimension x="300" y="0"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Scripts>
+                    <OnLoad>
+                        this:RegisterForClicks("LeftButton", "RightButton")
+                    </OnLoad>
+                    <OnClick>
+                        AAC.Tools.ClickPlayerName(this, key)
+                    </OnClick>
+                </Scripts>
+                <NormalText inherits="GameFontHighlight" justifyH="CENTER">
+                    <Size>
+                        <AbsDimension x="0" y="16"/>
+                    </Size>
+                    <Anchors>
+                        <Anchor point="LEFT">
+                            <Offset>
+                                <AbsDimension x="-1" y="-1"/>
+                            </Offset>
+                        </Anchor>
+                    </Anchors>
+                </NormalText>
+            </Button> -->
+            <!-- <Button name="$parentBuyerText" enableMouse="true">
+                <Size>
+                    <AbsDimension x="80" y="16"/>
+                </Size>
+                <Anchors>
+                    <Anchor point="LEFT">
+                        <Offset>
+                            <AbsDimension x="420" y="0"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Scripts>
+                    <OnLoad>
+                        this:RegisterForClicks("LeftButton", "RightButton")
+                    </OnLoad>
+                    <OnClick>
+                        AAC.Tools.ClickPlayerName(this, key)
+                    </OnClick>
+                </Scripts>
+                <NormalText inherits="GameFontHighlight" justifyH="CENTER">
+                    <Size>
+                        <AbsDimension x="0" y="16"/>
+                    </Size>
+                    <Anchors>
+                        <Anchor point="LEFT">
+                            <Offset>
+                                <AbsDimension x="-1" y="-1"/>
+                            </Offset>
+                        </Anchor>
+                    </Anchors>
+                </NormalText>
+            </Button> -->
+			<Frame name="$parentPrice" inherits="MoneyFrameTemplate">
+				<Anchors>
+					<Anchor point="RIGHT">
+						<Offset>
+							<AbsDimension x="-8" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						MoneyFrameTemplate_SetMode(this, "copper")
+						MoneyFrameTemplate_SetType(this, "STATIC")
+					</OnLoad>
+				</Scripts>
+			</Frame>
+		</Frames>
+		<Scripts>
+			<OnMouseWheel>
+				UIPanelScrollBar_OnMouseWheel(AAC_HistoryListScrollBar, delta)
+			</OnMouseWheel>
+		</Scripts>
+	</Frame>
+	<Frame name="AAC_HistorySortTemplate" enableMouse="true" dependencies="true" frameLevel="1" frameStrata="HIGH" virtual="true">
+		<Layers>
+			<Layer>
+				<Texture name="$parentSort">
+					<Size>
+						<AbsDimension x="8" y="8"/>
+					</Size>
+					<Anchors>
+						<Anchor point="RIGHT"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnEnter>
+				AAC.History.Sort_OnEnter( this );
+			</OnEnter>
+			<OnLeave>
+				AAC.History.Sort_OnLeave( this );
+			</OnLeave>
+			<OnClick>
+				AAC.History.Sort_OnClick( this );
+			</OnClick>
+		</Scripts>
+	</Frame>
+	<Frame name="AAC_HistoryList" inherits="UICommonFrameTemplate" parent="AAC_AuctionFrame" toplevel="true" hidden="true">
+		<Size>
+			<AbsDimension x="620" y="478"/>
+		</Size>
+		<Anchors>
+			<Anchor point="CENTER" relativeTo="AAC_AuctionFrame">
+				<Offset>
+					<AbsDimension x="-20" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="ARTWORK">
+				<FontString inherits="GameTitleFont" text="AUCTION_HISTORY_PRICE">
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset>
+								<AbsDimension x="0" y="6"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="AAC_HistoryHeaderItemName" inherits="GameFontYellow" text="C_ITEM_NAME">
+					<Anchors>
+						<Anchor point="CENTER" relativePoint="TOPLEFT">
+							<Offset>
+								<AbsDimension x="110" y="38"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="AAC_HistoryHeaderDate" inherits="GameFontYellow" text="AUCTION_HISTORY_DATE">
+					<Anchors>
+						<Anchor point="CENTER" relativePoint="TOPLEFT">
+							<Offset>
+								<AbsDimension x="250" y="38"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="AAC_HistoryHeaderSeller" inherits="GameFontYellow" text="AUCTION_SELLER">
+					<Anchors>
+						<Anchor point="CENTER" relativePoint="TOPLEFT">
+							<Offset>
+								<AbsDimension x="342" y="38"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="AAC_HistoryHeaderBuyer" inherits="GameFontYellow" text="AUCTION_BUYER">
+					<Anchors>
+						<Anchor point="CENTER" relativePoint="TOPLEFT">
+							<Offset>
+								<AbsDimension x="418" y="38"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="AAC_HistoryHeaderPPU" inherits="GameFontYellow" justifyH="CENTER" text="GENERAL_PRICE_PER_UNIT_HEADER">
+					<Anchors>
+						<Anchor point="CENTER" relativePoint="TOPLEFT">
+							<Offset>
+								<AbsDimension x="490" y="38"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="AAC_HistoryHeaderPrice" inherits="GameFontYellow" text="AUCTION_PRICE">
+					<Anchors>
+						<Anchor  point="CENTER" relativePoint="TOPLEFT">
+							<Offset>
+								<AbsDimension x="555" y="38"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<Texture file="Interface\Common\PanelSeparate-HorizontalLine">
+					<Size>
+						<AbsDimension x="595" y="4"/>
+					</Size>
+					<Anchors>
+						<Anchor point="BOTTOM">
+							<Offset>
+								<AbsDimension x="-5" y="-25"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<!-- <FontString name="AAC_HistoryMinMaxLabel" inherits="GameFontHighlight" justifyH="RIGHT" text="123456789">
+					<Size>
+						<AbsDimension x="190" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="0" y="450"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="AAC_HistoryAverageLabel" inherits="GameFontHighlight" justifyH="RIGHT" text="123456789">
+					<Size>
+						<AbsDimension x="190" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="190" y="450"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="AAC_HistoryNumHistoryLabel" inherits="GameFontHighlight" justifyH="RIGHT" text="123456789">
+					<Size>
+						<AbsDimension x="190" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="380" y="450"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString> -->
+			</Layer>
+		</Layers>
+		<Frames>
+			<Frame name="AAC_HistorySort_Date" id="1" inherits="AAC_HistorySortTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT" x="0" y="-3" relativeTo="AAC_HistoryHeaderDate"/>
+					<Anchor point="BOTTOMRIGHT" x="16" y="3" relativeTo="AAC_HistoryHeaderDate"/>
+				</Anchors>
+			</Frame>
+			<Frame name="AAC_HistorySort_Seller" id="2" inherits="AAC_HistorySortTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT" x="0" y="-3" relativeTo="AAC_HistoryHeaderSeller"/>
+					<Anchor point="BOTTOMRIGHT" x="16" y="3" relativeTo="AAC_HistoryHeaderSeller"/>
+				</Anchors>
+			</Frame>
+			<Frame name="AAC_HistorySort_Buyer" id="3" inherits="AAC_HistorySortTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT" x="0" y="-3" relativeTo="AAC_HistoryHeaderBuyer"/>
+					<Anchor point="BOTTOMRIGHT" x="16" y="3" relativeTo="AAC_HistoryHeaderBuyer"/>
+				</Anchors>
+			</Frame>
+			<Frame name="AAC_HistorySort_Price" id="4" inherits="AAC_HistorySortTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT" x="0" y="-3" relativeTo="AAC_HistoryHeaderPrice"/>
+					<Anchor point="BOTTOMRIGHT" x="16" y="3" relativeTo="AAC_HistoryHeaderPrice"/>
+				</Anchors>
+			</Frame>
+			
+			
+			
+			<Slider name="AAC_HistoryListScrollBar" inherits="UIPanelScrollBarHaveBackdropTemplate">
+				<Anchors>
+					<Anchor point="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="-9" y="68"/>
+						</Offset>
+					</Anchor>
+					<Anchor point="BOTTOMRIGHT">
+						<Offset>
+							<AbsDimension x="-9" y="-47"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>this:SetValueStepMode("INT")</OnLoad>
+					<OnValueChanged>
+						UIPanelScrollBar_OnValueChanged(this, arg1)
+                        AAC.History.List_UpdateItems()
+					</OnValueChanged>
+					<OnMouseWheel>UIPanelScrollBar_OnMouseWheel(AAC_HistoryListScrollBar, delta)</OnMouseWheel>
+				</Scripts>
+			</Slider>
+			<Frame name="AAC_HistoryListItem1" inherits="AAC_HistoryListItemTemplate" id="1">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="20" y="52"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Frame>
+			<Frame name="AAC_HistoryListItem2" inherits="AAC_HistoryListItemTemplate" id="2">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="AAC_HistoryListItem1" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="0" y="4"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Frame>
+			<Frame name="AAC_HistoryListItem3" inherits="AAC_HistoryListItemTemplate" id="3">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="AAC_HistoryListItem2" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="0" y="4"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Frame>
+			<Frame name="AAC_HistoryListItem4" inherits="AAC_HistoryListItemTemplate" id="4">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="AAC_HistoryListItem3" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="0" y="4"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Frame>
+			<Frame name="AAC_HistoryListItem5" inherits="AAC_HistoryListItemTemplate" id="5">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="AAC_HistoryListItem4" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="0" y="4"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Frame>
+			<Frame name="AAC_HistoryListItem6" inherits="AAC_HistoryListItemTemplate" id="6">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="AAC_HistoryListItem5" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="0" y="4"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Frame>
+			<Frame name="AAC_HistoryListItem7" inherits="AAC_HistoryListItemTemplate" id="7">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="AAC_HistoryListItem6" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="0" y="4"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Frame>
+			<Frame name="AAC_HistoryListItem8" inherits="AAC_HistoryListItemTemplate" id="8">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="AAC_HistoryListItem7" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="0" y="4"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Frame>
+			<Frame name="AAC_HistoryListItem9" inherits="AAC_HistoryListItemTemplate" id="9">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="AAC_HistoryListItem8" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="0" y="4"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Frame>
+			<Frame name="AAC_HistoryListItem10" inherits="AAC_HistoryListItemTemplate" id="10">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="AAC_HistoryListItem9" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="0" y="4"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Frame>
+		</Frames>
+		<Scripts>
+			<OnHide>AAC.History.List_OnClose()</OnHide>
+			<OnMouseWheel>
+				UIPanelScrollBar_OnMouseWheel(AAC_HistoryListScrollBar, delta)
+			</OnMouseWheel>
+			<OnShow>
+				AAC.History.HidePPU();
+			</OnShow>
+		</Scripts>
+	</Frame>
+</Ui>

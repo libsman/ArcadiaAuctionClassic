@@ -1,0 +1,197 @@
+-- Merge incomplete translations before any UI or filter module loads.
+AACLocale = AACLocale or {}
+ENAACLocale = ENAACLocale or {Messages={}, Commands={}}
+for _, section in ipairs({"Messages", "Commands"}) do
+    AACLocale[section] = AACLocale[section] or {}
+    for key, value in pairs(ENAACLocale[section] or {}) do
+        if AACLocale[section][key] == nil then AACLocale[section][key] = value end
+    end
+end
+-- The engine owns AAH_* translation strings. Copy values, never overwrite them.
+local keys = {
+    "AAC_AUCTION_BID",
+    "AAC_AUCTION_SELF_BID",
+    "AAC_BROWSE_CLEAR_BUTTON",
+    "AAC_BROWSE_CREATE_FOLDER_POPUP",
+    "AAC_BROWSE_FILTER",
+    "AAC_BROWSE_FILTER_TOOLTIP_HEADER",
+    "AAC_BROWSE_FILTER_TOOLTIP_TEXT1",
+    "AAC_BROWSE_HEADER_CUSTOM_TITLE",
+    "AAC_BROWSE_INFO_LABEL",
+    "AAC_BROWSE_MAX",
+    "AAC_BROWSE_MIN",
+    "AAC_BROWSE_NAME_SEARCH_POPUP",
+    "AAC_BROWSE_NAME_TOOLTIP_TEXT1",
+    "AAC_BROWSE_NO_RESULTS",
+    "AAC_BROWSE_OR",
+    "AAC_BROWSE_PPU",
+    "AAC_BROWSE_QUEUE_ADD",
+    "AAC_BROWSE_QUEUE_CLEAR",
+    "AAC_BROWSE_QUEUE_LIMIT",
+    "AAC_BROWSE_QUEUE_LIMIT_REACHED",
+    "AAC_BROWSE_QUEUE_TITLE",
+    "AAC_BROWSE_QUEUE_TOTAL",
+    "AAC_BROWSE_RARITYSWITCH",
+    "AAC_BROWSE_RENAME",
+    "AAC_BROWSE_RENAME_SAVED_SEARCH_POPUP",
+    "AAC_BROWSE_SAVED_SEARCH_TITLE",
+    "AAC_BROWSE_SEARCHING",
+    "AAC_BROWSE_USABLE",
+    "AAC_COMMAND_BARGAIN",
+    "AAC_COMMAND_BARGAIN_DESCRIPTION",
+    "AAC_COMMAND_DURA",
+    "AAC_COMMAND_DURA_DESCRIPTION",
+    "AAC_COMMAND_EGGAPTITUDE",
+    "AAC_COMMAND_EGGAPTITUDE_DESCRIPTION",
+    "AAC_COMMAND_EGGLEVEL",
+    "AAC_COMMAND_EGGLEVEL_DESCRIPTION",
+    "AAC_COMMAND_FIVE",
+    "AAC_COMMAND_FIVE_DESCRIPTION",
+    "AAC_COMMAND_FOUR",
+    "AAC_COMMAND_FOUR_DESCRIPTION",
+    "AAC_COMMAND_GREEN",
+    "AAC_COMMAND_GREEN_DESCRIPTION",
+    "AAC_COMMAND_ONE",
+    "AAC_COMMAND_ONE_DESCRIPTION",
+    "AAC_COMMAND_ORANGE",
+    "AAC_COMMAND_ORANGE_DESCRIPTION",
+    "AAC_COMMAND_PLUS",
+    "AAC_COMMAND_PLUS_DESCRIPTION",
+    "AAC_COMMAND_PURPLE",
+    "AAC_COMMAND_PURPLE_DESCRIPTION",
+    "AAC_COMMAND_SELLER",
+    "AAC_COMMAND_SELLER_DESCRIPTION",
+    "AAC_COMMAND_SIX",
+    "AAC_COMMAND_SIX_DESCRIPTION",
+    "AAC_COMMAND_THREE",
+    "AAC_COMMAND_THREE_DESCRIPTION",
+    "AAC_COMMAND_TIER",
+    "AAC_COMMAND_TIER_DESCRIPTION",
+    "AAC_COMMAND_TWO",
+    "AAC_COMMAND_TWO_DESCRIPTION",
+    "AAC_COMMAND_VENDOR",
+    "AAC_COMMAND_VENDOR_DESCRIPTION",
+    "AAC_COMMAND_YELLOW",
+    "AAC_COMMAND_YELLOW_DESCRIPTION",
+    "AAC_COMMAND_ZERO",
+    "AAC_COMMAND_ZERO_DESCRIPTION",
+    "AAC_DASHBOARD_DESCRIPTION",
+    "AAC_DASHBOARD_INFO_LABEL",
+    "AAC_GENERAL_ATTRIBUTES",
+    "AAC_GENERAL_AVERAGE",
+    "AAC_GENERAL_AVERAGE_PRICE_PER_UNIT",
+    "AAC_GENERAL_DECIMAL_POINT",
+    "AAC_GENERAL_DEX_HEADER",
+    "AAC_GENERAL_DPS_HEADER",
+    "AAC_GENERAL_DURA_HEADER",
+    "AAC_GENERAL_GENERAL",
+    "AAC_GENERAL_HEAL_HEADER",
+    "AAC_GENERAL_HP_HEADER",
+    "AAC_GENERAL_INTEL_HEADER",
+    "AAC_GENERAL_MACC_HEADER",
+    "AAC_GENERAL_MATT_HEADER",
+    "AAC_GENERAL_MCRIT_HEADER",
+    "AAC_GENERAL_MDAM_HEADER",
+    "AAC_GENERAL_MDEF_HEADER",
+    "AAC_GENERAL_MEDIAN_PRICE_PER_UNIT",
+    "AAC_GENERAL_MP_HEADER",
+    "AAC_GENERAL_PACC_HEADER",
+    "AAC_GENERAL_PARRY_HEADER",
+    "AAC_GENERAL_PATT_HEADER",
+    "AAC_GENERAL_PCRIT_HEADER",
+    "AAC_GENERAL_PDAM_HEADER",
+    "AAC_GENERAL_PDEF_HEADER",
+    "AAC_GENERAL_PDOD_HEADER",
+    "AAC_GENERAL_PLUS_HEADER",
+    "AAC_GENERAL_PRICE_PER_UNIT_HEADER",
+    "AAC_GENERAL_SPEED_HEADER",
+    "AAC_GENERAL_STAM_HEADER",
+    "AAC_GENERAL_STATS",
+    "AAC_GENERAL_STR_HEADER",
+    "AAC_GENERAL_TIER_HEADER",
+    "AAC_GENERAL_UNITS_PER_PRICE_HEADER",
+    "AAC_GENERAL_WIS_HEADER",
+    "AAC_GENERAL_WORTH_HEADER",
+    "AAC_MODE_ADVANCED",
+    "AAC_MODE_BASIC",
+    "AAC_NO_GOLDEN_OFFERS",
+    "AAC_RUNEHOLE",
+    "AAC_SELL_AUTO_PRICE_HEADER",
+    "AAC_SELL_FORMULA",
+    "AAC_SELL_LAST",
+    "AAC_SELL_NONE",
+    "AAC_SELL_NUM_AUCTION",
+    "AAC_SELL_PERCENT",
+    "AAC_SELL_SORT_MODE",
+    "AAC_SHUFFLE",
+    "AAC_TOOLS_DAY_ABV",
+    "AAC_TOOLS_GOLD_BASED",
+    "AAC_TOOLS_HOUR_ABV",
+    "AAC_TOOLS_MIN_ABV",
+    "AAC_TOOLS_NO_HISTORY_DATA",
+    "AAC_TOOLS_POWERED_BY",
+    "AAC_TOOLS_PRICE_HISTORY",
+}
+for _, key in ipairs(keys) do
+    local suffix = string.sub(key, 5)
+    local nativeKey = "AAH_" .. suffix
+    local value = _G[nativeKey]
+    if type(value) ~= "string" and type(TEXT) == "function" then
+        local translated = TEXT(nativeKey)
+        if translated and translated ~= nativeKey then value = translated end
+    end
+    if type(value) ~= "string" then
+        value = AACLocale.Messages[suffix] or ENAACLocale.Messages[suffix]
+        if not value and suffix:match("^COMMAND_") and not suffix:match("_DESCRIPTION$") then
+            value = AACLocale.Commands[suffix:sub(9)] or ENAACLocale.Commands[suffix:sub(9)]
+        end
+    end
+    if type(value) == "string" then _G[key] = value end
+end
+local german = AACLocale.Commands.GREEN and AACLocale.Commands.GREEN:find("grün",1,true)
+local strings = {
+    SALE_CONFIRM_INCOME={"\nFee (%g%%): %d %s\nYou receive: %d %s", "\nProvision (%g%%): %d %s\nDu erhältst: %d %s"},
+    LISTING_COST={"Listing", "Einstellen"},
+    PROMOTION_COST={"Promotion", "Bewerbung"},
+    SALE_INCOME={"Sale fee %.2f%%: %d %s | Net: %d %s", "Provision %.2f%%: %d %s | Netto: %d %s"},
+    SALE_UNKNOWN={"Sale fee / net proceeds: unavailable", "Provision / Nettoerlös: nicht verfügbar"},
+    SALE_NOTE={"Net after sale fee; listing and promotion costs are separate.", "Netto nach Verkaufsprovision; Einstell- und Bewerbungskosten separat."},
+    CLASSIC_RESTART={"Classic selected. Restart the game client to activate it; the original AH remains active until then.", "Classic gewählt. Spielclient zum Aktivieren neu starten; bis dahin bleibt das Original-AH aktiv."},
+    RESTART_REQUIRED={"An earlier reply is missing. If it does not arrive, restart the game client before switching interfaces.", "Eine frühere Antwort fehlt. Kommt sie nicht mehr, Spielclient vor dem Oberflächenwechsel neu starten."},
+    NATIVE_FOR_BULK={"Use /aac native and reopen the auctioneer for Offers / Sales 1-90.", "Für Offers / Sales 1-90 bitte /aac native verwenden und den Auktionator erneut öffnen."},
+    MARKET_SEARCH_STALLED={"A search reply is missing. Restart the client if it does not arrive.", "Eine Suchantwort fehlt. Falls sie ausbleibt, Spielclient neu starten."},
+    MARKET_BUY_STALLED={"An earlier purchase reply is missing. Restart the client if it does not arrive.", "Eine frühere Kaufbestätigung fehlt. Falls sie ausbleibt, Spielclient neu starten."},
+    MARKET_HISTORY_STALLED={"A history reply is missing. Restart the client if it does not arrive.", "Eine Verlaufsantwort fehlt. Falls sie ausbleibt, Spielclient neu starten."},
+    MARKET_CONFIRMED={"Server confirmed the request.", "Server hat die Anfrage bestätigt."},
+    MARKET_AUCTIONS={"auctions", "Auktionen"},
+    TAB_OVERVIEW={"Dashboard", "Übersicht"},
+    TAB_FILTERS={"Filters", "Filter"},
+    NATIVE_BUTTON={"Original AH", "Original-AH"},
+    NATIVE_NEXT={"Original interface selected. Reopen the auctioneer.", "Original-AH gewählt. Auktionator erneut öffnen."},
+    CLASSIC_NEXT={"Classic interface selected. Reopen the auctioneer.", "Classic-AH gewählt. Auktionator erneut öffnen."},
+    HELP={"/aac classic: classic AH; /aac native: original AH. Then reopen the auctioneer.", "/aac classic: Classic-AH; /aac native: Original-AH. Danach Auktionator erneut öffnen."},
+    INIT_FAILED={"Classic initialization failed; the original AH remains available.", "Classic konnte nicht geladen werden; das Original-AH bleibt verfügbar."},
+    MARKET_CHANGED={"Selection or price changed. Review and confirm again.", "Auswahl oder Preis geändert. Bitte erneut prüfen und bestätigen."},
+    MARKET_PENDING={"An auction request is still pending. Please wait.", "Eine AH-Anfrage läuft noch. Bitte warten."},
+    MARKET_TIMEOUT={"No server confirmation received. Check the result before retrying; missing replies may require a client restart.", "Keine Serverbestätigung erhalten. Ergebnis vor einem neuen Versuch prüfen; bei fehlenden Antworten kann ein Client-Neustart nötig sein."},
+    MARKET_FAILED={"The auction request failed.", "Die AH-Anfrage ist fehlgeschlagen."},
+    MARKET_REOPEN={"Reopen the auctioneer before retrying.", "Auktionator vor einem neuen Versuch erneut öffnen."},
+    MARKET_SELL_CONFIRM={"List this auction?", "Diese Auktion einstellen?"},
+    MARKET_CANCEL_CONFIRM={"Cancel this auction?", "Diese Auktion abbrechen?"},
+}
+for key, values in pairs(strings) do _G["AAC_"..key] = values[german and 2 or 1] end
+AACLocale.Messages.SHUFFLE = AAC_SHUFFLE or (german and "Neu laden" or "Refresh")
+AACLocale.Messages.SHUFFLE_TOOLTIP = german and "Angebote neu abfragen." or "Request fresh offers."
+
+local fallback = {
+    AAC_AUCTION_BID="Bid", AAC_AUCTION_SELF_BID="Your bid",
+    AAC_BROWSE_NAME_TOOLTIP_TEXT1="Search by item name.",
+    AAC_BROWSE_QUEUE_ADD="Add", AAC_BROWSE_QUEUE_CLEAR="Clear",
+    AAC_BROWSE_QUEUE_LIMIT="Queue limit", AAC_BROWSE_QUEUE_LIMIT_REACHED="Queue is full.",
+    AAC_BROWSE_QUEUE_TITLE="Buy queue", AAC_BROWSE_QUEUE_TOTAL="Total",
+    AAC_DASHBOARD_DESCRIPTION="Browse promoted offers or search for an item.",
+    AAC_DASHBOARD_INFO_LABEL="Offers", AAC_MODE_ADVANCED="Advanced",
+    AAC_MODE_BASIC="Basic", AAC_NO_GOLDEN_OFFERS="No promoted offers.",
+    AAC_RUNEHOLE="Rune slot", AAC_SHUFFLE="Refresh",
+}
+for key,value in pairs(fallback) do if _G[key]==nil then _G[key]=value end end

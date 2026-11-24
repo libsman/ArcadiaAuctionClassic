@@ -1,0 +1,347 @@
+<Ui xmlns="https://chroniclesofarcadia.com/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="https://chroniclesofarcadia.com/ https://chroniclesofarcadia.com/UI.xsd">
+	<!-- NB: AAC_Tooltip is used by 3rd-party addons to hook aah tooltip !-->
+	<GameTooltip name="AAC_Tooltip" frameStrata="TOOLTIP" hidden="true" inherits="GameTooltipTemplate" parent="UIParent"/>
+	<GameTooltip name="AAC_PriceHistoryTooltip" frameStrata="DIALOG" hidden="true" inherits="GameTooltipTemplate" parent="UIParent">
+		<Anchors>
+			<Anchor point="TOPLEFT" relativeTo="GameTooltip" relativePoint="BOTTOMLEFT"/>
+		</Anchors>
+		<Scripts>
+			<OnUpdate>
+				AAC.ToolsPriceHistoryTooltip_OnUpdate(this, elapsedTime)
+			</OnUpdate>
+		</Scripts>
+	</GameTooltip>
+
+	<Frame name="AAC_MoneyTemplate" virtual="true">
+		<Size>
+			<AbsDimension x="68" y="20"/>
+		</Size>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<FontString name="$parentLabel" inherits="GameFontYellow">
+					<Anchors>
+						<Anchor point="RIGHT" relativePoint="LEFT">
+							<Offset>
+								<AbsDimension x="-4" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<EditBox name="$parentAccount" inherits="MoneyEditBoxTemplate" letters="16" historyLines="0" numeric="false" hidden="true">
+				<Size>
+					<AbsDimension x="70" y="20"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT"/>
+				</Anchors>
+				<Layers>
+					<Layer level="BACKGROUND">
+						<Texture file="Interface\MoneyFrame\MoneyIcons">
+							<Size>
+								<AbsDimension x="16" y="16"/>
+							</Size>
+							<Anchors>
+								<Anchor point="LEFT" relativePoint="RIGHT">
+									<Offset>
+										<AbsDimension x="3" y="1"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+							<TexCoords left="0.015625" right="0.03125" top="0" bottom="1"/>
+						</Texture>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnKeyDown>
+						this.caretPos = this:GetPlaceCaret();
+						if (key == "CTRL") then
+							AAC_CTRL_PRESSED = true;
+						elseif (AAC_CTRL_PRESSED and key == "A") then
+							this:HighlightText();
+						end
+					</OnKeyDown>
+					<OnKeyUp>
+						if (key == "CTRL") then
+							AAC_CTRL_PRESSED = false;
+						end
+					</OnKeyUp>
+					<OnTabPressed>AAC.MoneyFrame.OnTab(this)</OnTabPressed>
+					<OnEnterPressed>this:ClearFocus()</OnEnterPressed>
+					<OnTextChanged>					
+						local originalText = this:GetText();
+						local mainText = originalText:gsub("[^%d%.%,]", "");
+						local placeCaret = this:GetPlaceCaret();
+						if originalText ~= mainText then
+							this:SetText( mainText );
+							this:SetPlaceCaret( placeCaret - 1 );
+						end
+					
+						local decimalPoint = AAC.Tools.GetDecimalPoint();
+						if this:GetText():sub(1, 1) == decimalPoint then
+							local _text = this:GetText():sub(2);
+							this:SetText( _text );
+						end
+					
+						local pointCount = select(2, this:GetText():gsub("%" .. decimalPoint, ""))
+						if pointCount &lt; 1 or pointCount == 1 then
+							this._text = this:GetText();
+						else
+							this:SetText( this._text )
+							local new_pos_caret = this.caretPos - 1;
+							if( new_pos_caret &lt; 1 ) then
+								new_pos_caret = 1;
+							end
+							this:SetPlaceCaret( new_pos_caret );
+						end
+
+						AAC.MoneyFrame.OnTextChanged( this:GetParent() )
+						AAC.Sell.PromotePriceFrame_Update()
+					</OnTextChanged>
+					<OnEscapePressed>
+						this:ClearFocus();
+						this:SetText( "" );
+					</OnEscapePressed>			
+				</Scripts>
+				<FontString inherits="NumberFontNormal"/>
+			</EditBox>
+			<EditBox name="$parentGold" inherits="MoneyEditBoxTemplate" letters="16" historyLines="0" numeric="false">
+				<Size>
+					<AbsDimension x="70" y="20"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT"/>
+				</Anchors>
+				<Layers>
+					<Layer level="BACKGROUND">
+						<Texture file="Interface\MoneyFrame\MoneyIcons">
+							<Size>
+								<AbsDimension x="16" y="16"/>
+							</Size>
+							<Anchors>
+								<Anchor point="LEFT" relativePoint="RIGHT">
+									<Offset>
+										<AbsDimension x="1" y="1"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+							<TexCoords left="0" right="0.015625" top="0" bottom="1"/>
+						</Texture>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnKeyDown>
+						this.caretPos = this:GetPlaceCaret();
+						if (key == "CTRL") then
+							AAC_CTRL_PRESSED = true;
+						elseif (AAC_CTRL_PRESSED and key == "A") then
+							this:HighlightText();
+						end
+					</OnKeyDown>
+					<OnKeyUp>
+						if (key == "CTRL") then
+							AAC_CTRL_PRESSED = false;
+						end
+					</OnKeyUp>
+					<OnTabPressed>AAC.MoneyFrame.OnTab(this)</OnTabPressed>
+					<OnEnterPressed>this:ClearFocus()</OnEnterPressed>
+					<OnTextChanged>
+						local originalText = this:GetText();
+						local mainText = originalText:gsub("[^%d%.%,]", "");
+						local placeCaret = this:GetPlaceCaret();
+						if originalText ~= mainText then
+							this:SetText( mainText );
+							this:SetPlaceCaret( placeCaret - 1 );
+						end
+					
+						local decimalPoint = AAC.Tools.GetDecimalPoint();
+						if this:GetText():sub(1, 1) == decimalPoint then
+							local _text = this:GetText():sub(2);
+							this:SetText( _text );
+						end
+					
+						local pointCount = select(2, this:GetText():gsub("%" .. decimalPoint, ""))
+						if pointCount &lt; 1 or pointCount == 1 then
+							this._text = this:GetText();
+						else
+							this:SetText( this._text )
+							local new_pos_caret = this.caretPos - 1;
+							if( new_pos_caret &lt; 1 ) then
+								new_pos_caret = 1;
+							end
+							this:SetPlaceCaret( new_pos_caret );
+						end
+						
+						AAC.MoneyFrame.OnTextChanged(this:GetParent())
+						AAC.Sell.PromotePriceFrame_Update()
+					</OnTextChanged>
+					<OnEscapePressed>
+						this:ClearFocus();
+						this:SetText( "" );
+					</OnEscapePressed>	
+				</Scripts>
+				<FontString inherits="NumberFontNormal"/>
+			</EditBox>
+		</Frames>
+	</Frame>
+
+	<Button name="AAC_TemplateAuctionFrameTab" inherits="UIPanelBottomTabTemplate" virtual="true">
+		<Scripts>
+			<OnClick>
+				PlaySoundByPath("sound\\interface\\ui_tab_click.mp3")
+				AAC.Main.ClickTab(this:GetID())
+			</OnClick>
+			<OnShow>
+				PanelTemplates_TabResize(this, 20)
+			</OnShow>
+		</Scripts>
+	</Button>
+	<Button name="AAC_TemplateHeaderButton" virtual="true">
+		<Size>
+			<AbsDimension x="64" y="20"/>
+		</Size>
+		<Layers>
+			<Layer>
+				<Texture name="$parentSortIcon">
+					<Size>
+						<AbsDimension x="8" y="8"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT" relativePoint="RIGHT">
+							<Offset>
+								<AbsDimension x="0" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnLoad>this:SetWidth(this:GetTextWidth() + 12)</OnLoad>
+		</Scripts>
+		<NormalText inherits="GameFontYellow"/>
+		<PushedTextOffset>
+			<AbsDimension x="1" y="1"/>
+		</PushedTextOffset>
+	</Button>
+	<Button name="AAC_TemplateListItem" virtual="true">
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="$parentSeparateLeft" file="Interface\AuctionFrame\AuctionSeparate-HorizontalLine">
+					<Size>
+						<AbsDimension x="16" y="4"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="-6" y="-4"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0" right="0.25" top="0" bottom="1"/>
+				</Texture>
+				<Texture name="$parentSeparateRight" file="Interface\AuctionFrame\AuctionSeparate-HorizontalLine">
+					<Size>
+						<AbsDimension x="16" y="4"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPRIGHT">
+							<Offset>
+								<AbsDimension x="1" y="-4"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0.75" right="1" top="0" bottom="1"/>
+				</Texture>
+				<Texture name="$parentSeparateCenter" file="Interface\AuctionFrame\AuctionSeparate-HorizontalLine">
+					<Size>
+						<AbsDimension x="1" y="4"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT" relativeTo="$parentSeparateLeft" relativePoint="RIGHT"/>
+						<Anchor point="RIGHT" relativeTo="$parentSeparateRight" relativePoint="LEFT"/>
+					</Anchors>
+					<TexCoords left="0.25" right="0.75" top="0" bottom="1"/>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Frame name="$parentBidMoney" hidden="true" inherits="MoneyFrameTemplate">
+				<Anchors>
+					<Anchor point="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="-4" y="3"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Layers>
+					<Layer level="ARTWORK">
+						<FontString name="$parentText" inherits="GameFontNormal" text="AUCTION_HIGHEST_PRICE_COLON">
+							<Anchors>
+								<Anchor point="RIGHT" relativePoint="LEFT">
+									<Offset>
+										<AbsDimension x="-4" y="0"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnLoad>
+						MoneyFrameTemplate_SetMode(this, "copper")
+						MoneyFrameTemplate_SetType(this, "AUCTION")
+					</OnLoad>
+				</Scripts>
+			</Frame>
+			<!-- <Frame name="$parentBuyoutMoney" inherits="MoneyFrameTemplate">
+				<Anchors>
+					<Anchor point="RIGHT">
+						<Offset>
+							<AbsDimension x="-4" y="-1"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Layers>
+					<Layer level="ARTWORK">
+						<FontString name="$parentText" inherits="GameFontNormal">
+							<Anchors>
+								<Anchor point="RIGHT" relativePoint="LEFT">
+									<Offset>
+										<AbsDimension x="-4" y="0"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnLoad>
+						MoneyFrameTemplate_SetMode(this, "copper")
+						MoneyFrameTemplate_SetType(this, "AUCTION")
+					</OnLoad>
+				</Scripts>
+			</Frame> -->
+		</Frames>
+		<HighlightTexture file="Interface\AuctionFrame\AuctionFrameItem-Highlight" alphaMode="ADD">
+			<Size>
+				<AbsDimension x="1" y="38"/>
+			</Size>
+			<Anchors>
+				<Anchor point="LEFT">
+					<Offset>
+						<AbsDimension x="36" y="0"/>
+					</Offset>
+				</Anchor>
+				<Anchor point="RIGHT">
+					<Offset>
+						<AbsDimension x="-3" y="0"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</HighlightTexture>
+	</Button>
+</Ui>

@@ -1,0 +1,733 @@
+<Ui xmlns="https://chroniclesofarcadia.com/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="https://chroniclesofarcadia.com/ https://chroniclesofarcadia.com/UI.xsd">   
+	
+	<Button name="AAC_DashboardListItemTemplate" inherits="AAC_TemplateListItem" virtual="true">
+		<Size>
+			<AbsDimension x="770" y="40"/>
+		</Size>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="$parentVerticalLineNameLevel" file="interface\auctionframe\auctionseparate-verticalline">
+					<Size x="5" y="35"/>
+					<Anchors>
+						<Anchor point="LEFT" >
+							<Offset>
+								<AbsDimension x="203" y="1"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0" right="1" top="0" bottom="1"/>
+				</Texture>
+			</Layer>
+			<Layer level="BACKGROUND">
+				<Texture name="$parentVerticalLineTierTime" file="interface\auctionframe\auctionseparate-verticalline">
+					<Size x="5" y="35"/>
+					<Anchors>
+						<Anchor point="LEFT">
+							<Offset>
+								<AbsDimension x="310" y="1"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0" right="1" top="0" bottom="1"/>
+				</Texture>
+			</Layer>
+			<Layer level="BACKGROUND">
+				<Texture name="$parentVerticalLineSellerPPU" file="interface\auctionframe\auctionseparate-verticalline">
+					<Size x="5" y="35"/>
+					<Anchors>
+						<Anchor point="LEFT">
+							<Offset>
+								<AbsDimension x="580" y="1"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0" right="1" top="0" bottom="1"/>
+				</Texture>
+			</Layer>
+			<Layer level="BACKGROUND">
+				<Texture name="$parentHighlight" file="interface\icons\rankings\BarFill" alphaMode="ADD" hidden="true">
+					<Size>
+						<AbsDimension x="1" y="38"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT">
+							<Offset>
+								<AbsDimension x="36" y="0"/>
+							</Offset>
+						</Anchor>
+						<Anchor point="RIGHT">
+							<Offset>
+								<AbsDimension x="-3" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<Color a="0.5"></Color>	
+				</Texture>
+			</Layer>
+			<Layer level="ARTWORK">
+				<FontString name="$parentName" inherits="GameFontNormal" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="145" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT">
+							<Offset>
+								<AbsDimension x="46" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentCustom1" inherits="GameFontNormal" justifyH="CENTER">
+					<Size>
+						<AbsDimension x="20" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER" relativePoint="LEFT">
+							<Offset>
+								<AbsDimension x="228" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentCustom2" inherits="GameFontNormal" justifyH="CENTER" >
+					<Size>
+						<AbsDimension x="20" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER" relativePoint="LEFT">
+							<Offset>
+								<AbsDimension x="280" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentLeftTime" inherits="GameFontHighlight" justifyH="CENTER">
+					<Size>
+						<AbsDimension x="70" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER" relativePoint="LEFT">
+							<Offset>
+								<AbsDimension x="380" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentSellerAlignment" inherits="GameFontHighlight" justifyH="CENTER">
+					<Size>
+						<AbsDimension x="65" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER" relativePoint="LEFT">
+							<Offset>
+								<AbsDimension x="510" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentPPUBuyAlignment" inherits="GameFontHighlight" justifyH="CENTER">
+					<Size>
+						<AbsDimension x="60" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER" relativePoint="LEFT">
+							<Offset>
+								<AbsDimension x="621" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Button name="$parentIcon" inherits="ItemButtonTemplate">
+				<Anchors>
+					<Anchor point="LEFT">
+						<Offset>
+							<AbsDimension x="1" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						this:RegisterForClicks("LeftButton", "MiddleButton");
+					</OnLoad>
+					<OnClick>
+						AAC.Dashboard.List_ItemIcon_OnClick(this,key)
+					</OnClick>
+					<OnEnter>
+						GameTooltip:SetOwner(this, "ANCHOR_BOTTOMRIGHT")
+						GameTooltip:SetAuctionBrowseItem(this:GetParent().auctionid)
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide()
+					</OnLeave>
+					<OnMouseWheel>
+						GameTooltip:Hide()						
+						UIPanelScrollBar_OnMouseWheel(AAC_DashboardListScrollBar, delta)	
+						GameTooltip:SetAuctionBrowseItem(this:GetParent().auctionid)	
+					</OnMouseWheel>					
+				</Scripts>
+			</Button>
+            <Button name="$parentSeller" enableMouse="true" text="test"> 
+				<Size>
+					<AbsDimension x="65" y="32"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER" relativeTo="$parentSellerAlignment" relativePoint="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+                <NormalText name="$parentNormalText" inherits="GameFontHighlight">
+                    <Size>
+                        <AbsDimension x="0" y="16"/>
+                    </Size>
+                    <Anchors>
+                        <Anchor point="CENTER">
+                            <Offset>
+                                <AbsDimension x="0" y="0"/>
+                            </Offset>
+                        </Anchor>
+                    </Anchors>
+                </NormalText>
+				<Scripts>
+                    <OnLoad>
+                        this:RegisterForClicks("LeftButton", "RightButton")
+                    </OnLoad>
+                    <OnClick>
+                        AAC.Tools.ClickPlayerName(this, key)
+						AAC.Dashboard.List_SetSelected(this:GetParent().auctionid)
+                    </OnClick>
+					<OnEnter>
+						AAC.Dashboard.Seller_OnEnter(this);
+					</OnEnter>
+					<OnLeave>
+						AAC.Dashboard.Seller_OnLeave(this);
+					</OnLeave>
+					<OnMouseWheel>
+						UIPanelScrollBar_OnMouseWheel(AAC_DashboardListScrollBar, delta)	
+					</OnMouseWheel>
+                </Scripts>
+            </Button>
+			<Button name="$parentPPUBuy" enableMouse="true"> 
+                <Size>
+					<AbsDimension x="60" y="32"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER" relativeTo="$parentPPUBuyAlignment" relativePoint="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+                <NormalText name="$parentNormalText" inherits="GameFontHighlight">
+                    <Size>
+                        <AbsDimension x="0" y="16"/>
+                    </Size>
+                    <Anchors>
+                        <Anchor point="CENTER">
+                            <Offset>
+                                <AbsDimension x="0" y="0"/>
+                            </Offset>
+                        </Anchor>
+                    </Anchors>
+                </NormalText>
+				<Scripts>
+					<OnClick>
+						AAC.Dashboard.List_SetSelected(this:GetParent().auctionid)
+					</OnClick>
+					<OnEnter>
+						AAC.Dashboard.PricePerUnit_OnEnter(this);
+					</OnEnter>
+					<OnLeave>
+						AAC.Dashboard.PricePerUnit_OnLeave(this);
+					</OnLeave>
+					<OnMouseWheel>
+						UIPanelScrollBar_OnMouseWheel(AAC_DashboardListScrollBar, delta)	
+					</OnMouseWheel>
+                </Scripts>
+            </Button>
+			<Frame name="$parentBuyoutMoney">
+				<Size>
+					<AbsDimension x="86" y="16"/>
+				</Size>
+				<Anchors>
+					<Anchor point="RIGHT">
+						<Offset>
+							<AbsDimension x="-8" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Frames>
+					<Button name="$parentCoinButton">
+						<Size>
+							<AbsDimension x="32" y="16"/>
+						</Size>
+						<Anchors>
+							<Anchor point="RIGHT"/>
+						</Anchors>
+						<NormalTexture name="$parentIcon" file="Interface\MoneyFrame\MoneyIcons">
+							<Size>
+								<AbsDimension x="16" y="16"/>
+							</Size>
+							<Anchors>
+								<Anchor point="RIGHT"/>
+							</Anchors>
+							<TexCoords left="0" right="0.015625" top="0" bottom="1"/>
+						</NormalTexture>
+						<NormalText name="$parentText" inherits="NumberFontNormal">
+							<Anchors>
+								<Anchor point="RIGHT">
+									<Offset>
+										<AbsDimension x="-18" y="0"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</NormalText>
+						<Scripts>
+							<OnClick>
+								AAC.Dashboard.List_SetSelected(this:GetParent():GetParent().auctionid)
+							</OnClick>
+							<OnEnter>
+								AAC.Dashboard.BuyoutMoney_OnEnter(this)
+							</OnEnter>
+							<OnLeave>
+								AAC.Dashboard.BuyoutMoney_OnLeave(this)
+							</OnLeave>
+							<OnMouseWheel>
+								UIPanelScrollBar_OnMouseWheel(AAC_DashboardListScrollBar, delta)	
+							</OnMouseWheel>
+						</Scripts>
+					</Button>
+				</Frames>
+			</Frame>
+		</Frames>
+		<Scripts>
+			<OnClick>
+				AAC.Dashboard.List_SetSelected(this.auctionid)
+			</OnClick>
+			<OnMouseWheel>
+				UIPanelScrollBar_OnMouseWheel(AAC_DashboardListScrollBar, delta)
+			</OnMouseWheel>
+		</Scripts>
+	</Button>
+
+    <Frame name="AAC_DashboardFrame" parent="AAC_AuctionFrame">
+		<Frames>
+            <Frame name="AAC_DashboardDescriptionFrame">
+				<Size>
+					<AbsDimension x="600" y="70"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOP">
+						<Offset>
+							<AbsDimension x="0" y="38"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+                <Frames>
+                    <Button name="$parentDesc">
+                        <Size>
+                            <AbsDimension x="580" y="50"/>
+                        </Size>
+                        <Anchors>
+                            <Anchor point="CENTER"/>
+                        </Anchors>
+                        <NormalText name="$parentLabel" inherits="GameFontHighlight">
+                            <Size>
+                                <AbsDimension x="580" y="50"/>
+                            </Size>
+                            <FontHeight>
+								<AbsValue val="15"/>
+							</FontHeight>
+                        </NormalText>
+                    </Button>
+                </Frames>
+            </Frame>
+			<Frame name="AAC_DashboardCurrency" enableMouse="true">
+				<Size>
+					<AbsDimension x="109" y="79"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPRIGHT" relativeTo="AAC_AuctionFrame" relativePoint="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="-17" y="32"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				
+				<Frames>
+					<Frame name="AAC_DBAuctionPlayerGold" inherits="MoneyFrameTemplate">
+						<Anchors>
+							<Anchor point="TOPRIGHT">
+								<Offset>
+									<AbsDimension x="-12" y="16"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								MoneyFrameTemplate_OnLoad(this)
+								MoneyFrameTemplate_SetMode( this, "copper" )
+							</OnLoad>
+						</Scripts>
+					</Frame>
+					
+					<Frame name="AAC_DBAuctionPlayerDiamond" inherits="MoneyFrameTemplate">
+						<Anchors>
+							<Anchor point="TOPRIGHT" relativePoint="BOTTOMRIGHT" relativeTo="AAC_DBAuctionPlayerGold">
+								<Offset>
+									<AbsDimension x="0" y="16"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								MoneyFrameTemplate_OnLoad(this)
+								MoneyFrameTemplate_SetMode( this, "account" )
+							</OnLoad>
+						</Scripts>
+					</Frame>
+				</Frames>
+			</Frame>
+			<Frame name="AAC_DashboardList" enableMouse="true">
+				<Size>
+					<AbsDimension x="800" y="337"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOP">
+						<Offset>
+							<AbsDimension x="0" y="105"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Backdrop edgeFile="Interface\AuctionFrame\AuctionFrame-Tooltip-Border" bgFile="Interface\AuctionFrame\AuctionFrame-Tooltip-Background">
+					<EdgeSize>
+						<AbsValue val="16"/>
+					</EdgeSize>
+					<TileSize>
+						<AbsValue val="16"/>
+					</TileSize>
+					<BackgroundInsets>
+						<AbsInset left="16" right="16" top="16" bottom="16"/>
+					</BackgroundInsets>
+				</Backdrop>
+				<Layers>
+					<Layer>
+						<FontString name="AAC_DashboardProgressLabel" inherits="GameFontHighlight" text="">
+							<Size>
+								<AbsDimension x="700" y="150"/>
+							</Size>
+							<Anchors>
+								<Anchor point="CENTER">
+									<Offset>
+										<AbsDimension x="0" y="0"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+							<FontHeight>
+								<AbsValue val="20"/>
+							</FontHeight>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Frames>
+					<Slider name="AAC_DashboardListScrollBar" inherits="UIPanelScrollBarHaveBackdropTemplate">
+						<Anchors>
+							<Anchor point="TOPRIGHT">
+								<Offset>
+									<AbsDimension x="-6" y="46"/>
+								</Offset>
+							</Anchor>
+							<Anchor point="BOTTOMRIGHT">
+								<Offset>
+									<AbsDimension x="-6" y="-24"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								this:SetValueStepMode("INT")
+							</OnLoad>
+							<OnValueChanged>
+								UIPanelScrollBar_OnValueChanged(this, arg1)
+								AAC.Dashboard.RollNewDashboard = false;
+								AAC.Dashboard.List_UpdateItems(this, arg1)
+							</OnValueChanged>
+						</Scripts>
+					</Slider>
+					<Button name="AAC_DashboardHeaderName" inherits="AAC_TemplateHeaderButton" text="C_ITEM_NAME" id="1">
+						<Anchors>
+							<Anchor point="TOP" relativePoint="TOPLEFT">
+								<Offset>
+									<AbsDimension x="112" y="5"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="AAC_DashboardHeaderCustom1" inherits="AAC_TemplateHeaderButton"  text="C_LEVEL" id="2">
+						<Anchors>
+							<Anchor point="TOP" relativePoint="TOPLEFT">
+								<Offset>
+									<AbsDimension x="238" y="5"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="AAC_DashboardHeaderCustom2" inherits="AAC_TemplateHeaderButton"  text="" id="3">
+						<Anchors>
+							<Anchor point="TOP" relativePoint="TOPLEFT">
+								<Offset>
+									<AbsDimension x="290" y="5"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="AAC_DashboardHeaderLeftTime" inherits="AAC_TemplateHeaderButton"  text="TIMEFLAG_STATE" id="4">
+						<Anchors>
+							<Anchor point="TOP" relativePoint="TOPLEFT">
+								<Offset>
+									<AbsDimension x="390" y="5"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="AAC_DashboardHeaderSeller" inherits="AAC_TemplateHeaderButton"  text="AUCTION_SELLER" id="5">
+						<Anchors>
+							<Anchor point="TOP" relativePoint="TOPLEFT">
+								<Offset>
+									<AbsDimension x="519" y="5"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="AAC_DashboardHeaderPPU" inherits="AAC_TemplateHeaderButton"  text="" id="6">
+						<Anchors>
+							<Anchor point="TOP" relativePoint="TOPLEFT">
+								<Offset>
+									<AbsDimension x="630" y="5"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="AAC_DashboardHeaderPrice" inherits="AAC_TemplateHeaderButton" text="AUCTION_PRICE" id="7">
+						<Anchors>
+							<Anchor point="TOP" relativePoint="TOPLEFT">
+								<Offset>
+									<AbsDimension x="744" y="5"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="AAC_DashboardListItem1" inherits="AAC_DashboardListItemTemplate" id="1">
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset>
+									<AbsDimension x="10" y="29"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="AAC_DashboardListItem2" inherits="AAC_DashboardListItemTemplate" id="2">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="AAC_DashboardListItem1" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="4"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="AAC_DashboardListItem3" inherits="AAC_DashboardListItemTemplate" id="3">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="AAC_DashboardListItem2" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="4"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="AAC_DashboardListItem4" inherits="AAC_DashboardListItemTemplate" id="4">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="AAC_DashboardListItem3" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="4"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="AAC_DashboardListItem5" inherits="AAC_DashboardListItemTemplate" id="5">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="AAC_DashboardListItem4" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="4"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="AAC_DashboardListItem6" inherits="AAC_DashboardListItemTemplate" id="6">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="AAC_DashboardListItem5" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="4"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="AAC_DashboardListItem7" inherits="AAC_DashboardListItemTemplate" id="7">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="AAC_DashboardListItem6" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="4"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="AAC_DashboardListItem8" inherits="AAC_DashboardListItemTemplate" id="8">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="AAC_DashboardListItem7" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="4"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="AAC_DashboardListItem9" inherits="AAC_DashboardListItemTemplate" id="9">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="AAC_DashboardListItem8" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="4"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="AAC_DashboardListItem10" inherits="AAC_DashboardListItemTemplate" id="10">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="AAC_DashboardListItem9" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="4"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="AAC_DashboardListItem11" inherits="AAC_DashboardListItemTemplate" id="11">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="AAC_DashboardListItem10" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="4"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="AAC_DashboardListItem12" inherits="AAC_DashboardListItemTemplate" id="12">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="AAC_DashboardListItem11" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="4"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+				</Frames>
+				<Scripts>
+					<OnMouseWheel>
+						UIPanelScrollBar_OnMouseWheel(AAC_DashboardListScrollBar, delta)
+					</OnMouseWheel>
+				</Scripts>
+			</Frame>
+			<Button name="AAC_DashboardRefreshButton" inherits="UIPanelButtonTemplate" text="Shuffle">
+				<Size>
+					<AbsDimension x="72" y="22"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="34" y="76"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						AAC.Dashboard.Refresh_OnClick()
+					</OnClick>
+					<OnEnter>
+						GameTooltip:SetOwner(this, "ANCHOR_TOP", 0, 0)
+						GameTooltip:SetText(AACLocale.Messages.SHUFFLE, 1, 1, 1)
+						GameTooltip:AddLine(AACLocale.Messages.SHUFFLE_TOOLTIP, 0, 0.75, 0.95)
+						GameTooltip:Show()
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide()
+					</OnLeave>
+				</Scripts>
+			</Button>
+			<Button name="AAC_DashboardInfoLabel">
+				<Size x="445" y="12"/>
+				<Scripts>
+					<OnLoad>
+						AAC.Dashboard.InfoLabelOnLoad(this)
+					</OnLoad>
+					<OnEnter>
+						AAC.Dashboard.InfoLabelOnEnter(this)
+					</OnEnter>
+					<OnLeave>
+						AAC.Dashboard.InfoLabelOnLeave(this)
+					</OnLeave>
+				</Scripts>
+				<NormalText name="$parentNormalText" inherits="GameFontNormal"/>
+			</Button>
+			<Button name="AAC_DashboardHistoryButton" inherits="UIPanelButtonTemplate" text="AUCTION_HISTORY_PRICE">
+				<Size>
+					<AbsDimension x="60" y="24"/>
+				</Size>
+				<Anchors>
+					<Anchor point="BOTTOMRIGHT">
+						<Offset>
+							<AbsDimension x="-90" y="-20"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>AAC.Dashboard.HistoryButton_OnClick(this)</OnClick>
+				</Scripts>
+			</Button>
+			<Button name="AAC_DashboardBuyoutButton" inherits="UIPanelButtonTemplate">
+				<Size>
+					<AbsDimension x="60" y="24"/>
+				</Size>
+				<Anchors>
+					<Anchor point="BOTTOMRIGHT">
+						<Offset>
+							<AbsDimension x="-25" y="-20"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						if GetButtonDelayTime() == nil then
+							SetButtonDelayTime()
+							AAC.Dashboard.BuyoutButton_OnClick(this)
+						end
+					</OnClick>
+					<OnLoad>
+						this:SetText( TEXT( "AAH_PURCHASE" ) )
+					</OnLoad>
+				</Scripts>
+			</Button>
+		</Frames>
+		<Scripts>
+			<OnLoad>AAC.Dashboard.Frame_OnLoad(this)</OnLoad>
+			<OnUpdate>AAC.Dashboard.Frame_OnUpdate(this, elapsedTime)</OnUpdate>
+			<OnEvent>AAC.Dashboard.Frame_OnEvent(this, event)</OnEvent>
+			<OnShow>
+				AAC.Dashboard.ResetFilters();
+				AAC.Dashboard.UpdateScrollBar();
+				AAC.Dashboard.ShowDashboard();
+                AAC.Dashboard.ShowDescription()
+			</OnShow>
+			<OnHide>AAC.Dashboard.HistoryButton_Clicked = 0;</OnHide>
+		</Scripts>
+	</Frame>
+</Ui>

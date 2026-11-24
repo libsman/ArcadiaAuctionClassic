@@ -1,0 +1,256 @@
+<Ui xmlns="https://chroniclesofarcadia.com/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="https://chroniclesofarcadia.com/ https://chroniclesofarcadia.com/UI.xsd">
+	<Button name="AAC_BrowseSavedSearchButtonTemplate" inherits="AAC_BrowseTreeButtonTemplate" virtual="true">
+		<Scripts>
+			<OnLoad>
+				this:RegisterForClicks("LeftButton", "RightButton")
+			</OnLoad>
+			<OnClick>AAC.SavedSearch.Button_OnClick(this, key)</OnClick>
+			<OnDragStart>AAC.SavedSearch.Button_OnDragStart(this)</OnDragStart>
+			<OnReceiveDrag>AAC.SavedSearch.Button_OnReceiveDrag(this)</OnReceiveDrag>
+			<OnMouseWheel>UIPanelScrollBar_OnMouseWheel(AAC_BrowseSavedSearchScrollBar, delta)</OnMouseWheel>
+		</Scripts>
+	</Button>
+
+	<Frame name="AAC_BrowseSavedSearch" enableMouse="true" hidden="true" parent="AAC_BrowseFrame">
+		<Size>
+			<AbsDimension x="144" y="481"/>
+		</Size>
+		<Anchors>
+			<Anchor point="TOPLEFT" relativeTo="AAC_AuctionFrame" relativePoint="TOPRIGHT">
+				<Offset>
+					<AbsDimension x="-3" y="10"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Backdrop edgeFile="Interface\AuctionFrame\AuctionFrame-Tooltip-Border" bgFile="Interface\AuctionFrame\AuctionFrame-Tooltip-Background">
+			<EdgeSize>
+				<AbsValue val="16"/>
+			</EdgeSize>
+			<TileSize>
+				<AbsValue val="16"/>
+			</TileSize>
+			<BackgroundInsets>
+				<AbsInset left="16" right="16" top="16" bottom="16"/>
+			</BackgroundInsets>
+		</Backdrop>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture file="Interface\AuctionFrame\AuctionSeparate-HorizontalLine">
+					<Size>
+						<AbsDimension x="1" y="4"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="7" y="26"/>
+							</Offset>
+						</Anchor>
+						<Anchor point="TOPRIGHT">
+							<Offset>
+								<AbsDimension x="-7" y="26"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0.25" right="0.75" top="0" bottom="1"/>
+				</Texture>
+			</Layer>
+			<Layer level="ARTWORK">
+				<FontString name="AAC_BrowseSavedSearchTitle" inherits="GameFontYellow" text="saved search">
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset>
+								<AbsDimension x="0" y="10"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Slider name="AAC_BrowseSavedSearchScrollBar" inherits="UIPanelScrollBarHaveBackdropTemplate">
+				<Anchors>
+					<Anchor point="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="-6" y="49"/>
+						</Offset>
+					</Anchor>
+					<Anchor point="BOTTOMRIGHT">
+						<Offset>
+							<AbsDimension x="-6" y="-26"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						this:SetValueStepMode("INT")
+					</OnLoad>
+					<OnValueChanged>
+						UIPanelScrollBar_OnValueChanged(this, arg1)
+						AAC.SavedSearch.UpdateList()
+					</OnValueChanged>
+				</Scripts>
+			</Slider>
+			<Button name="AAC_BrowseSavedSearchButton1" inherits="AAC_BrowseSavedSearchButtonTemplate" id="1">
+				<Anchors>
+					<Anchor point="TOP">
+						<Offset>
+							<AbsDimension x="-7" y="32"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="AAC_BrowseSavedSearchButton2" inherits="AAC_BrowseSavedSearchButtonTemplate" id="2">
+				<Anchors>
+					<Anchor point="TOP" relativeTo="AAC_BrowseSavedSearchButton1" relativePoint="BOTTOM"/>
+				</Anchors>
+			</Button>
+			<Button name="AAC_BrowseSavedSearchButton3" inherits="AAC_BrowseSavedSearchButtonTemplate" id="3">
+				<Anchors>
+					<Anchor point="TOP" relativeTo="AAC_BrowseSavedSearchButton2" relativePoint="BOTTOM"/>
+				</Anchors>
+			</Button>
+			<Button name="AAC_BrowseSavedSearchButton4" inherits="AAC_BrowseSavedSearchButtonTemplate" id="4">
+				<Anchors>
+					<Anchor point="TOP" relativeTo="AAC_BrowseSavedSearchButton3" relativePoint="BOTTOM"/>
+				</Anchors>
+			</Button>
+			<Button name="AAC_BrowseSavedSearchButton5" inherits="AAC_BrowseSavedSearchButtonTemplate" id="5">
+				<Anchors>
+					<Anchor point="TOP" relativeTo="AAC_BrowseSavedSearchButton4" relativePoint="BOTTOM"/>
+				</Anchors>
+			</Button>
+			<Button name="AAC_BrowseSavedSearchButton6" inherits="AAC_BrowseSavedSearchButtonTemplate" id="6">
+				<Anchors>
+					<Anchor point="TOP" relativeTo="AAC_BrowseSavedSearchButton5" relativePoint="BOTTOM"/>
+				</Anchors>
+			</Button>
+			<Button name="AAC_BrowseSavedSearchButton7" inherits="AAC_BrowseSavedSearchButtonTemplate" id="7">
+				<Anchors>
+					<Anchor point="TOP" relativeTo="AAC_BrowseSavedSearchButton6" relativePoint="BOTTOM"/>
+				</Anchors>
+			</Button>
+			<Button name="AAC_BrowseSavedSearchButton8" inherits="AAC_BrowseSavedSearchButtonTemplate" id="8">
+				<Anchors>
+					<Anchor point="TOP" relativeTo="AAC_BrowseSavedSearchButton7" relativePoint="BOTTOM"/>
+				</Anchors>
+			</Button>
+			<Button name="AAC_BrowseSavedSearchButton9" inherits="AAC_BrowseSavedSearchButtonTemplate" id="9">
+				<Anchors>
+					<Anchor point="TOP" relativeTo="AAC_BrowseSavedSearchButton8" relativePoint="BOTTOM"/>
+				</Anchors>
+			</Button>
+			<Button name="AAC_BrowseSavedSearchButton10" inherits="AAC_BrowseSavedSearchButtonTemplate" id="10">
+				<Anchors>
+					<Anchor point="TOP" relativeTo="AAC_BrowseSavedSearchButton9" relativePoint="BOTTOM"/>
+				</Anchors>
+			</Button>
+			<Button name="AAC_BrowseSavedSearchButton11" inherits="AAC_BrowseSavedSearchButtonTemplate" id="11">
+				<Anchors>
+					<Anchor point="TOP" relativeTo="AAC_BrowseSavedSearchButton10" relativePoint="BOTTOM"/>
+				</Anchors>
+			</Button>
+			<Button name="AAC_BrowseSavedSearchButton12" inherits="AAC_BrowseSavedSearchButtonTemplate" id="12">
+				<Anchors>
+					<Anchor point="TOP" relativeTo="AAC_BrowseSavedSearchButton11" relativePoint="BOTTOM"/>
+				</Anchors>
+			</Button>
+			<Button name="AAC_BrowseSavedSearchButton13" inherits="AAC_BrowseSavedSearchButtonTemplate" id="13">
+				<Anchors>
+					<Anchor point="TOP" relativeTo="AAC_BrowseSavedSearchButton12" relativePoint="BOTTOM"/>
+				</Anchors>
+			</Button>
+			<Button name="AAC_BrowseSavedSearchButton14" inherits="AAC_BrowseSavedSearchButtonTemplate" id="14">
+				<Anchors>
+					<Anchor point="TOP" relativeTo="AAC_BrowseSavedSearchButton13" relativePoint="BOTTOM"/>
+				</Anchors>
+			</Button>
+			<Button name="AAC_BrowseSavedSearchButton15" inherits="AAC_BrowseSavedSearchButtonTemplate" id="15">
+				<Anchors>
+					<Anchor point="TOP" relativeTo="AAC_BrowseSavedSearchButton14" relativePoint="BOTTOM"/>
+				</Anchors>
+			</Button>
+			<Button name="AAC_BrowseSavedSearchButton16" inherits="AAC_BrowseSavedSearchButtonTemplate" id="16">
+				<Anchors>
+					<Anchor point="TOP" relativeTo="AAC_BrowseSavedSearchButton15" relativePoint="BOTTOM"/>
+				</Anchors>
+			</Button>
+			<Button name="AAC_BrowseSavedSearchButton17" inherits="AAC_BrowseSavedSearchButtonTemplate" id="17">
+				<Anchors>
+					<Anchor point="TOP" relativeTo="AAC_BrowseSavedSearchButton16" relativePoint="BOTTOM"/>
+				</Anchors>
+			</Button>
+			<Button name="AAC_BrowseSavedSearchButton18" inherits="AAC_BrowseSavedSearchButtonTemplate" id="18">
+				<Anchors>
+					<Anchor point="TOP" relativeTo="AAC_BrowseSavedSearchButton17" relativePoint="BOTTOM"/>
+				</Anchors>
+			</Button>
+			<Button name="AAC_BrowseSavedSearchButton19" inherits="AAC_BrowseSavedSearchButtonTemplate" id="19">
+				<Anchors>
+					<Anchor point="TOP" relativeTo="AAC_BrowseSavedSearchButton18" relativePoint="BOTTOM"/>
+				</Anchors>
+			</Button>
+			<Button name="AAC_BrowseSavedSearchButton20" inherits="AAC_BrowseSavedSearchButtonTemplate" id="20">
+				<Anchors>
+					<Anchor point="TOP" relativeTo="AAC_BrowseSavedSearchButton19" relativePoint="BOTTOM"/>
+				</Anchors>
+			</Button>
+			<Button name="AAC_BrowseSavedSearchButton21" inherits="AAC_BrowseSavedSearchButtonTemplate" id="21">
+				<Anchors>
+					<Anchor point="TOP" relativeTo="AAC_BrowseSavedSearchButton20" relativePoint="BOTTOM"/>
+				</Anchors>
+			</Button>
+			<Button name="AAC_BrowseSavedSearchButton22" inherits="AAC_BrowseSavedSearchButtonTemplate" id="22">
+				<Anchors>
+					<Anchor point="TOP" relativeTo="AAC_BrowseSavedSearchButton21" relativePoint="BOTTOM"/>
+				</Anchors>
+			</Button>
+			<Button name="AAC_BrowseSavedSearchButton23" inherits="AAC_BrowseSavedSearchButtonTemplate" id="23">
+				<Anchors>
+					<Anchor point="TOP" relativeTo="AAC_BrowseSavedSearchButton22" relativePoint="BOTTOM"/>
+				</Anchors>
+			</Button>
+			<Button name="AAC_BrowseSavedSearchButton24" inherits="AAC_BrowseSavedSearchButtonTemplate" id="24">
+				<Anchors>
+					<Anchor point="TOP" relativeTo="AAC_BrowseSavedSearchButton23" relativePoint="BOTTOM"/>
+				</Anchors>
+			</Button>
+			<Button name="AAC_BrowseSavedSearchButton25" inherits="AAC_BrowseSavedSearchButtonTemplate" id="25">
+				<Anchors>
+					<Anchor point="TOP" relativeTo="AAC_BrowseSavedSearchButton24" relativePoint="BOTTOM"/>
+				</Anchors>
+			</Button>
+			<Button name="AAC_BrowseSavedSearchButton26" inherits="AAC_BrowseSavedSearchButtonTemplate" id="26">
+				<Anchors>
+					<Anchor point="TOP" relativeTo="AAC_BrowseSavedSearchButton25" relativePoint="BOTTOM"/>
+				</Anchors>
+			</Button>
+			<Button name="AAC_BrowseSavedSearchButton27" inherits="AAC_BrowseSavedSearchButtonTemplate" id="27">
+				<Anchors>
+					<Anchor point="TOP" relativeTo="AAC_BrowseSavedSearchButton26" relativePoint="BOTTOM"/>
+				</Anchors>
+			</Button>
+			<Button name="AAC_BrowseSavedSearchButton28" inherits="AAC_BrowseSavedSearchButtonTemplate" id="28">
+				<Anchors>
+					<Anchor point="TOP" relativeTo="AAC_BrowseSavedSearchButton27" relativePoint="BOTTOM"/>
+				</Anchors>
+			</Button>
+			<Button name="AAC_BrowseSavedSearchButton29" inherits="AAC_BrowseSavedSearchButtonTemplate" id="29">
+				<Anchors>
+					<Anchor point="TOP" relativeTo="AAC_BrowseSavedSearchButton28" relativePoint="BOTTOM"/>
+				</Anchors>
+			</Button>
+			<Button name="AAC_BrowseSavedSearchButton30" inherits="AAC_BrowseSavedSearchButtonTemplate" id="30">
+				<Anchors>
+					<Anchor point="TOP" relativeTo="AAC_BrowseSavedSearchButton29" relativePoint="BOTTOM"/>
+				</Anchors>
+			</Button>
+		</Frames>
+		<Scripts>
+			<OnLoad>AAC.SavedSearch.OnLoad()</OnLoad>
+			<OnReceiveDrag>AAC.SavedSearch.Button_OnReceiveDrag(this)</OnReceiveDrag>
+			<OnMouseWheel>UIPanelScrollBar_OnMouseWheel(AAC_BrowseSavedSearchScrollBar, delta)</OnMouseWheel>
+		</Scripts>
+	</Frame>
+
+</Ui>

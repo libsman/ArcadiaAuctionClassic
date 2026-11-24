@@ -1,0 +1,462 @@
+<Ui xmlns="https://chroniclesofarcadia.com/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="https://chroniclesofarcadia.com/ https://chroniclesofarcadia.com/UI.xsd">
+	<Frame name="AAC_HistoryItemListTemplate" virtual="true" enableMouse="true">
+		<Size>
+			<AbsDimension x="175" y="24"></AbsDimension> 
+		</Size>
+		<Layers>
+			<Layer>
+				<Texture name="$parent_Select" file="interface\Buttons\ListItemHighlight" alphaMode="ADD" hidden="true">
+					<Color a="0.5"/>
+				</Texture>
+				<Texture name="$parent_Hover" file="interface\Buttons\ListItemHighlight" alphaMode="ADD" hidden="true">
+					<Color a="0.6"/>
+				</Texture>
+				<Texture name="$parent_Icon" alphaMode="ADD">
+					<Size>
+						<AbsDimension x="24" y="24"></AbsDimension> 
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" >
+							<Offset>
+								<AbsDimension y="0" x="0"></AbsDimension>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<FontString name="$parentName" inherits="Font_ListItem" >
+					<FontHeight>
+						<AbsValue val="12"/>
+					</FontHeight>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeTo="$parent_Icon">
+							<Offset>
+								<AbsDimension y="0" x="4"></AbsDimension>
+							</Offset>
+						</Anchor>
+						<Anchor point="BOTTOMRIGHT">
+							<Offset>
+								<AbsDimension y="0" x="-4"></AbsDimension>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>	
+		<Scripts>
+			<OnLoad>
+				this:RegisterForClicks("LeftButton", "RightButton", "MiddleButton");
+			</OnLoad>
+			<OnClick>
+				AAC.Sell.HistoryItem_OnClick(this,key);
+			</OnClick>
+			<OnEnter>
+				_G[this:GetName() .. "_Hover"]:Show();
+				AAC.Sell.HistoryItem_OnEnter( this )
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide()
+				_G[this:GetName() .. "_Hover"]:Hide();
+			</OnLeave>
+			<OnMouseWheel>
+				AAC.Sell.HistoryItem_OnMouseWheel(this:GetParent(), delta);
+			</OnMouseWheel>
+		</Scripts>
+	</Frame>
+	<Frame name="AAC_AuctionFrame" parent="UIParent" enableMouse="true" hidden="true" inherits="UI.StandardFrame.OneButton.Template">
+		<Size>
+			<AbsDimension x="846" y="496"/>
+		</Size>
+		<Anchors>
+			<Anchor point="CENTER">
+                <Offset>
+                    <AbsDimension x="0" y="0"/>
+                </Offset>
+            </Anchor>
+		</Anchors>
+		<Frames>
+			<EditBox name="AAC_HistoryEditBox" inherits="UIPanelEditBoxTemplate"  letters="64"  >
+				<Size>
+					<AbsDimension x="150" y="20"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="718" y="77"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Layers>
+					<Layer level="BACKGROUND">
+						<FontString name="$parentLabel" inherits="GameFontLabel" justifyH="LEFT">
+							<Anchors>
+								<Anchor point="CENTER" relativePoint="CENTER">
+									<Offset>
+										<AbsDimension x="0" y="-1"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnTabPressed>
+						AAC.Sell.HistoryEditbox_TabCheck( this )
+					</OnTabPressed>
+					<OnEnterPressed>
+						AAC.Sell.HistoryEditbox_Complete( this )
+					</OnEnterPressed>
+					<OnEscapePressed>
+						if this:GetText() == "" then
+							this:ClearFocus()
+						else
+							this:SetText( "" )
+						end
+					</OnEscapePressed>
+					<OnTextChanged>
+						this.TabQueue = nil
+						if this:GetText() == "" then
+							_G[this:GetName() .. "Label"]:SetText( TEXT( "AAH_HISTORY_SEARCH" ) )
+						else
+							_G[this:GetName() .. "Label"]:SetText( "" )
+						end
+					</OnTextChanged>
+					<OnEditFocusGained>
+						AAC.Sell.HistoryEditbox_OnEditFocusGain( this )
+						AAC_HistoryEditBox.noChange = nil
+					</OnEditFocusGained>
+					<OnEditFocusLost>
+						AAC_HistoryItemList:Hide()
+						AAC_HistoryEditBox.TabQueue = nil
+						AAC_HistoryEditBox.noChange = true
+					</OnEditFocusLost>
+					<OnLoad>
+						_G[this:GetName() .. "Label"]:SetAlpha(0.5)
+						_G[this:GetName() .. "Label"]:SetText( TEXT( "AAH_HISTORY_SEARCH" ) )
+					</OnLoad>
+					<OnUpdate>
+						AAC.Sell.LoadQueue()
+					</OnUpdate>
+				</Scripts>
+			</EditBox>
+			<Frame name="AAC_HistoryItemList" frameStrata="HIGH" frameLevel="5" hidden="true">
+				<Size>
+					<AbsDimension y="240" x="205"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+					</Anchors>					
+					<Backdrop edgeFile="Interface\Tooltips\Tooltip-Border" bgFile="Interface\Tooltips\Tooltip-Background">
+						<BackgroundInsets>
+							<AbsInset top="4" left="4" bottom="4" right="4"/>
+						</BackgroundInsets>
+						<EdgeSize>
+							<AbsValue val="16"/>
+						</EdgeSize>
+						<TileSize>
+							<AbsValue val="16"/>
+						</TileSize>
+					</Backdrop>
+				<Frames>
+					<Button  name="$parentItem1" inherits="AAC_HistoryItemListTemplate" id="1" hidden="false">
+						<Anchors>
+							<Anchor point="TOPLEFT" > 
+								<Offset>
+									<AbsDimension y="6" x="12"></AbsDimension>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="$parentItem2" inherits="AAC_HistoryItemListTemplate"  id="2" hidden="false">
+						<Anchors>
+							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentItem1"> 
+								<Offset>
+									<AbsDimension x="0" y="2" />
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="$parentItem3" inherits="AAC_HistoryItemListTemplate" id="3" hidden="false">
+						<Anchors>
+							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentItem2">
+								<Offset>
+									<AbsDimension x="0" y="2" />
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="$parentItem4" inherits="AAC_HistoryItemListTemplate"  id="4" hidden="false">
+						<Anchors>
+							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentItem3">
+								<Offset>
+									<AbsDimension x="0" y="2" />
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="$parentItem5" inherits="AAC_HistoryItemListTemplate" id="5" hidden="false">
+						<Anchors>
+							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentItem4">
+								<Offset>
+									<AbsDimension x="0" y="2" />
+								</Offset> 
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="$parentItem6" inherits="AAC_HistoryItemListTemplate" id="6" hidden="false">
+						<Anchors>
+							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentItem5">
+								<Offset>
+									<AbsDimension x="0" y="2" />
+								</Offset> 
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="$parentItem7" inherits="AAC_HistoryItemListTemplate" id="7" hidden="false">
+						<Anchors>
+							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentItem6">
+								<Offset>
+									<AbsDimension x="0" y="2" />
+								</Offset> 
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="$parentItem8" inherits="AAC_HistoryItemListTemplate"  id="8" hidden="false">
+						<Anchors>
+							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentItem7">
+								<Offset>
+									<AbsDimension x="0" y="2" />
+								</Offset> 
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="$parentSearchButton" text="C_SEARCH" inherits="StaticPopupButtonTemplate"  frameLevel="2" hidden="false">
+						<Size> 
+							<AbsDimension x="64" y="20"/>
+						</Size>
+						<Anchors>
+							<Anchor point="BOTTOM" >
+								<Offset>
+									<AbsDimension x="0" y="-4"/>
+								</Offset>
+							
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								AAC.Sell.HistoryEditbox_OnTextChanged()
+							</OnClick>
+						</Scripts>
+					</Button>
+					<Button name="$parentHistoryCheckButton" text="AUCTION_HISTORY_PRICE" inherits="StaticPopupButtonTemplate"  frameLevel="2" hidden="true">
+						<Size> 
+							<AbsDimension x="64" y="20"/>
+						</Size>
+						<Anchors>
+							<Anchor point="LEFT" relativePoint="RIGHT" relativeTo="$parentSearchButton" >
+								<Offset>
+									<AbsDimension x="2" y="0"/>
+								</Offset>
+							
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								if AAC_HistoryEditBox.ID then
+									AAC.Sell.RequestHistory( AAC_HistoryEditBox.ID )
+								end
+							</OnClick>
+						</Scripts>
+					</Button>
+				
+				<Slider name="$parent_ScrollBar" inherits="UIPanelScrollBarTemplate">
+					<Anchors>
+						<Anchor point="TOPRIGHT">
+							<Offset>
+								<AbsDimension x="-4" y="32"/>
+							</Offset>
+						</Anchor>
+						<Anchor point="BOTTOMRIGHT">
+							<Offset>
+								<AbsDimension x="-4" y="-32"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<Scripts>
+						<OnLoad>
+							this:SetValueStepMode("INT");
+						</OnLoad>
+						<OnValueChanged>
+							UIPanelScrollBar_OnValueChanged(this, arg1);
+							AAC.Sell.HistoryItem_OnChange();
+						</OnValueChanged>
+					</Scripts>
+				</Slider>
+			</Frames>
+			<Scripts>
+				<OnLoad>
+					AAC.Sell.HistoryFrame_OnLoad(this);
+				</OnLoad>
+			</Scripts>
+			</Frame>
+			<Button name="AAC_AuctionEnlargeButton">
+				<Size>
+					<AbsDimension x="16" y="16"/>
+				</Size>
+				<Anchors>
+					<Anchor point="BOTTOMRIGHT">
+						<Offset>
+							<AbsDimension x="-12" y="-32"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnEnter>
+						GameTooltip:SetOwner( this, "ANCHOR_BOTTOMRIGHT" );
+						GameTooltip:SetText( TEXT("AAH_EXPAND_VIEW") );
+						GameTooltip:Show();					
+					</OnEnter>
+					<OnClick>
+						AAC_SavedSettings.Resize = AAC_SavedSettings.Resize + 1
+						AAC.Main.ResizeFrame(AAC_SavedSettings.Resize)
+					</OnClick>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
+				</Scripts>
+				<NormalTexture file="Interface\Buttons\ScrollBar-DownButton-Normal"/>
+				<PushedTexture file="Interface\Buttons\ScrollBar-DownButton-Depress"/>
+				<DisabledTexture file="Interface\Buttons\ScrollBar-DownButton-Disable"/>
+				<HighlightTexture file="Interface\Buttons\ScrollBar-UpButton-Highlight" alphaMode="ADD"/>
+			</Button>
+			<Button name="AAC_AuctionReduceButton">
+				<Size>
+					<AbsDimension x="16" y="16"/>
+				</Size>
+				<Anchors>
+					<Anchor point="BOTTOMRIGHT" relativeTo="AAC_AuctionEnlargeButton" relativePoint="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="0" y="-25"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnEnter>
+						if( this:IsEnable() ) then
+							GameTooltip:SetOwner( this, "ANCHOR_BOTTOMRIGHT" );
+							GameTooltip:SetText( TEXT("AAH_COLLAPSE_VIEW") );
+							GameTooltip:Show();
+						end
+					</OnEnter>
+					<OnClick>
+						AAC_SavedSettings.Resize = AAC_SavedSettings.Resize - 1
+						AAC.Main.ResizeFrame(AAC_SavedSettings.Resize)
+					</OnClick>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
+				</Scripts>
+				<NormalTexture file="Interface\Buttons\ScrollBar-UpButton-Normal"/>
+				<PushedTexture file="Interface\Buttons\ScrollBar-UpButton-Depress"/>
+				<DisabledTexture file="Interface\Buttons\ScrollBar-UpButton-Disable"/>
+				<HighlightTexture file="Interface\Buttons\ScrollBar-UpButton-Highlight" alphaMode="ADD"/>
+			</Button>
+
+            <Button name="AAC_AuctionFrameTab6" inherits="AAC_TemplateAuctionFrameTab" id="6" text="Dashboard">
+                <Scripts><OnLoad>this:SetText(AAC_TAB_OVERVIEW)</OnLoad></Scripts>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="24" y="-10"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="AAC_AuctionFrameTab1" inherits="AAC_TemplateAuctionFrameTab" id="1" text="BROWSE">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="AAC_AuctionFrameTab6" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="AAC_AuctionFrameTab2" hidden="false" inherits="AAC_TemplateAuctionFrameTab" id="2" text="BIDS">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="AAC_AuctionFrameTab1" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="AAC_AuctionFrameTab3" inherits="AAC_TemplateAuctionFrameTab" id="3" text="AUCTIONS">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="AAC_AuctionFrameTab2" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						this:SetText( TEXT( "AUCTION_OFFERS" ) )
+					</OnLoad>
+				</Scripts>
+			</Button>
+			<Button name="AAC_AuctionFrameTab4" inherits="AAC_TemplateAuctionFrameTab" id="4" text="FOCUSFRAME_OPTION">
+				<Anchors>
+					<Anchor point="TOPRIGHT" relativePoint="BOTTOMRIGHT">
+						<Offset>
+							<AbsDimension x="-24" y="-10"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="AAC_AuctionFrameTab5" inherits="AAC_TemplateAuctionFrameTab" id="5">
+				<Anchors>
+					<Anchor point="RIGHT" relativePoint="LEFT" relativeTo="AAC_AuctionFrameTab4">
+						<Offset>
+							<AbsDimension x="-2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="AAC_AuctionFrameTab7" inherits="AAC_TemplateAuctionFrameTab" id="7" text="Filters">
+                <Scripts><OnLoad>this:SetText(AAC_TAB_FILTERS)</OnLoad></Scripts>
+				<Anchors>
+					<Anchor point="RIGHT" relativePoint="LEFT" relativeTo="AAC_AuctionFrameTab5" x="-2" y="0"/>
+				</Anchors>
+			</Button>
+		</Frames>
+		<Scripts>
+			<OnLoad>AAC.Main.OnLoad(this)</OnLoad>
+			<OnEvent>AAC.Session.Event(this, event, arg1, arg2, arg3, arg4, arg5, arg6)</OnEvent>
+			<OnShow>
+				AAC.Main.OnShow(this)
+				AAC_BrowseGetList();
+			</OnShow>
+			<OnHide>AAC.Main.OnHide(this)</OnHide>
+		</Scripts>
+	</Frame>
+    <Frame name="AAC_Driver" parent="UIParent" hidden="false">
+        <Scripts><OnUpdate>AAC.Session.Tick(elapsedTime)</OnUpdate></Scripts>
+    </Frame>
+	<Button name="AACMiniButton" hidden="true" inherits="UIPanelButtonTemplate" parent="UIParent">
+		<Size>
+			<AbsDimension y="24" x="24"/>
+		</Size>
+		<Scripts>
+			<OnClick>if AddonManager then AddonManager.MiniButton_OnClick(this) else AAC.Session.Command(nil, "") end</OnClick>
+			<OnEnter>if AddonManager then AddonManager.MiniButton_OnEnter(this) end</OnEnter>
+			<OnLeave>if AddonManager then AddonManager.MiniButton_OnLeave(this) end</OnLeave>
+		</Scripts>
+		<NormalTexture file="Interface/Addons/_BuiltIn/AdvancedAuctionHouse/Textures/AAHIcon"/>
+		<PushedTexture file="Interface/Addons/_BuiltIn/AdvancedAuctionHouse/Textures/AAHIcon"/>
+		<HighlightTexture file="Interface\Buttons\PanelSmallButtonHighlight" alphaMode="ADD"/>
+	</Button>
+</Ui>

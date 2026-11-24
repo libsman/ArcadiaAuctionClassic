@@ -1,0 +1,151 @@
+<Ui xmlns="https://chroniclesofarcadia.com/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="https://chroniclesofarcadia.com/ https://chroniclesofarcadia.com/UI.xsd">
+
+    <FontString name="AAC_TitleTemplate" inherits="GameTitleFont" justifyH="CENTER" text="TITLE" virtual="true">
+        <Size x="330" y="28"/>
+        <FontHeight>
+            <AbsValue val="14"/>
+        </FontHeight>
+    </FontString>
+
+    <FontString name="AAC_BulletPointTemplate" inherits="GameFontNormal" justifyH="LEFT" text="•" virtual="true">
+        <Size x="330" y="14"/>
+        <FontHeight>
+            <AbsValue val="14"/>
+        </FontHeight>
+    </FontString>
+
+    <FontString name="AAC_CommandTemplate" inherits="GameFontNormal" justifyH="RIGHT" text="" virtual="true">
+        <Size x="300" y="14"/>
+        <FontHeight>
+            <AbsValue val="14"/>
+        </FontHeight>
+        <Color r="0" g="0.75" b="1"/>
+    </FontString>
+
+    <FontString name="AAC_FullLineTemplate" inherits="GameFontNormal" justifyH="LEFT" text="TEXT" virtual="true">
+        <Size x="410" y="14"/>
+        <FontHeight>
+            <AbsValue val="14"/>
+        </FontHeight>
+        <Color r="0" g="0.75" b="1"/>
+    </FontString>
+
+    <Frame name="AAC_FiltersExplainedFrame" parent="AAC_AuctionFrame" dependencies="true">
+        <Size x="780" y="410"/>
+        <Anchors>
+            <Anchor point="CENTER" x="0" y="10"/>
+        </Anchors>
+        <Frames>
+            <Frame name="$parentExplainFrame" inherits="AAC_SettingsSectionTemplate">
+                <Size x="350" y="410"/>
+                <Anchors>
+                    <Anchor point="TOPLEFT"/>
+                </Anchors>
+                <Layers>
+                    <Layer level="ARTWORK">
+                        <!-- Top -->
+                        <FontString name="$parentDescriptionTitle" inherits="AAC_TitleTemplate">
+                            <Anchors>
+                                <Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentLabel" x="0" y="10"/>
+                            </Anchors>
+                        </FontString>
+                        <FontString name="$parentDescription1" inherits="AAC_BulletPointTemplate"/>
+                        <FontString name="$parentDescription2" inherits="AAC_BulletPointTemplate"/>
+                        <FontString name="$parentDescription3" inherits="AAC_BulletPointTemplate"/>
+                        <FontString name="$parentDescription4" inherits="AAC_BulletPointTemplate"/>
+                        <FontString name="$parentDescription5" inherits="AAC_BulletPointTemplate"/>
+                        <FontString name="$parentDescription6" inherits="AAC_BulletPointTemplate"/>
+                        <!-- Bottom -->
+                        <FontString name="$parentFilterTitle" inherits="AAC_TitleTemplate">
+                            <Anchors>
+                                <Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentDescription6" x="0" y="10"/>
+                            </Anchors>
+                        </FontString>
+                        <FontString name="$parentDescription7" inherits="AAC_BulletPointTemplate"/>
+                        <FontString name="$parentDescription8" inherits="AAC_BulletPointTemplate"/>
+                        <FontString name="$parentDescription9" inherits="AAC_BulletPointTemplate"/>
+                        <FontString name="$parentDescription10" inherits="AAC_BulletPointTemplate"/>
+                        <FontString name="$parentDescription11" inherits="AAC_BulletPointTemplate"/>
+                        <FontString name="$parentDescription12" inherits="AAC_BulletPointTemplate"/>
+                    </Layer>
+                </Layers>
+            </Frame>
+            <Frame name="$parentCommandFrame" inherits="AAC_SettingsSectionTemplate">
+                <Size x="430" y="410"/>
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeTo="$parentExplainFrame"/>
+                </Anchors>
+                <Layers>
+                    <Layer level="ARTWORK">
+                        <FontString name="$parentTitle" inherits="AAC_TitleTemplate">
+                            <Size x="410" y="28"/>
+                            <Anchors>
+                                 <Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentLabel" x="0" y="10"/>
+                            </Anchors>
+                        </FontString>
+                        <!-- Left -->
+                        <FontString name="$parentCommand1" inherits="AAC_BulletPointTemplate" text="$"/>
+                        <FontString name="$parentCommand2" inherits="AAC_BulletPointTemplate" text="$"/>
+                        <FontString name="$parentCommand3" inherits="AAC_BulletPointTemplate" text="$"/>
+                        <FontString name="$parentCommand4" inherits="AAC_BulletPointTemplate" text="$"/>
+                        <FontString name="$parentCommand5" inherits="AAC_BulletPointTemplate" text="$"/>
+                        <FontString name="$parentCommand6" inherits="AAC_BulletPointTemplate" text="$"/>
+                        <FontString name="$parentCommand7" inherits="AAC_BulletPointTemplate" text="$"/>
+                        <FontString name="$parentCommand8" inherits="AAC_BulletPointTemplate" text="$"/>
+                        <FontString name="$parentCommand9" inherits="AAC_BulletPointTemplate" text="$"/>
+                        <FontString name="$parentCommand10" inherits="AAC_BulletPointTemplate" text="$"/>
+                        <FontString name="$parentCommand11" inherits="AAC_BulletPointTemplate" text="$"/>
+                        <!-- Right -->
+                        <FontString name="$parentDescription1" inherits="AAC_CommandTemplate" text="$"/>
+                        <FontString name="$parentDescription2" inherits="AAC_CommandTemplate" text="$"/>
+                        <FontString name="$parentDescription3" inherits="AAC_CommandTemplate" text="$"/>
+                        <FontString name="$parentDescription4" inherits="AAC_CommandTemplate" text="$"/>
+                        <FontString name="$parentDescription5" inherits="AAC_CommandTemplate" text="$"/>
+                        <FontString name="$parentDescription6" inherits="AAC_CommandTemplate" text="$"/>
+                        <FontString name="$parentDescription7" inherits="AAC_CommandTemplate" text="$"/>
+                        <FontString name="$parentDescription8" inherits="AAC_CommandTemplate" text="$"/>
+                        <FontString name="$parentDescription9" inherits="AAC_CommandTemplate" text="$"/>
+                        <FontString name="$parentDescription10" inherits="AAC_CommandTemplate" text="$"/>
+                        <FontString name="$parentDescription11" inherits="AAC_CommandTemplate" text="$"/>
+                        <!-- Separator -->
+                        <Texture name="$parentSeparator1" file="Interface\AuctionFrame\AuctionSeparate-HorizontalLine">
+                            <Size x="1" y="4"/>
+                            <Anchors>
+                                <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentCommand11" x="0" y="5"/>
+                                <Anchor point="TOPRIGHT" relativePoint="BOTTOMRIGHT" relativeTo="$parentDescription11" x="0" y="5"/>
+                            </Anchors>
+                            <TexCoords left="0.25" right="0.75" top="0" bottom="1"/>
+                        </Texture>
+                        <!-- How to use -->
+                        <FontString name="$parentUsage1" inherits="AAC_FullLineTemplate">
+                            <Anchors>
+                                <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentSeparator1" x="0" y="5"/>
+                            </Anchors>
+                        </FontString>
+                        <FontString name="$parentUsage2" inherits="AAC_FullLineTemplate">
+                            <Anchors>
+                                <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentUsage1" x="0" y="1"/>
+                            </Anchors>
+                        </FontString>
+                        <!-- Separator -->
+                        <Texture name="$parentSeparator2" file="Interface\AuctionFrame\AuctionSeparate-HorizontalLine">
+                            <Size x="1" y="4"/>
+                            <Anchors>
+                                <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentUsage2" x="0" y="5"/>
+                                <Anchor point="TOPRIGHT" relativePoint="BOTTOMRIGHT" relativeTo="$parentUsage2" x="0" y="5"/>
+                            </Anchors>
+                            <TexCoords left="0.25" right="0.75" top="0" bottom="1"/>
+                        </Texture>
+                        <!-- Example -->
+                        <FontString name="$parentExample1" inherits="AAC_FullLineTemplate">
+                            <Anchors>
+                                <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentSeparator2" x="0" y="5"/>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+            </Frame>
+        </Frames>
+    </Frame>
+</Ui>

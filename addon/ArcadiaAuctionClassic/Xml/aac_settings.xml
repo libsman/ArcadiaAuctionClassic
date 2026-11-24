@@ -1,0 +1,668 @@
+<Ui xmlns="https://chroniclesofarcadia.com/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="https://chroniclesofarcadia.com/ https://chroniclesofarcadia.com/UI.xsd">
+	<Frame name="AAC_SettingsSectionTemplate" enableMouse="true" virtual="true">
+		<Backdrop edgeFile="Interface\AuctionFrame\AuctionFrame-Tooltip-Border" bgFile="Interface\AuctionFrame\AuctionFrame-Tooltip-Background">
+			<EdgeSize>
+				<AbsValue val="16"/>
+			</EdgeSize>
+			<TileSize>
+				<AbsValue val="16"/>
+			</TileSize>
+			<BackgroundInsets>
+				<AbsInset left="16" right="16" top="16" bottom="16"/>
+			</BackgroundInsets>
+		</Backdrop>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture file="Interface\AuctionFrame\AuctionSeparate-HorizontalLine">
+					<Size>
+						<AbsDimension x="1" y="4"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="7" y="21"/>
+							</Offset>
+						</Anchor>
+						<Anchor point="TOPRIGHT">
+							<Offset>
+								<AbsDimension x="-7" y="21"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0.25" right="0.75" top="0" bottom="1"/>
+				</Texture>
+			</Layer>
+			<Layer level="ARTWORK">
+				<FontString name="$parentLabel" inherits="GameFontYellow" justifyH="CENTER" text="">
+					<Anchors>
+						<Anchor point="TOP" relativePoint="TOP">
+							<Offset>
+								<AbsDimension x="0" y="8"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+	</Frame>
+	<CheckButton name="AAC_SettingsCheckButtonTemplate" virtual="true">
+		<Size>
+			<AbsDimension x="32" y="32"/>
+		</Size>
+		<Layers>
+			<Layer>
+				<FontString name="$parentLabel" inherits="GameFontHighlight" text="" justifyH="LEFT">
+					<Anchors>
+						<Anchor point="LEFT" relativePoint="RIGHT">
+							<Offset>
+								<AbsDimension x="0" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<NormalTexture file="Interface\Buttons\CheckBox-Normal"/>
+		<PushedTexture file="Interface\Buttons\CheckBox-Depress"/>
+		<DisabledTexture file="Interface\Buttons\CheckBox-Disable"/>
+		<HighlightTexture file="Interface\Buttons\CheckBox-Highlight" alphaMode="ADD"/>
+		<CheckedTexture file="Interface\Buttons\CheckBox-Checked"/>
+		<DisabledCheckedTexture file="Interface\Buttons\CheckBox-Checked-Disabled"/>
+	</CheckButton>
+	<Slider name="AAC_SettingsSliderTemplate" orientation="HORIZONTAL" virtual="true">
+		<Size>
+			<AbsDimension x="255" y="15"/>
+		</Size>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="$parentLeft" file="Interface\ChatFrame\ChatEditBox-Border">
+					<Size>
+						<AbsDimension x="16" y="15"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT"/>
+					</Anchors>
+					<TexCoords left="0" right="0.25" top="0" bottom="0.6875"/>
+				</Texture>
+				<Texture name="$parentRight" file="Interface\ChatFrame\ChatEditBox-Border">
+					<Size>
+						<AbsDimension x="16" y="15"/>
+					</Size>
+					<Anchors>
+						<Anchor point="RIGHT"/>
+					</Anchors>
+					<TexCoords left="0.75" right="1" top="0" bottom="0.6875"/>
+				</Texture>
+				<Texture name="$parentMiddle" file="Interface\ChatFrame\ChatEditBox-Border">
+					<Size>
+						<AbsDimension x="1" y="15"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT" relativePoint="RIGHT" relativeTo="$parentLeft"/>
+						<Anchor point="RIGHT" relativePoint="LEFT" relativeTo="$parentRight"/>
+					</Anchors>
+					<TexCoords left="0.25" right="0.75" top="0" bottom="0.6875"/>
+				</Texture>
+			</Layer>
+			<Layer level="BORDER">
+				<FontString name="$parentLabel" inherits="GameFontNormal" text="">
+					<Anchors>
+						<Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT">
+							<Offset>
+								<AbsDimension x="0" y="-5"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentValue" inherits="GameFontHighlight" text="">
+					<Anchors>
+						<Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT">
+							<Offset>
+								<AbsDimension x="-5" y="-5"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentMin" inherits="GameFontHighlight" text="">
+					<Anchors>
+						<Anchor point="LEFT">
+							<Offset>
+								<AbsDimension x="5" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentMax" inherits="GameFontHighlight" text="">
+					<Anchors>
+						<Anchor point="RIGHT">
+							<Offset>
+								<AbsDimension x="-5" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<ThumbTexture file="Interface\ChatFrame\ChatFrame-ScrollBar-Knob">
+			<Size>
+				<AbsDimension x="16" y="16"/>
+			</Size>
+		</ThumbTexture>
+	</Slider>
+	<Frame name="AAC_SettingsFrame" parent="AAC_AuctionFrame" hidden="true">
+		<Frames>
+			<Frame name="AAC_SettingsFrame1" inherits="AAC_SettingsSectionTemplate">
+				<Size><AbsDimension x="340" y="440"/></Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="14" y="32"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Frames>
+					<CheckButton name="AAC_SettingsUseWhiteValue" inherits="AAC_SettingsCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset>
+									<AbsDimension x="10" y="30"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								getglobal(this:GetName().."Label"):SetText(AACLocale.Messages.SETTINGS_PRICE_PER_UNIT_PER_WHITE)
+							</OnLoad>
+							<OnClick>
+								AAC_SavedSettings.UseMatWhiteValue = this:IsChecked()
+							</OnClick>
+							<OnEnter>
+								GameTooltip:SetOwner(this, "ANCHOR_LEFT", 4, 0)
+								GameTooltip:SetText(AACLocale.Messages.SETTINGS_PRICE_PER_UNIT_PER_WHITE_HEADER, 1, 1, 1)
+								GameTooltip:AddLine(AACLocale.Messages.SETTINGS_PRICE_PER_UNIT_PER_WHITE_TEXT, 0, 0.75, 0.95)
+								GameTooltip:Show()
+							</OnEnter>
+							<OnLeave>
+								GameTooltip:Hide()
+							</OnLeave>
+						</Scripts>
+					</CheckButton>
+                    <Slider name="AAC_SettingsMinWarningPrice" inherits="AAC_SettingsSliderTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeTo="AAC_SettingsUseWhiteValue" relativePoint="BOTTOMLEFT">
+                                <Offset>
+                                    <AbsDimension x="0" y="24"/>
+                                </Offset>
+                            </Anchor>
+                        </Anchors>
+                        <Scripts>
+                            <OnLoad>
+                                getglobal(this:GetName().."Label"):SetText(AACLocale.Messages.SETTINGS_MIN_WARNING_PRICE)
+                                this:SetValueStepMode("INT")
+                                this:SetMinMaxValues(AAC.Settings.MinWarningPriceMin, AAC.Settings.MinWarningPriceMax)
+                                getglobal(this:GetName().."Min"):SetText(AAC.Settings.MinWarningPriceMin)
+                                getglobal(this:GetName().."Max"):SetText(AAC.Settings.MinWarningPriceMax)
+                            </OnLoad>
+                            <OnMouseWheel>
+                                if delta > 0 then
+                                this:SetValue(this:GetValue() + 1000)
+                                else
+                                this:SetValue(this:GetValue() - 1000)
+                                end
+                            </OnMouseWheel>
+                            <OnValueChanged>
+                                if AAC_SavedSettings then
+                                AAC_SavedSettings.BidAlertLimit = this:GetValue()
+                                end
+                                getglobal(this:GetName().."Value"):SetText(this:GetValue())
+                            </OnValueChanged>
+                            <OnEnter>
+                                GameTooltip:SetOwner(this, "ANCHOR_LEFT", 4, 0)
+                                GameTooltip:SetText(AACLocale.Messages.SETTINGS_MIN_WARNING_PRICE_HEADER, 1, 1, 1)
+                                GameTooltip:AddLine(AACLocale.Messages.SETTINGS_MIN_WARNING_PRICE_TEXT, 0, 0.75, 0.95)
+                                GameTooltip:Show()
+                            </OnEnter>
+                            <OnLeave>
+                                GameTooltip:Hide()
+                            </OnLeave>
+                        </Scripts>
+                    </Slider>
+                    <CheckButton name="AAC_SettingsAvgDefaultLastPrice" inherits="AAC_SettingsCheckButtonTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeTo="AAC_SettingsMinWarningPrice" relativePoint="BOTTOMLEFT">
+                                <Offset>
+                                    <AbsDimension x="0" y="6"/>
+                                </Offset>
+                            </Anchor>
+                        </Anchors>
+                        <Scripts>
+                            <OnLoad>
+                                getglobal(this:GetName().."Label"):SetText(AACLocale.Messages.SETTINGS_AVG_DEFAULT_LAST_PRICE)
+                            </OnLoad>
+                            <OnClick>
+                                AAC_SavedSettings.AvgSuggest = this:IsChecked()
+                            </OnClick>
+                            <OnEnter>
+                                GameTooltip:SetOwner(this, "ANCHOR_LEFT", 4, 0)
+                                GameTooltip:SetText(AACLocale.Messages.SETTINGS_AVG_DEFAULT_LAST_PRICE_HEADER, 1, 1, 1)
+                                GameTooltip:AddLine(AACLocale.Messages.SETTINGS_AVG_DEFAULT_LAST_PRICE_TEXT, 0, 0.75, 0.95)
+                                GameTooltip:Show()
+                            </OnEnter>
+                            <OnLeave>
+                                GameTooltip:Hide()
+                            </OnLeave>
+                        </Scripts>
+                    </CheckButton>
+					<CheckButton name="AAC_DisableSaveSystem" inherits="AAC_SettingsCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="AAC_SettingsAvgDefaultLastPrice" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="6"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								getglobal(this:GetName().."Label"):SetText(AACLocale.Messages.SETTINGS_DISABLE_SAVE)
+							</OnLoad>
+							<OnClick>
+								AAC_SavedSettings.DisableSave = this:IsChecked()
+								if this:IsChecked() then
+									AAC_SettingsAlwaysShowPriceHistory:Disable()
+									AAC_SettingsMaxHistory:Disable()
+									AAC_SettingsMaxHistory:SetAlpha(0.5)
+									if AAC_SavedSettings then 
+										AAC.History.SetMaxEntries(0)
+									end
+								else
+									AAC_SettingsAlwaysShowPriceHistory:Enable()
+									AAC_SettingsMaxHistory:Enable()
+									AAC_SettingsMaxHistory:SetAlpha(1)
+									if AAC_SavedSettings then 
+										AAC.History.SetMaxEntries(AAC_SettingsMaxHistory:GetValue())
+									end
+								end
+							</OnClick>
+							<OnShow>
+								if this:IsChecked() then
+									AAC_SettingsAlwaysShowPriceHistory:Disable()
+									AAC_SettingsMaxHistory:Disable()
+									AAC_SettingsMaxHistory:SetAlpha(0.5)
+									if AAC_SavedSettings then 
+										AAC.History.SetMaxEntries(0)
+									end
+								else
+									AAC_SettingsAlwaysShowPriceHistory:Enable()
+									AAC_SettingsMaxHistory:Enable()
+									AAC_SettingsMaxHistory:SetAlpha(1)
+									if AAC_SavedSettings then 
+										AAC.History.SetMaxEntries(AAC_SettingsMaxHistory:GetValue())
+									end
+								end
+							</OnShow>
+							<OnEnter>
+								GameTooltip:SetOwner(this, "ANCHOR_LEFT", 4, 0)
+								GameTooltip:SetText(AACLocale.Messages.SETTINGS_DISABLE_SAVE_HEADER, 1, 1, 1)
+								GameTooltip:AddLine(AACLocale.Messages.SETTINGS_DISABLE_SAVE_TEXT, 0, 0.75, 0.95)
+								GameTooltip:Show()
+							</OnEnter>
+							<OnLeave>
+								GameTooltip:Hide()
+							</OnLeave>
+						</Scripts>
+					</CheckButton>
+					<Button name="AAC_SettingsChangeWindowScale" inherits="UIPanelButtonTemplate" text="UI_WORLDMAP_SCALE">
+						<Size>
+							<AbsDimension x="120" y="24"/>
+						</Size>
+						<Anchors>
+							<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="AAC_DisableSaveSystem">
+								<Offset>
+									<AbsDimension x="0" y="5"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								if _G["AAC_ScaleWindowFrame"]:IsVisible() then _G["AAC_ScaleWindowFrame"]:Hide() else _G["AAC_ScaleWindowFrame"]:Show() end
+							</OnClick>
+						</Scripts>
+					</Button>
+				</Frames>
+				<Scripts>
+					<OnLoad>
+						getglobal(this:GetName().."Label"):SetText(AACLocale.Messages.SETTINGS_GENERAL)
+					</OnLoad>
+				</Scripts>
+			</Frame>
+			<Frame name="AAC_SettingsFrame2" inherits="AAC_SettingsSectionTemplate">
+				<Size>
+					<AbsDimension x="477" y="440"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="AAC_SettingsFrame1" relativePoint="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="-6" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Frames>
+					<Slider name="AAC_SettingsFilterSpeed" inherits="AAC_SettingsSliderTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset>
+									<AbsDimension x="10" y="47"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								getglobal(this:GetName().."Label"):SetText(AACLocale.Messages.SETTINGS_FILTER_SPEED)
+								this:SetValueStepMode("INT")
+								this:SetMinMaxValues(AAC.Settings.FilterSpeedMin, AAC.Settings.FilterSpeedMax)
+								getglobal(this:GetName().."Min"):SetText(AAC.Settings.FilterSpeedMin)
+								getglobal(this:GetName().."Max"):SetText(AAC.Settings.FilterSpeedMax)
+							</OnLoad>
+							<OnMouseWheel>
+								if delta > 0 then
+									this:SetValue(this:GetValue() + 1)
+								else
+									this:SetValue(this:GetValue() - 1)
+								end
+							</OnMouseWheel>
+							<OnValueChanged>
+								if AAC_SavedSettings then
+									AAC_SavedSettings.FilterSpeed = this:GetValue()
+								end
+								getglobal(this:GetName().."Value"):SetText(this:GetValue())
+							</OnValueChanged>
+							<OnEnter>
+								GameTooltip:SetOwner(this, "ANCHOR_LEFT", 4, 0)
+								GameTooltip:SetText(AACLocale.Messages.SETTINGS_FILTER_SPEED_HEADER, 1, 1, 1)
+								GameTooltip:AddLine(AACLocale.Messages.SETTINGS_FILTER_SPEED_TEXT, 0, 0.75, 0.95)
+								GameTooltip:Show()
+							</OnEnter>
+							<OnLeave>
+								GameTooltip:Hide()
+							</OnLeave>
+						</Scripts>
+					</Slider>
+					<CheckButton name="AAC_SettingsAdvancedSettings" inherits="AAC_SettingsCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="AAC_SettingsFilterSpeed">
+								<Offset>
+									<AbsDimension x="0" y="8"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								getglobal(this:GetName().."Label"):SetText( TEXT( "AAH_ADVANCED_SETTINGS" ) )
+							</OnLoad>
+							<OnClick>
+								AAC_SavedSettings.AdvancedSettings = this:IsChecked()
+								AAC.Main.RePlaceElements()
+							</OnClick>
+						</Scripts>
+					</CheckButton>
+					<CheckButton name="AAC_SettingsPPUSettings" inherits="AAC_SettingsCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="AAC_SettingsAdvancedSettings">
+								<Offset>
+									<AbsDimension x="0" y="5"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								getglobal(this:GetName().."Label"):SetText( ( "Enable Price per Unit in Browse List" ) )
+							</OnLoad>
+							<OnClick>
+								AAC_SavedSettings.PPUSettings = this:IsChecked()
+								AAC.Main.RePlaceElements()
+							</OnClick>
+						</Scripts>
+					</CheckButton>
+					<CheckButton name="AAC_SettingsPPUDisplaySettings" inherits="AAC_SettingsCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="AAC_SettingsPPUSettings">
+								<Offset>
+									<AbsDimension x="0" y="5"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								getglobal(this:GetName().."Label"):SetText( ( "Enable display of accurate Price per Unit" ) )
+							</OnLoad>
+							<OnClick>
+								AAC_SavedSettings.PPUDisplaySettings = this:IsChecked()
+								AAC.Main.RePlaceElements()
+								if this:IsChecked() then
+									AAC_SettingsDecimalDigits:Enable();
+									AAC_SettingsDecimalDigits:SetAlpha(1)
+								else
+									AAC_SettingsDecimalDigits:Disable();
+									AAC_SettingsDecimalDigits:SetAlpha(0.5)
+								end
+							</OnClick>
+							<OnShow>
+								if this:IsChecked() then
+									AAC_SettingsDecimalDigits:Enable();
+									AAC_SettingsDecimalDigits:SetAlpha(1)
+								else
+									AAC_SettingsDecimalDigits:Disable();
+									AAC_SettingsDecimalDigits:SetAlpha(0.5)
+								end
+							</OnShow>
+						</Scripts>
+					</CheckButton>
+					<Slider name="AAC_SettingsDecimalDigits" inherits="AAC_SettingsSliderTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="AAC_SettingsPPUDisplaySettings">
+								<Offset>
+									<AbsDimension x="0" y="15"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								getglobal(this:GetName().."Label"):SetText("Decimal Digits")
+								this:SetValueStepMode("INT")
+								this:SetMinMaxValues(AAC.Settings.DecimalDigitsMin, AAC.Settings.DecimalDigitsMax)
+								getglobal(this:GetName().."Min"):SetText(AAC.Settings.DecimalDigitsMin)
+								getglobal(this:GetName().."Max"):SetText(AAC.Settings.DecimalDigitsMax)
+							</OnLoad>
+							<OnMouseWheel>
+								if delta > 0 then
+									this:SetValue(this:GetValue() + 1)
+								else
+									this:SetValue(this:GetValue() - 1)
+								end
+							</OnMouseWheel>
+							<OnValueChanged>
+								if AAC_SavedSettings then
+									AAC_SavedSettings.DecimalDigits = this:GetValue()
+								end
+								getglobal(this:GetName().."Value"):SetText(this:GetValue())
+							</OnValueChanged>
+							<OnEnter>
+								GameTooltip:SetOwner(this, "ANCHOR_LEFT", 4, 0)
+								GameTooltip:SetText("Decimal Digits for Price per Unit", 1, 1, 1)
+								local transitionally = "This sets the amount of decimal digits for Price per Unit. The higher the setting the more digits will be displayed but chance of overlapping with Auction price is increased. Only possible for values &lt;1.\nSupports mouse-wheel"
+								GameTooltip:AddLine(transitionally, 0, 0.75, 0.95)
+								GameTooltip:Show()
+							</OnEnter>
+							<OnLeave>
+								GameTooltip:Hide()
+							</OnLeave>
+						</Scripts>
+					</Slider>
+				</Frames>
+				<Scripts>
+					<OnLoad>
+						getglobal(this:GetName().."Label"):SetText(AACLocale.Messages.SETTINGS_BROWSE)
+					</OnLoad>
+				</Scripts>
+			</Frame>
+			<Frame name="AAC_SettingsFrame3" inherits="AAC_SettingsSectionTemplate" hidden="true">
+				<Size>
+					<AbsDimension x="274" y="440"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="AAC_SettingsFrame2" relativePoint="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="-6" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Frames>
+					<CheckButton name="AAC_SettingsAlwaysShowPriceHistory" inherits="AAC_SettingsCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset>
+									<AbsDimension x="10" y="30"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								getglobal(this:GetName().."Label"):SetText(AACLocale.Messages.SETTINGS_PRICE_HISTORY_TOOLTIP)
+							</OnLoad>
+							<OnClick>
+								AAC_SavedSettings.PriceHistoryAutoshow = this:IsChecked()
+							</OnClick>
+							<OnEnter>
+								GameTooltip:SetOwner(this, "ANCHOR_LEFT", 4, 0)
+								GameTooltip:SetText(AACLocale.Messages.SETTINGS_PRICE_HISTORY_TOOLTIP_HEADER, 1, 1, 1)
+								GameTooltip:AddLine(AACLocale.Messages.SETTINGS_PRICE_HISTORY_TOOLTIP_TEXT, 0, 0.75, 0.95)
+								GameTooltip:Show()
+							</OnEnter>
+							<OnLeave>
+								GameTooltip:Hide()
+							</OnLeave>
+						</Scripts>
+					</CheckButton>
+					<Slider name="AAC_SettingsMaxHistory" inherits="AAC_SettingsSliderTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="AAC_SettingsAlwaysShowPriceHistory" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="24"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								getglobal(this:GetName().."Label"):SetText(AACLocale.Messages.SETTINGS_MAX_SAVED_HISTORY)
+								this:SetValueStepMode("INT")
+								this:SetMinMaxValues(AAC.Settings.HistoryMin, AAC.Settings.HistoryMax)
+								getglobal(this:GetName().."Min"):SetText(AAC.Settings.HistoryMin)
+								getglobal(this:GetName().."Max"):SetText(AAC.Settings.HistoryMax)
+							</OnLoad>
+							<OnMouseWheel>
+								if delta > 0 then
+									this:SetValue(this:GetValue() + 1)
+								else
+									this:SetValue(this:GetValue() - 1)
+								end
+							</OnMouseWheel>
+							<OnValueChanged>
+							    if AAC_SavedSettings then 
+									AAC.History.SetMaxEntries(this:GetValue())
+							    end
+								getglobal(this:GetName().."Value"):SetText(this:GetValue())
+							</OnValueChanged>
+							<OnEnter>
+								GameTooltip:SetOwner(this, "ANCHOR_LEFT", 4, 0)
+								GameTooltip:SetText(AACLocale.Messages.SETTINGS_MAX_SAVED_HISTORY_HEADER, 1, 1, 1)
+								GameTooltip:AddLine(AACLocale.Messages.SETTINGS_MAX_SAVED_HISTORY_TEXT, 0, 0.75, 0.95)
+								GameTooltip:Show()
+							</OnEnter>
+							<OnLeave>
+								GameTooltip:Hide()
+							</OnLeave>
+						</Scripts>
+					</Slider>
+				</Frames>
+				<Scripts>
+					<OnLoad>
+						getglobal(this:GetName().."Label"):SetText(AACLocale.Messages.SETTINGS_HISTORY)
+					</OnLoad>
+				</Scripts>
+			</Frame>
+		</Frames>
+		<Scripts>
+			<OnShow>
+				AAC.History.Processing = false
+			</OnShow>
+			<OnHide>
+				AAC.History.Processing = true
+			</OnHide>
+		</Scripts>
+	</Frame>
+	<Frame name="AAC_ScaleWindowFrame" inherits="UICommonFrameTemplate" parent="UIParent" hidden="true" frameStrata="HIGH">
+		<Size><AbsDimension x="222" y="86"/></Size>
+		<Anchors>
+			<Anchor point="CENTER" relativeTo="UIParent" relativePoint="CENTER">
+				<Offset><AbsDimension x="-50" y="-100"/></Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="ARTWORK">
+				<FontString name="$parent_Title" inherits="GameTitleFont" text="UI_WORLDMAP_SCALE">
+					<Size><AbsDimension y="25" x="178"/></Size>
+					<Anchors>
+						<Anchor point="TOP" relativePoint="TOP">
+							<Offset><AbsDimension x="-8" y="0" /></Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Slider name="AAC_SettingsScaleSlider" inherits="AAC_SettingsSliderTemplate">
+				<Anchors>
+					<Anchor point="LEFT" relativePoint="LEFT">
+						<Offset>
+							<AbsDimension x="10" y="15"/>
+						</Offset>
+					</Anchor>
+					<Anchor point="RIGHT" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="-10" y="15"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						getglobal(this:GetName().."Label"):SetText("")
+						this:SetValueStepMode("INT")
+						this:SetMinMaxValues(75, 200)
+						getglobal(this:GetName().."Min"):SetText("75%")
+						getglobal(this:GetName().."Max"):SetText("200%")
+						if AAC_SavedSettings and AAC_SavedSettings.WindowScale then
+							this:SetValue( (AAC_SavedSettings.WindowScale * 100) or 100 )
+						end
+					</OnLoad>
+					<OnMouseWheel>
+						if delta > 0 then
+							this:SetValue(this:GetValue() + 1)
+						else
+							this:SetValue(this:GetValue() - 1)
+						end
+					</OnMouseWheel>
+					<OnValueChanged>
+						AAC.WindowScale_OnValueChanged(this);
+					</OnValueChanged>
+				</Scripts>
+			</Slider>
+		</Frames>
+		<Scripts>
+			<OnShow>
+				_G["AAC_AuctionFrame"]:ClearAllAnchors()
+				_G["AAC_AuctionFrame"]:SetAnchor( "CENTER", "CENTER", "UIParent", -50, -100 )
+			</OnShow>
+		</Scripts>
+	</Frame>
+</Ui>
