@@ -254,12 +254,8 @@ function Sell.AAC_SellMoneyMode_OnShow( this )
 
 	getglobal(this:GetName().."Button2"):Show()							
 	MoneyFrameTemplate_SetMode(AAC_SellFeeFrame, "copper")
-	local checkbox = getglobal( "AAC_SellMoneyAuction" );
-	local moneyShell = checkbox:IsChecked();
-	if( moneyShell ) then 
-		checkbox:SetChecked( false );
-		Sell.ChangeAuctionType( false );
-	end
+    -- Showing this selector is part of entering currency-sale mode.
+    -- Preserve the explicit choice; OnShow must not switch back to items.
 
 end
 
@@ -342,11 +338,11 @@ function Sell.GetAuctionItem()
 	if Sell.MoneyAuction then
 		if Sell.MoneyType == 1 then --"copper"
 			moneyMode = "copper"
-			name = TEXT("Sys200000_name_plural")
+			name = TEXT("SYS_MONEY_TYPE_0")
 			itemTexture = "Interface/Icons/coin_03.dds"
 		else --"account"
 			moneyMode = "account"
-			name = TEXT("Sys200003_name")
+			name = TEXT("SYS_MONEY_TYPE_1")
 			itemTexture = "Interface/Icons/crystal_01.dds"
 		end
 		stackCount = AAC.MoneyFrame.GetMoney(AAC_SellMoneyAmount, moneyMode)

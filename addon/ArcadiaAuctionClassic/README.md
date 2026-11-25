@@ -1,4 +1,4 @@
-# Arcadia Auction Classic — 0.3.3 beta
+# Arcadia Auction Classic — 1.0.0
 
 Maintained by Blackkid. Based on AdvancedAuctionHouse by Mavoc, TellTod, Noguai, Graves and Byte. GPLv3; see LICENSE.txt and NOTICE.md.
 

@@ -25,6 +25,21 @@ class FeeTests(unittest.TestCase):
             assert(AAC.Sell.GetSaleFee(100,"account",false)==nil)
         ''')
 
+    def test_currency_lots_use_native_currency_names(self):
+        lua=LuaRuntime()
+        lua.execute('AAC={Events={}};StaticPopupDialogs={};function TEXT(k)return k end; AUCTION_PROLONG_SELL="Prolong"; AUCTION_PROMOTE_SELL="Promote"; AUCTION_PROMOTE_SELL_ITEM="Promote"; AUCTION_PROMOTETYPES="Promote"')
+        lua.execute((ROOT/'Lua/aac_sell.lua').read_text(encoding='utf-8-sig'))
+        lua.execute("""
+            function GetAuctionItem()return nil end
+            AAC.MoneyFrame={GetMoney=function()return 100 end}
+            AAC.Sell.MoneyAuction=true;AAC.Sell.MoneyType=1
+            local name,_,count,_,mode=AAC.Sell.GetAuctionItem()
+            assert(name=='SYS_MONEY_TYPE_0' and count==100 and mode=='copper')
+            AAC.Sell.MoneyType=2
+            name,_,count,_,mode=AAC.Sell.GetAuctionItem()
+            assert(name=='SYS_MONEY_TYPE_1' and count==100 and mode=='account')
+        """)
+
     def test_inactive_prestige_cannot_add_days_or_tax_hours(self):
         lua=LuaRuntime()
         lua.execute('AAC={Events={}}; StaticPopupDialogs={}; function TEXT(k) return k end; AUCTION_PROLONG_SELL="Prolong"; AUCTION_PROMOTE_SELL="Promote"; AUCTION_PROMOTE_SELL_ITEM="Promote"; AUCTION_PROMOTETYPES="Promote"')

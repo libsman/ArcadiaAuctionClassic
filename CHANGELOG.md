@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.0 — First stable release
+
+- Fix Money transaction switching itself off as soon as the currency selector appears.
+- Use native localized Gold/Diamond names in currency-sale confirmation dialogs.
+- Retain Classic search, tooltip filters, unit prices, buy orders, gross/net prices and currency exchange from the beta series.
+- Validation: 152 Lua 5.1 tests; in-client currency selection, both price directions, gold-sale confirmation (cancelled), search, exchange navigation and own offers after reopening. No transaction submitted during this check.
+- Known client behavior: own auctions may initially appear empty after a UI reload; close and reopen the auction house.
+
 ## 0.3.11-beta â€” Reliable equipment purchases
 
 - Fix purchased equipment remaining in search results and blocking the next purchase when the game regenerates technical item-link metadata in its success reply.

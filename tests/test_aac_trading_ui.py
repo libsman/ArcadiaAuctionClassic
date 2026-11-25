@@ -304,6 +304,27 @@ class TradingUITests(unittest.TestCase):
             assert(searches==1 and not AAC_TradingPanel.visible)
         ''')
 
+    def test_money_mode_show_preserves_explicit_transaction_selection(self):
+        lua=LuaRuntime(unpack_returned_tuples=True)
+        self.widgets(lua)
+        lua.execute("""
+            AAC={TradingUI={},Sell={}}; Sell=AAC.Sell
+            function getglobal(n)return _G[n]end
+            function MoneyFrameTemplate_SetMode()end
+            AAC_SellMoneyAuction=widget('money');AAC_SellMoneyAuction.checked=true
+            AAC_SellMoneyAuction.IsChecked=function(s)return s.checked end
+            AAC_SellMoneyModeButton2=widget('mode')
+            function Sell.ChangeAuctionType(state) Sell.MoneyAuction=state end
+            Sell.MoneyAuction=true
+        """)
+        text=(ROOT/'Lua/aac_sell.lua').read_text(encoding='utf-8')
+        body=text.split('function Sell.AAC_SellMoneyMode_OnShow',1)[1].split('function Sell.AuctionMoneyTypeChanged',1)[0]
+        lua.execute('function Sell.AAC_SellMoneyMode_OnShow'+body)
+        lua.execute("""
+            Sell.AAC_SellMoneyMode_OnShow({GetName=function()return 'AAC_SellMoneyMode'end})
+            assert(Sell.MoneyAuction and AAC_SellMoneyAuction.checked)
+        """)
+
     def test_restoring_native_form_does_not_reset_currency_or_search(self):
         lua=LuaRuntime(unpack_returned_tuples=True)
         self.widgets(lua)

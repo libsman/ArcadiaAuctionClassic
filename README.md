@@ -5,7 +5,7 @@
 [![Checks](https://github.com/libsman/ArcadiaAuctionClassic/actions/workflows/checks.yml/badge.svg)](https://github.com/libsman/ArcadiaAuctionClassic/actions/workflows/checks.yml)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
 
-[Download the beta](https://github.com/libsman/ArcadiaAuctionClassic/releases) · [Report a bug](https://github.com/libsman/ArcadiaAuctionClassic/issues) · [Changelog](CHANGELOG.md)
+[Download the latest release](https://github.com/libsman/ArcadiaAuctionClassic/releases) · [Report a bug](https://github.com/libsman/ArcadiaAuctionClassic/issues) · [Changelog](CHANGELOG.md)
 
 Maintained by **Blackkid**. Based on **AdvancedAuctionHouse** by Mavoc, TellTod, Noguai, Graves and Byte.
 
@@ -69,11 +69,19 @@ Choose **My offers → Exchange (new) → Offer diamonds**:
 
 You can edit the total or unit price. The requested offer total is **before the execution fee**. Quick-exchange receipts are **after the quoted fee**. The game supplies exchange quotes; available quantities and prices can change before confirmation.
 
-## Beta status
+## Compatibility and known limitations
 
 Targeted at the Chronicles of Arcadia **12.1.7.2501-era auction APIs**. This is an independent community project, not an official CoA release or launcher integration.
 
 The standalone test suite exercises Lua 5.1 logic, XML script loading, quote changes, confirmations, fees and request ownership. These simulations do not replace in-game checks of every language, layout or server transaction. Please report the addon version, client version and steps to reproduce an issue. Remove private chat and account details from screenshots and logs.
+
+Own auctions can initially appear empty after a UI reload. Close and reopen the auction house to refresh them.
+
+## Release cycle
+
+A GitHub push runs tests and creates a CI ZIP artifact. It does not publish a GitHub release or upload to CurseForge. For a release, update the version and changelog, run tests and client checks, build the ZIP, publish a versioned GitHub release, and upload that same ZIP to CurseForge with its release notes.
+
+Use patch versions (1.0.1) for fixes, minor versions (1.1.0) for compatible features, and major versions (2.0.0) for breaking changes. Beta files stay marked Beta; stable files use Release.
 
 ## Development
 
