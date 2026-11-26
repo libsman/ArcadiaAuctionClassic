@@ -953,13 +953,14 @@ function Browse.CachePage(page, total)
     local rows = {}
     for slot = 1, last do
         local auctionid, name, count, rarity, texture, level, leftTime, seller, isBuyer, moneyMode,
-            bidPrice, buyoutPrice, promoteType, dbid = GetAuctionBrowseItemInfo(page, slot)
+            bidPrice, buyoutPrice, promoteType, dbid, anonymous, linkedSeller = GetAuctionBrowseItemInfo(page, slot)
         local link = GetAuctionBrowseItemLink(auctionid)
         local itemid, itemname = AAC.Tools.ParseLink(link)
         if itemid == 200000 or itemid == 200003 then itemname = name end
         rows[slot] = {
             auctionid = auctionid,
             dbid = dbid,
+            linkedSeller = linkedSeller == true,
             owner = Browse,
             epoch = AAC.Market.Epoch,
             page = page,

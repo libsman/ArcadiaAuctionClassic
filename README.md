@@ -15,6 +15,7 @@ Maintained by **Blackkid**. Based on **AdvancedAuctionHouse** by Mavoc, TellTod,
 - Sortable **price per item** for gold and diamond auctions. Gold lots show **Gold/Diamond**.
 - **Shift-click an item link** while the search view is open to fill its name into the keyword field.
 - Own auctions, selling and sale-history views, with sale commission and expected proceeds.
+- Select multiple own auctions to extend, promote or cancel them together, with a combined preview and confirmation.
 - Gold/diamond exchange under **Search → Money → Exchange (new)** and the **Exchange (new)** checkbox in **My offers**.
 - Quick-exchange rows show **what you receive after fees**, the cost and a button to review the exchange.
 - New exchange offers accept an **amount, total price or price per diamond**. The fields update each other and group thousands with dots.
@@ -57,6 +58,8 @@ Switching interfaces does not normally require a restart. Outstanding requests f
 - **My offers → List again:** prepares a recent confirmed listing in the ordinary selling form. Review the quantity and confirm there; promotion is selected separately.
 - **My purchases → Bids:** keeps your auction bids alongside buy orders. Buy-order actions remain in the same section, with confirmation before posting, selling or cancellation.
 
+Existing offers show their saved commission. Cancelling offers with an older, lower commission warns that listing them again can cost more. Identical offers that cannot be safely distinguished are excluded from batch cancellation; cancel those individually.
+
 ## Exchange example
 
 Choose **My offers → Exchange (new) → Offer diamonds**:
@@ -71,7 +74,7 @@ You can edit the total or unit price. The requested offer total is **before the 
 
 ## Compatibility and known limitations
 
-Targeted at the Chronicles of Arcadia **12.1.7.2501-era auction APIs**. This is an independent community project, not an official CoA release or launcher integration.
+Targeted at the Chronicles of Arcadia **12.1.7.2502-era auction APIs**. This is an independent community project, not an official CoA release or launcher integration.
 
 The standalone test suite exercises Lua 5.1 logic, XML script loading, quote changes, confirmations, fees and request ownership. These simulations do not replace in-game checks of every language, layout or server transaction. Please report the addon version, client version and steps to reproduce an issue. Remove private chat and account details from screenshots and logs.
 

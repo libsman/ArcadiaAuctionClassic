@@ -31,6 +31,9 @@ Lua\trading_ui.lua
 Lua\trading_locale.lua
 Lua\frontend_locale.lua
 Lua\session.lua
+Lua\patch2502_locale.lua
+Lua\own_batch.lua
+Lua\patch2502_ui.lua
 
 Xml\aac_templates.xml
 Xml\aac_main.xml

@@ -91,7 +91,7 @@ end
 
 function Market.StartSearch(owner, send, finish, publish)
     if buyOrdersBusy() or (AAC.Exchange and AAC.Exchange.Blocked()) then return false end
-    if closing or not AAC.CanRequest() or pending or confirmation or continuation then return false end
+    if closing or not AAC.CanRequest() or pending or Market.HasConfirmation() or continuation then return false end
     finishSearch()
     finishQueued()
     queued = {
@@ -208,7 +208,7 @@ end
 function Market.Active() return search ~= nil or queued ~= nil or waiting ~= nil end
 
 function Market.TransactionPending() return buyOrdersBusy() or pending ~= nil or continuation ~= nil or (AAC.Exchange and AAC.Exchange.pending ~= nil) end
-function Market.HasConfirmation() return confirmation ~= nil end
+function Market.HasConfirmation() return confirmation ~= nil or (AAC.OwnBatch and AAC.OwnBatch.preview ~= nil) end
 
 function Market.Blocked()
     return Market.Active() or Market.TransactionPending() or next(retiredBuys) ~= nil
@@ -252,7 +252,7 @@ end
 
 function Market.Confirm(key, text, callback)
     if buyOrdersBusy() or (AAC.Exchange and AAC.Exchange.Blocked()) then return false end
-    if closing or not AAC.CanRequest() or pending or confirmation or continuation then return false end
+    if closing or not AAC.CanRequest() or pending or Market.HasConfirmation() or continuation then return false end
     confirmation = { key = key, run = callback, deadline = GetTime() + 30 }
     StaticPopup_Show(key, text)
     return true

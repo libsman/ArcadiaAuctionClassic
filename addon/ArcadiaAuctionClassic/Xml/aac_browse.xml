@@ -257,6 +257,7 @@
 					<OnEnter>
 						GameTooltip:SetOwner(this, "ANCHOR_BOTTOMRIGHT")
 						GameTooltip:SetAuctionBrowseItem(this:GetParent().auctionid)
+                        if AAC.Patch2502.Tooltip then AAC.Patch2502.Tooltip(this:GetParent().auctionid) end
 					</OnEnter>
 					<OnLeave>
 						GameTooltip:Hide()
@@ -264,7 +265,8 @@
 					<OnMouseWheel>
 						GameTooltip:Hide()						
 						UIPanelScrollBar_OnMouseWheel(AAC_BrowseListScrollBar, delta)	
-						GameTooltip:SetAuctionBrowseItem(this:GetParent().auctionid)	
+						GameTooltip:SetAuctionBrowseItem(this:GetParent().auctionid)
+                        if AAC.Patch2502.Tooltip then AAC.Patch2502.Tooltip(this:GetParent().auctionid) end
 					</OnMouseWheel>					
 				</Scripts>
 			</Button>

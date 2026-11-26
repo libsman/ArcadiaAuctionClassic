@@ -742,12 +742,13 @@ function Sell.List_Update()
     local rows = {}
     for index = 1, GetAuctionNumSellItems() do
         local name, count, rarity, texture, level, leftTime, bidder, moneyMode, bidPrice, buyoutPrice,
-            promoteType, promoteTime = GetAuctionSellItemInfo(index)
+            promoteType, promoteTime, isGuild, feeRate, relistFeeRate = GetAuctionSellItemInfo(index)
         local link = GetAuctionSellItemLink(index)
         local itemid = GetItemIdFromLink(link)
         if itemid and name and count then
             local row = {
                 revision = ownRevision,
+                isGuild = isGuild == true, feeRate = feeRate, relistFeeRate = relistFeeRate,
                 auctionid = index,
                 realPosition = index,
                 name = name,
@@ -756,7 +757,7 @@ function Sell.List_Update()
                 texture = texture,
                 level = level or 0,
                 leftTime = leftTime or 0,
-                bidder = bidder,
+                bidder = bidder or "",
                 moneyMode = moneyMode,
                 bidPrice = bidPrice or 0,
                 buyoutPrice = buyoutPrice or 0,
@@ -907,11 +908,14 @@ end
 
 function Sell.OwnOfferLive(info)
     if not AAC.CanRequest() or not info or info.revision ~= ownRevision or not info.link then return false end
-    local name, count, _, _, _, _, bidder, mode, bid, buyout, promote =
+    local name, count, _, _, _, _, bidder, mode, bid, buyout, promote, _, guild, fee, relist =
         GetAuctionSellItemInfo(info.realPosition)
-    return name == info.name and count == info.count and bidder == info.bidder and (not bidder or bidder == "")
+    return name == info.name and count == info.count and (bidder or "") == (info.bidder or "") and (not bidder or bidder == "")
         and mode == info.moneyMode and (bid or 0) == info.bidPrice and (buyout or 0) == info.buyoutPrice
-        and (promote or 0) == info.promoteType and GetAuctionSellItemLink(info.realPosition) == info.link
+        and (guild==true)==(info.isGuild==true) and fee==info.feeRate and relist==info.relistFeeRate
+        and (promote or 0) == info.promoteType
+        and ((AAC.OwnBatch and AAC.OwnBatch.LinkKey(GetAuctionSellItemLink(info.realPosition)) == AAC.OwnBatch.LinkKey(info.link))
+            or (not AAC.OwnBatch and GetAuctionSellItemLink(info.realPosition) == info.link))
 end
 
 function Sell.GetSelectedListInfo()
@@ -1346,6 +1350,9 @@ function Sell.ListCancelButton_OnClick()
     if not info or (info.bidder and info.bidder ~= "") then return end
     local description = string.format("%dx %s\n%d %s", info.count, info.link or info.name,
         info.buyoutPrice, currencyName(info.moneyMode))
+    if AAC.OwnBatch and AAC.OwnBatch.FeeRises(info) then
+        description = description .. "\n" .. string.format(AAC.Patch2502.text.feeWarning,1)
+    end
     AAC.Market.Confirm("AAC_MARKET_CANCEL", description, function()
         if not Sell.OwnOfferLive(info) then AAC.Market.Changed(); return end
         local offer = { link = info.link, count = info.count, mode = info.moneyMode, buyout = info.buyoutPrice }

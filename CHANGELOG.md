@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.0 - 2026-11-26
+
+- Select several own auctions and preview extension, promotion or cancellation with a combined cost. Requests advance only after an observed matching result; unexpected changes stop the batch.
+- Existing offers show their actual saved sale commission and net proceeds. Cancellation warns when relisting would use a higher commission.
+- Updated linked-account fee explanation and linked-seller tooltip. Listing estimates still use the regular fee because the buyer is not yet known.
+- Ambiguous identical cancellations are excluded from batches; individual cancellation remains available. No automatic batch on all auctions when no boxes are checked.
+
+
 ## 1.0.0 — First stable release
 
 - Fix Money transaction switching itself off as soon as the currency selector appears.
