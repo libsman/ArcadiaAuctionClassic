@@ -1,0 +1,37 @@
+name: Update CurseForge changelog
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Published release tag with CurseForge receipt
+        required: true
+        type: string
+permissions:
+  contents: read
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Update existing file notes only
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CURSEFORGE_API_TOKEN: ${{ secrets.CURSEFORGE_API_TOKEN }}
+          RELEASE_TAG: ${{ inputs.tag }}
+        run: |
+          python - <<'PY'
+          import os, json, subprocess, urllib.request, uuid
+          repo = os.environ['GITHUB_REPOSITORY']
+          tag = os.environ['RELEASE_TAG']
+          release = json.loads(subprocess.check_output(['gh','api',f'repos/{repo}/releases/tags/{tag}']))
+          subprocess.run(['gh','release','download',tag,'--repo',repo,'--pattern','curseforge-upload.json'],check=True)
+          with open('curseforge-upload.json') as f: receipt=json.load(f)
+          assert receipt['tag'] == tag and receipt['project'] == 1830746
+          meta = {'fileID':receipt['file'],'changelog':release['body'],'changelogType':'markdown'}
+          boundary = uuid.uuid4().hex
+          body=(f'--{boundary}\r\nContent-Disposition: form-data; name="metadata"\r\n\r\n'+json.dumps(meta)+f'\r\n--{boundary}--\r\n').encode()
+          req=urllib.request.Request(f"https://upload.curseforge.com/api/projects/{receipt['project']}/update-file",data=body,headers={'X-Api-Token':os.environ['CURSEFORGE_API_TOKEN'],'Content-Type':'multipart/form-data; boundary='+boundary},method='POST')
+          with urllib.request.urlopen(req,timeout=60) as r: result=json.load(r)
+          assert result['id'] == receipt['file'], 'Unexpected file ID'
+          print('Updated CurseForge changelog for file',result['id'])
+          PY

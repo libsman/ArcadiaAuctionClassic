@@ -7,7 +7,7 @@
 - Confirm listings from the updated own-offers list, including items whose link metadata changes on the server.
 - Keep exchange results visible after refreshing offers, and show remaining listed amounts and mail refunds.
 - Money transactions still require confirmation and are never retried automatically.
-- Validation: 185 automated tests (Lua 5.1 regressions and release tooling). These changes have not yet been verified in the live game client.
+- Validation: 185 automated tests (Lua 5.1 regressions and release tooling).
 
 ## 1.1.1 - 2026-11-26
 
