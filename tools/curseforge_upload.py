@@ -65,7 +65,7 @@ def main():
     with urllib.request.urlopen(versions_request, timeout=30) as response:
         versions = json.load(response)
     if not any(v.get('name') == '11.0.0.0000' for v in versions):
-        raise ValueError('Expected CoA game version missing from authenticated API')
+        raise ValueError('Expected CoA game version missing from authenticated API: ' + str(versions)[:2500])
     print('CurseForge authentication and CoA game version verified.')
     if a.dry_run:
         print('Dry run: no file uploaded.')
