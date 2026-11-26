@@ -311,7 +311,22 @@ function B.Tick()
  if B.confirmation and (now>=B.confirmation.deadline or not current(B.confirmation)) then
   B.confirmation=nil;StaticPopup_Hide(POPUP);status("changed")
  end
- local wait=B.pending or B.query
+ -- List replies identify mine/item/sellable. Only reads may be retried.
+ local q=B.query
+ if q and now>=q.deadline then
+  B.query=nil;cache=nil;B.rows={};B.total=0
+  if current(q) and not B.pending then
+   if not q.retried then
+    q.retried=true;q.deadline=now+RESPONSE_TIMEOUT;B.query=q
+    local ok,result=pcall(AuctionBuyOrderSearch,q.itemID,q.mine,q.sellable)
+    if ok and result==false then B.query=nil;status("rejected") end
+   else
+    B.status=AAC_MARKET_SEARCH_STALLED or "Search could not be loaded. Please try again."
+   end
+  end
+  changed()
+ end
+ local wait=B.pending
  if wait and not wait.timedOut and now>=wait.deadline then
   wait.timedOut=true
   if current(wait) then status("timeout") end

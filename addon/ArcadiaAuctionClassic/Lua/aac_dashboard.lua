@@ -266,7 +266,7 @@ function Dashboard.HistoryButton_OnClick(this)
 	Dashboard.HistoryButton_Clicked = 1;
     local idx, entry = Dashboard.List_GetSelected()
     if idx then
-        AAC.History.RequestHistoryPopup(entry.auctionid,entry.itemid)
+        AAC.History.RequestHistoryPopup(entry.auctionid,entry.itemid,nil,false,entry.link)
     end
 end
 

@@ -186,6 +186,7 @@ function X.Accept()
  local q,err=snapshot(c.kind,c.q.side,c.kind=="cancel" and c.q.id or c.q.quantity,c.q.limit)
  if not same(q,c.q) then X.Status(err or X.T("FX_ERR_CHANGED")); X.Render(); return end
  local fn=c.kind=="trade" and AuctionExchangeTrade or c.kind=="create" and AuctionExchangeCreate or AuctionExchangeCancel
+ X.resultStatus=nil
  X.pending={action=string.upper(c.kind),id=c.kind=="cancel" and q.id or nil,deadline=GetTime()+20,
   buy=c.kind=="trade" and q.side=="ask" or c.kind=="create" and q.side=="bid"}
  local worked,ok,code
@@ -215,7 +216,7 @@ function X.Tick()
  if X.pending and GetTime()>X.pending.deadline then X.Status(lex[4]) end
  if X.requested and GetTime()>X.requested then X.requested=nil; X.Status(lex[4]) end
 end
-function X.Event(event,action,result,id,filled,received,fee,refund,side,resting)
+function X.Event(event,action,result,id,filled,received,fee,refund,side,resting,byMail)
  if event=="AUCTION_EXCHANGE_RESULT" then
   if not X.pending or action~=X.pending.action or (X.pending.id and tostring(id)~=tostring(X.pending.id)) then return end
   local p=X.pending
@@ -229,12 +230,19 @@ function X.Event(event,action,result,id,filled,received,fee,refund,side,resting)
     text=lex[5]..": "..money(filled,"account").." | "..X.T("FX_YOU_RECEIVE")..": "..money(received,mode).." | "..X.T("FX_FEE")..": "..money(fee,mode)
    end
   end
-  if tonumber(refund) and tonumber(refund)>0 then text=text.." "..X.T("BO_REFUND_BY_MAIL") end
+  if tonumber(result)==0 and (tonumber(resting) or 0)>0 then
+   text=text.." | "..X.T("FX_LISTED").." "..money(resting,"account")
+  end
+  if byMail==true or (tonumber(refund) or 0)>0 then
+   local hint=X.T("BO_REFUND_BY_MAIL")
+   if not text:find(hint,1,true) then text=text.." "..hint end
+  end
+  X.resultStatus=text
   X.Request(); X.Status(text)
  elseif event=="AUCTION_EXCHANGE_UPDATE" then
   if not AAC.CanRequest() then return end
   X.requested=nil; X.ready=true; X.revision=X.revision+1
-  if not X.pending then X.Status("") end
+  if not X.pending then X.Status(X.resultStatus or "") end
  elseif event=="AUCTION_CLOSE" then X.Close() end
  X.Render()
 end

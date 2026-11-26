@@ -274,10 +274,19 @@ class ClassicMarketTests(unittest.TestCase):
             own = true
             AAC.Events.AUCTION_SELL_UPDATE()
             M.Tick()
-            assert(not saved and M.TransactionPending())
+            assert(saved and not M.TransactionPending())
             staged = nil
             M.Tick()
             assert(saved[1] == 171 and saved[2] == 450 and not M.TransactionPending())
+        ''')
+
+    def test_sell_confirmation_accepts_regenerated_link_and_native_early_own_update(self):
+        self.install_sell_mock()
+        self.lua.execute('''local S,M=AAC.Sell,AAC.Market
+        S.ConfirmButton_OnClick();StaticPopupDialogs[popup].OnAccept()
+        link="|Hitem:ab 1 changed|h[Item]|h";own=true
+        AAC.Events.AUCTION_SELL_UPDATE();M.Tick()
+        assert(saved and not M.TransactionPending())
         ''')
 
     def test_sell_rejects_changed_live_commission_and_updates_net_preview(self):
@@ -448,7 +457,7 @@ class ClassicMarketTests(unittest.TestCase):
             assert(empty and not M.Active())
         ''')
 
-    def test_search_timeout_leaves_new_query_unsent_and_reports_failure(self):
+    def test_search_timeout_releases_abandoned_query_and_sends_new_query(self):
         self.lua.execute('''
             local M = AAC.Market
             owner, other = {}, {}
@@ -457,7 +466,28 @@ class ClassicMarketTests(unittest.TestCase):
             M.StartSearch(other, function() second = true end, function(message) timeout = message end, function() end)
             now = 16
             M.Tick()
-            assert(timeout and not second)
+            assert(second and not timeout)
+        ''')
+
+    def test_missing_search_reply_retries_once_and_then_unblocks(self):
+        self.lua.execute('''local M=AAC.Market
+            count=0; published=0
+            M.StartSearch({},function() count=count+1 end,function(msg) failed=msg end,function() published=published+1 end)
+            M.Tick();now=16;M.Tick();assert(count==2 and published==0)
+            now=32;M.Tick();assert(failed and not M.Active() and not M.NeedsRestart() and count==2)
+            assert(M.StartSearch({},function() count=count+1 end,function() end,function() end))
+            now=36;M.Tick();assert(count==3)
+        ''')
+
+    def test_search_retry_only_publishes_after_events_and_valid_cache(self):
+        self.lua.execute('''local M=AAC.Market
+            local owner={};local published=0;local sends=0
+            GetAuctionBrowseMaxItems=function() return 1 end
+            GetAuctionBrowseMaxPages=function() return 1 end
+            M.StartSearch(owner,function() sends=sends+1 end,function() end,function() published=published+1 end)
+            M.Tick();now=16;M.Tick();assert(sends==2 and published==0)
+            M.SearchEvent(owner,'AUCTION_BROWSE_UPDATE');M.Tick();assert(published==0)
+            M.SearchEvent(owner,'AUCTION_SEARCH_RESULT');M.Tick();assert(published==1 and not M.Active())
         ''')
 
     def test_reopen_cannot_adopt_previous_session_browse_reply(self):

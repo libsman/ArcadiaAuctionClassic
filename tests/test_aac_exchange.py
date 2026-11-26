@@ -45,6 +45,22 @@ class ExchangeTests(unittest.TestCase):
             assert(not AAC.Exchange.pending)
         ''')
 
+    def test_partial_result_reports_filled_resting_and_mail(self):
+        self.runlua('''local X=AAC.Exchange
+        X.Preview('create','bid',100,100);X.Accept()
+        X.Event('AUCTION_EXCHANGE_RESULT','CREATE',0,81,40,39,1,500,'bid',60,true)
+        assert(not X.pending and X.status:find('60',1,true) and X.status:find('39',1,true))
+        assert(X.status:find(X.T('BO_REFUND_BY_MAIL'),1,true))
+        local before=X.status;X.Event('AUCTION_EXCHANGE_UPDATE');assert(X.status==before)
+        ''')
+
+    def test_error_result_honours_mail_flag_without_numeric_refund(self):
+        self.runlua('''local X=AAC.Exchange
+        X.Preview('trade','ask',100,100);X.Accept()
+        X.Event('AUCTION_EXCHANGE_RESULT','TRADE',2,0,0,0,0,0,'bid',0,true)
+        assert(not X.pending and X.status:find(X.T('BO_REFUND_BY_MAIL'),1,true))
+        ''')
+
     def test_changed_quote_fee_or_closed_session_never_sends(self):
         for change in ('price=101','fee=3','opened=false','AAC.SessionGeneration=2','now=31','money=1'):
             with self.subTest(change=change):

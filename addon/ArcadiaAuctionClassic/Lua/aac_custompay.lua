@@ -177,12 +177,22 @@ local function tickSearch(now)
                     end
                 end
             end
-        elseif active and now >= waiting.deadline then
-            finishSearch(AAC_MARKET_SEARCH_STALLED or "A search reply is missing. Restart the client if it does not arrive.")
+        elseif now >= waiting.deadline then
+            -- The native client abandons unanswered reads instead of keeping
+            -- a permanent fence. A timeout never authorizes cached offers.
+            waiting = nil
+            current = nil
+            if active then
+                if search.page == 1 and not search.retried then
+                    search.retried = true
+                else
+                    finishSearch(AAC_MARKET_SEARCH_STALLED or "Search could not be loaded. Please try again.")
+                end
+            end
         end
         if waiting then
             if queued and now >= queued.deadline then
-                finishQueued(AAC_MARKET_SEARCH_STALLED or "A search reply is missing. Restart the client if it does not arrive.")
+                finishQueued(AAC_MARKET_SEARCH_STALLED or "Search could not be loaded. Please try again.")
             end
             return
         end
@@ -217,9 +227,7 @@ function Market.Blocked()
 end
 
 function Market.NeedsRestart()
-    local now = GetTime()
-    return (waiting and now >= waiting.deadline)
-        or next(retiredBuys) ~= nil
+    return next(retiredBuys) ~= nil
 end
 
 function Market.IsClosing() return closing end

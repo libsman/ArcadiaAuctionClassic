@@ -159,11 +159,29 @@ local foreground
 local backgroundSeen = {}
 local MAX_HISTORY_QUEUE = 40
 
-function History.RequestHistoryPopup(auctionid, itemid, inherent, sell)
+-- Native AuctionHub StatKey layout for basic items (including mana stones).
+-- Ignore creation time/checksum; preserve inherent and serialized stats.
+local function statKey(link)
+    local hex = type(link)=="string" and link:match("|Hitem:(%x+)")
+    if not hex or type(GetObjectInfo)~="function" then return nil end
+    local class, kind = GetObjectInfo(tonumber(hex,16), "Class", "ItemType")
+    if class~=0 or kind==23 then return nil end
+    local data = link:match("|Hitem:([^|]+)|h")
+    local values, n = {}, 0
+    for word in (data or ""):gmatch("%S+") do
+        n=n+1
+        if (n>=4 and n<=11) or n>=14 then values[#values+1]=word end
+    end
+    return table.concat(values," ")
+end
+
+function History.RequestHistoryPopup(auctionid, itemid, inherent, sell, link)
     itemid = tonumber(itemid)
     if itemid == -1 then itemid = tonumber(inherent) end
     if not AAC.Market.IsClosing() and AAC.CanRequest() and AAC.Market.Feature("PriceHistory") and itemid and itemid > 0 then
-        foreground = { itemid = itemid, popup = true }
+        foreground = { itemid = itemid, popup = true, auctionid = auctionid,
+            browseLink = link, sell = sell == true,
+            stagedLink = sell and GetAuctionItemLink() or nil }
     end
 end
 
@@ -171,7 +189,7 @@ function History.UpdateSellItemHistory(itemid)
     if AAC.SellerTools and AAC.SellerTools.RepeatProtects(GetAuctionItemLink()) then return end
     if not AAC.Market.IsClosing() and AAC.CanRequest() and AAC.Market.Feature("PriceHistory") and tonumber(itemid) then
         foreground = {
-            itemid = tonumber(itemid), stagedLink = GetAuctionItemLink(), autofill = true,
+            itemid = tonumber(itemid), stagedLink = GetAuctionItemLink(), autofill = true, sell = true,
             moneyAuction = AAC.Sell.MoneyAuction, moneyType = AAC.Sell.MoneyType,
         }
     end
@@ -187,11 +205,15 @@ local function receiveHistory(hasRows)
             local link = GetAuctionHistoryItemLink(i)
             local hex = type(link) == "string" and link:match("|Hitem:(%x+)")
             if not hex or tonumber(hex, 16) ~= request.itemid then return end
+            if request.statKey~=nil and statKey(link)~=request.statKey then return end
         end
     end
     History.RequestPending = nil
     if request.discard or not AAC.CanRequest() then return end
     if not hasRows or GetAuctionHistoryItemNums() == 0 then return end
+    -- Native history displays the fresh response. Never merge a previous
+    -- stat variant of this base item into the newly requested variant.
+    AAC_SavedHistoryTable[request.itemid] = nil
     History.Queue_AddHistory(request.itemid)
     if request.popup then
         History.curItem = request.itemid
@@ -262,7 +284,18 @@ function History.Tick(now)
     request.deadline = now + HISTORY_TIMEOUT
     History.RequestPending = request
     historyReadyAt = now + 1.1
-    AuctionItemHistoryRequestByID(request.itemid, 0)
+    if request.auctionid and request.browseLink and type(AuctionBrowseHistoryRequest) == "function"
+        and GetAuctionBrowseItemLink(request.auctionid) == request.browseLink then
+        request.statKey=statKey(request.browseLink)
+        AuctionBrowseHistoryRequest(request.auctionid, true)
+    elseif request.sell and request.stagedLink and type(AuctionItemHistoryRequest) == "function"
+        and GetAuctionItemLink() == request.stagedLink then
+        request.statKey=statKey(request.stagedLink)
+        AuctionItemHistoryRequest()
+    else
+        request.statKey=nil
+        AuctionItemHistoryRequestByID(request.itemid, 0)
+    end
 end
 
 local function getSummary(itemid)

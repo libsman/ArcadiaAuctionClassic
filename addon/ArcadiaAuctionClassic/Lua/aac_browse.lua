@@ -532,7 +532,7 @@ function Browse.HistoryButton_OnClick(this)
 	Browse.HistoryButton_Clicked = 1;
     local idx, entry = Browse.List_GetSelected()
     if idx then
-        AAC.History.RequestHistoryPopup(entry.auctionid,entry.itemid)
+        AAC.History.RequestHistoryPopup(entry.auctionid,entry.itemid,nil,false,entry.link)
     end
 end
 

@@ -103,13 +103,16 @@ class BuyOrderTests(unittest.TestCase):
             assert(B.Search('mine',0)); assert(queryMine and not querySellable)
         """)
 
-    def test_search_timeout_keeps_response_fence_and_late_reply(self):
-        self.runlua("""B.Search('sellable',0);now=16;B.Tick();assert(B.Busy())
-            assert(not B.Search('all',0) and searches==1)
-            B.Close(); AAC.SessionGeneration=2
-            assert(not B.Search('sellable',0));B.Event('AUCTION_BUYORDER_LIST_UPDATE',false,0,true)
-            assert(not B.Busy() and #B.rows==0);assert(B.Search('all',0))
-        """)
+    def test_list_timeout_retries_once_then_releases_without_transaction(self):
+        self.runlua("""B.Search('sellable',0);now=16;B.Tick();assert(searches==2 and B.Busy())
+        now=32;B.Tick();assert(not B.Busy() and sends==0)
+        assert(B.Search('all',123));B.Event('AUCTION_BUYORDER_LIST_UPDATE',false,0,true)
+        assert(B.query and #B.rows==0)
+        B.Event('AUCTION_BUYORDER_LIST_UPDATE',false,123,false);assert(not B.Busy())""")
+
+    def test_closed_list_timeout_releases_without_retry(self):
+        self.runlua("""B.Search('sellable',0);B.Close();now=16;B.Tick()
+        assert(not B.Busy() and searches==1 and sends==0);assert(B.Open())""")
 
     def test_create_only_after_popup_accept_uses_engine_fee(self):
         self.runlua("""local q=B.PreviewCreate(100,100,10,'copper');assert(q and sends==0 and B.HasConfirmation())

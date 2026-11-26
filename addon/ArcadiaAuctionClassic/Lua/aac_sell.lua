@@ -705,7 +705,7 @@ local function countAuctionOffers(item)
     for i = 1, GetAuctionNumSellItems() do
         local _, stack, _, _, _, _, _, mode, _, buyout = GetAuctionSellItemInfo(i)
         local link = GetAuctionSellItemLink(i)
-        local match = (item.lotMode and GetItemIdFromLink(link) == item.itemID) or link == item.link
+        local match = item.itemID and GetItemIdFromLink(link) == item.itemID or (not item.itemID and link == item.link)
         if link and match and mode == item.mode and buyout == item.buyout
             and stack == (item.lotMode and 1 or item.count) then matches = matches + 1 end
     end
@@ -748,7 +748,6 @@ function Sell.ConfirmButton_OnClick()
         local revision = ownRevision
         AAC.Market.Submit("sell", function()
             if revision == ownRevision or countAuctionOffers(offer) <= previous then return false end
-            if not offer.lotMode and GetAuctionItemLink() == offer.link then return false end
             local unit = offer.itemID == 200000 and offer.count / offer.buyout or offer.buyout / offer.count
             Sell.UpdateLastPrice(offer.itemID, unit, unit)
             if AAC.SellerTools then AAC.SellerTools.Record(offer) end

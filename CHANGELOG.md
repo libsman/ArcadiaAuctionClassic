@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.1.2 - 2026-11-26
+
+- Recover stalled auction searches and buy-order searches with one automatic retry instead of leaving the search blocked.
+- Request sale history for the selected item, including its equipment attributes. Fall back to general item history if the selected item has changed.
+- Confirm listings from the updated own-offers list, including items whose link metadata changes on the server.
+- Keep exchange results visible after refreshing offers, and show remaining listed amounts and mail refunds.
+- Money transactions still require confirmation and are never retried automatically.
+- Validation: 185 automated tests (Lua 5.1 regressions and release tooling). These changes have not yet been verified in the live game client.
+
 ## 1.1.1 - 2026-11-26
 
 - Fix sale history getting permanently stuck after a missing server reply. Requests time out after five seconds and foreground requests retry once.

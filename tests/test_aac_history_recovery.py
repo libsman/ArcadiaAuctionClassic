@@ -45,4 +45,29 @@ class HistoryRecoveryTests(unittest.TestCase):
   self.l.execute("""H.Queue_Insertitem(0,'A','link',1001);H.Queue_Insertitem(0,'B','link',1002)
   H.Tick(0);now=5;H.Tick(now);assert(sent[2]==1002 and #notices==0)
   reply(1002);assert(saved[1]==1002)""")
+ def test_browse_specific_history_checks_original_link_before_request(self):
+  self.l.execute("""local link='|Hitem:3e9 0|h[A]|h'
+  GetAuctionBrowseItemLink=function() return link end
+  AuctionBrowseHistoryRequest=function(index,stats) assert(index==7 and stats);specific=true end
+  H.RequestHistoryPopup(7,1001,nil,false,link);H.Tick(now);assert(specific and #sent==0)
+  AAC.Events.AUCTION_HISTORY_HIDE();now=2;specific=false
+  H.RequestHistoryPopup(7,1001,nil,false,link);link='|Hitem:3ea|h[B]|h';H.Tick(now)
+  assert(not specific and sent[1]==1001)""")
+ def test_sell_specific_history_does_not_follow_changed_slot_on_retry(self):
+  self.l.execute("""AAC.Sell={};slot='|Hitem:3e9|h[A]|h'
+  GetAuctionItemLink=function() return slot end
+  AuctionItemHistoryRequest=function() specific=(specific or 0)+1 end
+  H.RequestHistoryPopup(nil,1001,nil,true);H.Tick(now);assert(specific==1)
+  slot='|Hitem:3ea|h[B]|h';now=5;H.Tick(now)
+  assert(specific==1 and sent[1]==1001)""")
+ def test_same_base_id_different_stat_reply_is_rejected(self):
+  self.l.execute("""local a='|Hitem:3e9 0 abc 123 0 0 0 0 0 0 0 def 3e9|h[Stone]|h'
+  local b='|Hitem:3e9 0 abc 456 0 0 0 0 0 0 0 def 3e9|h[Stone]|h'
+  GetObjectInfo=function() return 0,1 end
+  GetAuctionBrowseItemLink=function() return a end
+  AuctionBrowseHistoryRequest=function() end
+  H.RequestHistoryPopup(7,1001,nil,false,a);H.Tick(now)
+  links={b};AAC.Events.AUCTION_HISTORY_SHOW();assert(H.RequestPending and #saved==0)
+  links={a};AAC.Events.AUCTION_HISTORY_SHOW();assert(not H.RequestPending and saved[1]==1001)
+  """)
 if __name__=='__main__': unittest.main()

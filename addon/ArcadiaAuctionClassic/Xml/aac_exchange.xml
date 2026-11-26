@@ -3522,7 +3522,7 @@
       <OnShow>AAC.Exchange.Show()</OnShow>
       <OnHide>AAC.Exchange.Dismiss(); StaticPopup_Hide(&quot;AAC_EXCHANGE_CONFIRM&quot;)</OnHide>
       <OnLoad>this:RegisterEvent(&quot;AUCTION_EXCHANGE_UPDATE&quot;); this:RegisterEvent(&quot;AUCTION_EXCHANGE_RESULT&quot;); this:RegisterEvent(&quot;PLAYER_MONEY&quot;); this:RegisterEvent(&quot;AUCTION_CLOSE&quot;)</OnLoad>
-      <OnEvent>AAC.Exchange.Event(event,arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9)</OnEvent>
+      <OnEvent>AAC.Exchange.Event(event,arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9,arg10)</OnEvent>
     </Scripts>
   </Frame>
   <Frame name="AAC_ExchangeNavigation" parent="AAC_AuctionFrame" hidden="true">
