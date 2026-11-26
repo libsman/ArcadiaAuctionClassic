@@ -15,6 +15,7 @@ Maintained by **Blackkid**. Based on **AdvancedAuctionHouse** by Mavoc, TellTod,
 - Sortable **price per item** for gold and diamond auctions. Gold lots show **Gold/Diamond**.
 - **Shift-click an item link** while the search view is open to fill its name into the keyword field.
 - Own auctions, selling and sale-history views, with sale commission and expected proceeds.
+- **Guild treasury** in **My offers**: balance, member payouts, even splits and history, using the game's guild permissions and limits.
 - Select multiple own auctions to extend, promote or cancel them together, with a combined preview and confirmation.
 - Gold/diamond exchange under **Search → Money → Exchange (new)** and the **Exchange (new)** checkbox in **My offers**.
 - Quick-exchange rows show **what you receive after fees**, the cost and a button to review the exchange.

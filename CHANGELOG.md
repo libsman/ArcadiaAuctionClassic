@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.2.0 - 2026-11-26
+
+- Manage the guild treasury directly from **My offers > Guild treasury**.
+- View the balance, recent income, weekly payout limits and reset time.
+- Search and select guild members, then choose an amount per member or split a total evenly.
+- Review recipients and amounts before confirming a payout. Guild permissions, membership requirements and payout limits are respected.
+- Browse the treasury income and payout history.
+- Includes translations for all eleven supported client languages.
+
+
 ## 1.1.2 - 2026-11-26
 
 - Recover stalled auction searches and buy-order searches with one automatic retry instead of leaving the search blocked.
