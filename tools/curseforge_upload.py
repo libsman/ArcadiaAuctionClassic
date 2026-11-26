@@ -64,6 +64,15 @@ def main():
         headers={'X-Api-Token': token})
     with urllib.request.urlopen(versions_request, timeout=30) as response:
         versions = json.load(response)
+    if a.dry_run:
+        for host in ['rom', 'runesofmagic', 'coa', 'chroniclesofarcadia', 'upload']:
+            try:
+                request = urllib.request.Request('https://' + host + '.curseforge.com/api/game/versions', headers={'X-Api-Token': token})
+                with urllib.request.urlopen(request, timeout=15) as response:
+                    catalog = json.load(response)
+                print('Catalog', host, str(catalog)[:1800])
+            except Exception as e:
+                print('Catalog unavailable:', host, type(e).__name__)
     if not any(v.get('name') == '11.0.0.0000' for v in versions):
         raise ValueError('Expected CoA game version missing from authenticated API: ' + str(versions)[:2500])
     print('CurseForge authentication and CoA game version verified.')
