@@ -217,9 +217,8 @@ function Market.Blocked()
 end
 
 function Market.NeedsRestart()
-    local history = AAC.History and AAC.History.RequestPending
     local now = GetTime()
-    return (waiting and now >= waiting.deadline) or (history and now >= history.deadline)
+    return (waiting and now >= waiting.deadline)
         or next(retiredBuys) ~= nil
 end
 

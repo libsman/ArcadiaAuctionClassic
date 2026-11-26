@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.1 - 2026-11-26
+
+- Fix sale history getting permanently stuck after a missing server reply. Requests time out after five seconds and foreground requests retry once.
+- Validate history item links before displaying or using prices; late replies for another item do not consume the current request.
+- Replace the history restart warning with a simple retry message.
+- Add the native Sell for guild option in My offers, respecting guild permissions and eligible currency. The confirmation shows proceeds going to the guild treasury.
+- Validation: 171 Lua 5.1 tests pass. No new in-client verification for this release.
+
 ## 1.1.0 - 2026-11-26
 
 - Select several own auctions and preview extension, promotion or cancellation with a combined cost. Requests advance only after an observed matching result; unexpected changes stop the batch.

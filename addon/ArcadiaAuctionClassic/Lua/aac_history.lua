@@ -151,8 +151,9 @@ function History.RemoveItem(itemid)
     end
 end
 
--- History responses are untagged. Keep a timed-out request in flight until
--- its SHOW/HIDE arrives so it cannot be assigned to a newer item.
+-- Native AuctionHub expires unanswered history requests after five seconds.
+-- SHOW rows carry item links: validate all of them before consuming a request.
+local HISTORY_TIMEOUT = 5
 local historyReadyAt = 0
 local foreground
 local backgroundSeen = {}
@@ -162,9 +163,6 @@ function History.RequestHistoryPopup(auctionid, itemid, inherent, sell)
     itemid = tonumber(itemid)
     if itemid == -1 then itemid = tonumber(inherent) end
     if not AAC.Market.IsClosing() and AAC.CanRequest() and AAC.Market.Feature("PriceHistory") and itemid and itemid > 0 then
-        if History.RequestPending and History.RequestPending.discard then
-            AAC.Market.Notice(AAC_MARKET_HISTORY_STALLED or "A price history reply is missing. Restart the client if it does not arrive.")
-        end
         foreground = { itemid = itemid, popup = true }
     end
 end
@@ -182,6 +180,15 @@ end
 local function receiveHistory(hasRows)
     local request = History.RequestPending
     if not request then return end
+    -- HIDE has no identity and cannot prove which item has no sales. It may
+    -- end this wait, but never stores empty results or publishes prices.
+    if hasRows and GetAuctionHistoryItemNums() > 0 then
+        for i = 1, GetAuctionHistoryItemNums() do
+            local link = GetAuctionHistoryItemLink(i)
+            local hex = type(link) == "string" and link:match("|Hitem:(%x+)")
+            if not hex or tonumber(hex, 16) ~= request.itemid then return end
+        end
+    end
     History.RequestPending = nil
     if request.discard or not AAC.CanRequest() then return end
     if not hasRows or GetAuctionHistoryItemNums() == 0 then return end
@@ -227,15 +234,23 @@ function History.Queue_Insertitem(auctionid, name, link, itemid)
 end
 
 function History.Tick(now)
+    -- Expire even while closed/busy; only sending requires an open idle AH.
+    local request = History.RequestPending
+    if request and now >= request.deadline then
+        History.RequestPending = nil
+        if not request.discard and AAC.CanRequest() and not AAC.Market.IsClosing()
+            and not foreground and (request.popup or request.autofill) then
+            if not request.retried then
+                request.retried = true
+                foreground = request
+            elseif request.popup then
+                AAC.Market.Notice(AAC_MARKET_HISTORY_STALLED or "History could not be loaded. Please try again.")
+            end
+        end
+    end
     if AAC.BuyOrders and (AAC.BuyOrders.Busy() or AAC.BuyOrders.HasConfirmation()) then return end
     if not AAC.CanRequest() or not AAC.Market.Feature("PriceHistory") then return end
-    if History.RequestPending then
-        if not History.RequestPending.discard and now >= History.RequestPending.deadline then
-            History.RequestPending.discard = true
-            AAC.Market.Notice(AAC_MARKET_HISTORY_STALLED or "A price history reply is missing. Restart the client if it does not arrive.")
-        end
-        return
-    end
+    if History.RequestPending then return end
     if AAC.Market.IsClosing() or now < historyReadyAt or AAC.Market.Active() then return end
     -- The history list itself reads the client cache while open.
     if AAC_HistoryList and AAC_HistoryList:IsVisible() and not (foreground and foreground.popup) then return end
@@ -244,7 +259,7 @@ function History.Tick(now)
     foreground = nil
     if not request then return end
     if request.popup and AAC_HistoryList then AAC_HistoryList:Hide() end
-    request.deadline = now + 15
+    request.deadline = now + HISTORY_TIMEOUT
     History.RequestPending = request
     historyReadyAt = now + 1.1
     AuctionItemHistoryRequestByID(request.itemid, 0)

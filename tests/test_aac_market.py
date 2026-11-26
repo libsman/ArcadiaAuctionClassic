@@ -131,20 +131,23 @@ class ClassicMarketTests(unittest.TestCase):
                 request = id
             end
             GetAuctionHistoryItemNums = function() return 1 end
+            replyID = 1001
+            GetAuctionHistoryItemLink = function() return string.format("|Hitem:%x|h[Item]|h", replyID) end
             H.Queue_AddHistory = function(id) received[#received + 1] = id end
             H.List_Show = function() displayed = H.curItem end
             H.RequestHistoryPopup(41, 1001)
             M.Tick()
             assert(request == 1001)
-            now = 20
-            M.Tick()
+            now = 4
             H.RequestHistoryPopup(42, 1002)
+            now = 5
             M.Tick()
-            assert(request == 1001)
+            assert(request == 1002)
             AAC.Events.AUCTION_HISTORY_SHOW()
             assert(#received == 0 and not displayed)
             M.Tick()
             assert(request == 1002)
+            replyID = 1002
             AAC.Events.AUCTION_HISTORY_SHOW()
             assert(displayed == 1002 and #received == 1 and received[1] == 1002)
         ''')
@@ -224,6 +227,35 @@ class ClassicMarketTests(unittest.TestCase):
             AAC.Sell.List_Update = function() end
             AAC.Sell.UpdateLastPrice = function(...) saved = {...} end
         ''')
+
+    def test_guild_sale_rechecks_right_and_sends_native_flag(self):
+        self.install_sell_mock()
+        self.lua.execute("""
+            IsInGuild=function()return true end
+            IsFunctionEnable=function()return true end
+            right=true; GuildHub={RankRoles=function()return {GuildSales=right} end}
+            IsAuctionItemAccountMoneyTrade=function()return true end
+            GetAuctionFeeRates=function()return 500,500,500,500 end
+            local S=AAC.Sell;S.PayMoneyMode="account";S.PayMoneyType=2;S.ForGuild=true
+            assert(S.GuildSaleAllowed())
+            S.ConfirmButton_OnClick();right=false
+            StaticPopupDialogs[popup].OnAccept();assert(not sent)
+            right=true;S.ForGuild=true;S.ConfirmButton_OnClick()
+            StaticPopupDialogs[popup].OnAccept();assert(sent and sent[7]==true)
+        """)
+
+    def test_guild_sale_never_falls_back_to_private_or_currency_sale(self):
+        self.install_sell_mock()
+        self.lua.execute("""
+            IsInGuild=function()return true end
+            IsFunctionEnable=function()return true end
+            GuildHub={RankRoles=function()return {GuildSales=true} end}
+            local S=AAC.Sell;S.ForGuild=true
+            assert(not S.GuildSaleAllowed());S.ConfirmButton_OnClick();assert(not popup and not sent)
+            S.PayMoneyMode="account";S.MoneyAuction=true
+            assert(not S.GuildSaleAllowed())
+            S.MoneyAuction=false;GuildHub=nil;assert(not S.GuildSaleAllowed())
+        """)
 
     def test_sell_confirms_current_form_and_waits_for_owned_offer(self):
         self.install_sell_mock()

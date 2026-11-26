@@ -149,7 +149,7 @@ function Sell.OnShow()
 end
 
 function Sell.OnHide()
-
+    Sell.ForGuild=false
 end
 
 function Sell.OnInit()
@@ -585,12 +585,53 @@ function Sell.SaleIncomeText(gross, mode, lot)
         rate / 100, fee, money, gross - fee, money)
 end
 
+-- Use the same feature switch and rank permission as the native AuctionHub.
+function Sell.GuildSaleShown()
+    return not Sell.MoneyAuction and type(IsInGuild)=="function" and IsInGuild()
+        and type(IsFunctionEnable)=="function" and IsFunctionEnable(9123)
+end
+function Sell.GuildSaleRight()
+    if not GuildHub or type(GuildHub.RankRoles)~="function" then return false end
+    local ok,roles=pcall(GuildHub.RankRoles)
+    return ok and type(roles)=="table" and roles.GuildSales==true
+end
+function Sell.GuildSaleAllowed()
+    return Sell.GuildSaleShown() and Sell.GuildSaleRight() and Sell.PayMoneyMode=="account"
+end
+function Sell.GuildIncomeText(gross)
+    local fee=Sell.GetSaleFee(gross,"account",false)
+    local amount=fee and (tostring(gross-fee).." "..TEXT("SYS_MONEY_TYPE_1")) or "?"
+    return string.format(TEXT("UI_AUCTION_SELL_FOR_GUILD_RECEIVE"),amount)
+end
+function Sell.RefreshGuildSale()
+    if not AAC_SellForGuild then return end
+    local shown=Sell.GuildSaleShown() and true or false
+    local allowed=Sell.GuildSaleAllowed() and true or false
+    if not allowed then Sell.ForGuild=false end
+    AAC_SellForGuild:SetVisible(shown)
+    AAC_SellForGuild:SetEnable(allowed)
+    AAC_SellForGuild:SetChecked(Sell.ForGuild==true)
+    AAC_SellForGuildLabel:SetText(TEXT("UI_AUCTION_SELL_FOR_GUILD"))
+end
+function Sell.GuildSaleTooltip()
+    local key=not Sell.GuildSaleRight() and "UI_AUCTION_SELL_FOR_GUILD_NO_RIGHT_TIP"
+        or Sell.PayMoneyMode~="account" and "UI_AUCTION_SELL_FOR_GUILD_GOLD_TIP"
+        or "UI_AUCTION_SELL_FOR_GUILD_TIP"
+    GameTooltip:SetOwner(AAC_SellForGuild,"ANCHOR_RIGHT")
+    GameTooltip:SetText(TEXT(key));GameTooltip:Show()
+end
+function Sell.GuildSaleClick()
+    Sell.ForGuild=Sell.GuildSaleAllowed() and AAC_SellForGuild:IsChecked() or false
+    Sell.TestIsAuctionValid()
+end
+
 function Sell.UpdateSaleIncome()
+    Sell.RefreshGuildSale()
     if not AAC_SellIncomeText or not AAC_SavedSettings then return end
     Sell.UpdateNetPrices()
     local name, _, _, _, lot = Sell.GetAuctionItem()
     local gross = AAC.MoneyFrame.GetMoney(AAC_SellPriceBuyout, Sell.PayMoneyMode) or 0
-    AAC_SellIncomeText:SetText(name and Sell.SaleIncomeText(gross, Sell.PayMoneyMode, lot) or "")
+    AAC_SellIncomeText:SetText(name and (Sell.ForGuild and Sell.GuildIncomeText(gross) or Sell.SaleIncomeText(gross, Sell.PayMoneyMode, lot)) or "")
 end
 
 function Sell.GetAuctionFee(price,stackCount)
@@ -613,6 +654,7 @@ local function currencyName(mode)
 end
 
 local function listing()
+    if Sell.ForGuild and not Sell.GuildSaleAllowed() then return end
     if not AAC.CanRequest() or not AAC_SavedSettings then return end
     local name, _, count, itemPrice, lotMode = Sell.GetAuctionItem()
     local buyout = AAC.MoneyFrame.GetMoney(AAC_SellPriceBuyout, Sell.PayMoneyMode)
@@ -646,7 +688,7 @@ local function listing()
         mode = mode, payType = Sell.PayMoneyType, lotMode = lotMode, lotType = Sell.MoneyType,
         duration = duration, promote = promote, promoteTime = promoteTime,
         fee = fee, promotionCost = promotionCost, revision = slotRevision,
-        saleFee = Sell.GetSaleFee(buyout, mode, lotMode),
+        saleFee = Sell.GetSaleFee(buyout, mode, lotMode), forGuild = Sell.ForGuild==true,
     }
 end
 
@@ -684,7 +726,9 @@ function Sell.ConfirmButton_OnClick()
     local description = string.format("%dx %s\n%d %s | %s", offer.count, offer.link or offer.name,
         offer.buyout, currencyName(offer.mode), days)
     local commission, rate = Sell.GetSaleFee(offer.buyout, offer.mode, offer.lotMode)
-    if commission then
+    if offer.forGuild then
+        description=description.."\n"..Sell.SaleIncomeText(offer.buyout,offer.mode,offer.lotMode).."\n"..Sell.GuildIncomeText(offer.buyout)
+    elseif commission then
         description = description .. string.format(AAC_SALE_CONFIRM_INCOME or
             "\nFee (%g%%): %d %s\nYou receive: %d %s", rate / 100, commission,
             currencyName(offer.mode), offer.buyout - commission, currencyName(offer.mode))
@@ -715,7 +759,7 @@ function Sell.ConfirmButton_OnClick()
                     offer.buyout, offer.promote, offer.promoteTime)
             else
                 CreateAuctionItem(offer.duration, offer.buyout, offer.payType, offer.buyout,
-                    offer.promote, offer.promoteTime)
+                    offer.promote, offer.promoteTime, offer.forGuild)
             end
         end)
     end)

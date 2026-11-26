@@ -627,7 +627,17 @@
                             </OnLoad>
                         </Scripts>
                     </Frame>-->
-					<Button name="AAC_SellConfirmButton" inherits="UIPanelButtonTemplate" text="AUCTION_SELL_CONFIRM">
+					<CheckButton name="AAC_SellForGuild" inherits="UIPanelCheckButtonTemplate">
+                        <Size><AbsDimension x="31" y="31"/></Size>
+                        <Anchors><Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="AAC_SellItemFrame" x="8" y="137"/></Anchors>
+                        <Layers><Layer><FontString name="$parentLabel" inherits="GameFontHighlight" justifyH="LEFT"><Size><AbsDimension x="115" y="48"/></Size><Anchors><Anchor point="LEFT" relativePoint="RIGHT"/></Anchors></FontString></Layer></Layers>
+                        <Scripts>
+                            <OnClick>AAC.Sell.GuildSaleClick()</OnClick>
+                            <OnEnter>AAC.Sell.GuildSaleTooltip()</OnEnter>
+                            <OnLeave>GameTooltip:Hide()</OnLeave>
+                        </Scripts>
+                    </CheckButton>
+                    <Button name="AAC_SellConfirmButton" inherits="UIPanelButtonTemplate" text="AUCTION_SELL_CONFIRM">
 						<Size><AbsDimension x="164" y="26"/></Size><Scripts>
 							<OnClick>
 								if GetButtonDelayTime() == nil then
