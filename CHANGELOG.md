@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.2.2 - 2026-11-27
+
+- Remove the additional selection and price comparison when accepting a sale.
+- Accept submits the prices and selling options shown in the confirmation dialog; refreshed item links no longer cancel the listing.
+- Keep explicit confirmation, duplicate-submission prevention and guild permission checks.
+
+
 ## 1.2.1 - 2026-11-27
 
 - Fix listing confirmation being rejected when the game refreshes an unchanged item in the selling slot.

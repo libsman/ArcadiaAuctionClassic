@@ -691,14 +691,6 @@ local function listing()
     }
 end
 
-local function sameListing(a, b)
-    if not b then return false end
-    for key, value in pairs(a) do
-        if b[key] ~= value then return false end
-    end
-    return a.link == b.link and a.lotMode == b.lotMode and a.saleFee == b.saleFee
-end
-
 local function countAuctionOffers(item)
     local matches = 0
     for i = 1, GetAuctionNumSellItems() do
@@ -742,7 +734,8 @@ function Sell.ConfirmButton_OnClick()
             offer.promotionCost, currencyName("account"))
     end
     AAC.Market.Confirm("AAC_MARKET_SELL", description, function()
-        if not sameListing(offer, listing()) then AAC.Market.Changed(); return end
+        -- Accept the displayed terms; no second selection/price comparison.
+        if offer.forGuild and not Sell.GuildSaleAllowed() then return end
         local previous = countAuctionOffers(offer)
         local revision = ownRevision
         AAC.Market.Submit("sell", function()

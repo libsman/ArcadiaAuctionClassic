@@ -265,10 +265,6 @@ class ClassicMarketTests(unittest.TestCase):
             assert(popup == "AAC_MARKET_SELL" and not sent)
             sellPrice = 1200
             StaticPopupDialogs[popup].OnAccept()
-            assert(not sent)
-            sellPrice = 900
-            S.ConfirmButton_OnClick()
-            StaticPopupDialogs[popup].OnAccept()
             assert(sent[1] == 4 and sent[2] == 900 and sent[3] == 1 and sent[4] == 900)
             assert(not saved and M.TransactionPending())
             own = true
@@ -300,7 +296,7 @@ class ClassicMarketTests(unittest.TestCase):
             assert(sent and sent[2]==900, "Unchanged slot refresh must not invalidate confirmation")
         ''')
 
-    def test_sell_rejects_changed_live_commission_and_updates_net_preview(self):
+    def test_sell_accepts_confirmed_price_despite_live_commission_refresh(self):
         self.install_sell_mock()
         self.lua.execute('''
             IsFunctionEnable=function() return true end
@@ -312,9 +308,7 @@ class ClassicMarketTests(unittest.TestCase):
             assert(not sent)
             AAC.Sell.ConfirmButton_OnClick()
             rate=700
-            StaticPopupDialogs[popup].OnAccept()
-            assert(not sent)
-            AAC.Sell.ConfirmButton_OnClick()
+            staged="|Hitem:ab 1 refreshed|h[Item +20]|h"
             StaticPopupDialogs[popup].OnAccept()
             assert(sent and sent[2]==900)
         ''')
