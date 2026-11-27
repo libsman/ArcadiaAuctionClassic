@@ -51,7 +51,7 @@ local FONT_PROMOTE_TYPE_COLORS = {
 	[4] = { R = 253, G = 214, B = 0 },
 }
 
-local ownRevision, slotRevision = 0, 0
+local ownRevision = 0
 
 local INVALID_AUCTION_ITEM_WARNING = "Exclusive items and soulbound equipment cannot be auctioned!"
 
@@ -487,7 +487,6 @@ end
 
 
 function AAC.Events.AUCTION_AUCTION_INFO_UPDATE(this)
-    slotRevision = slotRevision + 1
     Sell.CurrentItem = AAC.Tools.ParseLink(GetAuctionItemLink())
 	Sell.Item_Update()
 end
@@ -687,7 +686,7 @@ local function listing()
         itemID = itemID, link = link, name = name, count = count, buyout = buyout,
         mode = mode, payType = Sell.PayMoneyType, lotMode = lotMode, lotType = Sell.MoneyType,
         duration = duration, promote = promote, promoteTime = promoteTime,
-        fee = fee, promotionCost = promotionCost, revision = slotRevision,
+        fee = fee, promotionCost = promotionCost,
         saleFee = Sell.GetSaleFee(buyout, mode, lotMode), forGuild = Sell.ForGuild==true,
     }
 end

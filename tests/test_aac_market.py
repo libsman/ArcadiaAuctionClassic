@@ -289,6 +289,17 @@ class ClassicMarketTests(unittest.TestCase):
         assert(saved and not M.TransactionPending())
         ''')
 
+    def test_sell_accepts_unchanged_slot_refresh_during_confirmation(self):
+        self.install_sell_mock()
+        self.lua.execute('''
+            AAC.Sell.ConfirmButton_OnClick()
+            AAC.Sell.Item_Update=function() end
+            AAC.Tools={ParseLink=function() return 171 end}
+            AAC.Events.AUCTION_AUCTION_INFO_UPDATE()
+            StaticPopupDialogs[popup].OnAccept()
+            assert(sent and sent[2]==900, "Unchanged slot refresh must not invalidate confirmation")
+        ''')
+
     def test_sell_rejects_changed_live_commission_and_updates_net_preview(self):
         self.install_sell_mock()
         self.lua.execute('''

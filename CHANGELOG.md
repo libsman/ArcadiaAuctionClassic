@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.1 - 2026-11-27
+
+- Fix listing confirmation being rejected when the game refreshes an unchanged item in the selling slot.
+- Keep the confirmation dialog and checks for actual changes to the item, quantity, price, currency, duration and selling options.
+
+
 ## 1.2.0 - 2026-11-26
 
 - Manage the guild treasury directly from **My offers > Guild treasury**.
