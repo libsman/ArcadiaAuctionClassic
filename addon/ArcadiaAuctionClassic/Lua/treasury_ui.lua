@@ -108,10 +108,12 @@ function T.Load(frame)
  AAC.Main.ClickTab=function(...)
   T.open=false;T.preview=nil;StaticPopup_Hide('AAC_TREASURY_PAY');frame:Hide();return click(...)
  end
- local elapsed=0
- frame:SetScript('OnUpdate',function(_,dt)
-  elapsed=elapsed+(tonumber(dt) or 0.1);if elapsed<0.5 then return end;elapsed=0
-  if T.open and (not AAC_AuctionFrame:IsVisible() or AAC_SellFrame:IsVisible()) then T.open=false;frame:Hide()
-  elseif T.open and T.height~=math.max(420,AAC_AuctionFrame:GetHeight()-90) then T.Render() end
- end)
+ T.elapsed=0
+end
+function T.Update(frame,dt)
+ T.elapsed=(T.elapsed or 0)+(tonumber(dt) or 0)
+ if T.elapsed<0.5 then return end
+ T.elapsed=0
+ if T.open and (not AAC_AuctionFrame:IsVisible() or AAC_SellFrame:IsVisible()) then T.open=false;frame:Hide()
+ elseif T.open and T.height~=math.max(420,AAC_AuctionFrame:GetHeight()-90) then T.Render() end
 end

@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.3 - 2026-11-27
+
+- Fix an error when loading the guild treasury window (`SetScript` unavailable).
+- Use the client-supported XML update handler for treasury window resizing and visibility.
+
+
 ## 1.2.2 - 2026-11-27
 
 - Remove the additional selection and price comparison when accepting a sale.
